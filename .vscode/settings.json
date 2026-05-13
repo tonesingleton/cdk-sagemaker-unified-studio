@@ -1,0 +1,12 @@
+{
+  "jest.jestCommandLine": "npx jest",
+  "jest.runMode": "on-demand",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "js/ts.preferences.importModuleSpecifier": "relative",
+  "coverage-gutters.coverageFileNames": ["coverage/lcov.info"],
+  "coverage-gutters.showLineCoverage": true,
+  "coverage-gutters.showRulerCoverage": true,
+  "npm.enableRunFromFolder": true
+}

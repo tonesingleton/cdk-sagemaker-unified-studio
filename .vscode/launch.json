@@ -1,0 +1,34 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest: Run All Tests",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ts-node",
+      "runtimeArgs": ["-P", "tsconfig.dev.json"],
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["--coverage", "--verbose"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest: Run Current File",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["--coverage", "--verbose", "${relativeFile}"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest: Debug Current File",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["--coverage", "--verbose", "--runInBand", "${relativeFile}"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

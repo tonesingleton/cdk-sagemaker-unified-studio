@@ -1,0 +1,101 @@
+import { Stack, aws_iam as iam, aws_lambda as lambda_, custom_resources as cr } from 'aws-cdk-lib';
+import type { NagPackSuppression } from 'cdk-nag';
+import { NagSuppressions } from 'cdk-nag';
+import { Construct } from 'constructs';
+import type { HostProps, IHost } from './host.interface';
+
+/**
+ * A CodeConnections host for a self-managed Git provider.
+ *
+ * Required for GitHub Enterprise Server, GitLab Self-Managed, and other
+ * providers that are not hosted on the public cloud. After deployment,
+ * the host must be set up in the AWS Console to complete the TLS/OAuth
+ * handshake with the Git provider.
+ *
+ * Implemented as an `AwsCustomResource` because CloudFormation does not
+ * support the `AWS::CodeConnections::Host` resource type in all regions.
+ *
+ * @see https://docs.aws.amazon.com/dtconsole/latest/userguide/connections-host-setup.html
+ */
+export class Host extends Construct implements IHost {
+  /** The ARN of the CodeConnections host. */
+  public readonly hostArn: string;
+
+  constructor(scope: Construct, id: string, props: HostProps) {
+    super(scope, id);
+
+    const account = Stack.of(this).account;
+    const region = Stack.of(this).region;
+
+    const host = new cr.AwsCustomResource(this, 'Resource', {
+      onCreate: {
+        service: '@aws-sdk/client-codeconnections',
+        action: 'CreateHost',
+        parameters: {
+          Name: props.name,
+          ProviderEndpoint: props.providerEndpoint,
+          ProviderType: props.providerType,
+          Tags: props.tags ? Object.entries(props.tags).map(([key, value]) => ({ Key: key, Value: value })) : undefined,
+        },
+        physicalResourceId: cr.PhysicalResourceId.fromResponse('HostArn'),
+      },
+      onDelete: {
+        service: '@aws-sdk/client-codeconnections',
+        action: 'DeleteHost',
+        parameters: {
+          HostArn: new cr.PhysicalResourceIdReference(),
+        },
+      },
+      policy: cr.AwsCustomResourcePolicy.fromStatements([
+        new iam.PolicyStatement({
+          actions: ['codeconnections:CreateHost', 'codeconnections:TagResource'],
+          resources: ['*'],
+        }),
+        new iam.PolicyStatement({
+          actions: ['codeconnections:DeleteHost'],
+          resources: [`arn:aws:codeconnections:${region}:${account}:host/*`],
+        }),
+      ]),
+    });
+
+    NagSuppressions.addResourceSuppressions(
+      host,
+      [
+        {
+          id: 'AwsSolutions-IAM5',
+          reason:
+            'codeconnections:CreateHost requires wildcard resource because the host ARN is not known before creation.',
+          appliesTo: ['Resource::*', `Resource::arn:aws:codeconnections:${region}:${account}:host/*`],
+        } satisfies NagPackSuppression,
+      ],
+      true,
+    );
+
+    // AwsCustomResource creates a singleton Lambda at the stack level that is
+    // shared across all AwsCustomResource instances. Suppressions must target
+    // it directly since it lives outside this construct's tree.
+    const stack = Stack.of(this);
+    for (const child of stack.node.children) {
+      if (child instanceof lambda_.Function && child.node.id.startsWith('AWS')) {
+        NagSuppressions.addResourceSuppressions(
+          child,
+          [
+            {
+              id: 'AwsSolutions-L1',
+              reason: 'AwsCustomResource singleton Lambda runtime is managed by the CDK framework.',
+            } satisfies NagPackSuppression,
+            {
+              id: 'AwsSolutions-IAM4',
+              reason: 'AwsCustomResource singleton Lambda requires basic execution role for CloudWatch logging.',
+              appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'],
+            } satisfies NagPackSuppression,
+          ],
+          true,
+        );
+        break;
+      }
+    }
+
+    this.hostArn = host.getResponseField('HostArn');
+  }
+}
