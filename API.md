@@ -8,11 +8,15 @@
 
 Account-level IAM roles shared across all SageMaker Unified Studio domains.
 
-Creates two roles:
+Creates four roles:
 - **Query execution role**: Assumed by Lake Formation and Glue to vend
   credentials for Athena query execution.
 - **Provisioning role**: Assumed by SageMaker Unified Studio to provision
   and manage resources defined in environment blueprints.
+- **Bedrock model management role**: Used to create inference profiles
+  for Amazon Bedrock models in a project.
+- **Bedrock FM consumption role**: Used for model invocation via
+  inference profiles for non-builders.
 
 These roles are not domain-specific. Domain-specific roles (e.g. manage
 access role) are created within the `Domain` construct.
@@ -136,6 +140,8 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.bedrockFmConsumptionRole">bedrockFmConsumptionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The Bedrock FM consumption role used for model invocation via inference profiles. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.bedrockModelManagementRole">bedrockModelManagementRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The Bedrock model management role used to create inference profiles. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.provisioningRole">provisioningRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The provisioning role used by SageMaker Unified Studio to deploy blueprint resources. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.queryExecutionRole">queryExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The query execution role used by Lake Formation and Glue for Athena queries. |
 
@@ -150,6 +156,30 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `bedrockFmConsumptionRole`<sup>Required</sup> <a name="bedrockFmConsumptionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.bedrockFmConsumptionRole"></a>
+
+```typescript
+public readonly bedrockFmConsumptionRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The Bedrock FM consumption role used for model invocation via inference profiles.
+
+---
+
+##### `bedrockModelManagementRole`<sup>Required</sup> <a name="bedrockModelManagementRole" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.bedrockModelManagementRole"></a>
+
+```typescript
+public readonly bedrockModelManagementRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The Bedrock model management role used to create inference profiles.
 
 ---
 
@@ -1446,6 +1476,9 @@ The project ID.
 
 A project profile that defines the default set of environment blueprints provisioned when a project is created.
 
+Non-Tooling environments default to ON_DEMAND deployment mode to avoid
+unnecessary costs from auto-provisioned resources.
+
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/project-profiles.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/project-profiles.html)
 
 #### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.Initializer"></a>
@@ -2383,7 +2416,7 @@ public readonly deploymentMode: string;
 ```
 
 - *Type:* string
-- *Default:* service default
+- *Default:* DeploymentMode.ON_DEMAND for non-Tooling blueprints, service default for Tooling
 
 Deployment mode for the environment.
 
@@ -3656,6 +3689,46 @@ The project ID that owns this connection.
 
 ## Classes <a name="Classes" id="Classes"></a>
 
+### DeploymentMode <a name="DeploymentMode" id="@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode"></a>
+
+Deployment mode for an environment configuration.
+
+
+
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.property.ON_CREATE">ON_CREATE</a></code> | <code>string</code> | Environment is provisioned automatically when a project is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.property.ON_DEMAND">ON_DEMAND</a></code> | <code>string</code> | Environment must be provisioned manually after project creation. |
+
+---
+
+##### `ON_CREATE`<sup>Required</sup> <a name="ON_CREATE" id="@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.property.ON_CREATE"></a>
+
+```typescript
+public readonly ON_CREATE: string;
+```
+
+- *Type:* string
+
+Environment is provisioned automatically when a project is created.
+
+---
+
+##### `ON_DEMAND`<sup>Required</sup> <a name="ON_DEMAND" id="@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.property.ON_DEMAND"></a>
+
+```typescript
+public readonly ON_DEMAND: string;
+```
+
+- *Type:* string
+
+Environment must be provisioned manually after project creation.
+
+---
+
 ### GitProviderType <a name="GitProviderType" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType"></a>
 
 Supported Git provider types for CodeConnections.
@@ -4107,8 +4180,34 @@ Exposed attributes of the AccountRoles construct.
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.bedrockFmConsumptionRole">bedrockFmConsumptionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The Bedrock FM consumption role used for model invocation via inference profiles. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.bedrockModelManagementRole">bedrockModelManagementRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The Bedrock model management role used to create inference profiles. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.provisioningRole">provisioningRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The provisioning role used by SageMaker Unified Studio to deploy blueprint resources. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.queryExecutionRole">queryExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The query execution role used by Lake Formation and Glue for Athena queries. |
+
+---
+
+##### `bedrockFmConsumptionRole`<sup>Required</sup> <a name="bedrockFmConsumptionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.bedrockFmConsumptionRole"></a>
+
+```typescript
+public readonly bedrockFmConsumptionRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The Bedrock FM consumption role used for model invocation via inference profiles.
+
+---
+
+##### `bedrockModelManagementRole`<sup>Required</sup> <a name="bedrockModelManagementRole" id="@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.bedrockModelManagementRole"></a>
+
+```typescript
+public readonly bedrockModelManagementRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The Bedrock model management role used to create inference profiles.
 
 ---
 
