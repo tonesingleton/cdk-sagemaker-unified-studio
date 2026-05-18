@@ -9,6 +9,7 @@ export {
 export { DataSource } from './constructs/data-source/data-source.construct';
 export {
   DataSourceProps,
+  IDataSource,
   GlueDataSourceConfiguration,
   RedshiftDataSourceConfiguration,
   RedshiftCredentialConfiguration,
@@ -29,10 +30,11 @@ export {
 } from './constructs/git-connection/git-connection.interface';
 export { Host } from './constructs/git-connection/host.construct';
 export { HostProps, IHost } from './constructs/git-connection/host.interface';
-export { EnvironmentProps, EnvironmentParameter } from './constructs/environment/environment.interface';
+export { EnvironmentProps, EnvironmentParameter, IEnvironment } from './constructs/environment/environment.interface';
 export { Project } from './constructs/project/project.construct';
 export {
   ProjectProps,
+  IProject,
   ProjectMember,
   ProjectMemberDesignation,
   ProjectEnvironmentUserParameter,
@@ -41,6 +43,7 @@ export {
 export { ProjectProfile } from './constructs/project-profile/project-profile.construct';
 export {
   ProjectProfileProps,
+  IProjectProfile,
   ProjectProfileStatus,
   DeploymentMode,
   EnvironmentConfiguration,
@@ -48,6 +51,7 @@ export {
 export { Connection } from './constructs/connection/connection.construct';
 export {
   ConnectionProps,
+  IConnection,
   ConnectionType,
   ConnectionAuthenticationType,
   ConnectionAuthenticationConfiguration,
@@ -57,4 +61,4 @@ export {
   PhysicalConnectionRequirements,
 } from './constructs/connection/connection.interface';
 export { S3Connection } from './constructs/s3-connection/s3-connection.construct';
-export { S3ConnectionProps } from './constructs/s3-connection/s3-connection.interface';
+export { S3ConnectionProps, IS3Connection } from './constructs/s3-connection/s3-connection.interface';

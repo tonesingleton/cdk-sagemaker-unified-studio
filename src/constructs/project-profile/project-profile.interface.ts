@@ -1,27 +1,21 @@
 /**
- * Built-in statuses for a project profile.
- *
- * Use these constants or pass any custom status as a plain string.
+ * Status of a project profile.
  */
-export class ProjectProfileStatus {
-  public static readonly ENABLED = 'ENABLED';
-  public static readonly DISABLED = 'DISABLED';
-
-  /* istanbul ignore next */
-  private constructor() {}
+export enum ProjectProfileStatus {
+  /** The project profile is active and can be used to create projects. */
+  ENABLED = 'ENABLED',
+  /** The project profile is disabled and cannot be used. */
+  DISABLED = 'DISABLED',
 }
 
 /**
  * Deployment mode for an environment configuration.
  */
-export class DeploymentMode {
+export enum DeploymentMode {
   /** Environment is provisioned automatically when a project is created. */
-  public static readonly ON_CREATE = 'ON_CREATE';
+  ON_CREATE = 'ON_CREATE',
   /** Environment must be provisioned manually after project creation. */
-  public static readonly ON_DEMAND = 'ON_DEMAND';
-
-  /* istanbul ignore next */
-  private constructor() {}
+  ON_DEMAND = 'ON_DEMAND',
 }
 
 /**
@@ -65,7 +59,7 @@ export interface EnvironmentConfiguration {
    *
    * @default DeploymentMode.ON_DEMAND for non-Tooling blueprints, service default for Tooling
    */
-  readonly deploymentMode?: string;
+  readonly deploymentMode?: DeploymentMode;
   /**
    * Configuration parameters for the environment (key-value pairs).
    * These are passed as parameter overrides to the blueprint.
@@ -73,6 +67,14 @@ export interface EnvironmentConfiguration {
    * @default - no parameters
    */
   readonly parameters?: { [key: string]: string };
+}
+
+/**
+ * Exposed attributes of the ProjectProfile construct.
+ */
+export interface IProjectProfile {
+  /** The project profile ID. */
+  readonly projectProfileId: string;
 }
 
 /**
@@ -107,5 +109,5 @@ export interface ProjectProfileProps {
    *
    * @default ProjectProfileStatus.ENABLED
    */
-  readonly status?: string;
+  readonly status?: ProjectProfileStatus;
 }

@@ -1,12 +1,12 @@
 import { aws_datazone as datazone } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import type { AthenaProperties, ConnectionProperties, ConnectionProps } from './connection.interface';
+import type { AthenaProperties, ConnectionProperties, ConnectionProps, IConnection } from './connection.interface';
 
 /**
  * In Amazon SageMaker Unified Studio, a connection enables you to connect your
  * resources (domains, projects, and environments) to external resources and services.
  */
-export class Connection extends Construct {
+export class Connection extends Construct implements IConnection {
   /** The connection ID. */
   public readonly connectionId: string;
 

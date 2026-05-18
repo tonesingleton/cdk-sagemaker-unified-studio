@@ -190,6 +190,11 @@ describe('Domain', () => {
     const stack = createStack();
     expect(() => createDomain(stack, { accessLogsBucketName: 'my-logs-bucket' })).toThrow(/must start with one of/);
   });
+
+  test('throws when subnetIds is empty', () => {
+    const stack = createStack();
+    expect(() => createDomain(stack, { subnetIds: [] })).toThrow(/subnetIds must contain at least one subnet ID/);
+  });
 });
 
 describe('Lake Formation cleanup', () => {

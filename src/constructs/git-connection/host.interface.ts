@@ -1,3 +1,5 @@
+import type { GitProviderType } from './git-connection.interface';
+
 /**
  * Properties for the Host construct.
  */
@@ -10,10 +12,8 @@ export interface HostProps {
   readonly providerEndpoint: string;
   /**
    * The Git provider type.
-   *
-   * Use `GitProviderType` constants or pass a custom string.
    */
-  readonly providerType: string;
+  readonly providerType: GitProviderType;
   /**
    * Tags to apply to the host at creation time.
    *

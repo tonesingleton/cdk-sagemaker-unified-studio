@@ -3,6 +3,7 @@ import { Construct } from 'constructs';
 import type {
   DataSourceProps,
   GlueDataSourceConfiguration,
+  IDataSource,
   RedshiftDataSourceConfiguration,
 } from './data-source.interface';
 
@@ -12,7 +13,7 @@ import type {
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/manage-data-sources.html
  */
-export class DataSource extends Construct {
+export class DataSource extends Construct implements IDataSource {
   /** The data source ID. */
   public readonly dataSourceId: string;
 

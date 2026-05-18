@@ -190,6 +190,7 @@ describe('Connection', () => {
       name: 'minimal',
       domainId: 'dzd-test',
       environmentId: 'env-test',
+      connectionType: ConnectionType.NETWORK,
     });
 
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
@@ -208,6 +209,7 @@ describe('Connection', () => {
       name: 'empty-props',
       domainId: 'dzd-test',
       environmentId: 'env-test',
+      connectionType: ConnectionType.NETWORK,
       connectionProperties: {},
     });
 
@@ -328,6 +330,23 @@ describe('Connection', () => {
               AuthenticationType: 'CUSTOM',
               CustomAuthenticationCredentials: { token: 'abc123' },
             },
+          }),
+        },
+      },
+    });
+  });
+
+  it('supports matchCriteria', () => {
+    new Connection(stack, 'Conn', {
+      ...defaultProps,
+      matchCriteria: 'oracle,production',
+    });
+
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
+      Props: {
+        GlueProperties: {
+          GlueConnectionInput: Match.objectLike({
+            MatchCriteria: 'oracle,production',
           }),
         },
       },

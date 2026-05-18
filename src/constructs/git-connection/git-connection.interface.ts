@@ -3,15 +3,17 @@
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/git-connections.html
  */
-export class GitProviderType {
-  public static readonly GITHUB = 'GitHub';
-  public static readonly GITHUB_ENTERPRISE_SERVER = 'GitHubEnterpriseServer';
-  public static readonly GITLAB = 'GitLab';
-  public static readonly GITLAB_SELF_MANAGED = 'GitLabSelfManaged';
-  public static readonly BITBUCKET = 'Bitbucket';
-
-  /* istanbul ignore next */
-  private constructor() {}
+export enum GitProviderType {
+  /** GitHub cloud-hosted. */
+  GITHUB = 'GitHub',
+  /** GitHub Enterprise Server (self-managed). */
+  GITHUB_ENTERPRISE_SERVER = 'GitHubEnterpriseServer',
+  /** GitLab cloud-hosted. */
+  GITLAB = 'GitLab',
+  /** GitLab self-managed. */
+  GITLAB_SELF_MANAGED = 'GitLabSelfManaged',
+  /** Bitbucket cloud-hosted. */
+  BITBUCKET = 'Bitbucket',
 }
 
 /**
@@ -32,12 +34,11 @@ export interface GitConnectionProps {
   /**
    * The Git provider type.
    *
-   * Use `GitProviderType` constants or pass a custom string.
    * Required when `codeConnectionArn` is not provided.
    *
    * @default - required when creating a new CodeConnection
    */
-  readonly providerType?: string;
+  readonly providerType?: GitProviderType;
   /**
    * The ARN of the host for self-managed providers (e.g. GitHubEnterpriseServer, GitLabSelfManaged).
    *

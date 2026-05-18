@@ -25,3 +25,11 @@ export interface S3ConnectionProps {
    */
   readonly description?: string;
 }
+
+/**
+ * Exposed attributes of the S3Connection construct.
+ */
+export interface IS3Connection {
+  /** The connection ID. */
+  readonly connectionId: string;
+}

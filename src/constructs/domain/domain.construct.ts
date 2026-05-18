@@ -12,6 +12,7 @@ import {
 import type { NagPackSuppression } from 'cdk-nag';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
+import { CLEANUP_HANDLER_CODE } from './domain.cleanup-handler';
 import type { DomainProps, DomainUnitConfig } from './domain.interface';
 
 import { Blueprint } from '../blueprint/blueprint.construct';
@@ -120,6 +121,10 @@ export class Domain extends Construct {
 
   constructor(scope: Construct, id: string, props: DomainProps) {
     super(scope, id);
+
+    if (props.subnetIds.length === 0) {
+      throw new Error('subnetIds must contain at least one subnet ID.');
+    }
 
     const account = Stack.of(this).account;
     const region = Stack.of(this).region;
@@ -398,80 +403,7 @@ export class Domain extends Construct {
       runtime: lambda_.Runtime.NODEJS_24_X,
       handler: 'index.handler',
       timeout: Duration.minutes(1),
-      code: lambda_.Code.fromInline(`
-const { LakeFormationClient, GetDataLakeSettingsCommand, PutDataLakeSettingsCommand, GrantPermissionsCommand, RevokePermissionsCommand } = require("@aws-sdk/client-lakeformation");
-const { DataZoneClient, ListProjectsCommand, ListEnvironmentsCommand } = require("@aws-sdk/client-datazone");
-const { GlueClient, DeleteDatabaseCommand } = require("@aws-sdk/client-glue");
-const response = require("cfn-response");
-exports.handler = async (event, context) => {
-  try {
-    const lf = new LakeFormationClient();
-    const principals = event.ResourceProperties.DataLocationGrantPrincipals || [];
-    const bucketArn = event.ResourceProperties.BucketArn;
-
-    if (event.RequestType === "Create" || event.RequestType === "Update") {
-      // Grant DATA_LOCATION_ACCESS to specified principals
-      for (const principal of principals) {
-        try {
-          await lf.send(new GrantPermissionsCommand({
-            Principal: { DataLakePrincipalIdentifier: principal },
-            Resource: { DataLocation: { ResourceArn: bucketArn } },
-            Permissions: ["DATA_LOCATION_ACCESS"],
-          }));
-        } catch (e) {
-          if (e.name !== "AlreadyExistsException") console.error("Grant failed:", e);
-        }
-      }
-    }
-
-    if (event.RequestType === "Delete") {
-      const roleArns = new Set(event.ResourceProperties.RoleArns);
-      const domainId = event.ResourceProperties.DomainId;
-
-      // Revoke DATA_LOCATION_ACCESS grants
-      for (const principal of principals) {
-        try {
-          await lf.send(new RevokePermissionsCommand({
-            Principal: { DataLakePrincipalIdentifier: principal },
-            Resource: { DataLocation: { ResourceArn: bucketArn } },
-            Permissions: ["DATA_LOCATION_ACCESS"],
-          }));
-        } catch (e) { console.error("Revoke failed:", e); }
-      }
-
-      // Clean up Lake Formation admins
-      const { DataLakeSettings } = await lf.send(new GetDataLakeSettingsCommand({}));
-      const filter = (list) => (list || []).filter(
-        (a) => !roleArns.has(a.DataLakePrincipalIdentifier)
-      );
-      DataLakeSettings.DataLakeAdmins = filter(DataLakeSettings.DataLakeAdmins);
-      DataLakeSettings.ReadOnlyAdmins = filter(DataLakeSettings.ReadOnlyAdmins);
-      await lf.send(new PutDataLakeSettingsCommand({ DataLakeSettings }));
-
-      // Clean up Glue databases created by DataLake environments
-      if (domainId) {
-        const dz = new DataZoneClient();
-        const glue = new GlueClient();
-        const { items: projects } = await dz.send(new ListProjectsCommand({ domainIdentifier: domainId }));
-        for (const project of projects || []) {
-          const { items: envs } = await dz.send(new ListEnvironmentsCommand({
-            domainIdentifier: domainId, projectIdentifier: project.id,
-          }));
-          for (const env of envs || []) {
-            try {
-              await glue.send(new DeleteDatabaseCommand({ Name: "glue_db_" + env.id }));
-            } catch (e) { if (e.name !== "EntityNotFoundException") console.error(e); }
-          }
-        }
-      }
-    }
-    await response.send(event, context, response.SUCCESS, {});
-  } catch (e) {
-    console.error(e);
-    await response.send(event, context, response.SUCCESS, {});
-  }
-};
-`),
+      code: lambda_.Code.fromInline(CLEANUP_HANDLER_CODE),
     });
 
     handler.addToRolePolicy(

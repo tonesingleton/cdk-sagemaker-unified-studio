@@ -1,14 +1,11 @@
 /**
- * Built-in designations for a project member.
- *
- * Use these constants or pass any custom designation as a plain string.
+ * Designations for a project member.
  */
-export class ProjectMemberDesignation {
-  public static readonly PROJECT_OWNER = 'PROJECT_OWNER';
-  public static readonly PROJECT_CONTRIBUTOR = 'PROJECT_CONTRIBUTOR';
-
-  /* istanbul ignore next */
-  private constructor() {}
+export enum ProjectMemberDesignation {
+  /** Full owner access to the project. */
+  PROJECT_OWNER = 'PROJECT_OWNER',
+  /** Contributor access to the project. */
+  PROJECT_CONTRIBUTOR = 'PROJECT_CONTRIBUTOR',
 }
 
 /**
@@ -22,7 +19,7 @@ export interface ProjectMember {
    *
    * @default ProjectMemberDesignation.PROJECT_CONTRIBUTOR
    */
-  readonly designation?: string;
+  readonly designation?: ProjectMemberDesignation;
 }
 
 /**
@@ -57,6 +54,14 @@ export interface ProjectEnvironmentUserParameter {
   readonly environmentId?: string;
   /** The parameters to pass to this environment configuration. */
   readonly environmentParameters: Array<EnvironmentParameterValue>;
+}
+
+/**
+ * Exposed attributes of the Project construct.
+ */
+export interface IProject {
+  /** The project ID. */
+  readonly projectId: string;
 }
 
 /**

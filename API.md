@@ -378,6 +378,8 @@ The resolved environment blueprint ID.
 
 ### Connection <a name="Connection" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection"></a>
 
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IConnection">IConnection</a>
+
 In Amazon SageMaker Unified Studio, a connection enables you to connect your resources (domains, projects, and environments) to external resources and services.
 
 #### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.Initializer"></a>
@@ -527,6 +529,8 @@ The connection ID.
 
 
 ### DataSource <a name="DataSource" id="@tonesingleton/cdk-sagemaker-unified-studio.DataSource"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataSource">IDataSource</a>
 
 A SageMaker Unified Studio data source that registers Glue or Redshift databases as governed assets within a domain project.
 
@@ -992,6 +996,8 @@ buckets whose names start with one of these prefixes.
 ---
 
 ### Environment <a name="Environment" id="@tonesingleton/cdk-sagemaker-unified-studio.Environment"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IEnvironment">IEnvironment</a>
 
 A SageMaker Unified Studio environment within a project.
 
@@ -1472,6 +1478,8 @@ The ARN of the CodeConnections host.
 
 ### Project <a name="Project" id="@tonesingleton/cdk-sagemaker-unified-studio.Project"></a>
 
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject">IProject</a>
+
 A SageMaker Unified Studio project within a domain.
 
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/projects.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/projects.html)
@@ -1623,6 +1631,8 @@ The project ID.
 
 
 ### ProjectProfile <a name="ProjectProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile">IProjectProfile</a>
 
 A project profile that defines the default set of environment blueprints provisioned when a project is created.
 
@@ -1778,6 +1788,8 @@ The project profile ID.
 
 
 ### S3Connection <a name="S3Connection" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IS3Connection">IS3Connection</a>
 
 A SageMaker Unified Studio S3 connection that provides access to data stored in Amazon S3 from within a project.
 
@@ -2430,13 +2442,13 @@ const connectionProps: ConnectionProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.connectionType">connectionType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType">ConnectionType</a></code> | The connection type. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.domainId">domainId</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.environmentId">environmentId</a></code> | <code>string</code> | The environment ID where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.name">name</a></code> | <code>string</code> | Display name of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.athenaProperties">athenaProperties</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaProperties">AthenaProperties</a></code> | Connection properties specific to the Athena compute environment. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.authenticationConfiguration">authenticationConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration">ConnectionAuthenticationConfiguration</a></code> | Authentication configuration. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.connectionProperties">connectionProperties</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties">ConnectionProperties</a></code> | Connection properties such as host, port, database, jdbcConnectionUrl. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.connectionType">connectionType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType">ConnectionType</a></code> | The connection type. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.matchCriteria">matchCriteria</a></code> | <code>string</code> | A list of criteria that can be used in selecting this connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.physicalConnectionRequirements">physicalConnectionRequirements</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements">PhysicalConnectionRequirements</a></code> | Physical connection requirements (VPC, subnet, security groups). |
@@ -2445,6 +2457,18 @@ const connectionProps: ConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.sparkProperties">sparkProperties</a></code> | <code>{[ key: string ]: string}</code> | Connection properties specific to the Spark compute environment. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.validateCredentials">validateCredentials</a></code> | <code>boolean</code> | Whether to validate credentials on creation. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.validateForComputeEnvironments">validateForComputeEnvironments</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ComputeEnvironment">ComputeEnvironment</a>[]</code> | Compute environments to validate the connection for. |
+
+---
+
+##### `connectionType`<sup>Required</sup> <a name="connectionType" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.connectionType"></a>
+
+```typescript
+public readonly connectionType: ConnectionType;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType">ConnectionType</a>
+
+The connection type.
 
 ---
 
@@ -2520,19 +2544,6 @@ public readonly connectionProperties: ConnectionProperties;
 - *Default:* no connection properties
 
 Connection properties such as host, port, database, jdbcConnectionUrl.
-
----
-
-##### `connectionType`<sup>Optional</sup> <a name="connectionType" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.connectionType"></a>
-
-```typescript
-public readonly connectionType: ConnectionType;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType">ConnectionType</a>
-- *Default:* no connection type
-
-The connection type.
 
 ---
 
@@ -3081,7 +3092,7 @@ const environmentConfiguration: EnvironmentConfiguration = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration.property.environmentBlueprintId">environmentBlueprintId</a></code> | <code>string</code> | The environment blueprint ID to provision. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration.property.name">name</a></code> | <code>string</code> | Display name of the environment configuration. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration.property.accountId">accountId</a></code> | <code>string</code> | AWS account ID where the environment is deployed. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration.property.deploymentMode">deploymentMode</a></code> | <code>string</code> | Deployment mode for the environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration.property.deploymentMode">deploymentMode</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode">DeploymentMode</a></code> | Deployment mode for the environment. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration.property.deploymentOrder">deploymentOrder</a></code> | <code>number</code> | Deployment order for this environment. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration.property.description">description</a></code> | <code>string</code> | Human-readable description of the environment configuration. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration.property.parameters">parameters</a></code> | <code>{[ key: string ]: string}</code> | Configuration parameters for the environment (key-value pairs). |
@@ -3129,10 +3140,10 @@ AWS account ID where the environment is deployed.
 ##### `deploymentMode`<sup>Optional</sup> <a name="deploymentMode" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration.property.deploymentMode"></a>
 
 ```typescript
-public readonly deploymentMode: string;
+public readonly deploymentMode: DeploymentMode;
 ```
 
-- *Type:* string
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode">DeploymentMode</a>
 - *Default:* DeploymentMode.ON_DEMAND for non-Tooling blueprints, service default for Tooling
 
 Deployment mode for the environment.
@@ -3482,7 +3493,7 @@ const gitConnectionProps: GitConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitConnectionProps.property.name">name</a></code> | <code>string</code> | Display name of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitConnectionProps.property.codeConnectionArn">codeConnectionArn</a></code> | <code>string</code> | ARN of an existing, already-authorized CodeConnection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitConnectionProps.property.hostArn">hostArn</a></code> | <code>string</code> | The ARN of the host for self-managed providers (e.g. GitHubEnterpriseServer, GitLabSelfManaged). |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitConnectionProps.property.providerType">providerType</a></code> | <code>string</code> | The Git provider type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitConnectionProps.property.providerType">providerType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType">GitProviderType</a></code> | The Git provider type. |
 
 ---
 
@@ -3530,15 +3541,14 @@ The ARN of the host for self-managed providers (e.g. GitHubEnterpriseServer, Git
 ##### `providerType`<sup>Optional</sup> <a name="providerType" id="@tonesingleton/cdk-sagemaker-unified-studio.GitConnectionProps.property.providerType"></a>
 
 ```typescript
-public readonly providerType: string;
+public readonly providerType: GitProviderType;
 ```
 
-- *Type:* string
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType">GitProviderType</a>
 - *Default:* required when creating a new CodeConnection
 
 The Git provider type.
 
-Use `GitProviderType` constants or pass a custom string.
 Required when `codeConnectionArn` is not provided.
 
 ---
@@ -3607,7 +3617,7 @@ const hostProps: HostProps = { ... }
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostProps.property.name">name</a></code> | <code>string</code> | Display name of the host. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostProps.property.providerEndpoint">providerEndpoint</a></code> | <code>string</code> | The endpoint URL of the Git provider (e.g. `https://github.example.com`). |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostProps.property.providerType">providerType</a></code> | <code>string</code> | The Git provider type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostProps.property.providerType">providerType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType">GitProviderType</a></code> | The Git provider type. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags to apply to the host at creation time. |
 
 ---
@@ -3639,14 +3649,12 @@ The endpoint URL of the Git provider (e.g. `https://github.example.com`).
 ##### `providerType`<sup>Required</sup> <a name="providerType" id="@tonesingleton/cdk-sagemaker-unified-studio.HostProps.property.providerType"></a>
 
 ```typescript
-public readonly providerType: string;
+public readonly providerType: GitProviderType;
 ```
 
-- *Type:* string
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType">GitProviderType</a>
 
 The Git provider type.
-
-Use `GitProviderType` constants or pass a custom string.
 
 ---
 
@@ -3824,7 +3832,7 @@ const projectMember: ProjectMember = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.userIdentifier">userIdentifier</a></code> | <code>string</code> | The IAM role ARN or SageMaker Unified Studio user identifier for this member. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.designation">designation</a></code> | <code>string</code> | The member's designation within the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.designation">designation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation">ProjectMemberDesignation</a></code> | The member's designation within the project. |
 
 ---
 
@@ -3843,10 +3851,10 @@ The IAM role ARN or SageMaker Unified Studio user identifier for this member.
 ##### `designation`<sup>Optional</sup> <a name="designation" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.designation"></a>
 
 ```typescript
-public readonly designation: string;
+public readonly designation: ProjectMemberDesignation;
 ```
 
-- *Type:* string
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation">ProjectMemberDesignation</a>
 - *Default:* ProjectMemberDesignation.PROJECT_CONTRIBUTOR
 
 The member's designation within the project.
@@ -3874,7 +3882,7 @@ const projectProfileProps: ProjectProfileProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the project profile. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.domainUnitId">domainUnitId</a></code> | <code>string</code> | The domain unit ID this profile is scoped to. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.environmentConfigurations">environmentConfigurations</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration">EnvironmentConfiguration</a>[]</code> | Environment configurations that define which blueprints are provisioned when a project is created from this profile. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.status">status</a></code> | <code>string</code> | Whether the project profile is enabled. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus">ProjectProfileStatus</a></code> | Whether the project profile is enabled. |
 
 ---
 
@@ -3944,10 +3952,10 @@ Environment configurations that define which blueprints are provisioned when a p
 ##### `status`<sup>Optional</sup> <a name="status" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.status"></a>
 
 ```typescript
-public readonly status: string;
+public readonly status: ProjectProfileStatus;
 ```
 
-- *Type:* string
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus">ProjectProfileStatus</a>
 - *Default:* ProjectProfileStatus.ENABLED
 
 Whether the project profile is enabled.
@@ -4483,117 +4491,6 @@ The project ID that owns this connection.
 
 ## Classes <a name="Classes" id="Classes"></a>
 
-### DeploymentMode <a name="DeploymentMode" id="@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode"></a>
-
-Deployment mode for an environment configuration.
-
-
-
-
-#### Constants <a name="Constants" id="Constants"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.property.ON_CREATE">ON_CREATE</a></code> | <code>string</code> | Environment is provisioned automatically when a project is created. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.property.ON_DEMAND">ON_DEMAND</a></code> | <code>string</code> | Environment must be provisioned manually after project creation. |
-
----
-
-##### `ON_CREATE`<sup>Required</sup> <a name="ON_CREATE" id="@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.property.ON_CREATE"></a>
-
-```typescript
-public readonly ON_CREATE: string;
-```
-
-- *Type:* string
-
-Environment is provisioned automatically when a project is created.
-
----
-
-##### `ON_DEMAND`<sup>Required</sup> <a name="ON_DEMAND" id="@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.property.ON_DEMAND"></a>
-
-```typescript
-public readonly ON_DEMAND: string;
-```
-
-- *Type:* string
-
-Environment must be provisioned manually after project creation.
-
----
-
-### GitProviderType <a name="GitProviderType" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType"></a>
-
-Supported Git provider types for CodeConnections.
-
-> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/git-connections.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/git-connections.html)
-
-
-
-
-#### Constants <a name="Constants" id="Constants"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.property.BITBUCKET">BITBUCKET</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.property.GITHUB">GITHUB</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.property.GITHUB_ENTERPRISE_SERVER">GITHUB_ENTERPRISE_SERVER</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.property.GITLAB">GITLAB</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.property.GITLAB_SELF_MANAGED">GITLAB_SELF_MANAGED</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `BITBUCKET`<sup>Required</sup> <a name="BITBUCKET" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.property.BITBUCKET"></a>
-
-```typescript
-public readonly BITBUCKET: string;
-```
-
-- *Type:* string
-
----
-
-##### `GITHUB`<sup>Required</sup> <a name="GITHUB" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.property.GITHUB"></a>
-
-```typescript
-public readonly GITHUB: string;
-```
-
-- *Type:* string
-
----
-
-##### `GITHUB_ENTERPRISE_SERVER`<sup>Required</sup> <a name="GITHUB_ENTERPRISE_SERVER" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.property.GITHUB_ENTERPRISE_SERVER"></a>
-
-```typescript
-public readonly GITHUB_ENTERPRISE_SERVER: string;
-```
-
-- *Type:* string
-
----
-
-##### `GITLAB`<sup>Required</sup> <a name="GITLAB" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.property.GITLAB"></a>
-
-```typescript
-public readonly GITLAB: string;
-```
-
-- *Type:* string
-
----
-
-##### `GITLAB_SELF_MANAGED`<sup>Required</sup> <a name="GITLAB_SELF_MANAGED" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.property.GITLAB_SELF_MANAGED"></a>
-
-```typescript
-public readonly GITLAB_SELF_MANAGED: string;
-```
-
-- *Type:* string
-
----
-
 ### ManagedBlueprintIdentifier <a name="ManagedBlueprintIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier"></a>
 
 Managed blueprint identifiers for AWS SageMaker Unified Studio.
@@ -4885,82 +4782,6 @@ Creates an MWAA environment for Airflow-based workflows.
 
 ---
 
-### ProjectMemberDesignation <a name="ProjectMemberDesignation" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation"></a>
-
-Built-in designations for a project member.
-
-Use these constants or pass any custom designation as a plain string.
-
-
-
-
-#### Constants <a name="Constants" id="Constants"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.property.PROJECT_CONTRIBUTOR">PROJECT_CONTRIBUTOR</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.property.PROJECT_OWNER">PROJECT_OWNER</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `PROJECT_CONTRIBUTOR`<sup>Required</sup> <a name="PROJECT_CONTRIBUTOR" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.property.PROJECT_CONTRIBUTOR"></a>
-
-```typescript
-public readonly PROJECT_CONTRIBUTOR: string;
-```
-
-- *Type:* string
-
----
-
-##### `PROJECT_OWNER`<sup>Required</sup> <a name="PROJECT_OWNER" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.property.PROJECT_OWNER"></a>
-
-```typescript
-public readonly PROJECT_OWNER: string;
-```
-
-- *Type:* string
-
----
-
-### ProjectProfileStatus <a name="ProjectProfileStatus" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus"></a>
-
-Built-in statuses for a project profile.
-
-Use these constants or pass any custom status as a plain string.
-
-
-
-
-#### Constants <a name="Constants" id="Constants"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus.property.DISABLED">DISABLED</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus.property.ENABLED">ENABLED</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `DISABLED`<sup>Required</sup> <a name="DISABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus.property.DISABLED"></a>
-
-```typescript
-public readonly DISABLED: string;
-```
-
-- *Type:* string
-
----
-
-##### `ENABLED`<sup>Required</sup> <a name="ENABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus.property.ENABLED"></a>
-
-```typescript
-public readonly ENABLED: string;
-```
-
-- *Type:* string
-
----
-
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
 ### IAccountRoles <a name="IAccountRoles" id="@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles"></a>
@@ -5026,6 +4847,60 @@ public readonly queryExecutionRole: IRole;
 - *Type:* aws-cdk-lib.aws_iam.IRole
 
 The query execution role used by Lake Formation and Glue for Athena queries.
+
+---
+
+### IConnection <a name="IConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.IConnection"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Connection">Connection</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IConnection">IConnection</a>
+
+Exposed attributes of the Connection construct.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IConnection.property.connectionId">connectionId</a></code> | <code>string</code> | The connection ID. |
+
+---
+
+##### `connectionId`<sup>Required</sup> <a name="connectionId" id="@tonesingleton/cdk-sagemaker-unified-studio.IConnection.property.connectionId"></a>
+
+```typescript
+public readonly connectionId: string;
+```
+
+- *Type:* string
+
+The connection ID.
+
+---
+
+### IDataSource <a name="IDataSource" id="@tonesingleton/cdk-sagemaker-unified-studio.IDataSource"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSource">DataSource</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataSource">IDataSource</a>
+
+Exposed attributes of the DataSource construct.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataSource.property.dataSourceId">dataSourceId</a></code> | <code>string</code> | The data source ID. |
+
+---
+
+##### `dataSourceId`<sup>Required</sup> <a name="dataSourceId" id="@tonesingleton/cdk-sagemaker-unified-studio.IDataSource.property.dataSourceId"></a>
+
+```typescript
+public readonly dataSourceId: string;
+```
+
+- *Type:* string
+
+The data source ID.
 
 ---
 
@@ -5153,6 +5028,33 @@ public readonly rootDomainUnitId: string;
 
 ---
 
+### IEnvironment <a name="IEnvironment" id="@tonesingleton/cdk-sagemaker-unified-studio.IEnvironment"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Environment">Environment</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IEnvironment">IEnvironment</a>
+
+Exposed attributes of the Environment construct.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IEnvironment.property.environmentId">environmentId</a></code> | <code>string</code> | The environment ID. |
+
+---
+
+##### `environmentId`<sup>Required</sup> <a name="environmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.IEnvironment.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+The environment ID.
+
+---
+
 ### IGitConnection <a name="IGitConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.IGitConnection"></a>
 
 - *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitConnection">GitConnection</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGitConnection">IGitConnection</a>
@@ -5204,6 +5106,87 @@ public readonly hostArn: string;
 - *Type:* string
 
 The ARN of the CodeConnections host.
+
+---
+
+### IProject <a name="IProject" id="@tonesingleton/cdk-sagemaker-unified-studio.IProject"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project">Project</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject">IProject</a>
+
+Exposed attributes of the Project construct.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.projectId">projectId</a></code> | <code>string</code> | The project ID. |
+
+---
+
+##### `projectId`<sup>Required</sup> <a name="projectId" id="@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.projectId"></a>
+
+```typescript
+public readonly projectId: string;
+```
+
+- *Type:* string
+
+The project ID.
+
+---
+
+### IProjectProfile <a name="IProjectProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile">ProjectProfile</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile">IProjectProfile</a>
+
+Exposed attributes of the ProjectProfile construct.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile.property.projectProfileId">projectProfileId</a></code> | <code>string</code> | The project profile ID. |
+
+---
+
+##### `projectProfileId`<sup>Required</sup> <a name="projectProfileId" id="@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile.property.projectProfileId"></a>
+
+```typescript
+public readonly projectProfileId: string;
+```
+
+- *Type:* string
+
+The project profile ID.
+
+---
+
+### IS3Connection <a name="IS3Connection" id="@tonesingleton/cdk-sagemaker-unified-studio.IS3Connection"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection">S3Connection</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IS3Connection">IS3Connection</a>
+
+Exposed attributes of the S3Connection construct.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IS3Connection.property.connectionId">connectionId</a></code> | <code>string</code> | The connection ID. |
+
+---
+
+##### `connectionId`<sup>Required</sup> <a name="connectionId" id="@tonesingleton/cdk-sagemaker-unified-studio.IS3Connection.property.connectionId"></a>
+
+```typescript
+public readonly connectionId: string;
+```
+
+- *Type:* string
+
+The connection ID.
 
 ---
 
@@ -5374,6 +5357,140 @@ AWS Marketplace connector.
 ##### `CUSTOM` <a name="CUSTOM" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.CUSTOM"></a>
 
 Custom connector.
+
+---
+
+
+### DeploymentMode <a name="DeploymentMode" id="@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode"></a>
+
+Deployment mode for an environment configuration.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.ON_CREATE">ON_CREATE</a></code> | Environment is provisioned automatically when a project is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.ON_DEMAND">ON_DEMAND</a></code> | Environment must be provisioned manually after project creation. |
+
+---
+
+##### `ON_CREATE` <a name="ON_CREATE" id="@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.ON_CREATE"></a>
+
+Environment is provisioned automatically when a project is created.
+
+---
+
+
+##### `ON_DEMAND` <a name="ON_DEMAND" id="@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.ON_DEMAND"></a>
+
+Environment must be provisioned manually after project creation.
+
+---
+
+
+### GitProviderType <a name="GitProviderType" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType"></a>
+
+Supported Git provider types for CodeConnections.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/git-connections.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/git-connections.html)
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.GITHUB">GITHUB</a></code> | GitHub cloud-hosted. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.GITHUB_ENTERPRISE_SERVER">GITHUB_ENTERPRISE_SERVER</a></code> | GitHub Enterprise Server (self-managed). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.GITLAB">GITLAB</a></code> | GitLab cloud-hosted. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.GITLAB_SELF_MANAGED">GITLAB_SELF_MANAGED</a></code> | GitLab self-managed. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.BITBUCKET">BITBUCKET</a></code> | Bitbucket cloud-hosted. |
+
+---
+
+##### `GITHUB` <a name="GITHUB" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.GITHUB"></a>
+
+GitHub cloud-hosted.
+
+---
+
+
+##### `GITHUB_ENTERPRISE_SERVER` <a name="GITHUB_ENTERPRISE_SERVER" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.GITHUB_ENTERPRISE_SERVER"></a>
+
+GitHub Enterprise Server (self-managed).
+
+---
+
+
+##### `GITLAB` <a name="GITLAB" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.GITLAB"></a>
+
+GitLab cloud-hosted.
+
+---
+
+
+##### `GITLAB_SELF_MANAGED` <a name="GITLAB_SELF_MANAGED" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.GITLAB_SELF_MANAGED"></a>
+
+GitLab self-managed.
+
+---
+
+
+##### `BITBUCKET` <a name="BITBUCKET" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.BITBUCKET"></a>
+
+Bitbucket cloud-hosted.
+
+---
+
+
+### ProjectMemberDesignation <a name="ProjectMemberDesignation" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation"></a>
+
+Designations for a project member.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_OWNER">PROJECT_OWNER</a></code> | Full owner access to the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_CONTRIBUTOR">PROJECT_CONTRIBUTOR</a></code> | Contributor access to the project. |
+
+---
+
+##### `PROJECT_OWNER` <a name="PROJECT_OWNER" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_OWNER"></a>
+
+Full owner access to the project.
+
+---
+
+
+##### `PROJECT_CONTRIBUTOR` <a name="PROJECT_CONTRIBUTOR" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_CONTRIBUTOR"></a>
+
+Contributor access to the project.
+
+---
+
+
+### ProjectProfileStatus <a name="ProjectProfileStatus" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus"></a>
+
+Status of a project profile.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus.ENABLED">ENABLED</a></code> | The project profile is active and can be used to create projects. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus.DISABLED">DISABLED</a></code> | The project profile is disabled and cannot be used. |
+
+---
+
+##### `ENABLED` <a name="ENABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus.ENABLED"></a>
+
+The project profile is active and can be used to create projects.
+
+---
+
+
+##### `DISABLED` <a name="DISABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus.DISABLED"></a>
+
+The project profile is disabled and cannot be used.
 
 ---
 

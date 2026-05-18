@@ -20,6 +20,10 @@ export class Blueprint extends Construct {
   constructor(scope: Construct, id: string, props: BlueprintProps) {
     super(scope, id);
 
+    if (!props.identifier) {
+      throw new Error('Blueprint identifier must not be empty.');
+    }
+
     const enabledRegions = props.enabledRegions ? [...props.enabledRegions] : [Stack.of(this).region];
 
     this.configuration = new datazone.CfnEnvironmentBlueprintConfiguration(this, 'Configuration', {

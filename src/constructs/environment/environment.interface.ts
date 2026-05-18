@@ -9,6 +9,14 @@ export interface EnvironmentParameter {
 }
 
 /**
+ * Exposed attributes of the Environment construct.
+ */
+export interface IEnvironment {
+  /** The environment ID. */
+  readonly environmentId: string;
+}
+
+/**
  * Properties for an Environment construct.
  */
 export interface EnvironmentProps {

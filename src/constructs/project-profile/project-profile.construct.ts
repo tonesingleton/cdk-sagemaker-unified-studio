@@ -1,6 +1,6 @@
 import { Stack, aws_datazone as datazone } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import type { EnvironmentConfiguration, ProjectProfileProps } from './project-profile.interface';
+import type { EnvironmentConfiguration, IProjectProfile, ProjectProfileProps } from './project-profile.interface';
 import { DeploymentMode, ProjectProfileStatus } from './project-profile.interface';
 import { ManagedBlueprintIdentifier } from '../blueprint/blueprint.interface';
 
@@ -13,7 +13,7 @@ import { ManagedBlueprintIdentifier } from '../blueprint/blueprint.interface';
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/project-profiles.html
  */
-export class ProjectProfile extends Construct {
+export class ProjectProfile extends Construct implements IProjectProfile {
   /** The project profile ID. */
   public readonly projectProfileId: string;
 

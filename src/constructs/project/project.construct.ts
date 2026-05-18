@@ -1,6 +1,6 @@
 import { aws_datazone as datazone } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import type { ProjectProps } from './project.interface';
+import type { IProject, ProjectProps } from './project.interface';
 import { ProjectMemberDesignation } from './project.interface';
 
 /**
@@ -8,7 +8,7 @@ import { ProjectMemberDesignation } from './project.interface';
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/projects.html
  */
-export class Project extends Construct {
+export class Project extends Construct implements IProject {
   /** The project ID. */
   public readonly projectId: string;
 
@@ -30,13 +30,18 @@ export class Project extends Construct {
 
     this.projectId = project.attrId;
 
-    for (const [i, member] of (props.members ?? []).entries()) {
-      new datazone.CfnProjectMembership(this, `Membership${i}`, {
+    for (const member of props.members ?? []) {
+      const memberId = this.sanitizeId(member.userIdentifier);
+      new datazone.CfnProjectMembership(this, `Membership${memberId}`, {
         domainIdentifier: props.domainId,
         projectIdentifier: this.projectId,
         designation: member.designation ?? ProjectMemberDesignation.PROJECT_CONTRIBUTOR,
         member: { userIdentifier: member.userIdentifier },
       });
     }
+  }
+
+  private sanitizeId(identifier: string): string {
+    return identifier.replace(/[^a-zA-Z0-9]/g, '').slice(-40);
   }
 }

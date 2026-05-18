@@ -1,6 +1,6 @@
 import { aws_datazone as datazone } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import type { EnvironmentProps } from './environment.interface';
+import type { EnvironmentProps, IEnvironment } from './environment.interface';
 
 const GLOSSARY_TERM_PATTERN = /^[a-zA-Z0-9_-]{1,36}$/;
 
@@ -12,7 +12,7 @@ const GLOSSARY_TERM_PATTERN = /^[a-zA-Z0-9_-]{1,36}$/;
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/environments.html
  */
-export class Environment extends Construct {
+export class Environment extends Construct implements IEnvironment {
   /** The environment ID. */
   public readonly environmentId: string;
 

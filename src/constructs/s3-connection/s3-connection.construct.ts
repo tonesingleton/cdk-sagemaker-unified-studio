@@ -1,6 +1,6 @@
 import { aws_datazone as datazone } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import type { S3ConnectionProps } from './s3-connection.interface';
+import type { IS3Connection, S3ConnectionProps } from './s3-connection.interface';
 
 /**
  * A SageMaker Unified Studio S3 connection that provides access to data
@@ -8,7 +8,7 @@ import type { S3ConnectionProps } from './s3-connection.interface';
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/connecting-amazon-s3.html
  */
-export class S3Connection extends Construct {
+export class S3Connection extends Construct implements IS3Connection {
   /** The connection ID. */
   public readonly connectionId: string;
 

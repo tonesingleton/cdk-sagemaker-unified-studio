@@ -115,6 +115,14 @@ export interface RedshiftDataSourceConfiguration {
 }
 
 /**
+ * Exposed attributes of the DataSource construct.
+ */
+export interface IDataSource {
+  /** The data source ID. */
+  readonly dataSourceId: string;
+}
+
+/**
  * Properties for a DataSource construct.
  */
 export interface DataSourceProps {

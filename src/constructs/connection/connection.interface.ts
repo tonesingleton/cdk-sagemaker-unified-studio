@@ -236,12 +236,8 @@ export interface ConnectionProps {
    * @default - no description
    */
   readonly description?: string;
-  /**
-   * The connection type.
-   *
-   * @default - no connection type
-   */
-  readonly connectionType?: ConnectionType;
+  /** The connection type. */
+  readonly connectionType: ConnectionType;
   /**
    * Connection properties such as host, port, database, jdbcConnectionUrl.
    *
@@ -296,4 +292,12 @@ export interface ConnectionProps {
    * @default - no match criteria
    */
   readonly matchCriteria?: string;
+}
+
+/**
+ * Exposed attributes of the Connection construct.
+ */
+export interface IConnection {
+  /** The connection ID. */
+  readonly connectionId: string;
 }
