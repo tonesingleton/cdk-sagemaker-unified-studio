@@ -9,6 +9,7 @@ import type { BlueprintProps } from './blueprint.interface';
  * by creating a `CfnEnvironmentBlueprintConfiguration`.
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/blueprints.html
+ * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/supported-blueprints.html
  */
 export class Blueprint extends Construct {
   /** The resolved environment blueprint ID. */

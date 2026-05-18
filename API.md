@@ -215,7 +215,7 @@ An environment blueprint configuration for an AWS SageMaker Unified Studio domai
 Activates a specific blueprint capability (e.g. Tooling, DataLake) on a domain
 by creating a `CfnEnvironmentBlueprintConfiguration`.
 
-> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/blueprints.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/blueprints.html)
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/supported-blueprints.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/supported-blueprints.html)
 
 #### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.Blueprint.Initializer"></a>
 
@@ -372,6 +372,156 @@ public readonly environmentBlueprintId: string;
 - *Type:* string
 
 The resolved environment blueprint ID.
+
+---
+
+
+### Connection <a name="Connection" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection"></a>
+
+In Amazon SageMaker Unified Studio, a connection enables you to connect your resources (domains, projects, and environments) to external resources and services.
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.Initializer"></a>
+
+```typescript
+import { Connection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new Connection(scope: Construct, id: string, props: ConnectionProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Connection.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Connection.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Connection.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps">ConnectionProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps">ConnectionProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Connection.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Connection.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Connection.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.isConstruct"></a>
+
+```typescript
+import { Connection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Connection.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Connection.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Connection.property.connectionId">connectionId</a></code> | <code>string</code> | The connection ID. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `connectionId`<sup>Required</sup> <a name="connectionId" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.property.connectionId"></a>
+
+```typescript
+public readonly connectionId: string;
+```
+
+- *Type:* string
+
+The connection ID.
 
 ---
 
@@ -1814,6 +1964,65 @@ The AWS account ID used to scope trust policies on the provisioning and query ex
 
 ---
 
+### AthenaProperties <a name="AthenaProperties" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaProperties"></a>
+
+Athena-specific connection properties for federated query spill configuration.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaProperties.Initializer"></a>
+
+```typescript
+import { AthenaProperties } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const athenaProperties: AthenaProperties = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaProperties.property.spillBucket">spillBucket</a></code> | <code>string</code> | The S3 bucket name for Athena federated query spill storage. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaProperties.property.spillPrefix">spillPrefix</a></code> | <code>string</code> | The S3 key prefix for Athena federated query spill storage. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaProperties.property.instanceType">instanceType</a></code> | <code>string</code> | The instance type for the Athena Lambda function. |
+
+---
+
+##### `spillBucket`<sup>Required</sup> <a name="spillBucket" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaProperties.property.spillBucket"></a>
+
+```typescript
+public readonly spillBucket: string;
+```
+
+- *Type:* string
+
+The S3 bucket name for Athena federated query spill storage.
+
+---
+
+##### `spillPrefix`<sup>Required</sup> <a name="spillPrefix" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaProperties.property.spillPrefix"></a>
+
+```typescript
+public readonly spillPrefix: string;
+```
+
+- *Type:* string
+
+The S3 key prefix for Athena federated query spill storage.
+
+---
+
+##### `instanceType`<sup>Optional</sup> <a name="instanceType" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaProperties.property.instanceType"></a>
+
+```typescript
+public readonly instanceType: string;
+```
+
+- *Type:* string
+- *Default:* default instance type
+
+The instance type for the Athena Lambda function.
+
+---
+
 ### BlueprintProps <a name="BlueprintProps" id="@tonesingleton/cdk-sagemaker-unified-studio.BlueprintProps"></a>
 
 Properties for a Blueprint construct.
@@ -1920,6 +2129,514 @@ public readonly regionalParameters: RegionalParameter[];
 - *Default:* no regional parameters
 
 Per-region parameters (e.g. S3Location, VpcId, Subnets for the Tooling blueprint).
+
+---
+
+### ConnectionAuthenticationConfiguration <a name="ConnectionAuthenticationConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration"></a>
+
+Authentication configuration for a connection.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration.Initializer"></a>
+
+```typescript
+import { ConnectionAuthenticationConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const connectionAuthenticationConfiguration: ConnectionAuthenticationConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration.property.authenticationType">authenticationType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationType">ConnectionAuthenticationType</a></code> | The authentication type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration.property.customAuthenticationCredentials">customAuthenticationCredentials</a></code> | <code>{[ key: string ]: string}</code> | Custom authentication credentials as key-value pairs. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration.property.kmsKeyArn">kmsKeyArn</a></code> | <code>string</code> | The ARN of the KMS key used to encrypt the secret. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration.property.secretArn">secretArn</a></code> | <code>string</code> | The ARN of the Secrets Manager secret containing credentials. |
+
+---
+
+##### `authenticationType`<sup>Optional</sup> <a name="authenticationType" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration.property.authenticationType"></a>
+
+```typescript
+public readonly authenticationType: ConnectionAuthenticationType;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationType">ConnectionAuthenticationType</a>
+- *Default:* no authentication type
+
+The authentication type.
+
+---
+
+##### `customAuthenticationCredentials`<sup>Optional</sup> <a name="customAuthenticationCredentials" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration.property.customAuthenticationCredentials"></a>
+
+```typescript
+public readonly customAuthenticationCredentials: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* no custom credentials
+
+Custom authentication credentials as key-value pairs.
+
+Used when authenticationType is CUSTOM.
+
+---
+
+##### `kmsKeyArn`<sup>Optional</sup> <a name="kmsKeyArn" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration.property.kmsKeyArn"></a>
+
+```typescript
+public readonly kmsKeyArn: string;
+```
+
+- *Type:* string
+- *Default:* no KMS key
+
+The ARN of the KMS key used to encrypt the secret.
+
+---
+
+##### `secretArn`<sup>Optional</sup> <a name="secretArn" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration.property.secretArn"></a>
+
+```typescript
+public readonly secretArn: string;
+```
+
+- *Type:* string
+- *Default:* no secret
+
+The ARN of the Secrets Manager secret containing credentials.
+
+---
+
+### ConnectionProperties <a name="ConnectionProperties" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties"></a>
+
+Connection properties for relational database connections.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.Initializer"></a>
+
+```typescript
+import { ConnectionProperties } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const connectionProperties: ConnectionProperties = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.connectionUrl">connectionUrl</a></code> | <code>string</code> | The connection URL for MONGODB or MARKETPLACE connections. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.connectorClassName">connectorClassName</a></code> | <code>string</code> | The connector class name for MARKETPLACE/CUSTOM connections. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.connectorType">connectorType</a></code> | <code>string</code> | The connector type for MARKETPLACE/CUSTOM connections. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.connectorUrl">connectorUrl</a></code> | <code>string</code> | The connector URL for MARKETPLACE/CUSTOM connections. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.database">database</a></code> | <code>string</code> | The database name or service name. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.host">host</a></code> | <code>string</code> | The hostname of the database server. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.jdbcConnectionUrl">jdbcConnectionUrl</a></code> | <code>string</code> | The JDBC connection URL. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.jdbcEnforceSsl">jdbcEnforceSsl</a></code> | <code>string</code> | Whether to enforce SSL for JDBC connections. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.jdbcEngine">jdbcEngine</a></code> | <code>string</code> | The JDBC database engine (e.g. oracle, mysql, postgresql, sqlserver). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.kafkaBootstrapServers">kafkaBootstrapServers</a></code> | <code>string</code> | Kafka bootstrap servers. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.kafkaSslEnabled">kafkaSslEnabled</a></code> | <code>string</code> | Whether SSL is enabled for Kafka. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.port">port</a></code> | <code>string</code> | The port number of the database server. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.secretId">secretId</a></code> | <code>string</code> | The secret ID containing credentials. |
+
+---
+
+##### `connectionUrl`<sup>Optional</sup> <a name="connectionUrl" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.connectionUrl"></a>
+
+```typescript
+public readonly connectionUrl: string;
+```
+
+- *Type:* string
+- *Default:* no connection URL
+
+The connection URL for MONGODB or MARKETPLACE connections.
+
+---
+
+##### `connectorClassName`<sup>Optional</sup> <a name="connectorClassName" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.connectorClassName"></a>
+
+```typescript
+public readonly connectorClassName: string;
+```
+
+- *Type:* string
+- *Default:* no connector class name
+
+The connector class name for MARKETPLACE/CUSTOM connections.
+
+---
+
+##### `connectorType`<sup>Optional</sup> <a name="connectorType" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.connectorType"></a>
+
+```typescript
+public readonly connectorType: string;
+```
+
+- *Type:* string
+- *Default:* no connector type
+
+The connector type for MARKETPLACE/CUSTOM connections.
+
+---
+
+##### `connectorUrl`<sup>Optional</sup> <a name="connectorUrl" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.connectorUrl"></a>
+
+```typescript
+public readonly connectorUrl: string;
+```
+
+- *Type:* string
+- *Default:* no connector URL
+
+The connector URL for MARKETPLACE/CUSTOM connections.
+
+---
+
+##### `database`<sup>Optional</sup> <a name="database" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.database"></a>
+
+```typescript
+public readonly database: string;
+```
+
+- *Type:* string
+- *Default:* no database
+
+The database name or service name.
+
+---
+
+##### `host`<sup>Optional</sup> <a name="host" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.host"></a>
+
+```typescript
+public readonly host: string;
+```
+
+- *Type:* string
+- *Default:* no host
+
+The hostname of the database server.
+
+---
+
+##### `jdbcConnectionUrl`<sup>Optional</sup> <a name="jdbcConnectionUrl" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.jdbcConnectionUrl"></a>
+
+```typescript
+public readonly jdbcConnectionUrl: string;
+```
+
+- *Type:* string
+- *Default:* no JDBC connection URL
+
+The JDBC connection URL.
+
+Use this as an alternative to host/port/database.
+
+---
+
+##### `jdbcEnforceSsl`<sup>Optional</sup> <a name="jdbcEnforceSsl" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.jdbcEnforceSsl"></a>
+
+```typescript
+public readonly jdbcEnforceSsl: string;
+```
+
+- *Type:* string
+- *Default:* no SSL enforcement
+
+Whether to enforce SSL for JDBC connections.
+
+---
+
+##### `jdbcEngine`<sup>Optional</sup> <a name="jdbcEngine" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.jdbcEngine"></a>
+
+```typescript
+public readonly jdbcEngine: string;
+```
+
+- *Type:* string
+- *Default:* no JDBC engine
+
+The JDBC database engine (e.g. oracle, mysql, postgresql, sqlserver).
+
+---
+
+##### `kafkaBootstrapServers`<sup>Optional</sup> <a name="kafkaBootstrapServers" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.kafkaBootstrapServers"></a>
+
+```typescript
+public readonly kafkaBootstrapServers: string;
+```
+
+- *Type:* string
+- *Default:* no Kafka bootstrap servers
+
+Kafka bootstrap servers.
+
+---
+
+##### `kafkaSslEnabled`<sup>Optional</sup> <a name="kafkaSslEnabled" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.kafkaSslEnabled"></a>
+
+```typescript
+public readonly kafkaSslEnabled: string;
+```
+
+- *Type:* string
+- *Default:* no Kafka SSL
+
+Whether SSL is enabled for Kafka.
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.port"></a>
+
+```typescript
+public readonly port: string;
+```
+
+- *Type:* string
+- *Default:* no port
+
+The port number of the database server.
+
+---
+
+##### `secretId`<sup>Optional</sup> <a name="secretId" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.secretId"></a>
+
+```typescript
+public readonly secretId: string;
+```
+
+- *Type:* string
+- *Default:* no secret ID
+
+The secret ID containing credentials.
+
+Alternative to providing username/password directly.
+
+---
+
+### ConnectionProps <a name="ConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps"></a>
+
+Properties for a Connection construct.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.Initializer"></a>
+
+```typescript
+import { ConnectionProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const connectionProps: ConnectionProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.domainId">domainId</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.environmentId">environmentId</a></code> | <code>string</code> | The environment ID where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.name">name</a></code> | <code>string</code> | Display name of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.athenaProperties">athenaProperties</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaProperties">AthenaProperties</a></code> | Connection properties specific to the Athena compute environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.authenticationConfiguration">authenticationConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration">ConnectionAuthenticationConfiguration</a></code> | Authentication configuration. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.connectionProperties">connectionProperties</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties">ConnectionProperties</a></code> | Connection properties such as host, port, database, jdbcConnectionUrl. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.connectionType">connectionType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType">ConnectionType</a></code> | The connection type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.matchCriteria">matchCriteria</a></code> | <code>string</code> | A list of criteria that can be used in selecting this connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.physicalConnectionRequirements">physicalConnectionRequirements</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements">PhysicalConnectionRequirements</a></code> | Physical connection requirements (VPC, subnet, security groups). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.projectId">projectId</a></code> | <code>string</code> | The project ID that owns this connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.pythonProperties">pythonProperties</a></code> | <code>{[ key: string ]: string}</code> | Connection properties specific to the Python compute environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.sparkProperties">sparkProperties</a></code> | <code>{[ key: string ]: string}</code> | Connection properties specific to the Spark compute environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.validateCredentials">validateCredentials</a></code> | <code>boolean</code> | Whether to validate credentials on creation. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.validateForComputeEnvironments">validateForComputeEnvironments</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ComputeEnvironment">ComputeEnvironment</a>[]</code> | Compute environments to validate the connection for. |
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The SageMaker Unified Studio domain ID.
+
+---
+
+##### `environmentId`<sup>Required</sup> <a name="environmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+The environment ID where the connection is created.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Display name of the connection.
+
+---
+
+##### `athenaProperties`<sup>Optional</sup> <a name="athenaProperties" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.athenaProperties"></a>
+
+```typescript
+public readonly athenaProperties: AthenaProperties;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaProperties">AthenaProperties</a>
+- *Default:* no Athena properties
+
+Connection properties specific to the Athena compute environment.
+
+---
+
+##### `authenticationConfiguration`<sup>Optional</sup> <a name="authenticationConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.authenticationConfiguration"></a>
+
+```typescript
+public readonly authenticationConfiguration: ConnectionAuthenticationConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationConfiguration">ConnectionAuthenticationConfiguration</a>
+- *Default:* no authentication configuration
+
+Authentication configuration.
+
+---
+
+##### `connectionProperties`<sup>Optional</sup> <a name="connectionProperties" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.connectionProperties"></a>
+
+```typescript
+public readonly connectionProperties: ConnectionProperties;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties">ConnectionProperties</a>
+- *Default:* no connection properties
+
+Connection properties such as host, port, database, jdbcConnectionUrl.
+
+---
+
+##### `connectionType`<sup>Optional</sup> <a name="connectionType" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.connectionType"></a>
+
+```typescript
+public readonly connectionType: ConnectionType;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType">ConnectionType</a>
+- *Default:* no connection type
+
+The connection type.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the connection.
+
+---
+
+##### `matchCriteria`<sup>Optional</sup> <a name="matchCriteria" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.matchCriteria"></a>
+
+```typescript
+public readonly matchCriteria: string;
+```
+
+- *Type:* string
+- *Default:* no match criteria
+
+A list of criteria that can be used in selecting this connection.
+
+---
+
+##### `physicalConnectionRequirements`<sup>Optional</sup> <a name="physicalConnectionRequirements" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.physicalConnectionRequirements"></a>
+
+```typescript
+public readonly physicalConnectionRequirements: PhysicalConnectionRequirements;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements">PhysicalConnectionRequirements</a>
+- *Default:* no physical connection requirements
+
+Physical connection requirements (VPC, subnet, security groups).
+
+---
+
+##### `projectId`<sup>Optional</sup> <a name="projectId" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.projectId"></a>
+
+```typescript
+public readonly projectId: string;
+```
+
+- *Type:* string
+- *Default:* derived from the environment
+
+The project ID that owns this connection.
+
+---
+
+##### `pythonProperties`<sup>Optional</sup> <a name="pythonProperties" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.pythonProperties"></a>
+
+```typescript
+public readonly pythonProperties: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* no Python properties
+
+Connection properties specific to the Python compute environment.
+
+---
+
+##### `sparkProperties`<sup>Optional</sup> <a name="sparkProperties" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.sparkProperties"></a>
+
+```typescript
+public readonly sparkProperties: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* no Spark properties
+
+Connection properties specific to the Spark compute environment.
+
+---
+
+##### `validateCredentials`<sup>Optional</sup> <a name="validateCredentials" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.validateCredentials"></a>
+
+```typescript
+public readonly validateCredentials: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to validate credentials on creation.
+
+---
+
+##### `validateForComputeEnvironments`<sup>Optional</sup> <a name="validateForComputeEnvironments" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.validateForComputeEnvironments"></a>
+
+```typescript
+public readonly validateForComputeEnvironments: ComputeEnvironment[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ComputeEnvironment">ComputeEnvironment</a>[]
+- *Default:* no validation
+
+Compute environments to validate the connection for.
 
 ---
 
@@ -2943,6 +3660,83 @@ public readonly tags: {[ key: string ]: string};
 - *Default:* no tags
 
 Tags to apply to the host at creation time.
+
+---
+
+### PhysicalConnectionRequirements <a name="PhysicalConnectionRequirements" id="@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements"></a>
+
+Physical connection requirements for a connection.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements.Initializer"></a>
+
+```typescript
+import { PhysicalConnectionRequirements } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const physicalConnectionRequirements: PhysicalConnectionRequirements = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements.property.availabilityZone">availabilityZone</a></code> | <code>string</code> | The availability zone of the subnet. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements.property.securityGroupIdList">securityGroupIdList</a></code> | <code>string[]</code> | The security group IDs for the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements.property.subnetId">subnetId</a></code> | <code>string</code> | The subnet ID for the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements.property.subnetIdList">subnetIdList</a></code> | <code>string[]</code> | The subnet ID list for the connection. |
+
+---
+
+##### `availabilityZone`<sup>Optional</sup> <a name="availabilityZone" id="@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements.property.availabilityZone"></a>
+
+```typescript
+public readonly availabilityZone: string;
+```
+
+- *Type:* string
+- *Default:* no availability zone
+
+The availability zone of the subnet.
+
+---
+
+##### `securityGroupIdList`<sup>Optional</sup> <a name="securityGroupIdList" id="@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements.property.securityGroupIdList"></a>
+
+```typescript
+public readonly securityGroupIdList: string[];
+```
+
+- *Type:* string[]
+- *Default:* no security groups
+
+The security group IDs for the connection.
+
+---
+
+##### `subnetId`<sup>Optional</sup> <a name="subnetId" id="@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements.property.subnetId"></a>
+
+```typescript
+public readonly subnetId: string;
+```
+
+- *Type:* string
+- *Default:* no subnet
+
+The subnet ID for the connection.
+
+---
+
+##### `subnetIdList`<sup>Optional</sup> <a name="subnetIdList" id="@tonesingleton/cdk-sagemaker-unified-studio.PhysicalConnectionRequirements.property.subnetIdList"></a>
+
+```typescript
+public readonly subnetIdList: string[];
+```
+
+- *Type:* string[]
+- *Default:* no subnet list
+
+The subnet ID list for the connection.
+
+Use this when multiple subnets are required.
 
 ---
 
@@ -4410,6 +5204,176 @@ public readonly hostArn: string;
 - *Type:* string
 
 The ARN of the CodeConnections host.
+
+---
+
+## Enums <a name="Enums" id="Enums"></a>
+
+### ComputeEnvironment <a name="ComputeEnvironment" id="@tonesingleton/cdk-sagemaker-unified-studio.ComputeEnvironment"></a>
+
+Compute environments to validate the connection against.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ComputeEnvironment.SPARK">SPARK</a></code> | Apache Spark (Glue Interactive Sessions). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ComputeEnvironment.ATHENA">ATHENA</a></code> | Amazon Athena. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ComputeEnvironment.PYTHON">PYTHON</a></code> | Python. |
+
+---
+
+##### `SPARK` <a name="SPARK" id="@tonesingleton/cdk-sagemaker-unified-studio.ComputeEnvironment.SPARK"></a>
+
+Apache Spark (Glue Interactive Sessions).
+
+---
+
+
+##### `ATHENA` <a name="ATHENA" id="@tonesingleton/cdk-sagemaker-unified-studio.ComputeEnvironment.ATHENA"></a>
+
+Amazon Athena.
+
+---
+
+
+##### `PYTHON` <a name="PYTHON" id="@tonesingleton/cdk-sagemaker-unified-studio.ComputeEnvironment.PYTHON"></a>
+
+Python.
+
+---
+
+
+### ConnectionAuthenticationType <a name="ConnectionAuthenticationType" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationType"></a>
+
+Authentication type for a connection.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationType.BASIC">BASIC</a></code> | Basic username/password authentication via Secrets Manager. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationType.OAUTH2">OAUTH2</a></code> | OAuth2 authentication. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationType.CUSTOM">CUSTOM</a></code> | Custom authentication. |
+
+---
+
+##### `BASIC` <a name="BASIC" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationType.BASIC"></a>
+
+Basic username/password authentication via Secrets Manager.
+
+---
+
+
+##### `OAUTH2` <a name="OAUTH2" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationType.OAUTH2"></a>
+
+OAuth2 authentication.
+
+---
+
+
+##### `CUSTOM` <a name="CUSTOM" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionAuthenticationType.CUSTOM"></a>
+
+Custom authentication.
+
+---
+
+
+### ConnectionType <a name="ConnectionType" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType"></a>
+
+The connection type.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.ORACLE">ORACLE</a></code> | Oracle database. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.MYSQL">MYSQL</a></code> | MySQL database. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.POSTGRESQL">POSTGRESQL</a></code> | PostgreSQL database. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.SQLSERVER">SQLSERVER</a></code> | Microsoft SQL Server database. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.REDSHIFT">REDSHIFT</a></code> | Amazon Redshift. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.JDBC">JDBC</a></code> | Generic JDBC connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.MONGODB">MONGODB</a></code> | MongoDB document database. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.KAFKA">KAFKA</a></code> | Apache Kafka streaming platform. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.NETWORK">NETWORK</a></code> | Network connection within a VPC. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.MARKETPLACE">MARKETPLACE</a></code> | AWS Marketplace connector. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.CUSTOM">CUSTOM</a></code> | Custom connector. |
+
+---
+
+##### `ORACLE` <a name="ORACLE" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.ORACLE"></a>
+
+Oracle database.
+
+---
+
+
+##### `MYSQL` <a name="MYSQL" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.MYSQL"></a>
+
+MySQL database.
+
+---
+
+
+##### `POSTGRESQL` <a name="POSTGRESQL" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.POSTGRESQL"></a>
+
+PostgreSQL database.
+
+---
+
+
+##### `SQLSERVER` <a name="SQLSERVER" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.SQLSERVER"></a>
+
+Microsoft SQL Server database.
+
+---
+
+
+##### `REDSHIFT` <a name="REDSHIFT" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.REDSHIFT"></a>
+
+Amazon Redshift.
+
+---
+
+
+##### `JDBC` <a name="JDBC" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.JDBC"></a>
+
+Generic JDBC connection.
+
+---
+
+
+##### `MONGODB` <a name="MONGODB" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.MONGODB"></a>
+
+MongoDB document database.
+
+---
+
+
+##### `KAFKA` <a name="KAFKA" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.KAFKA"></a>
+
+Apache Kafka streaming platform.
+
+---
+
+
+##### `NETWORK` <a name="NETWORK" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.NETWORK"></a>
+
+Network connection within a VPC.
+
+---
+
+
+##### `MARKETPLACE` <a name="MARKETPLACE" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.MARKETPLACE"></a>
+
+AWS Marketplace connector.
+
+---
+
+
+##### `CUSTOM` <a name="CUSTOM" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionType.CUSTOM"></a>
+
+Custom connector.
 
 ---
 

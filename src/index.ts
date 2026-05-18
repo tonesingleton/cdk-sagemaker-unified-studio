@@ -45,5 +45,16 @@ export {
   DeploymentMode,
   EnvironmentConfiguration,
 } from './constructs/project-profile/project-profile.interface';
+export { Connection } from './constructs/connection/connection.construct';
+export {
+  ConnectionProps,
+  ConnectionType,
+  ConnectionAuthenticationType,
+  ConnectionAuthenticationConfiguration,
+  ConnectionProperties,
+  AthenaProperties,
+  ComputeEnvironment,
+  PhysicalConnectionRequirements,
+} from './constructs/connection/connection.interface';
 export { S3Connection } from './constructs/s3-connection/s3-connection.construct';
 export { S3ConnectionProps } from './constructs/s3-connection/s3-connection.interface';

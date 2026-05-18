@@ -7,7 +7,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   cdkVersion: '2.254.0',
   defaultReleaseBranch: 'main',
   description: 'L2 CDK constructs for AWS SageMaker Unified Studio',
-  jsiiVersion: '~5.9.40',
+  jsiiVersion: '~5.9.41',
   license: 'Apache-2.0',
   name: '@tonesingleton/cdk-sagemaker-unified-studio',
   packageManager: javascript.NodePackageManager.NPM,
