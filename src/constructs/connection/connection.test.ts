@@ -185,6 +185,155 @@ describe('Connection', () => {
     });
   });
 
+  it('omits connectionProperties when not provided', () => {
+    new Connection(stack, 'Conn', {
+      name: 'minimal',
+      domainId: 'dzd-test',
+      environmentId: 'env-test',
+    });
+
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
+      Props: {
+        GlueProperties: {
+          GlueConnectionInput: Match.objectLike({
+            ValidateCredentials: false,
+          }),
+        },
+      },
+    });
+  });
+
+  it('omits connectionProperties when empty object is provided', () => {
+    new Connection(stack, 'Conn', {
+      name: 'empty-props',
+      domainId: 'dzd-test',
+      environmentId: 'env-test',
+      connectionProperties: {},
+    });
+
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
+      Props: {
+        GlueProperties: {
+          GlueConnectionInput: Match.objectLike({
+            ValidateCredentials: false,
+          }),
+        },
+      },
+    });
+  });
+
+  it('omits authenticationConfiguration when not provided', () => {
+    new Connection(stack, 'Conn', {
+      name: 'no-auth',
+      domainId: 'dzd-test',
+      environmentId: 'env-test',
+      connectionType: ConnectionType.NETWORK,
+    });
+
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
+      Props: {
+        GlueProperties: {
+          GlueConnectionInput: Match.objectLike({
+            ConnectionType: 'NETWORK',
+          }),
+        },
+      },
+    });
+  });
+
+  it('maps all connectionProperties fields', () => {
+    new Connection(stack, 'Conn', {
+      ...defaultProps,
+      connectionProperties: {
+        host: 'db.example.com',
+        port: '1521',
+        database: 'ORCL',
+        jdbcConnectionUrl: 'jdbc:oracle:thin:@//db.example.com:1521/ORCL',
+        jdbcEngine: 'oracle',
+        jdbcEnforceSsl: 'true',
+        secretId: 'my-secret-id',
+        connectorUrl: 'https://connector.example.com',
+        connectorClassName: 'com.example.Connector',
+        connectorType: 'JDBC',
+        connectionUrl: 'mongodb://host:27017',
+        kafkaBootstrapServers: 'broker1:9092,broker2:9092',
+        kafkaSslEnabled: 'true',
+      },
+    });
+
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
+      Props: {
+        GlueProperties: {
+          GlueConnectionInput: Match.objectLike({
+            ConnectionProperties: {
+              HOST: 'db.example.com',
+              PORT: '1521',
+              DATABASE: 'ORCL',
+              JDBC_CONNECTION_URL: 'jdbc:oracle:thin:@//db.example.com:1521/ORCL',
+              JDBC_ENGINE: 'oracle',
+              JDBC_ENFORCE_SSL: 'true',
+              SECRET_ID: 'my-secret-id',
+              CONNECTOR_URL: 'https://connector.example.com',
+              CONNECTOR_CLASS_NAME: 'com.example.Connector',
+              CONNECTOR_TYPE: 'JDBC',
+              CONNECTION_URL: 'mongodb://host:27017',
+              KAFKA_BOOTSTRAP_SERVERS: 'broker1:9092,broker2:9092',
+              KAFKA_SSL_ENABLED: 'true',
+            },
+          }),
+        },
+      },
+    });
+  });
+
+  it('maps athenaProperties instanceType', () => {
+    new Connection(stack, 'Conn', {
+      ...defaultProps,
+      athenaProperties: {
+        spillBucket: 'bucket',
+        spillPrefix: 'prefix',
+        instanceType: 'ml.m5.large',
+      },
+    });
+
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
+      Props: {
+        GlueProperties: {
+          GlueConnectionInput: Match.objectLike({
+            AthenaProperties: {
+              spill_bucket: 'bucket',
+              spill_prefix: 'prefix',
+              instance_type: 'ml.m5.large',
+            },
+          }),
+        },
+      },
+    });
+  });
+
+  it('supports customAuthenticationCredentials', () => {
+    new Connection(stack, 'Conn', {
+      ...defaultProps,
+      authenticationConfiguration: {
+        authenticationType: ConnectionAuthenticationType.CUSTOM,
+        customAuthenticationCredentials: { token: 'abc123' },
+      },
+    });
+
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
+      Props: {
+        GlueProperties: {
+          GlueConnectionInput: Match.objectLike({
+            AuthenticationConfiguration: {
+              AuthenticationType: 'CUSTOM',
+              CustomAuthenticationCredentials: { token: 'abc123' },
+            },
+          }),
+        },
+      },
+    });
+  });
+
   it('exposes the connection ID', () => {
     const conn = new Connection(stack, 'Conn', defaultProps);
 
