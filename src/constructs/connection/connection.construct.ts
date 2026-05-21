@@ -22,6 +22,7 @@ export class Connection extends Construct implements IConnection {
       props: {
         glueProperties: {
           glueConnectionInput: {
+            name: props.name,
             connectionType: props.connectionType,
             connectionProperties: this.renderConnectionProperties(props.connectionProperties),
             physicalConnectionRequirements: props.physicalConnectionRequirements,
@@ -34,7 +35,7 @@ export class Connection extends Construct implements IConnection {
                 }
               : undefined,
             validateCredentials: props.validateCredentials ?? false,
-            validateForComputeEnvironments: props.validateForComputeEnvironments,
+            validateForComputeEnvironments: props.validateForComputeEnvironments ?? [],
             athenaProperties: this.renderAthenaProperties(props.athenaProperties),
             sparkProperties: props.sparkProperties,
             pythonProperties: props.pythonProperties,
@@ -57,6 +58,7 @@ export class Connection extends Construct implements IConnection {
     if (props.jdbcEngine) result.JDBC_ENGINE = props.jdbcEngine;
     if (props.jdbcEnforceSsl) result.JDBC_ENFORCE_SSL = props.jdbcEnforceSsl;
     if (props.secretId) result.SECRET_ID = props.secretId;
+    if (props.roleArn) result.ROLE_ARN = props.roleArn;
     if (props.connectorUrl) result.CONNECTOR_URL = props.connectorUrl;
     if (props.connectorClassName) result.CONNECTOR_CLASS_NAME = props.connectorClassName;
     if (props.connectorType) result.CONNECTOR_TYPE = props.connectorType;

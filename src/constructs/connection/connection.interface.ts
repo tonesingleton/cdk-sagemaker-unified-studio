@@ -130,6 +130,12 @@ export interface ConnectionProperties {
    */
   readonly secretId?: string;
   /**
+   * The IAM role ARN that Glue uses to access the secret.
+   *
+   * @default - no role ARN
+   */
+  readonly roleArn?: string;
+  /**
    * The connector URL for MARKETPLACE/CUSTOM connections.
    *
    * @default - no connector URL

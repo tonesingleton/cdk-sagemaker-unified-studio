@@ -2249,6 +2249,7 @@ const connectionProperties: ConnectionProperties = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.kafkaBootstrapServers">kafkaBootstrapServers</a></code> | <code>string</code> | Kafka bootstrap servers. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.kafkaSslEnabled">kafkaSslEnabled</a></code> | <code>string</code> | Whether SSL is enabled for Kafka. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.port">port</a></code> | <code>string</code> | The port number of the database server. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.roleArn">roleArn</a></code> | <code>string</code> | The IAM role ARN that Glue uses to access the secret. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.secretId">secretId</a></code> | <code>string</code> | The secret ID containing credentials. |
 
 ---
@@ -2408,6 +2409,19 @@ public readonly port: string;
 - *Default:* no port
 
 The port number of the database server.
+
+---
+
+##### `roleArn`<sup>Optional</sup> <a name="roleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProperties.property.roleArn"></a>
+
+```typescript
+public readonly roleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role ARN
+
+The IAM role ARN that Glue uses to access the secret.
 
 ---
 
