@@ -4,7 +4,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Tone Singleton',
   authorAddress: 'https://github.com/tonesingleton',
   authorOrganization: true,
-  cdkVersion: '2.254.0',
+  cdkVersion: '2.257.0',
   defaultReleaseBranch: 'main',
   description: 'L2 CDK constructs for AWS SageMaker Unified Studio',
   jsiiVersion: '~5.9.41',

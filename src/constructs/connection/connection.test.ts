@@ -260,6 +260,7 @@ describe('Connection', () => {
         connectionUrl: 'mongodb://host:27017',
         kafkaBootstrapServers: 'broker1:9092,broker2:9092',
         kafkaSslEnabled: 'true',
+        roleArn: 'arn:aws:iam::123456789012:role/my-role',
       },
     });
 
@@ -281,6 +282,7 @@ describe('Connection', () => {
               CONNECTION_URL: 'mongodb://host:27017',
               KAFKA_BOOTSTRAP_SERVERS: 'broker1:9092,broker2:9092',
               KAFKA_SSL_ENABLED: 'true',
+              ROLE_ARN: 'arn:aws:iam::123456789012:role/my-role',
             },
           }),
         },
