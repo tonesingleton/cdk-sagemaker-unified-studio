@@ -84,6 +84,7 @@ export class AccountRoles extends Construct implements IAccountRoles {
     // Provisioning Role
     const provisioningRole = new iam.Role(this, 'ProvisioningRole', {
       roleName: `AmazonSageMakerProvisioning-${account}`,
+      path: '/service-role/',
       description:
         'Amazon SageMaker Unified Studio uses this role to provision and manage ' +
         'resources defined in the selected blueprints in your account.',
