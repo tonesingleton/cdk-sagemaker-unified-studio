@@ -2,12 +2,14 @@ import { AiInstructions, awscdk, javascript, TextFile } from 'projen';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Tone Singleton',
-  authorAddress: 'https://github.com/tonesingleton',
+  authorName: 'Tone Singleton',
+  authorUrl: 'https://tonesingleton.com',
+  authorAddress: 'https://tonesingleton.com',
   authorOrganization: true,
   cdkVersion: '2.257.0',
   defaultReleaseBranch: 'main',
   description: 'L2 CDK constructs for AWS SageMaker Unified Studio',
-  jsiiVersion: '~5.9.41',
+  jsiiVersion: '~5.9.42',
   license: 'Apache-2.0',
   name: '@tonesingleton/cdk-sagemaker-unified-studio',
   packageManager: javascript.NodePackageManager.NPM,
