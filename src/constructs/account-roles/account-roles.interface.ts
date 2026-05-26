@@ -5,12 +5,10 @@ import type { aws_iam as iam } from 'aws-cdk-lib';
  */
 export interface AccountRolesProps {
   /**
-   * The AWS account ID used to scope trust policies on the provisioning
-   * and query execution roles.
-   *
-   * @default Stack.of(this).account
+   * The ARN of the KMS key used by the execution role for encrypting and
+   * decrypting data within SageMaker Unified Studio projects.
    */
-  readonly account?: string;
+  readonly kmsKeyArn: string;
 }
 
 /**
@@ -21,6 +19,17 @@ export interface IAccountRoles {
    * The provisioning role used by SageMaker Unified Studio to deploy blueprint resources.
    */
   readonly provisioningRole: iam.IRole;
+
+  /**
+   * The execution role defines the AWS services and data that can be accessed
+   * through Amazon SageMaker Unified Studio projects. It determines which tools,
+   * compute resources, data sources, and AI/ML assets project members can access.
+   * Amazon SageMaker Unified Studio assumes this role to make service calls on
+   * behalf of users within projects.
+   *
+   * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/setup-iam-based-domains.html
+   */
+  readonly executionRole: iam.IRole;
 
   /**
    * The query execution role used by Lake Formation and Glue for Athena queries.

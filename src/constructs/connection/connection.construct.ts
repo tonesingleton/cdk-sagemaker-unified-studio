@@ -5,6 +5,12 @@ import type { AthenaProperties, ConnectionProperties, ConnectionProps, IConnecti
 /**
  * In Amazon SageMaker Unified Studio, a connection enables you to connect your
  * resources (domains, projects, and environments) to external resources and services.
+ *
+ * Connections allow you to connect to your data and compute resources including both
+ * AWS resources as well as third-party data sources. A connection requires a credential
+ * which can either be an IAM role or a secret (e.g. username and password).
+ *
+ * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/data-connections-iam-based-domains.html
  */
 export class Connection extends Construct implements IConnection {
   /** The connection ID. */

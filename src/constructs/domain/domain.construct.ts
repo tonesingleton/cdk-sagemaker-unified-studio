@@ -1,18 +1,8 @@
-import {
-  CustomResource,
-  Duration,
-  RemovalPolicy,
-  Stack,
-  aws_datazone as datazone,
-  aws_iam as iam,
-  aws_lambda as lambda_,
-  aws_s3 as s3,
-  custom_resources as cr,
-} from 'aws-cdk-lib';
+import { RemovalPolicy, Stack, aws_datazone as datazone, aws_iam as iam, aws_s3 as s3 } from 'aws-cdk-lib';
 import type { NagPackSuppression } from 'cdk-nag';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
-import { CLEANUP_HANDLER_CODE } from './domain.cleanup-handler';
+import { LakeFormationCleanup } from './constructs';
 import type { DomainProps, DomainUnitConfig } from './domain.interface';
 
 import { Blueprint } from '../blueprint/blueprint.construct';
@@ -358,12 +348,12 @@ export class Domain extends Construct {
       props.provisioningRoleArn,
       `arn:aws:iam::${account}:role/aws-service-role/redshift.amazonaws.com/AWSServiceRoleForRedshift`,
     ];
-    this.createLakeFormationCleanup(
-      cleanupRoleArns,
-      domain.attrId,
-      props.dataLocationGrantPrincipals ?? [],
-      projectsBucket.bucketArn,
-    );
+    new LakeFormationCleanup(this, 'LakeFormationCleanup', {
+      roleArns: cleanupRoleArns,
+      domainId: domain.attrId,
+      dataLocationGrantPrincipals: props.dataLocationGrantPrincipals ?? [],
+      bucketArn: projectsBucket.bucketArn,
+    });
 
     this.domainId = domain.attrId;
     this.domainArn = domain.attrArn;
@@ -375,129 +365,5 @@ export class Domain extends Construct {
     this.blueprintPolicyGrants = policyGrants;
     this.projectsBucket = projectsBucket;
     this.accessLogsBucket = accessLogsBucket;
-  }
-
-  /**
-   * Creates a custom resource that removes the specified role ARNs from
-   * Lake Formation data lake administrators when the stack is deleted.
-   *
-   * This addresses a known limitation where the Tooling blueprint registers
-   * the manage access and provisioning roles as Lake Formation admins, but
-   * CloudFormation does not deregister them on stack deletion.
-   *
-   * A full `Provider`-backed custom resource is used instead of `AwsCustomResource`
-   * because the cleanup requires two sequential SDK calls: `GetDataLakeSettings`
-   * to read the current admin list, then `PutDataLakeSettings` with the target
-   * roles filtered out. `AwsCustomResource` only supports a single SDK call per
-   * lifecycle event.
-   *
-   * @see https://docs.aws.amazon.com/lake-formation/latest/dg/getting-started-setup.html
-   */
-  private createLakeFormationCleanup(
-    roleArns: ReadonlyArray<string>,
-    domainId: string,
-    dataLocationGrantPrincipals: ReadonlyArray<string>,
-    bucketArn: string,
-  ): void {
-    const handler = new lambda_.Function(this, 'LakeFormationCleanupHandler', {
-      runtime: lambda_.Runtime.NODEJS_24_X,
-      handler: 'index.handler',
-      timeout: Duration.minutes(1),
-      code: lambda_.Code.fromInline(CLEANUP_HANDLER_CODE),
-    });
-
-    handler.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: [
-          'lakeformation:GetDataLakeSettings',
-          'lakeformation:PutDataLakeSettings',
-          'lakeformation:GrantPermissions',
-          'lakeformation:RevokePermissions',
-        ],
-        resources: ['*'],
-      }),
-    );
-
-    handler.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ['datazone:ListProjects', 'datazone:ListEnvironments'],
-        resources: ['*'],
-      }),
-    );
-
-    handler.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ['glue:DeleteDatabase'],
-        resources: [
-          `arn:aws:glue:${Stack.of(this).region}:${Stack.of(this).account}:catalog`,
-          `arn:aws:glue:${Stack.of(this).region}:${Stack.of(this).account}:database/glue_db_*`,
-        ],
-      }),
-    );
-
-    NagSuppressions.addResourceSuppressions(
-      handler,
-      [
-        {
-          id: 'AwsSolutions-IAM4',
-          reason: 'Lambda basic execution role is required for CloudWatch logging.',
-          appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'],
-        } satisfies NagPackSuppression,
-        {
-          id: 'AwsSolutions-IAM5',
-          reason:
-            'Lake Formation settings, SageMaker Unified Studio list operations, and Glue database cleanup are account-level and do not support resource-level permissions.',
-          appliesTo: [
-            'Resource::*',
-            `Resource::arn:aws:glue:${Stack.of(this).region}:${Stack.of(this).account}:database/glue_db_*`,
-          ],
-        } satisfies NagPackSuppression,
-      ],
-      true,
-    );
-
-    const provider = new cr.Provider(this, 'LakeFormationCleanupProvider', {
-      onEventHandler: handler,
-    });
-
-    NagSuppressions.addResourceSuppressions(
-      provider,
-      [
-        {
-          id: 'AwsSolutions-IAM4',
-          reason: 'Provider framework Lambda requires basic execution role for CloudWatch logging.',
-          appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'],
-        } satisfies NagPackSuppression,
-        {
-          id: 'AwsSolutions-L1',
-          reason: 'Provider framework manages its own Lambda runtime version.',
-        } satisfies NagPackSuppression,
-      ],
-      true,
-    );
-
-    // The Provider framework's onEvent Lambda gets an IAM policy with
-    // lambda:InvokeFunction on `<handler.Arn>:*` (all versions). cdk-nag
-    // reports this as a wildcard resource finding. We suppress by path
-    // because the `appliesTo` value contains the CloudFormation logical ID
-    // which is only deterministic relative to the construct tree.
-    const policyPath = `${provider.node.path}/framework-onEvent/ServiceRole/DefaultPolicy/Resource`;
-    NagSuppressions.addResourceSuppressionsByPath(Stack.of(this), policyPath, [
-      {
-        id: 'AwsSolutions-IAM5',
-        reason:
-          'Provider framework requires lambda:InvokeFunction with a :* suffix to invoke all versions of the cleanup handler.',
-      } satisfies NagPackSuppression,
-    ]);
-
-    new CustomResource(this, 'LakeFormationCleanup', {
-      serviceToken: provider.serviceToken,
-      properties: {
-        RoleArns: roleArns,
-        DomainId: domainId,
-        DataLocationGrantPrincipals: dataLocationGrantPrincipals,
-        BucketArn: bucketArn,
-      },
-    });
   }
 }

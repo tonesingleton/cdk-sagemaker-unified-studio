@@ -1,8 +1,9 @@
 /**
  * Inline Lambda handler source for the Lake Formation cleanup custom resource.
  *
- * Stored as a constant to keep the Domain construct readable while ensuring
- * the code is bundled with the jsii package.
+ * On Create/Update: grants DATA_LOCATION_ACCESS to specified principals.
+ * On Delete: revokes grants, removes roles from Lake Formation admins,
+ * and cleans up Glue databases created by DataLake environments.
  */
 // eslint-disable-next-line
 export const CLEANUP_HANDLER_CODE = `
