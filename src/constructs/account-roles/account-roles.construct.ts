@@ -47,6 +47,7 @@ export class AccountRoles extends Construct implements IAccountRoles {
     // Query Execution Role
     const queryExecutionRole = new iam.Role(this, 'QueryExecutionRole', {
       roleName: 'AmazonSageMakerQueryExecution',
+      path: '/service-role/',
       description:
         'This role is used while running a query execution. AWS Lake Formation assumes ' +
         'this role to vend credentials needed by Amazon Athena during query execution.',
