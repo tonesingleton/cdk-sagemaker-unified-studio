@@ -17,6 +17,7 @@ export class Project extends Construct implements IProject {
 
     const project = new datazone.CfnProject(this, 'Resource', {
       domainIdentifier: props.domainId,
+      domainUnitId: props.domainUnitId,
       name: props.name,
       description: props.description,
       projectProfileId: props.projectProfileId,

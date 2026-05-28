@@ -78,6 +78,12 @@ export interface ProjectProps {
   readonly description?: string;
   /** The SageMaker Unified Studio domain ID this project belongs to. */
   readonly domainId: string;
+  /**
+   * The domain unit ID to place this project in.
+   *
+   * @default - root domain unit
+   */
+  readonly domainUnitId?: string;
   /** The project profile ID that defines the project's capabilities. */
   readonly projectProfileId: string;
   /**

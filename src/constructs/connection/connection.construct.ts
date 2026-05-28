@@ -41,7 +41,7 @@ export class Connection extends Construct implements IConnection {
                 }
               : undefined,
             validateCredentials: props.validateCredentials ?? false,
-            validateForComputeEnvironments: props.validateForComputeEnvironments ?? [],
+            validateForComputeEnvironments: props.validateForComputeEnvironments,
             athenaProperties: this.renderAthenaProperties(props.athenaProperties),
             sparkProperties: props.sparkProperties,
             pythonProperties: props.pythonProperties,
