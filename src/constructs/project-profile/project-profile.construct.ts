@@ -46,7 +46,9 @@ export class ProjectProfile extends Construct implements IProjectProfile {
               deploymentOrder: c.deploymentOrder,
               deploymentMode:
                 c.deploymentMode ??
-                (c.name === ManagedBlueprintIdentifier.TOOLING ? undefined : DeploymentMode.ON_DEMAND),
+                (c.name === ManagedBlueprintIdentifier.TOOLING || c.name === ManagedBlueprintIdentifier.TOOLING_LITE
+                  ? undefined
+                  : DeploymentMode.ON_DEMAND),
               configurationParameters: c.parameters
                 ? {
                     parameterOverrides: Object.entries(c.parameters).map(([name, value]) => ({ name, value })),

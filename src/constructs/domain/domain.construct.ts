@@ -305,6 +305,18 @@ export class Domain extends Construct {
       toolingProps,
     );
 
+    const toolingLiteProps: BlueprintProps = {
+      identifier: ManagedBlueprintIdentifier.TOOLING_LITE,
+      domainId: domain.attrId,
+      manageAccessRoleArn: manageAccessRole.roleArn,
+      provisioningRoleArn: props.provisioningRoleArn,
+    };
+    blueprints[ManagedBlueprintIdentifier.TOOLING_LITE] = new Blueprint(
+      this,
+      ManagedBlueprintIdentifier.TOOLING_LITE,
+      toolingLiteProps,
+    );
+
     for (const identifier of props.additionalBlueprintIdentifiers ?? []) {
       blueprints[identifier] = new Blueprint(this, identifier, {
         identifier,
