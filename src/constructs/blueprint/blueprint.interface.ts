@@ -126,6 +126,29 @@ export class ManagedBlueprintIdentifier {
   public static readonly QUICKSIGHT = 'QuickSight';
 
   /**
+   * A lightweight version of the Tooling blueprint that provisions basic
+   * networking (Glue network connections, security groups) without the full
+   * SageMaker domain setup.
+   */
+  public static readonly TOOLING_LITE = 'ToolingLite';
+
+  /**
+   * Provisions a Lakehouse admin environment for managing Lake Formation
+   * permissions and data governance.
+   */
+  public static readonly LAKEHOUSE_ADMIN = 'LakehouseAdmin';
+
+  /**
+   * Creates an S3 Table Catalog environment for managing S3-backed table formats.
+   */
+  public static readonly S3_TABLE_CATALOG = 'S3TableCatalog';
+
+  /**
+   * Creates an S3 Bucket environment for data storage within a project.
+   */
+  public static readonly S3_BUCKET = 'S3Bucket';
+
+  /**
    * Returns the blueprint identifiers for the Amazon Bedrock Generative AI group.
    *
    * Includes: ChatAgent, Evaluation, Flow, Function, Guardrail, KnowledgeBase, Prompt.
