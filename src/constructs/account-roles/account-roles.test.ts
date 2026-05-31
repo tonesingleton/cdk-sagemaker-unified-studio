@@ -51,10 +51,10 @@ describe('AccountRoles', () => {
     });
   });
 
-  test('creates exactly five roles', () => {
+  test('creates exactly seven roles', () => {
     const stack = createStack();
     new AccountRoles(stack, 'Roles', DEFAULT_PROPS);
-    Template.fromStack(stack).resourceCountIs('AWS::IAM::Role', 5);
+    Template.fromStack(stack).resourceCountIs('AWS::IAM::Role', 7);
   });
 
   test('provisioning role can pass query execution role', () => {

@@ -99,4 +99,6 @@ export interface ProjectProps {
    * @default - no user parameters
    */
   readonly userParameters?: Array<ProjectEnvironmentUserParameter>;
+
+  readonly isCustomExecutionRole?: boolean;
 }

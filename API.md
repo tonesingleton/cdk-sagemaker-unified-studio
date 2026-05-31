@@ -8,19 +8,6 @@
 
 Account-level IAM roles shared across all SageMaker Unified Studio domains.
 
-Creates four roles:
-- **Query execution role**: Assumed by Lake Formation and Glue to vend
-  credentials for Athena query execution.
-- **Provisioning role**: Assumed by SageMaker Unified Studio to provision
-  and manage resources defined in environment blueprints.
-- **Bedrock model management role**: Used to create inference profiles
-  for Amazon Bedrock models in a project.
-- **Bedrock FM consumption role**: Used for model invocation via
-  inference profiles for non-builders.
-
-These roles are not domain-specific. Domain-specific roles (e.g. manage
-access role) are created within the `Domain` construct.
-
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-account-roles.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-account-roles.html)
 
 #### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.Initializer"></a>
@@ -28,7 +15,7 @@ access role) are created within the `Domain` construct.
 ```typescript
 import { AccountRoles } from '@tonesingleton/cdk-sagemaker-unified-studio'
 
-new AccountRoles(scope: Construct, id: string, props?: AccountRolesProps)
+new AccountRoles(scope: Construct, id: string, props: AccountRolesProps)
 ```
 
 | **Name** | **Type** | **Description** |
@@ -51,7 +38,7 @@ new AccountRoles(scope: Construct, id: string, props?: AccountRolesProps)
 
 ---
 
-##### `props`<sup>Optional</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.Initializer.parameter.props"></a>
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRolesProps">AccountRolesProps</a>
 
@@ -142,6 +129,7 @@ Any object.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.bedrockFmConsumptionRole">bedrockFmConsumptionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The Bedrock FM consumption role used for model invocation via inference profiles. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.bedrockModelManagementRole">bedrockModelManagementRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The Bedrock model management role used to create inference profiles. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.executionRole">executionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The execution role defines the AWS services and data that can be accessed through Amazon SageMaker Unified Studio projects. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.provisioningRole">provisioningRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The provisioning role used by SageMaker Unified Studio to deploy blueprint resources. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.queryExecutionRole">queryExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The query execution role used by Lake Formation and Glue for Athena queries. |
 
@@ -180,6 +168,25 @@ public readonly bedrockModelManagementRole: IRole;
 - *Type:* aws-cdk-lib.aws_iam.IRole
 
 The Bedrock model management role used to create inference profiles.
+
+---
+
+##### `executionRole`<sup>Required</sup> <a name="executionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles.property.executionRole"></a>
+
+```typescript
+public readonly executionRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The execution role defines the AWS services and data that can be accessed through Amazon SageMaker Unified Studio projects.
+
+It determines which tools,
+compute resources, data sources, and AI/ML assets project members can access.
+Amazon SageMaker Unified Studio assumes this role to make service calls on
+behalf of users within projects.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/setup-iam-based-domains.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/setup-iam-based-domains.html)
 
 ---
 
@@ -381,6 +388,12 @@ The resolved environment blueprint ID.
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IConnection">IConnection</a>
 
 In Amazon SageMaker Unified Studio, a connection enables you to connect your resources (domains, projects, and environments) to external resources and services.
+
+Connections allow you to connect to your data and compute resources including both
+AWS resources as well as third-party data sources. A connection requires a credential
+which can either be an IAM role or a secret (e.g. username and password).
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/data-connections-iam-based-domains.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/data-connections-iam-based-domains.html)
 
 #### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.Connection.Initializer"></a>
 
@@ -832,6 +845,8 @@ Sort domain units topologically so that parents are created before children.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.manageAccessRole">manageAccessRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The manage access role. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.projectsBucket">projectsBucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | The S3 bucket used for project files. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.rootDomainUnitId">rootDomainUnitId</a></code> | <code>string</code> | The root domain unit ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.adminProject">adminProject</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project">Project</a></code> | The admin project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.adminProjectProfile">adminProjectProfile</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile">ProjectProfile</a></code> | The admin project profile (Tooling + LakehouseAdmin). |
 
 ---
 
@@ -967,6 +982,34 @@ public readonly rootDomainUnitId: string;
 - *Type:* string
 
 The root domain unit ID.
+
+---
+
+##### `adminProject`<sup>Optional</sup> <a name="adminProject" id="@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.adminProject"></a>
+
+```typescript
+public readonly adminProject: Project;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project">Project</a>
+
+The admin project.
+
+Only set when lakehouseAdminBlueprintId is provided.
+
+---
+
+##### `adminProjectProfile`<sup>Optional</sup> <a name="adminProjectProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.adminProjectProfile"></a>
+
+```typescript
+public readonly adminProjectProfile: ProjectProfile;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile">ProjectProfile</a>
+
+The admin project profile (Tooling + LakehouseAdmin).
+
+Only set when lakehouseAdminBlueprintId is provided.
 
 ---
 
@@ -1602,6 +1645,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.projectId">projectId</a></code> | <code>string</code> | The project ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.projectExecutionRole">projectExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.Role</code> | The project's execution role. |
 
 ---
 
@@ -1626,6 +1670,18 @@ public readonly projectId: string;
 - *Type:* string
 
 The project ID.
+
+---
+
+##### `projectExecutionRole`<sup>Optional</sup> <a name="projectExecutionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.property.projectExecutionRole"></a>
+
+```typescript
+public readonly projectExecutionRole: Role;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.Role
+
+The project's execution role.
 
 ---
 
@@ -1959,20 +2015,19 @@ const accountRolesProps: AccountRolesProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRolesProps.property.account">account</a></code> | <code>string</code> | The AWS account ID used to scope trust policies on the provisioning and query execution roles. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRolesProps.property.kmsKeyArn">kmsKeyArn</a></code> | <code>string</code> | The ARN of the KMS key used by the execution role for encrypting and decrypting data within SageMaker Unified Studio projects. |
 
 ---
 
-##### `account`<sup>Optional</sup> <a name="account" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountRolesProps.property.account"></a>
+##### `kmsKeyArn`<sup>Required</sup> <a name="kmsKeyArn" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountRolesProps.property.kmsKeyArn"></a>
 
 ```typescript
-public readonly account: string;
+public readonly kmsKeyArn: string;
 ```
 
 - *Type:* string
-- *Default:* Stack.of(this).account
 
-The AWS account ID used to scope trust policies on the provisioning and query execution roles.
+The ARN of the KMS key used by the execution role for encrypting and decrypting data within SageMaker Unified Studio projects.
 
 ---
 
@@ -2837,6 +2892,7 @@ const domainProps: DomainProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.dataLocationGrantPrincipals">dataLocationGrantPrincipals</a></code> | <code>string[]</code> | IAM principal ARNs to grant Lake Formation DATA_LOCATION_ACCESS on the projects bucket. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the domain's purpose. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.domainUnits">domainUnits</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitConfig">DomainUnitConfig</a>[]</code> | Domain unit configurations. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.lakehouseAdminBlueprintId">lakehouseAdminBlueprintId</a></code> | <code>string</code> | The environment blueprint ID for the LakehouseAdmin blueprint. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.projectsBucketName">projectsBucketName</a></code> | <code>string</code> | Name for the projects S3 bucket. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Removal policy for S3 buckets created by this construct. |
 
@@ -2992,6 +3048,23 @@ Domain unit configurations.
 
 Automatically sorted topologically so
 parents are always created before their children.
+
+---
+
+##### `lakehouseAdminBlueprintId`<sup>Optional</sup> <a name="lakehouseAdminBlueprintId" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.lakehouseAdminBlueprintId"></a>
+
+```typescript
+public readonly lakehouseAdminBlueprintId: string;
+```
+
+- *Type:* string
+- *Default:* no admin profile/project created
+
+The environment blueprint ID for the LakehouseAdmin blueprint.
+
+This blueprint is activated during account bootstrapping (via the console)
+and cannot be enabled via CloudFormation. When provided, an admin project
+profile (Tooling + LakehouseAdmin) and admin project are created.
 
 ---
 
@@ -3996,6 +4069,8 @@ const projectProps: ProjectProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.name">name</a></code> | <code>string</code> | Display name of the project. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.projectProfileId">projectProfileId</a></code> | <code>string</code> | The project profile ID that defines the project's capabilities. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the project's purpose. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainUnitId">domainUnitId</a></code> | <code>string</code> | The domain unit ID to place this project in. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.isCustomExecutionRole">isCustomExecutionRole</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.members">members</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember">ProjectMember</a>[]</code> | Project members with their designations. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.userParameters">userParameters</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectEnvironmentUserParameter">ProjectEnvironmentUserParameter</a>[]</code> | User parameters for environment configurations. |
 
@@ -4047,6 +4122,29 @@ public readonly description: string;
 - *Default:* no description
 
 Human-readable description of the project's purpose.
+
+---
+
+##### `domainUnitId`<sup>Optional</sup> <a name="domainUnitId" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainUnitId"></a>
+
+```typescript
+public readonly domainUnitId: string;
+```
+
+- *Type:* string
+- *Default:* root domain unit
+
+The domain unit ID to place this project in.
+
+---
+
+##### `isCustomExecutionRole`<sup>Optional</sup> <a name="isCustomExecutionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.isCustomExecutionRole"></a>
+
+```typescript
+public readonly isCustomExecutionRole: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -4549,6 +4647,7 @@ Includes: ChatAgent, Evaluation, Flow, Function, Guardrail, KnowledgeBase, Promp
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.EMR_ON_EC2">EMR_ON_EC2</a></code> | <code>string</code> | Creates an Amazon EMR on EC2 cluster to run and scale Apache Spark, Hive, and other big data workloads. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.EMR_ON_EKS">EMR_ON_EKS</a></code> | <code>string</code> | Creates an Amazon EMR on EKS environment. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.EMR_SERVERLESS">EMR_SERVERLESS</a></code> | <code>string</code> | Creates an Amazon EMR Serverless application for Apache Spark batch jobs and interactive sessions. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.LAKEHOUSE_ADMIN">LAKEHOUSE_ADMIN</a></code> | <code>string</code> | Provisions a Lakehouse admin environment for managing Lake Formation permissions and data governance. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.LAKEHOUSE_CATALOG">LAKEHOUSE_CATALOG</a></code> | <code>string</code> | Provisions a new catalog in the Amazon SageMaker Lakehouse backed by Amazon Redshift Managed Storage. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.LAKEHOUSE_DATABASE">LAKEHOUSE_DATABASE</a></code> | <code>string</code> | Creates a data lake environment with an AWS Glue database for data management and an Amazon Athena workgroup for querying data. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.ML_EXPERIMENTS">ML_EXPERIMENTS</a></code> | <code>string</code> | Enables an MLflow tracking server for experimentation inside a project. |
@@ -4556,7 +4655,10 @@ Includes: ChatAgent, Evaluation, Flow, Function, Guardrail, KnowledgeBase, Promp
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.PARTNER_APPS">PARTNER_APPS</a></code> | <code>string</code> | Creates an IAM role and a Connection that enables access to Partner AI Apps for integrated third-party AI/ML solutions. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.QUICKSIGHT">QUICKSIGHT</a></code> | <code>string</code> | Enables visualization of data within a project using Amazon QuickSight. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.REDSHIFT_SERVERLESS">REDSHIFT_SERVERLESS</a></code> | <code>string</code> | Creates an Amazon Redshift Serverless environment to get insights from data without managing infrastructure. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.S3_BUCKET">S3_BUCKET</a></code> | <code>string</code> | Creates an S3 Bucket environment for data storage within a project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.S3_TABLE_CATALOG">S3_TABLE_CATALOG</a></code> | <code>string</code> | Creates an S3 Table Catalog environment for managing S3-backed table formats. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.TOOLING">TOOLING</a></code> | <code>string</code> | Creates project resources including IAM user roles, security groups, and Amazon SageMaker unified domains. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.TOOLING_LITE">TOOLING_LITE</a></code> | <code>string</code> | A lightweight version of the Tooling blueprint that provisions basic networking (Glue network connections, security groups) without the full SageMaker domain setup. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.WORKFLOWS">WORKFLOWS</a></code> | <code>string</code> | Creates an MWAA environment for Airflow-based workflows. |
 
 ---
@@ -4683,6 +4785,18 @@ Creates an Amazon EMR Serverless application for Apache Spark batch jobs and int
 
 ---
 
+##### `LAKEHOUSE_ADMIN`<sup>Required</sup> <a name="LAKEHOUSE_ADMIN" id="@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.LAKEHOUSE_ADMIN"></a>
+
+```typescript
+public readonly LAKEHOUSE_ADMIN: string;
+```
+
+- *Type:* string
+
+Provisions a Lakehouse admin environment for managing Lake Formation permissions and data governance.
+
+---
+
 ##### `LAKEHOUSE_CATALOG`<sup>Required</sup> <a name="LAKEHOUSE_CATALOG" id="@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.LAKEHOUSE_CATALOG"></a>
 
 ```typescript
@@ -4772,6 +4886,30 @@ Creates an Amazon Redshift Serverless environment to get insights from data with
 
 ---
 
+##### `S3_BUCKET`<sup>Required</sup> <a name="S3_BUCKET" id="@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.S3_BUCKET"></a>
+
+```typescript
+public readonly S3_BUCKET: string;
+```
+
+- *Type:* string
+
+Creates an S3 Bucket environment for data storage within a project.
+
+---
+
+##### `S3_TABLE_CATALOG`<sup>Required</sup> <a name="S3_TABLE_CATALOG" id="@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.S3_TABLE_CATALOG"></a>
+
+```typescript
+public readonly S3_TABLE_CATALOG: string;
+```
+
+- *Type:* string
+
+Creates an S3 Table Catalog environment for managing S3-backed table formats.
+
+---
+
 ##### `TOOLING`<sup>Required</sup> <a name="TOOLING" id="@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.TOOLING"></a>
 
 ```typescript
@@ -4781,6 +4919,18 @@ public readonly TOOLING: string;
 - *Type:* string
 
 Creates project resources including IAM user roles, security groups, and Amazon SageMaker unified domains.
+
+---
+
+##### `TOOLING_LITE`<sup>Required</sup> <a name="TOOLING_LITE" id="@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier.property.TOOLING_LITE"></a>
+
+```typescript
+public readonly TOOLING_LITE: string;
+```
+
+- *Type:* string
+
+A lightweight version of the Tooling blueprint that provisions basic networking (Glue network connections, security groups) without the full SageMaker domain setup.
 
 ---
 
@@ -4811,6 +4961,7 @@ Exposed attributes of the AccountRoles construct.
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.bedrockFmConsumptionRole">bedrockFmConsumptionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The Bedrock FM consumption role used for model invocation via inference profiles. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.bedrockModelManagementRole">bedrockModelManagementRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The Bedrock model management role used to create inference profiles. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.executionRole">executionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The execution role defines the AWS services and data that can be accessed through Amazon SageMaker Unified Studio projects. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.provisioningRole">provisioningRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The provisioning role used by SageMaker Unified Studio to deploy blueprint resources. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.queryExecutionRole">queryExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The query execution role used by Lake Formation and Glue for Athena queries. |
 
@@ -4837,6 +4988,25 @@ public readonly bedrockModelManagementRole: IRole;
 - *Type:* aws-cdk-lib.aws_iam.IRole
 
 The Bedrock model management role used to create inference profiles.
+
+---
+
+##### `executionRole`<sup>Required</sup> <a name="executionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles.property.executionRole"></a>
+
+```typescript
+public readonly executionRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The execution role defines the AWS services and data that can be accessed through Amazon SageMaker Unified Studio projects.
+
+It determines which tools,
+compute resources, data sources, and AI/ML assets project members can access.
+Amazon SageMaker Unified Studio assumes this role to make service calls on
+behalf of users within projects.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/setup-iam-based-domains.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/setup-iam-based-domains.html)
 
 ---
 

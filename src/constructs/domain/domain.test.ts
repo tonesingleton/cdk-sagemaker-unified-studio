@@ -72,6 +72,9 @@ describe('Domain', () => {
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::EnvironmentBlueprintConfiguration', {
       EnvironmentBlueprintIdentifier: 'Tooling',
     });
+    // Template.fromStack(stack).hasResourceProperties('AWS::DataZone::EnvironmentBlueprintConfiguration', {
+    //   EnvironmentBlueprintIdentifier: 'ToolingLite',
+    // });
   });
 
   test('creates additional blueprints', () => {
@@ -126,6 +129,7 @@ describe('Domain', () => {
       additionalBlueprintIdentifiers: [ManagedBlueprintIdentifier.LAKEHOUSE_DATABASE],
     });
     expect(Object.keys(domain.blueprints)).toContain(ManagedBlueprintIdentifier.TOOLING);
+    // expect(Object.keys(domain.blueprints)).toContain(ManagedBlueprintIdentifier.TOOLING_LITE);
     expect(Object.keys(domain.blueprints)).toContain(ManagedBlueprintIdentifier.LAKEHOUSE_DATABASE);
   });
 

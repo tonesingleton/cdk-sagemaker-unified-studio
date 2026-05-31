@@ -369,6 +369,11 @@ export class Domain extends Construct {
       bucketArn: projectsBucket.bucketArn,
     });
 
+    // NOTE: The admin project profile (Tooling + LakehouseAdmin) must be created
+    // manually from the SageMaker Unified Studio UI. CDK-based creation is not
+    // currently working due to service-side limitations with the LakehouseAdmin
+    // blueprint provisioning via CloudFormation.
+
     this.domainId = domain.attrId;
     this.domainArn = domain.attrArn;
     this.rootDomainUnitId = domain.attrRootDomainUnitId;
