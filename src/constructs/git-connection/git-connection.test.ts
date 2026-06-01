@@ -46,6 +46,12 @@ describe('GitConnection with new CodeConnection', () => {
     const conn = createGitConnection(stack);
     expect(conn.codeConnectionArn).toBeDefined();
   });
+
+  test('exposes connectionStatus', () => {
+    const stack = createStack();
+    const conn = createGitConnection(stack);
+    expect(conn.connectionStatus).toBeDefined();
+  });
 });
 
 describe('GitConnection with existing CodeConnection', () => {
@@ -65,6 +71,15 @@ describe('GitConnection with existing CodeConnection', () => {
       codeConnectionArn: 'arn:aws:codeconnections:eu-central-1:123456789012:connection/existing-id',
     });
     expect(conn.codeConnectionArn).toBe('arn:aws:codeconnections:eu-central-1:123456789012:connection/existing-id');
+  });
+
+  test('connectionStatus is undefined for existing connection', () => {
+    const stack = createStack();
+    const conn = createGitConnection(stack, {
+      providerType: undefined,
+      codeConnectionArn: 'arn:aws:codeconnections:eu-central-1:123456789012:connection/existing-id',
+    });
+    expect(conn.connectionStatus).toBeUndefined();
   });
 });
 

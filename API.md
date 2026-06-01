@@ -3819,6 +3819,7 @@ const hostProps: HostProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostProps.property.providerEndpoint">providerEndpoint</a></code> | <code>string</code> | The endpoint URL of the Git provider (e.g. `https://github.example.com`). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostProps.property.providerType">providerType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType">GitProviderType</a></code> | The Git provider type. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags to apply to the host at creation time. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostProps.property.vpcConfiguration">vpcConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration">HostVpcConfiguration</a></code> | VPC configuration for the host. |
 
 ---
 
@@ -3868,6 +3869,97 @@ public readonly tags: {[ key: string ]: string};
 - *Default:* no tags
 
 Tags to apply to the host at creation time.
+
+---
+
+##### `vpcConfiguration`<sup>Optional</sup> <a name="vpcConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.HostProps.property.vpcConfiguration"></a>
+
+```typescript
+public readonly vpcConfiguration: HostVpcConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration">HostVpcConfiguration</a>
+- *Default:* no VPC configuration (public endpoint)
+
+VPC configuration for the host.
+
+Required when the Git provider is only reachable from within a VPC.
+
+---
+
+### HostVpcConfiguration <a name="HostVpcConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration"></a>
+
+VPC configuration for a CodeConnections host.
+
+Required when the Git provider endpoint is only reachable from within a VPC.
+
+> [https://docs.aws.amazon.com/dtconsole/latest/userguide/connections-host-vpc.html](https://docs.aws.amazon.com/dtconsole/latest/userguide/connections-host-vpc.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration.Initializer"></a>
+
+```typescript
+import { HostVpcConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const hostVpcConfiguration: HostVpcConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration.property.securityGroupIds">securityGroupIds</a></code> | <code>string[]</code> | The security group IDs to associate with the host. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration.property.subnetIds">subnetIds</a></code> | <code>string[]</code> | The subnet IDs to use for the host. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration.property.vpcId">vpcId</a></code> | <code>string</code> | The ID of the VPC. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration.property.tlsCertificate">tlsCertificate</a></code> | <code>string</code> | The PEM-encoded TLS certificate for the Git provider endpoint. |
+
+---
+
+##### `securityGroupIds`<sup>Required</sup> <a name="securityGroupIds" id="@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration.property.securityGroupIds"></a>
+
+```typescript
+public readonly securityGroupIds: string[];
+```
+
+- *Type:* string[]
+
+The security group IDs to associate with the host.
+
+---
+
+##### `subnetIds`<sup>Required</sup> <a name="subnetIds" id="@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration.property.subnetIds"></a>
+
+```typescript
+public readonly subnetIds: string[];
+```
+
+- *Type:* string[]
+
+The subnet IDs to use for the host.
+
+---
+
+##### `vpcId`<sup>Required</sup> <a name="vpcId" id="@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration.property.vpcId"></a>
+
+```typescript
+public readonly vpcId: string;
+```
+
+- *Type:* string
+
+The ID of the VPC.
+
+---
+
+##### `tlsCertificate`<sup>Optional</sup> <a name="tlsCertificate" id="@tonesingleton/cdk-sagemaker-unified-studio.HostVpcConfiguration.property.tlsCertificate"></a>
+
+```typescript
+public readonly tlsCertificate: string;
+```
+
+- *Type:* string
+- *Default:* no custom TLS certificate
+
+The PEM-encoded TLS certificate for the Git provider endpoint.
 
 ---
 

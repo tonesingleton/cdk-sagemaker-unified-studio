@@ -18,6 +18,8 @@ import type { GitConnectionProps, IGitConnection } from './git-connection.interf
 export class GitConnection extends Construct implements IGitConnection {
   /** The ARN of the CodeConnections connection. */
   public readonly codeConnectionArn: string;
+  /** The status of the CodeConnections connection (e.g. PENDING, AVAILABLE). */
+  public readonly connectionStatus?: string;
 
   constructor(scope: Construct, id: string, props: GitConnectionProps) {
     super(scope, id);
@@ -36,6 +38,7 @@ export class GitConnection extends Construct implements IGitConnection {
         tags: [{ key: 'for-use-with-all-datazone-projects', value: 'true' }],
       });
       this.codeConnectionArn = codeConnection.attrConnectionArn;
+      this.connectionStatus = codeConnection.attrConnectionStatus;
     }
   }
 }

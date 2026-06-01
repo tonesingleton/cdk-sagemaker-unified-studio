@@ -1,4 +1,4 @@
-import { App, RemovalPolicy, Stack } from 'aws-cdk-lib';
+import { App, RemovalPolicy, Stack, aws_ec2 as ec2 } from 'aws-cdk-lib';
 import { Template, Match } from 'aws-cdk-lib/assertions';
 import { Domain } from './domain.construct';
 import type { DomainProps } from './domain.interface';
@@ -8,13 +8,22 @@ function createStack(): Stack {
   return new Stack(new App(), 'TestStack', { env: { account: '123456789012', region: 'eu-central-1' } });
 }
 
+function createVpc(stack: Stack): ec2.Vpc {
+  return new ec2.Vpc(stack, 'Vpc', {
+    maxAzs: 2,
+    natGateways: 0,
+    subnetConfiguration: [{ name: 'Private', subnetType: ec2.SubnetType.PRIVATE_ISOLATED, cidrMask: 24 }],
+  });
+}
+
 function createDomain(stack: Stack, overrides?: Partial<DomainProps>): Domain {
+  const vpc = overrides?.vpc ?? createVpc(stack);
   return new Domain(stack, 'Domain', {
     name: 'TestDomain',
     description: 'A test domain.',
     provisioningRoleArn: 'arn:aws:iam::123456789012:role/provisioning',
-    vpcId: 'vpc-01234567890abcdef',
-    subnetIds: ['subnet-01234567890abcdef'],
+    vpc,
+    vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
     ...overrides,
   });
 }
@@ -195,9 +204,59 @@ describe('Domain', () => {
     expect(() => createDomain(stack, { accessLogsBucketName: 'my-logs-bucket' })).toThrow(/must start with one of/);
   });
 
-  test('throws when subnetIds is empty', () => {
+  test('resolves subnets from vpc prop', () => {
     const stack = createStack();
-    expect(() => createDomain(stack, { subnetIds: [] })).toThrow(/subnetIds must contain at least one subnet ID/);
+    createDomain(stack);
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::EnvironmentBlueprintConfiguration', {
+      EnvironmentBlueprintIdentifier: 'Tooling',
+    });
+  });
+
+  test('defaults to PRIVATE_WITH_EGRESS subnets when vpcSubnets not specified', () => {
+    const stack = createStack();
+    const vpc = new ec2.Vpc(stack, 'VpcWithNat', {
+      maxAzs: 2,
+      subnetConfiguration: [
+        { name: 'Public', subnetType: ec2.SubnetType.PUBLIC, cidrMask: 24 },
+        { name: 'Private', subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS, cidrMask: 24 },
+      ],
+    });
+    new Domain(stack, 'Domain', {
+      name: 'TestDomain',
+      provisioningRoleArn: 'arn:aws:iam::123456789012:role/provisioning',
+      vpc,
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::EnvironmentBlueprintConfiguration', {
+      EnvironmentBlueprintIdentifier: 'Tooling',
+    });
+  });
+
+  test('throws when selected subnets are empty', () => {
+    const stack = createStack();
+    const vpc = ec2.Vpc.fromVpcAttributes(stack, 'ImportedVpc', {
+      vpcId: 'vpc-123',
+      availabilityZones: ['eu-central-1a'],
+      privateSubnetIds: [],
+    });
+    expect(() => createDomain(stack, { vpc, vpcSubnets: { subnets: [] } })).toThrow(
+      /selected subnets must contain at least one subnet/,
+    );
+  });
+
+  test('accepts custom vpcSubnets selection', () => {
+    const stack = createStack();
+    const vpc = new ec2.Vpc(stack, 'CustomVpc', {
+      maxAzs: 2,
+      natGateways: 0,
+      subnetConfiguration: [
+        { name: 'Isolated', subnetType: ec2.SubnetType.PRIVATE_ISOLATED, cidrMask: 24 },
+        { name: 'Private', subnetType: ec2.SubnetType.PRIVATE_ISOLATED, cidrMask: 24 },
+      ],
+    });
+    createDomain(stack, { vpc, vpcSubnets: { subnetGroupName: 'Isolated' } });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::EnvironmentBlueprintConfiguration', {
+      EnvironmentBlueprintIdentifier: 'Tooling',
+    });
   });
 });
 

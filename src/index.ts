@@ -29,7 +29,7 @@ export {
   IGitConnection,
 } from './constructs/git-connection/git-connection.interface';
 export { Host } from './constructs/git-connection/host.construct';
-export { HostProps, IHost } from './constructs/git-connection/host.interface';
+export { HostProps, IHost, HostVpcConfiguration } from './constructs/git-connection/host.interface';
 export { EnvironmentProps, EnvironmentParameter, IEnvironment } from './constructs/environment/environment.interface';
 export { Project } from './constructs/project/project.construct';
 export {

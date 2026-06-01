@@ -2,7 +2,7 @@ import { Stack, aws_iam as iam, aws_lambda as lambda_, custom_resources as cr } 
 import type { NagPackSuppression } from 'cdk-nag';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
-import type { HostProps, IHost } from './host.interface';
+import type { HostProps, HostVpcConfiguration, IHost } from './host.interface';
 
 /**
  * A CodeConnections host for a self-managed Git provider.
@@ -27,6 +27,33 @@ export class Host extends Construct implements IHost {
     const account = Stack.of(this).account;
     const region = Stack.of(this).region;
 
+    const vpcConfig = props.vpcConfiguration ? this.buildVpcConfiguration(props.vpcConfiguration) : undefined;
+
+    const policyStatements = [
+      new iam.PolicyStatement({
+        actions: ['codeconnections:CreateHost', 'codeconnections:TagResource'],
+        resources: ['*'],
+      }),
+      new iam.PolicyStatement({
+        actions: ['codeconnections:DeleteHost', 'codeconnections:UpdateHost'],
+        resources: [`arn:aws:codeconnections:${region}:${account}:host/*`],
+      }),
+    ];
+
+    if (props.vpcConfiguration) {
+      policyStatements.push(
+        new iam.PolicyStatement({
+          actions: [
+            'ec2:CreateNetworkInterface',
+            'ec2:CreateTags',
+            'ec2:DescribeNetworkInterfaces',
+            'ec2:DeleteNetworkInterface',
+          ],
+          resources: ['*'],
+        }),
+      );
+    }
+
     const host = new cr.AwsCustomResource(this, 'Resource', {
       onCreate: {
         service: '@aws-sdk/client-codeconnections',
@@ -35,7 +62,18 @@ export class Host extends Construct implements IHost {
           Name: props.name,
           ProviderEndpoint: props.providerEndpoint,
           ProviderType: props.providerType,
+          VpcConfiguration: vpcConfig,
           Tags: props.tags ? Object.entries(props.tags).map(([key, value]) => ({ Key: key, Value: value })) : undefined,
+        },
+        physicalResourceId: cr.PhysicalResourceId.fromResponse('HostArn'),
+      },
+      onUpdate: {
+        service: '@aws-sdk/client-codeconnections',
+        action: 'UpdateHost',
+        parameters: {
+          HostArn: new cr.PhysicalResourceIdReference(),
+          ProviderEndpoint: props.providerEndpoint,
+          VpcConfiguration: vpcConfig,
         },
         physicalResourceId: cr.PhysicalResourceId.fromResponse('HostArn'),
       },
@@ -46,26 +84,20 @@ export class Host extends Construct implements IHost {
           HostArn: new cr.PhysicalResourceIdReference(),
         },
       },
-      policy: cr.AwsCustomResourcePolicy.fromStatements([
-        new iam.PolicyStatement({
-          actions: ['codeconnections:CreateHost', 'codeconnections:TagResource'],
-          resources: ['*'],
-        }),
-        new iam.PolicyStatement({
-          actions: ['codeconnections:DeleteHost'],
-          resources: [`arn:aws:codeconnections:${region}:${account}:host/*`],
-        }),
-      ]),
+      policy: cr.AwsCustomResourcePolicy.fromStatements(policyStatements),
     });
+
+    const nagAppliesTo = ['Resource::*', `Resource::arn:aws:codeconnections:${region}:${account}:host/*`];
 
     NagSuppressions.addResourceSuppressions(
       host,
       [
         {
           id: 'AwsSolutions-IAM5',
-          reason:
-            'codeconnections:CreateHost requires wildcard resource because the host ARN is not known before creation.',
-          appliesTo: ['Resource::*', `Resource::arn:aws:codeconnections:${region}:${account}:host/*`],
+          reason: props.vpcConfiguration
+            ? 'codeconnections:CreateHost and EC2 network interface actions require wildcard resource because the host ARN and ENI IDs are not known before creation.'
+            : 'codeconnections:CreateHost requires wildcard resource because the host ARN is not known before creation.',
+          appliesTo: nagAppliesTo,
         } satisfies NagPackSuppression,
       ],
       true,
@@ -97,5 +129,14 @@ export class Host extends Construct implements IHost {
     }
 
     this.hostArn = host.getResponseField('HostArn');
+  }
+
+  private buildVpcConfiguration(vpc: HostVpcConfiguration) {
+    return {
+      VpcId: vpc.vpcId,
+      SubnetIds: vpc.subnetIds,
+      SecurityGroupIds: vpc.securityGroupIds,
+      ...(vpc.tlsCertificate ? { TlsCertificate: vpc.tlsCertificate } : {}),
+    };
   }
 }

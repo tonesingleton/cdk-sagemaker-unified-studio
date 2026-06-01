@@ -1,4 +1,10 @@
-import type { RemovalPolicy, aws_datazone as datazone, aws_iam as iam, aws_s3 as s3 } from 'aws-cdk-lib';
+import type {
+  RemovalPolicy,
+  aws_datazone as datazone,
+  aws_ec2 as ec2,
+  aws_iam as iam,
+  aws_s3 as s3,
+} from 'aws-cdk-lib';
 import type { Blueprint } from '../blueprint/blueprint.construct';
 
 /**
@@ -45,10 +51,14 @@ export interface DomainProps {
    * @default - no additional roles
    */
   readonly assumeRoleArns?: Array<string>;
-  /** VPC ID for the Tooling blueprint's SageMaker domain. */
-  readonly vpcId: string;
-  /** Private subnet IDs for the Tooling blueprint's SageMaker domain. */
-  readonly subnetIds: Array<string>;
+  /** VPC for the Tooling blueprint's SageMaker domain. */
+  readonly vpc: ec2.IVpc;
+  /**
+   * Subnet selection for the Tooling blueprint.
+   *
+   * @default SubnetType.PRIVATE_WITH_EGRESS
+   */
+  readonly vpcSubnets?: ec2.SubnetSelection;
   /**
    * Domain unit configurations. Automatically sorted topologically so
    * parents are always created before their children.
