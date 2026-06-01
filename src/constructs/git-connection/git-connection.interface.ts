@@ -53,4 +53,13 @@ export interface GitConnectionProps {
 export interface IGitConnection {
   /** The ARN of the CodeConnections connection. */
   readonly codeConnectionArn: string;
+  /**
+   * The status of the CodeConnections connection.
+   *
+   * New connections are created in `PENDING` status and must be authorized
+   * in the AWS Console before they can be used.
+   *
+   * Only available when a new connection is created (not when using an existing ARN).
+   */
+  readonly connectionStatus?: string;
 }

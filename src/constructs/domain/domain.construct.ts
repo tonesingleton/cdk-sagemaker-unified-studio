@@ -1,4 +1,11 @@
-import { RemovalPolicy, Stack, aws_datazone as datazone, aws_iam as iam, aws_s3 as s3 } from 'aws-cdk-lib';
+import {
+  RemovalPolicy,
+  Stack,
+  aws_datazone as datazone,
+  aws_ec2 as ec2,
+  aws_iam as iam,
+  aws_s3 as s3,
+} from 'aws-cdk-lib';
 import type { NagPackSuppression } from 'cdk-nag';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
@@ -112,8 +119,12 @@ export class Domain extends Construct {
   constructor(scope: Construct, id: string, props: DomainProps) {
     super(scope, id);
 
-    if (props.subnetIds.length === 0) {
-      throw new Error('subnetIds must contain at least one subnet ID.');
+    const selection = props.vpc.selectSubnets(props.vpcSubnets ?? { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS });
+    const vpcId = props.vpc.vpcId;
+    const subnetIds = selection.subnetIds;
+
+    if (subnetIds.length === 0) {
+      throw new Error('The selected subnets must contain at least one subnet.');
     }
 
     const account = Stack.of(this).account;
@@ -293,8 +304,8 @@ export class Domain extends Construct {
           region: region,
           parameters: {
             S3Location: projectsBucket.s3UrlForObject(),
-            VpcId: props.vpcId,
-            Subnets: props.subnetIds.join(','),
+            VpcId: vpcId,
+            Subnets: subnetIds.join(','),
           },
         },
       ],

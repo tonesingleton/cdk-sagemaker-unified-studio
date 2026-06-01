@@ -45,10 +45,22 @@ describe('Host', () => {
             Action: ['codeconnections:CreateHost', 'codeconnections:TagResource'],
           }),
           Match.objectLike({
-            Action: 'codeconnections:DeleteHost',
+            Action: ['codeconnections:DeleteHost', 'codeconnections:UpdateHost'],
           }),
         ]),
       }),
+    });
+  });
+
+  test('includes Update action', () => {
+    const stack = createStack();
+    new Host(stack, 'Host', {
+      name: 'my-ghes',
+      providerEndpoint: 'https://github.example.com',
+      providerType: GitProviderType.GITHUB_ENTERPRISE_SERVER,
+    });
+    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+      Update: Match.serializedJson(Match.objectLike({ action: 'UpdateHost' })),
     });
   });
 

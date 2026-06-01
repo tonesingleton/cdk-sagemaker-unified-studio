@@ -35,7 +35,7 @@ export class Host extends Construct implements IHost {
         resources: ['*'],
       }),
       new iam.PolicyStatement({
-        actions: ['codeconnections:DeleteHost'],
+        actions: ['codeconnections:DeleteHost', 'codeconnections:UpdateHost'],
         resources: [`arn:aws:codeconnections:${region}:${account}:host/*`],
       }),
     ];
@@ -64,6 +64,16 @@ export class Host extends Construct implements IHost {
           ProviderType: props.providerType,
           VpcConfiguration: vpcConfig,
           Tags: props.tags ? Object.entries(props.tags).map(([key, value]) => ({ Key: key, Value: value })) : undefined,
+        },
+        physicalResourceId: cr.PhysicalResourceId.fromResponse('HostArn'),
+      },
+      onUpdate: {
+        service: '@aws-sdk/client-codeconnections',
+        action: 'UpdateHost',
+        parameters: {
+          HostArn: new cr.PhysicalResourceIdReference(),
+          ProviderEndpoint: props.providerEndpoint,
+          VpcConfiguration: vpcConfig,
         },
         physicalResourceId: cr.PhysicalResourceId.fromResponse('HostArn'),
       },
