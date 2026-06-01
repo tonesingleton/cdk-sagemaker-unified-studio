@@ -62,3 +62,5 @@ export {
 } from './constructs/connection/connection.interface';
 export { S3Connection } from './constructs/s3-connection/s3-connection.construct';
 export { S3ConnectionProps, IS3Connection } from './constructs/s3-connection/s3-connection.interface';
+export { ProjectDatabase } from './constructs/project-database/project-database.construct';
+export { ProjectDatabaseProps, IProjectDatabase } from './constructs/project-database/project-database.interface';

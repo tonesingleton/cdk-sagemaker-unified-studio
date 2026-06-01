@@ -845,8 +845,6 @@ Sort domain units topologically so that parents are created before children.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.manageAccessRole">manageAccessRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The manage access role. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.projectsBucket">projectsBucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | The S3 bucket used for project files. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.rootDomainUnitId">rootDomainUnitId</a></code> | <code>string</code> | The root domain unit ID. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.adminProject">adminProject</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project">Project</a></code> | The admin project. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.adminProjectProfile">adminProjectProfile</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile">ProjectProfile</a></code> | The admin project profile (Tooling + LakehouseAdmin). |
 
 ---
 
@@ -982,34 +980,6 @@ public readonly rootDomainUnitId: string;
 - *Type:* string
 
 The root domain unit ID.
-
----
-
-##### `adminProject`<sup>Optional</sup> <a name="adminProject" id="@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.adminProject"></a>
-
-```typescript
-public readonly adminProject: Project;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project">Project</a>
-
-The admin project.
-
-Only set when lakehouseAdminBlueprintId is provided.
-
----
-
-##### `adminProjectProfile`<sup>Optional</sup> <a name="adminProjectProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.adminProjectProfile"></a>
-
-```typescript
-public readonly adminProjectProfile: ProjectProfile;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile">ProjectProfile</a>
-
-The admin project profile (Tooling + LakehouseAdmin).
-
-Only set when lakehouseAdminBlueprintId is provided.
 
 ---
 
@@ -1682,6 +1652,167 @@ public readonly projectExecutionRole: Role;
 - *Type:* aws-cdk-lib.aws_iam.Role
 
 The project's execution role.
+
+---
+
+
+### ProjectDatabase <a name="ProjectDatabase" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectDatabase">IProjectDatabase</a>
+
+Creates a Glue database and grants Lake Formation permissions to the project execution role.
+
+This construct replicates what SageMaker Unified Studio does when a user creates
+a database via the UI: it creates the Glue database and grants the project execution
+role full Lake Formation permissions on it.
+
+Use this instead of the DataZone Environment construct (which requires UI-provisioned
+identity authorization that CloudFormation cannot satisfy).
+
+> [https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-catalog-databases.html](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-catalog-databases.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.Initializer"></a>
+
+```typescript
+import { ProjectDatabase } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new ProjectDatabase(scope: Construct, id: string, props: ProjectDatabaseProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps">ProjectDatabaseProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps">ProjectDatabaseProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.isConstruct"></a>
+
+```typescript
+import { ProjectDatabase } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+ProjectDatabase.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.property.databaseName">databaseName</a></code> | <code>string</code> | The name of the Glue database. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="databaseName" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase.property.databaseName"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* string
+
+The name of the Glue database.
 
 ---
 
@@ -2892,7 +3023,6 @@ const domainProps: DomainProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.dataLocationGrantPrincipals">dataLocationGrantPrincipals</a></code> | <code>string[]</code> | IAM principal ARNs to grant Lake Formation DATA_LOCATION_ACCESS on the projects bucket. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the domain's purpose. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.domainUnits">domainUnits</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitConfig">DomainUnitConfig</a>[]</code> | Domain unit configurations. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.lakehouseAdminBlueprintId">lakehouseAdminBlueprintId</a></code> | <code>string</code> | The environment blueprint ID for the LakehouseAdmin blueprint. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.projectsBucketName">projectsBucketName</a></code> | <code>string</code> | Name for the projects S3 bucket. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Removal policy for S3 buckets created by this construct. |
 
@@ -3048,23 +3178,6 @@ Domain unit configurations.
 
 Automatically sorted topologically so
 parents are always created before their children.
-
----
-
-##### `lakehouseAdminBlueprintId`<sup>Optional</sup> <a name="lakehouseAdminBlueprintId" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.property.lakehouseAdminBlueprintId"></a>
-
-```typescript
-public readonly lakehouseAdminBlueprintId: string;
-```
-
-- *Type:* string
-- *Default:* no admin profile/project created
-
-The environment blueprint ID for the LakehouseAdmin blueprint.
-
-This blueprint is activated during account bootstrapping (via the console)
-and cannot be enabled via CloudFormation. When provided, an admin project
-profile (Tooling + LakehouseAdmin) and admin project are created.
 
 ---
 
@@ -3832,6 +3945,79 @@ public readonly subnetIdList: string[];
 The subnet ID list for the connection.
 
 Use this when multiple subnets are required.
+
+---
+
+### ProjectDatabaseProps <a name="ProjectDatabaseProps" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps"></a>
+
+Properties for a ProjectDatabase construct.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.Initializer"></a>
+
+```typescript
+import { ProjectDatabaseProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const projectDatabaseProps: ProjectDatabaseProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.databaseName">databaseName</a></code> | <code>string</code> | The name of the Glue database to create. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.projectExecutionRoleArn">projectExecutionRoleArn</a></code> | <code>string</code> | The ARN of the project execution role that will be granted Lake Formation permissions on the database. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the database. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.locationUri">locationUri</a></code> | <code>string</code> | The S3 location URI for the database. |
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="databaseName" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.databaseName"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* string
+
+The name of the Glue database to create.
+
+---
+
+##### `projectExecutionRoleArn`<sup>Required</sup> <a name="projectExecutionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.projectExecutionRoleArn"></a>
+
+```typescript
+public readonly projectExecutionRoleArn: string;
+```
+
+- *Type:* string
+
+The ARN of the project execution role that will be granted Lake Formation permissions on the database.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the database.
+
+---
+
+##### `locationUri`<sup>Optional</sup> <a name="locationUri" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.locationUri"></a>
+
+```typescript
+public readonly locationUri: string;
+```
+
+- *Type:* string
+- *Default:* no location (tables define their own locations)
+
+The S3 location URI for the database.
 
 ---
 
@@ -5317,6 +5503,33 @@ public readonly projectId: string;
 - *Type:* string
 
 The project ID.
+
+---
+
+### IProjectDatabase <a name="IProjectDatabase" id="@tonesingleton/cdk-sagemaker-unified-studio.IProjectDatabase"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabase">ProjectDatabase</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectDatabase">IProjectDatabase</a>
+
+Exposed attributes of the ProjectDatabase construct.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectDatabase.property.databaseName">databaseName</a></code> | <code>string</code> | The name of the Glue database. |
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="databaseName" id="@tonesingleton/cdk-sagemaker-unified-studio.IProjectDatabase.property.databaseName"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* string
+
+The name of the Glue database.
 
 ---
 
