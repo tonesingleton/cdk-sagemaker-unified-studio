@@ -9,8 +9,8 @@ import type { IProjectDatabase, ProjectDatabaseProps } from './project-database.
  * a database via the UI: it creates the Glue database and grants the project execution
  * role full Lake Formation permissions on it.
  *
- * Use this instead of the DataZone Environment construct (which requires UI-provisioned
- * identity authorization that CloudFormation cannot satisfy).
+ * Uses CfnPrincipalPermissions (the recommended API) instead of the deprecated
+ * CfnPermissions for proper table wildcard permission propagation.
  *
  * @see https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-catalog-databases.html
  */
@@ -34,12 +34,12 @@ export class ProjectDatabase extends Construct implements IProjectDatabase {
       },
     });
 
-    const databasePermissions = new lakeformation.CfnPermissions(this, 'DatabasePermissions', {
-      dataLakePrincipal: {
+    const databasePermissions = new lakeformation.CfnPrincipalPermissions(this, 'DatabasePermissions', {
+      principal: {
         dataLakePrincipalIdentifier: props.projectExecutionRoleArn,
       },
       resource: {
-        databaseResource: {
+        database: {
           catalogId: account,
           name: props.databaseName,
         },
@@ -49,12 +49,12 @@ export class ProjectDatabase extends Construct implements IProjectDatabase {
     });
     databasePermissions.addDependency(database);
 
-    const tablePermissions = new lakeformation.CfnPermissions(this, 'TablePermissions', {
-      dataLakePrincipal: {
+    const tablePermissions = new lakeformation.CfnPrincipalPermissions(this, 'TablePermissions', {
+      principal: {
         dataLakePrincipalIdentifier: props.projectExecutionRoleArn,
       },
       resource: {
-        tableResource: {
+        table: {
           catalogId: account,
           databaseName: props.databaseName,
           tableWildcard: {},

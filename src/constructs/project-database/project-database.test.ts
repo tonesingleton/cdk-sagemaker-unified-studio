@@ -55,17 +55,18 @@ describe('ProjectDatabase', () => {
       databaseName: 'my_database',
       projectExecutionRoleArn: 'arn:aws:iam::123456789012:role/MyRole',
     });
-    Template.fromStack(stack).hasResourceProperties('AWS::LakeFormation::Permissions', {
-      DataLakePrincipal: {
+    Template.fromStack(stack).hasResourceProperties('AWS::LakeFormation::PrincipalPermissions', {
+      Principal: {
         DataLakePrincipalIdentifier: 'arn:aws:iam::123456789012:role/MyRole',
       },
       Resource: {
-        DatabaseResource: {
+        Database: {
           CatalogId: '123456789012',
-          Name: 'my_database',
+          DatabaseName: 'my_database',
         },
       },
       Permissions: Match.arrayWith(['ALL', 'CREATE_TABLE']),
+      PermissionsWithGrantOption: Match.arrayWith(['ALL', 'CREATE_TABLE']),
     });
   });
 
@@ -75,18 +76,19 @@ describe('ProjectDatabase', () => {
       databaseName: 'my_database',
       projectExecutionRoleArn: 'arn:aws:iam::123456789012:role/MyRole',
     });
-    Template.fromStack(stack).hasResourceProperties('AWS::LakeFormation::Permissions', {
-      DataLakePrincipal: {
+    Template.fromStack(stack).hasResourceProperties('AWS::LakeFormation::PrincipalPermissions', {
+      Principal: {
         DataLakePrincipalIdentifier: 'arn:aws:iam::123456789012:role/MyRole',
       },
       Resource: {
-        TableResource: {
+        Table: {
           CatalogId: '123456789012',
           DatabaseName: 'my_database',
           TableWildcard: {},
         },
       },
-      Permissions: Match.arrayWith(['ALL', 'SELECT', 'INSERT', 'DELETE']),
+      Permissions: Match.arrayWith(['ALL', 'SELECT', 'INSERT', 'DELETE', 'DESCRIBE']),
+      PermissionsWithGrantOption: Match.arrayWith(['ALL', 'SELECT', 'INSERT', 'DELETE', 'DESCRIBE']),
     });
   });
 
