@@ -47,6 +47,9 @@ export class Host extends Construct implements IHost {
             'ec2:CreateNetworkInterface',
             'ec2:CreateTags',
             'ec2:DescribeNetworkInterfaces',
+            'ec2:DescribeVpcs',
+            'ec2:DescribeSubnets',
+            'ec2:DescribeSecurityGroups',
             'ec2:DeleteNetworkInterface',
           ],
           resources: ['*'],
@@ -83,6 +86,7 @@ export class Host extends Construct implements IHost {
         parameters: {
           HostArn: new cr.PhysicalResourceIdReference(),
         },
+        ignoreErrorCodesMatching: 'ValidationException|ResourceNotFoundException',
       },
       policy: cr.AwsCustomResourcePolicy.fromStatements(policyStatements),
     });
