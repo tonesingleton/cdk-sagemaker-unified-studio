@@ -106,6 +106,13 @@ export class AccountRoles extends Construct implements IAccountRoles {
           'Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/SageMakerStudioProjectProvisioningRolePolicy',
         ],
       } satisfies NagPackSuppression,
+      {
+        id: 'AwsSolutions-IAM5',
+        reason:
+          'The ToolingLite blueprint creates S3 buckets named amazon-sagemaker-<account>-<region>-<projectId>. ' +
+          'The provisioning role needs bucket policy management on these buckets for environment cleanup.',
+        appliesTo: ['Resource::arn:aws:s3:::amazon-sagemaker-<AWS::AccountId>-*'],
+      } satisfies NagPackSuppression,
     ]);
 
     provisioningRole.addToPolicy(
@@ -113,6 +120,14 @@ export class AccountRoles extends Construct implements IAccountRoles {
         sid: 'PassQueryExecutionRole',
         actions: ['iam:PassRole', 'iam:GetRole'],
         resources: [queryExecutionRole.roleArn],
+      }),
+    );
+
+    provisioningRole.addToPolicy(
+      new iam.PolicyStatement({
+        sid: 'S3BucketPolicyManagement',
+        actions: ['s3:GetBucketPolicy', 's3:PutBucketPolicy', 's3:DeleteBucketPolicy'],
+        resources: [`arn:aws:s3:::amazon-sagemaker-${account}-*`],
       }),
     );
 

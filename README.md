@@ -236,7 +236,26 @@ aws ec2 authorize-security-group-ingress \
 
 - **IAM Identity Center**: SageMaker Unified Studio works best with AWS IAM Identity Center for per-user attribution. With IAM federation, all users sharing a role appear as a single identity within Unified Studio.
 - **Lake Formation cleanup**: The `Domain` construct automatically deregisters the manage access and provisioning roles from Lake Formation data lake administrators on stack deletion via a custom resource.
-- **Domain deletion**: If a deployment fails and CloudFormation rolls back, the SageMaker Unified Studio domain may not be deleted automatically due to orphaned projects. Manual cleanup via the AWS CLI is required.
+- **Domain deletion**: CloudFormation cannot delete a SageMaker Unified Studio domain that still has active projects. Projects created through the Unified Studio UI (outside of CDK) must be manually deleted before running `cdk destroy`. Delete projects in reverse dependency order, leaving the `admin-project` for last:
+
+```bash
+# 1. List projects on the domain
+aws datazone list-projects --domain-identifier <domain-id> \
+  --query "items[].{id:id,name:name,status:projectStatus}" --output table
+
+# 2. Delete each non-admin project
+aws datazone delete-project --domain-identifier <domain-id> \
+  --identifier <project-id> --skip-deletion-check
+
+# 3. Delete the admin project last
+aws datazone delete-project --domain-identifier <domain-id> \
+  --identifier <admin-project-id> --skip-deletion-check
+
+# 4. Now cdk destroy will succeed, or delete the domain manually:
+aws datazone delete-domain --identifier <domain-id> --skip-deletion-check
+```
+
+  If a project is stuck in `DELETE_FAILED`, check its environments for the failure reason (`aws datazone get-environment --domain-identifier <domain-id> --identifier <env-id> --query "lastDeployment.failureReason"`). Common causes include missing IAM permissions on the provisioning role (e.g. `s3:DeleteBucketPolicy`). Resolve the permission issue, then retry the delete.
 
 ## Contributing
 
