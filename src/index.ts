@@ -69,5 +69,9 @@ export {
   DataCatalogTableProps,
   IDataCatalogTable,
   DataFormat,
+  TableType,
+  ColumnType,
   Column,
 } from './constructs/data-catalog-table/data-catalog-table.interface';
+export { DqdlRuleset } from './constructs/dqdl-ruleset/dqdl-ruleset.construct';
+export { DqdlRulesetProps } from './constructs/dqdl-ruleset/dqdl-ruleset.interface';

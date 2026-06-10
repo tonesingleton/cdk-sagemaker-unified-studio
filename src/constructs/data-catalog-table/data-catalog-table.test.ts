@@ -1,7 +1,7 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template, Match } from 'aws-cdk-lib/assertions';
 import { DataCatalogTable } from './data-catalog-table.construct';
-import { DataFormat } from './data-catalog-table.interface';
+import { DataFormat, TableType } from './data-catalog-table.interface';
 
 function createStack(): Stack {
   return new Stack(new App(), 'TestStack', { env: { account: '123456789012', region: 'eu-central-1' } });
@@ -174,29 +174,52 @@ describe('DataCatalogTable', () => {
     });
   });
 
-  test('registers with Lake Formation when enabled', () => {
+  test('creates a governed table when specified', () => {
     const stack = createStack();
     new DataCatalogTable(stack, 'Table', {
       tableName: 'dos',
       databaseName: 'db',
       location: 's3://my-bucket/data/dos',
       columns: [{ name: 'id', type: 'string' }],
-      registeredWithLakeFormation: true,
+      tableType: TableType.GOVERNED,
     });
-    Template.fromStack(stack).hasResourceProperties('AWS::LakeFormation::Resource', {
-      ResourceArn: 'arn:aws:s3:::my-bucket/data/dos',
-      UseServiceLinkedRole: true,
+    Template.fromStack(stack).hasResourceProperties('AWS::Glue::Table', {
+      TableInput: Match.objectLike({
+        TableType: 'GOVERNED',
+        Parameters: Match.not(Match.objectLike({ EXTERNAL: 'TRUE' })),
+      }),
     });
   });
 
-  test('does not register with Lake Formation by default', () => {
+  test('does not set EXTERNAL parameter for governed tables', () => {
     const stack = createStack();
     new DataCatalogTable(stack, 'Table', {
       tableName: 'dos',
       databaseName: 'db',
       location: 's3://my-bucket/data/dos',
       columns: [{ name: 'id', type: 'string' }],
+      tableType: TableType.GOVERNED,
     });
-    Template.fromStack(stack).resourceCountIs('AWS::LakeFormation::Resource', 0);
+    Template.fromStack(stack).hasResourceProperties('AWS::Glue::Table', {
+      TableInput: Match.objectLike({
+        Parameters: Match.objectLike({ classification: 'parquet' }),
+      }),
+    });
+  });
+
+  test('addDqdlRuleset creates a ruleset targeting the table', () => {
+    const stack = createStack();
+    const table = new DataCatalogTable(stack, 'Table', {
+      tableName: 'dos',
+      databaseName: 'guidewire',
+      location: 's3://my-bucket/data/dos',
+      columns: [{ name: 'id', type: 'string' }],
+    });
+    table.addDqdlRuleset('Quality', 'dos-quality', 'Rules = [ Completeness "id" = 1.0 ]');
+    Template.fromStack(stack).hasResourceProperties('AWS::Glue::DataQualityRuleset', {
+      Name: 'dos-quality',
+      Ruleset: 'Rules = [ Completeness "id" = 1.0 ]',
+      TargetTable: { DatabaseName: 'guidewire', TableName: 'dos' },
+    });
   });
 });

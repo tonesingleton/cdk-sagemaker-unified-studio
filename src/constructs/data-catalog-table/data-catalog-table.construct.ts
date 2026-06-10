@@ -1,7 +1,8 @@
-import { Stack, aws_glue as glue, aws_lakeformation as lakeformation } from 'aws-cdk-lib';
+import { Stack, aws_glue as glue } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { DataCatalogTableProps, IDataCatalogTable } from './data-catalog-table.interface';
-import { DataFormat } from './data-catalog-table.interface';
+import { DataFormat, TableType } from './data-catalog-table.interface';
+import { DqdlRuleset } from '../dqdl-ruleset/dqdl-ruleset.construct';
 
 const FORMAT_CONFIG: Record<DataFormat, { inputFormat: string; outputFormat: string; serializationLibrary: string }> = {
   [DataFormat.PARQUET]: {
@@ -27,7 +28,7 @@ const FORMAT_CONFIG: Record<DataFormat, { inputFormat: string; outputFormat: str
 };
 
 /**
- * A Glue Data Catalog table with configurable schema, format, and Lake Formation registration.
+ * A Glue Data Catalog table with configurable schema, format, and governance mode.
  *
  * @see https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-catalog-tables.html
  */
@@ -43,16 +44,18 @@ export class DataCatalogTable extends Construct implements IDataCatalogTable {
 
     const format = props.dataFormat ?? DataFormat.PARQUET;
     const config = FORMAT_CONFIG[format];
+    const tableType = props.tableType ?? TableType.EXTERNAL;
+    const isExternal = tableType === TableType.EXTERNAL;
 
-    const table = new glue.CfnTable(this, 'Resource', {
+    new glue.CfnTable(this, 'Resource', {
       catalogId: Stack.of(this).account,
       databaseName: props.databaseName,
       tableInput: {
         name: props.tableName,
         description: props.description,
-        tableType: 'EXTERNAL_TABLE',
+        tableType: tableType,
         parameters: {
-          EXTERNAL: 'TRUE',
+          ...(isExternal ? { EXTERNAL: 'TRUE' } : {}),
           classification: format.toLowerCase(),
           ...props.parameters,
         },
@@ -60,12 +63,14 @@ export class DataCatalogTable extends Construct implements IDataCatalogTable {
           name: col.name,
           type: col.type,
           comment: col.comment,
+          parameters: col.parameters,
         })),
         storageDescriptor: {
           columns: props.columns.map((col) => ({
             name: col.name,
             type: col.type,
             comment: col.comment,
+            parameters: col.parameters,
           })),
           location: props.location,
           inputFormat: config.inputFormat,
@@ -77,13 +82,25 @@ export class DataCatalogTable extends Construct implements IDataCatalogTable {
         },
       },
     });
+  }
 
-    if (props.registeredWithLakeFormation) {
-      const resource = new lakeformation.CfnResource(this, 'LakeFormationResource', {
-        resourceArn: `arn:aws:s3:::${props.location.replace('s3://', '')}`,
-        useServiceLinkedRole: true,
-      });
-      resource.addDependency(table);
-    }
+  /**
+   * Attaches a DQDL ruleset to this table.
+   *
+   * @param id Construct ID for the ruleset.
+   * @param name Unique name for the ruleset.
+   * @param ruleset The DQDL rules string (e.g. 'Rules = [ Completeness "col" = 1.0 ]').
+   * @param description Optional description.
+   */
+  public addDqdlRuleset(id: string, name: string, ruleset: string, description?: string): DqdlRuleset {
+    const dqdl = new DqdlRuleset(this, id, {
+      name,
+      ruleset,
+      databaseName: this.databaseName,
+      tableName: this.tableName,
+      description,
+    });
+    dqdl.node.addDependency(this);
+    return dqdl;
   }
 }
