@@ -62,7 +62,7 @@ describe('ProjectDatabase', () => {
       Resource: {
         Database: {
           CatalogId: '123456789012',
-          DatabaseName: 'my_database',
+          Name: 'my_database',
         },
       },
       Permissions: Match.arrayWith(['ALL', 'CREATE_TABLE']),
