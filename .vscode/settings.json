@@ -1,6 +1,7 @@
 {
   "jest.jestCommandLine": "npx jest",
   "jest.runMode": "on-demand",
+  "editor.formatOnSave": true,
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
