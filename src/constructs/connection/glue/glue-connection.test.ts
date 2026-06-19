@@ -1,6 +1,7 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import { GlueConnection } from './glue-connection.construct';
+import { GlueAuthenticationType, GlueComputeEnvironment, GlueConnectionType } from './glue-connection.interface';
 
 describe('GlueConnection', () => {
   let stack: Stack;
@@ -13,38 +14,31 @@ describe('GlueConnection', () => {
     name: 'glue_conn_snowflake',
     domainIdentifier: 'dzd-test',
     projectIdentifier: 'proj-test',
-    props: {
-      glueProperties: {
-        glueConnectionInput: {
-          name: 'glue_conn_snowflake',
-          connectionType: 'SNOWFLAKE',
-          connectionProperties: {
-            DATABASE: 'my_db',
-            HOST: 'account.snowflakecomputing.com',
-            PORT: '443',
-            ROLE_ARN: 'arn:aws:iam::123456789012:role/MyRole',
-            WAREHOUSE: 'my_warehouse',
-          },
-          physicalConnectionRequirements: {
-            subnetId: 'subnet-abc123',
-            securityGroupIdList: ['sg-abc123', 'sg-def456'],
-            availabilityZone: 'eu-central-1a',
-          },
-          authenticationConfiguration: {
-            authenticationType: 'BASIC',
-            basicAuthenticationCredentials: {
-              userName: 'snowflake_user',
-              password: 'snowflake_pwd',
-            },
-          },
-          validateCredentials: true,
-          validateForComputeEnvironments: ['SPARK', 'ATHENA'],
-          athenaProperties: {
-            spill_bucket: 'my-spill-bucket',
-            spill_prefix: 'spill/',
-          },
-        },
+    connectionType: GlueConnectionType.SNOWFLAKE,
+    connectionProperties: {
+      DATABASE: 'my_db',
+      HOST: 'account.snowflakecomputing.com',
+      PORT: '443',
+      ROLE_ARN: 'arn:aws:iam::123456789012:role/MyRole',
+      WAREHOUSE: 'my_warehouse',
+    },
+    physicalConnectionRequirements: {
+      subnetId: 'subnet-abc123',
+      securityGroupIdList: ['sg-abc123', 'sg-def456'],
+      availabilityZone: 'eu-central-1a',
+    },
+    authenticationConfiguration: {
+      authenticationType: GlueAuthenticationType.BASIC,
+      basicAuthenticationCredentials: {
+        userName: 'snowflake_user',
+        password: 'snowflake_pwd',
       },
+    },
+    validateCredentials: true,
+    validateForComputeEnvironments: [GlueComputeEnvironment.SPARK, GlueComputeEnvironment.ATHENA],
+    athenaProperties: {
+      spill_bucket: 'my-spill-bucket',
+      spill_prefix: 'spill/',
     },
   };
 
@@ -96,14 +90,7 @@ describe('GlueConnection', () => {
       name: 'glue_conn_network',
       domainIdentifier: 'dzd-test',
       projectIdentifier: 'proj-test',
-      props: {
-        glueProperties: {
-          glueConnectionInput: {
-            name: 'glue_conn_network',
-            connectionType: 'NETWORK',
-          },
-        },
-      },
+      connectionType: GlueConnectionType.NETWORK,
     });
 
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
@@ -112,6 +99,7 @@ describe('GlueConnection', () => {
           GlueConnectionInput: Match.objectLike({
             Name: 'glue_conn_network',
             ConnectionType: 'NETWORK',
+            ValidateCredentials: false,
           }),
         },
       },

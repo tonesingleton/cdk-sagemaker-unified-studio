@@ -9,6 +9,18 @@ import type { HyperPodConnectionProps } from './hyperpod-connection.interface';
  */
 export class HyperPodConnection extends datazone.CfnConnection {
   constructor(scope: Construct, id: string, props: HyperPodConnectionProps) {
-    super(scope, id, props);
+    super(scope, id, {
+      domainIdentifier: props.domainIdentifier,
+      projectIdentifier: props.projectIdentifier,
+      environmentIdentifier: props.environmentIdentifier,
+      name: props.name,
+      description: props.description,
+      awsLocation: props.awsLocation,
+      props: {
+        hyperPodProperties: {
+          clusterName: props.clusterName,
+        },
+      },
+    });
   }
 }

@@ -13,22 +13,15 @@ describe('RedshiftConnection', () => {
     name: 'RedshiftConnection',
     domainIdentifier: 'dzd-test',
     projectIdentifier: 'proj-test',
-    props: {
-      redshiftProperties: {
-        credentials: {
-          usernamePassword: {
-            username: 'admin',
-            password: 'secret123',
-          },
-        },
-        databaseName: 'analytics',
-        host: 'cluster.abc123.eu-central-1.redshift.amazonaws.com',
-        port: 5439,
-        storage: {
-          clusterName: 'my-cluster',
-        },
+    credentials: {
+      usernamePassword: {
+        username: 'admin',
+        password: 'secret123',
       },
     },
+    databaseName: 'analytics',
+    host: 'cluster.abc123.eu-central-1.redshift.amazonaws.com',
+    storage: { clusterName: 'my-cluster' },
   };
 
   it('creates a Redshift connection with username/password credentials', () => {
@@ -60,12 +53,7 @@ describe('RedshiftConnection', () => {
   it('creates a Redshift connection with secretArn credentials', () => {
     new RedshiftConnection(stack, 'Conn', {
       ...defaultProps,
-      props: {
-        redshiftProperties: {
-          ...defaultProps.props.redshiftProperties,
-          credentials: { secretArn: 'arn:aws:secretsmanager:eu-central-1:123456789012:secret:my-secret' },
-        },
-      },
+      credentials: { secretArn: 'arn:aws:secretsmanager:eu-central-1:123456789012:secret:my-secret' },
     });
 
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {

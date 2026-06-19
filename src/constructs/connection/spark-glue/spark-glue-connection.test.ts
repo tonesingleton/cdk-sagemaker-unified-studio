@@ -13,17 +13,9 @@ describe('SparkGlueConnection', () => {
     name: 'SparkGlueConnection',
     domainIdentifier: 'dzd-test',
     projectIdentifier: 'proj-test',
-    props: {
-      sparkGlueProperties: {
-        workerType: 'G.1X',
-        glueVersion: '4.0',
-        idleTimeout: 60,
-        numberOfWorkers: 10,
-      },
-    },
   };
 
-  it('creates a Spark Glue connection with all properties', () => {
+  it('creates a Spark Glue connection with defaults', () => {
     new SparkGlueConnection(stack, 'Conn', defaultProps);
 
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
@@ -36,6 +28,27 @@ describe('SparkGlueConnection', () => {
           GlueVersion: '4.0',
           IdleTimeout: 60,
           NumberOfWorkers: 10,
+        },
+      },
+    });
+  });
+
+  it('creates a Spark Glue connection with custom values', () => {
+    new SparkGlueConnection(stack, 'Conn', {
+      ...defaultProps,
+      workerType: 'G.2X',
+      glueVersion: '5.0',
+      idleTimeout: 120,
+      numberOfWorkers: 20,
+    });
+
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
+      Props: {
+        SparkGlueProperties: {
+          WorkerType: 'G.2X',
+          GlueVersion: '5.0',
+          IdleTimeout: 120,
+          NumberOfWorkers: 20,
         },
       },
     });

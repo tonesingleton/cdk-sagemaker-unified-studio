@@ -1,3 +1,4 @@
+export { ConnectionProps, AwsLocation, ConnectionScope } from './connection.interface';
 export * from './s3';
 export * from './redshift';
 export * from './athena';

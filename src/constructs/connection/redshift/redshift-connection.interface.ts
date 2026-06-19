@@ -1,29 +1,68 @@
-import type { aws_datazone } from 'aws-cdk-lib';
+import type { ConnectionProps } from '../connection.interface';
 
 /**
- * Properties for the Redshift connection resource configuration.
+ * Redshift username and password credentials.
  */
-export interface RedshiftConnectionResourceProps {
-  /** The Redshift connection properties. */
-  readonly redshiftProperties: aws_datazone.CfnConnection.RedshiftPropertiesInputProperty;
+export interface RedshiftUsernamePassword {
+  /** The username for the Redshift database. */
+  readonly username: string;
+  /** The password for the Redshift database. */
+  readonly password: string;
+}
+
+/**
+ * Redshift storage configuration.
+ */
+export interface RedshiftStorage {
+  /**
+   * The Redshift cluster name.
+   *
+   * @default - no cluster
+   */
+  readonly clusterName?: string;
+  /**
+   * The Redshift Serverless workgroup name.
+   *
+   * @default - no workgroup
+   */
+  readonly workgroupName?: string;
+}
+
+/**
+ * Redshift credentials configuration.
+ */
+export interface RedshiftCredentials {
+  /**
+   * Username and password credentials.
+   *
+   * @default - no username/password
+   */
+  readonly usernamePassword?: RedshiftUsernamePassword;
+  /**
+   * The ARN of the Secrets Manager secret containing credentials.
+   *
+   * @pattern ^arn:aws(-(cn|us-gov|iso(-[bef])?))?:secretsmanager:.*$
+   * @default - no secret
+   */
+  readonly secretArn?: string;
 }
 
 /**
  * Properties for a RedshiftConnection construct.
  */
-export interface RedshiftConnectionProps {
-  /** Display name of the connection. */
-  readonly name: string;
-  /** The SageMaker Unified Studio domain ID. */
-  readonly domainIdentifier: string;
-  /** The project ID that owns this connection. */
-  readonly projectIdentifier: string;
+export interface RedshiftConnectionProps extends ConnectionProps {
+  /** The credentials for the Redshift database. */
+  readonly credentials: RedshiftCredentials;
+  /** The Redshift database name. */
+  readonly databaseName: string;
+  /** The hostname of the Redshift cluster or serverless endpoint. */
+  readonly host: string;
   /**
-   * Human-readable description of the connection.
+   * The port of the Redshift cluster.
    *
-   * @default - no description
+   * @default 5439
    */
-  readonly description?: string;
-  /** The Redshift connection resource properties. */
-  readonly props: RedshiftConnectionResourceProps;
+  readonly port?: number;
+  /** The storage configuration (cluster or serverless). */
+  readonly storage: RedshiftStorage;
 }

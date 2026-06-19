@@ -13,11 +13,7 @@ describe('SparkEmrConnection', () => {
     name: 'SparkEmrConnection',
     domainIdentifier: 'dzd-test',
     projectIdentifier: 'proj-test',
-    props: {
-      sparkEmrProperties: {
-        computeArn: 'arn:aws:emr-serverless:eu-central-1:123456789012:/applications/app-id',
-      },
-    },
+    computeArn: 'arn:aws:emr-serverless:eu-central-1:123456789012:/applications/app-id',
   };
 
   it('creates a Spark EMR connection', () => {

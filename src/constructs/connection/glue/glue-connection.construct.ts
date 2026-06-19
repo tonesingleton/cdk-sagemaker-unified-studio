@@ -12,6 +12,28 @@ import type { GlueConnectionProps } from './glue-connection.interface';
  */
 export class GlueConnection extends datazone.CfnConnection {
   constructor(scope: Construct, id: string, props: GlueConnectionProps) {
-    super(scope, id, props);
+    super(scope, id, {
+      domainIdentifier: props.domainIdentifier,
+      projectIdentifier: props.projectIdentifier,
+      name: props.name,
+      description: props.description,
+      props: {
+        glueProperties: {
+          glueConnectionInput: {
+            name: props.name,
+            connectionType: props.connectionType,
+            connectionProperties: props.connectionProperties,
+            physicalConnectionRequirements: props.physicalConnectionRequirements,
+            authenticationConfiguration: props.authenticationConfiguration,
+            validateCredentials: props.validateCredentials ?? false,
+            validateForComputeEnvironments: props.validateForComputeEnvironments,
+            athenaProperties: props.athenaProperties,
+            sparkProperties: props.sparkProperties,
+            pythonProperties: props.pythonProperties,
+            matchCriteria: props.matchCriteria,
+          },
+        },
+      },
+    });
   }
 }

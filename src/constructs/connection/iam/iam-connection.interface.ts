@@ -1,31 +1,13 @@
-import type { aws_datazone } from 'aws-cdk-lib';
-
-/**
- * Properties for the IAM connection resource configuration.
- */
-export interface IamConnectionResourceProps {
-  /** The IAM connection properties. */
-  readonly iamProperties: aws_datazone.CfnConnection.IamPropertiesInputProperty;
-}
+import type { ConnectionProps } from '../connection.interface';
 
 /**
  * Properties for an IamConnection construct.
  */
-export interface IamConnectionProps {
-  /** Display name of the connection. */
-  readonly name: string;
-  /** The SageMaker Unified Studio domain ID. */
-  readonly domainIdentifier: string;
-  /** The project ID that owns this connection. */
-  readonly projectIdentifier: string;
+export interface IamConnectionProps extends ConnectionProps {
   /**
-   * Human-readable description of the connection.
+   * Whether Glue lineage sync is enabled for this connection.
    *
-   * @default - no description
+   * @default false
    */
-  readonly description?: string;
-  /** The AWS location configuration (access role, account, region). */
-  readonly awsLocation?: aws_datazone.CfnConnection.AwsLocationProperty;
-  /** The IAM connection resource properties. */
-  readonly props: IamConnectionResourceProps;
+  readonly glueLineageSyncEnabled?: boolean;
 }

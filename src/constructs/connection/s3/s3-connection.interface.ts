@@ -1,29 +1,26 @@
-import type { aws_datazone } from 'aws-cdk-lib';
-
-/**
- * Properties for the S3 connection resource configuration.
- */
-export interface S3ConnectionResourceProps {
-  /** The S3 connection properties. */
-  readonly s3Properties: aws_datazone.CfnConnection.S3PropertiesInputProperty;
-}
+import type { ConnectionProps } from '../connection.interface';
 
 /**
  * Properties for an S3Connection construct.
  */
-export interface S3ConnectionProps {
-  /** Display name of the connection. */
-  readonly name: string;
-  /** The SageMaker Unified Studio domain ID. */
-  readonly domainIdentifier: string;
-  /** The project ID that owns this connection. */
-  readonly projectIdentifier: string;
+export interface S3ConnectionProps extends ConnectionProps {
   /**
-   * Human-readable description of the connection.
+   * The S3 URI to connect to.
    *
-   * @default - no description
+   * @pattern s3://.+
    */
-  readonly description?: string;
-  /** The S3 connection resource properties. */
-  readonly props: S3ConnectionResourceProps;
+  readonly s3Uri: string;
+  /**
+   * Whether to register the S3 Access Grant location.
+   *
+   * @default - no registration
+   */
+  readonly registerS3AccessGrantLocation?: boolean;
+  /**
+   * The S3 Access Grant location ID.
+   *
+   * @pattern [a-zA-Z0-9\-]+
+   * @default - no access grant location
+   */
+  readonly s3AccessGrantLocationId?: string;
 }

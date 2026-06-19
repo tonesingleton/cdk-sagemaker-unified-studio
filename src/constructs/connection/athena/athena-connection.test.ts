@@ -13,11 +13,7 @@ describe('AthenaConnection', () => {
     name: 'AthenaConnection',
     domainIdentifier: 'dzd-test',
     projectIdentifier: 'proj-test',
-    props: {
-      athenaProperties: {
-        workgroupName: 'my-workgroup',
-      },
-    },
+    workgroupName: 'my-workgroup',
   };
 
   it('creates an Athena connection', () => {

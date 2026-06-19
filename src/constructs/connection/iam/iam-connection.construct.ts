@@ -9,6 +9,18 @@ import type { IamConnectionProps } from './iam-connection.interface';
  */
 export class IamConnection extends datazone.CfnConnection {
   constructor(scope: Construct, id: string, props: IamConnectionProps) {
-    super(scope, id, props);
+    super(scope, id, {
+      domainIdentifier: props.domainIdentifier,
+      projectIdentifier: props.projectIdentifier,
+      environmentIdentifier: props.environmentIdentifier,
+      name: props.name,
+      description: props.description,
+      awsLocation: props.awsLocation,
+      props: {
+        iamProperties: {
+          glueLineageSyncEnabled: props.glueLineageSyncEnabled ?? false,
+        },
+      },
+    });
   }
 }

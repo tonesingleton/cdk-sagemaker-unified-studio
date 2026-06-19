@@ -1,31 +1,13 @@
-import type { aws_datazone } from 'aws-cdk-lib';
-
-/**
- * Properties for the HyperPod connection resource configuration.
- */
-export interface HyperPodConnectionResourceProps {
-  /** The HyperPod connection properties. */
-  readonly hyperPodProperties: aws_datazone.CfnConnection.HyperPodPropertiesInputProperty;
-}
+import type { ConnectionProps } from '../connection.interface';
 
 /**
  * Properties for a HyperPodConnection construct.
  */
-export interface HyperPodConnectionProps {
-  /** Display name of the connection. */
-  readonly name: string;
-  /** The SageMaker Unified Studio domain ID. */
-  readonly domainIdentifier: string;
-  /** The project ID that owns this connection. */
-  readonly projectIdentifier: string;
+export interface HyperPodConnectionProps extends ConnectionProps {
   /**
-   * Human-readable description of the connection.
+   * The HyperPod cluster name.
    *
-   * @default - no description
+   * @pattern ^[a-zA-Z0-9](-*[a-zA-Z0-9])*$
    */
-  readonly description?: string;
-  /** The AWS location configuration (access role, account, region). */
-  readonly awsLocation?: aws_datazone.CfnConnection.AwsLocationProperty;
-  /** The HyperPod connection resource properties. */
-  readonly props: HyperPodConnectionResourceProps;
+  readonly clusterName: string;
 }

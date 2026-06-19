@@ -16,14 +16,9 @@ describe('IamConnection', () => {
     awsLocation: {
       accessRole: 'arn:aws:iam::123456789012:role/AccessRole',
     },
-    props: {
-      iamProperties: {
-        glueLineageSyncEnabled: true,
-      },
-    },
   };
 
-  it('creates an IAM connection', () => {
+  it('creates an IAM connection with lineage sync disabled by default', () => {
     new IamConnection(stack, 'Conn', defaultProps);
 
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
@@ -35,22 +30,19 @@ describe('IamConnection', () => {
       },
       Props: {
         IamProperties: {
-          GlueLineageSyncEnabled: true,
+          GlueLineageSyncEnabled: false,
         },
       },
     });
   });
 
-  it('creates an IAM connection with lineage sync disabled', () => {
-    new IamConnection(stack, 'Conn', {
-      ...defaultProps,
-      props: { iamProperties: { glueLineageSyncEnabled: false } },
-    });
+  it('enables Glue lineage sync when specified', () => {
+    new IamConnection(stack, 'Conn', { ...defaultProps, glueLineageSyncEnabled: true });
 
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
       Props: {
         IamProperties: {
-          GlueLineageSyncEnabled: false,
+          GlueLineageSyncEnabled: true,
         },
       },
     });

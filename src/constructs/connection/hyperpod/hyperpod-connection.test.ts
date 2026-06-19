@@ -18,11 +18,7 @@ describe('HyperPodConnection', () => {
       awsAccountId: '123456789012',
       awsRegion: 'eu-central-1',
     },
-    props: {
-      hyperPodProperties: {
-        clusterName: 'my-hyperpod-cluster',
-      },
-    },
+    clusterName: 'my-hyperpod-cluster',
   };
 
   it('creates a HyperPod connection', () => {

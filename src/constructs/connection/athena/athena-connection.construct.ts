@@ -9,6 +9,16 @@ import type { AthenaConnectionProps } from './athena-connection.interface';
  */
 export class AthenaConnection extends datazone.CfnConnection {
   constructor(scope: Construct, id: string, props: AthenaConnectionProps) {
-    super(scope, id, props);
+    super(scope, id, {
+      domainIdentifier: props.domainIdentifier,
+      projectIdentifier: props.projectIdentifier,
+      name: props.name,
+      description: props.description,
+      props: {
+        athenaProperties: {
+          workgroupName: props.workgroupName,
+        },
+      },
+    });
   }
 }

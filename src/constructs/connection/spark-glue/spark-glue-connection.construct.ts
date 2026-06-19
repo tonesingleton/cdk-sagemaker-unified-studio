@@ -9,6 +9,19 @@ import type { SparkGlueConnectionProps } from './spark-glue-connection.interface
  */
 export class SparkGlueConnection extends datazone.CfnConnection {
   constructor(scope: Construct, id: string, props: SparkGlueConnectionProps) {
-    super(scope, id, props);
+    super(scope, id, {
+      domainIdentifier: props.domainIdentifier,
+      projectIdentifier: props.projectIdentifier,
+      name: props.name,
+      description: props.description,
+      props: {
+        sparkGlueProperties: {
+          workerType: props.workerType ?? 'G.1X',
+          glueVersion: props.glueVersion ?? '4.0',
+          idleTimeout: props.idleTimeout ?? 60,
+          numberOfWorkers: props.numberOfWorkers ?? 10,
+        },
+      },
+    });
   }
 }

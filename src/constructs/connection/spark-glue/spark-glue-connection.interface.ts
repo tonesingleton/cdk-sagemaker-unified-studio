@@ -1,29 +1,31 @@
-import type { aws_datazone } from 'aws-cdk-lib';
-
-/**
- * Properties for the Spark Glue connection resource configuration.
- */
-export interface SparkGlueConnectionResourceProps {
-  /** The Spark Glue connection properties. */
-  readonly sparkGlueProperties: aws_datazone.CfnConnection.SparkGluePropertiesInputProperty;
-}
+import type { ConnectionProps } from '../connection.interface';
 
 /**
  * Properties for a SparkGlueConnection construct.
  */
-export interface SparkGlueConnectionProps {
-  /** Display name of the connection. */
-  readonly name: string;
-  /** The SageMaker Unified Studio domain ID. */
-  readonly domainIdentifier: string;
-  /** The project ID that owns this connection. */
-  readonly projectIdentifier: string;
+export interface SparkGlueConnectionProps extends ConnectionProps {
   /**
-   * Human-readable description of the connection.
+   * The Glue worker type (e.g. 'G.1X', 'G.2X').
    *
-   * @default - no description
+   * @default 'G.1X'
    */
-  readonly description?: string;
-  /** The Spark Glue connection resource properties. */
-  readonly props: SparkGlueConnectionResourceProps;
+  readonly workerType?: string;
+  /**
+   * The Glue version (e.g. '4.0').
+   *
+   * @default '4.0'
+   */
+  readonly glueVersion?: string;
+  /**
+   * The idle timeout in minutes before the session is terminated.
+   *
+   * @default 60
+   */
+  readonly idleTimeout?: number;
+  /**
+   * The number of workers allocated to the Glue session.
+   *
+   * @default 10
+   */
+  readonly numberOfWorkers?: number;
 }

@@ -9,6 +9,18 @@ import type { S3ConnectionProps } from './s3-connection.interface';
  */
 export class S3Connection extends datazone.CfnConnection {
   constructor(scope: Construct, id: string, props: S3ConnectionProps) {
-    super(scope, id, props);
+    super(scope, id, {
+      domainIdentifier: props.domainIdentifier,
+      projectIdentifier: props.projectIdentifier,
+      name: props.name,
+      description: props.description,
+      props: {
+        s3Properties: {
+          s3Uri: props.s3Uri,
+          registerS3AccessGrantLocation: props.registerS3AccessGrantLocation,
+          s3AccessGrantLocationId: props.s3AccessGrantLocationId,
+        },
+      },
+    });
   }
 }

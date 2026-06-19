@@ -9,6 +9,20 @@ import type { RedshiftConnectionProps } from './redshift-connection.interface';
  */
 export class RedshiftConnection extends datazone.CfnConnection {
   constructor(scope: Construct, id: string, props: RedshiftConnectionProps) {
-    super(scope, id, props);
+    super(scope, id, {
+      domainIdentifier: props.domainIdentifier,
+      projectIdentifier: props.projectIdentifier,
+      name: props.name,
+      description: props.description,
+      props: {
+        redshiftProperties: {
+          credentials: props.credentials,
+          databaseName: props.databaseName,
+          host: props.host,
+          port: props.port ?? 5439,
+          storage: props.storage,
+        },
+      },
+    });
   }
 }

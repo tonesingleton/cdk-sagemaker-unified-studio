@@ -13,11 +13,7 @@ describe('S3Connection', () => {
     name: 'S3Connection',
     domainIdentifier: 'dzd-test',
     projectIdentifier: 'proj-test',
-    props: {
-      s3Properties: {
-        s3Uri: 's3://my-bucket/prefix/',
-      },
-    },
+    s3Uri: 's3://my-bucket/prefix/',
   };
 
   it('creates an S3 connection', () => {
