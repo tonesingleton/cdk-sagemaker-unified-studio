@@ -1,6 +1,4 @@
-import { Stack, aws_iam as iam } from 'aws-cdk-lib';
-import type { NagPackSuppression } from 'cdk-nag';
-import { NagSuppressions } from 'cdk-nag';
+import { Stack, Validations, aws_iam as iam } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { AccountRolesProps, IAccountRoles } from './account-roles.interface';
 import { LakeFormationAdminSync } from './constructs';
@@ -71,16 +69,11 @@ export class AccountRoles extends Construct implements IAccountRoles {
       }),
     );
 
-    NagSuppressions.addResourceSuppressions(queryExecutionRole, [
-      {
-        id: 'AwsSolutions-IAM4',
-        reason:
-          'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonSageMakerQueryExecution.html',
-        appliesTo: [
-          'Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/SageMakerStudioQueryExecutionRolePolicy',
-        ],
-      } satisfies NagPackSuppression,
-    ]);
+    Validations.of(queryExecutionRole).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason:
+        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonSageMakerQueryExecution.html',
+    });
 
     // Provisioning Role
     const provisioningRole = new iam.Role(this, 'ProvisioningRole', {
@@ -97,23 +90,18 @@ export class AccountRoles extends Construct implements IAccountRoles {
       ],
     });
 
-    NagSuppressions.addResourceSuppressions(provisioningRole, [
-      {
-        id: 'AwsSolutions-IAM4',
-        reason:
-          'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonSageMakerProvisioning.html',
-        appliesTo: [
-          'Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/SageMakerStudioProjectProvisioningRolePolicy',
-        ],
-      } satisfies NagPackSuppression,
-      {
-        id: 'AwsSolutions-IAM5',
-        reason:
-          'The ToolingLite blueprint creates S3 buckets named amazon-sagemaker-<account>-<region>-<projectId>. ' +
-          'The provisioning role needs bucket policy management on these buckets for environment cleanup.',
-        appliesTo: [`Resource::arn:aws:s3:::amazon-sagemaker-<AWS::AccountId>-${Stack.of(this).region}-*`],
-      } satisfies NagPackSuppression,
-    ]);
+    Validations.of(provisioningRole).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason:
+        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonSageMakerProvisioning.html',
+    });
+
+    Validations.of(provisioningRole).acknowledge({
+      id: 'AwsSolutions-IAM5',
+      reason:
+        'The ToolingLite blueprint creates S3 buckets named amazon-sagemaker-<account>-<region>-<projectId>. ' +
+        'The provisioning role needs bucket policy management on these buckets for environment cleanup.',
+    });
 
     provisioningRole.addToPolicy(
       new iam.PolicyStatement({
@@ -172,14 +160,11 @@ export class AccountRoles extends Construct implements IAccountRoles {
       }),
     );
 
-    NagSuppressions.addResourceSuppressions(executionRole, [
-      {
-        id: 'AwsSolutions-IAM4',
-        reason:
-          'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/setup-iam-based-domains.html',
-        appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/SageMakerStudioAdminIAMPermissiveExecutionPolicy'],
-      } satisfies NagPackSuppression,
-    ]);
+    Validations.of(executionRole).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason:
+        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/setup-iam-based-domains.html',
+    });
 
     // Bedrock Model Management Role
     const bedrockModelManagementRole = new iam.Role(this, 'BedrockModelManagementRole', {
@@ -203,16 +188,11 @@ export class AccountRoles extends Construct implements IAccountRoles {
       }),
     );
 
-    NagSuppressions.addResourceSuppressions(bedrockModelManagementRole, [
-      {
-        id: 'AwsSolutions-IAM4',
-        reason:
-          'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonDataZoneBedrockModelManagementRole.html',
-        appliesTo: [
-          'Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AmazonDataZoneBedrockModelManagementPolicy',
-        ],
-      } satisfies NagPackSuppression,
-    ]);
+    Validations.of(bedrockModelManagementRole).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason:
+        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonDataZoneBedrockModelManagementRole.html',
+    });
 
     // Bedrock FM Consumption Role
     const bedrockFmConsumptionRole = new iam.Role(this, 'BedrockFmConsumptionRole', {
@@ -226,16 +206,11 @@ export class AccountRoles extends Construct implements IAccountRoles {
       ],
     });
 
-    NagSuppressions.addResourceSuppressions(bedrockFmConsumptionRole, [
-      {
-        id: 'AwsSolutions-IAM4',
-        reason:
-          'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonDataZoneBedrockFMConsumptionRole.html',
-        appliesTo: [
-          'Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AmazonDataZoneBedrockModelConsumptionPolicy',
-        ],
-      } satisfies NagPackSuppression,
-    ]);
+    Validations.of(bedrockFmConsumptionRole).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason:
+        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonDataZoneBedrockFMConsumptionRole.html',
+    });
 
     this.queryExecutionRole = queryExecutionRole;
     this.provisioningRole = provisioningRole;

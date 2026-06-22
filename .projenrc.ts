@@ -9,7 +9,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   cdkVersion: '2.260.0',
   defaultReleaseBranch: 'main',
   description: 'L2 CDK constructs for AWS SageMaker Unified Studio',
-  jsiiVersion: '~6.0.1',
+  jsiiVersion: '~6.0.2',
   license: 'Apache-2.0',
   name: '@tonesingleton/cdk-sagemaker-unified-studio',
   packageManager: javascript.NodePackageManager.NPM,
@@ -42,13 +42,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // Disable sample code generation
   sampleCode: false,
-
-  // TypeScript: enforce type-only imports at the compiler level
-  tsconfigDev: {
-    compilerOptions: {
-      importsNotUsedAsValues: javascript.TypeScriptImportsNotUsedAsValues.ERROR,
-    },
-  },
 
   // Prettier
   prettier: true,
@@ -141,11 +134,6 @@ project.addTask('prepare', {
 
 new TextFile(project, '.husky/pre-commit', {
   lines: ['npx prettier --write src/ .projenrc.ts', 'npx projen eslint', 'git add -A'],
-});
-
-project.addTask('upgrade:interactive', {
-  description: 'Interactively upgrade dependencies',
-  exec: 'ncu -i',
 });
 
 project.synth();

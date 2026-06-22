@@ -1,6 +1,4 @@
-import { Stack, aws_iam as iam, aws_lambda as lambda_, custom_resources as cr } from 'aws-cdk-lib';
-import type { NagPackSuppression } from 'cdk-nag';
-import { NagSuppressions } from 'cdk-nag';
+import { Stack, Validations, aws_iam as iam, aws_lambda as lambda_, custom_resources as cr } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { HostProps, HostVpcConfiguration, IHost } from './host.interface';
 
@@ -91,21 +89,17 @@ export class Host extends Construct implements IHost {
       policy: cr.AwsCustomResourcePolicy.fromStatements(policyStatements),
     });
 
-    const nagAppliesTo = ['Resource::*', `Resource::arn:aws:codeconnections:${region}:${account}:host/*`];
+    Validations.of(host).acknowledge({
+      id: 'AwsSolutions-IAM5',
+      reason: props.vpcConfiguration
+        ? 'codeconnections:CreateHost and EC2 network interface actions require wildcard resource because the host ARN and ENI IDs are not known before creation.'
+        : 'codeconnections:CreateHost requires wildcard resource because the host ARN is not known before creation.',
+    });
 
-    NagSuppressions.addResourceSuppressions(
-      host,
-      [
-        {
-          id: 'AwsSolutions-IAM5',
-          reason: props.vpcConfiguration
-            ? 'codeconnections:CreateHost and EC2 network interface actions require wildcard resource because the host ARN and ENI IDs are not known before creation.'
-            : 'codeconnections:CreateHost requires wildcard resource because the host ARN is not known before creation.',
-          appliesTo: nagAppliesTo,
-        } satisfies NagPackSuppression,
-      ],
-      true,
-    );
+    Validations.of(host).acknowledge({
+      id: 'AwsSolutions-IAM5',
+      reason: 'Host ARN contains a generated ID that is not known at deploy time.',
+    });
 
     // AwsCustomResource creates a singleton Lambda at the stack level that is
     // shared across all AwsCustomResource instances. Suppressions must target
@@ -113,21 +107,14 @@ export class Host extends Construct implements IHost {
     const stack = Stack.of(this);
     for (const child of stack.node.children) {
       if (child instanceof lambda_.Function && child.node.id.startsWith('AWS')) {
-        NagSuppressions.addResourceSuppressions(
-          child,
-          [
-            {
-              id: 'AwsSolutions-L1',
-              reason: 'AwsCustomResource singleton Lambda runtime is managed by the CDK framework.',
-            } satisfies NagPackSuppression,
-            {
-              id: 'AwsSolutions-IAM4',
-              reason: 'AwsCustomResource singleton Lambda requires basic execution role for CloudWatch logging.',
-              appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'],
-            } satisfies NagPackSuppression,
-          ],
-          true,
-        );
+        Validations.of(child).acknowledge({
+          id: 'AwsSolutions-L1',
+          reason: 'AwsCustomResource singleton Lambda runtime is managed by the CDK framework.',
+        });
+        Validations.of(child).acknowledge({
+          id: 'AwsSolutions-IAM4',
+          reason: 'AwsCustomResource singleton Lambda requires basic execution role for CloudWatch logging.',
+        });
         break;
       }
     }

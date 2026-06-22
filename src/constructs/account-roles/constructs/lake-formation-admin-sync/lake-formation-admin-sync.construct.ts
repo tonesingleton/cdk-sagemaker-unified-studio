@@ -1,13 +1,11 @@
 import {
   CustomResource,
   Duration,
-  Stack,
+  Validations,
   aws_iam as iam,
   aws_lambda as lambda_,
   custom_resources as cr,
 } from 'aws-cdk-lib';
-import type { NagPackSuppression } from 'cdk-nag';
-import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { LF_ADMIN_HANDLER_CODE } from './lake-formation-admin-sync.handler';
 
@@ -35,48 +33,32 @@ export class LakeFormationAdminSync extends Construct {
       }),
     );
 
-    NagSuppressions.addResourceSuppressions(
-      handler,
-      [
-        {
-          id: 'AwsSolutions-IAM4',
-          reason: 'Lambda basic execution role is required for CloudWatch logging.',
-          appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'],
-        } satisfies NagPackSuppression,
-        {
-          id: 'AwsSolutions-IAM5',
-          reason: 'Lake Formation settings are account-level and do not support resource-level permissions.',
-          appliesTo: ['Resource::*'],
-        } satisfies NagPackSuppression,
-      ],
-      true,
-    );
+    Validations.of(handler).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason: 'Lambda basic execution role is required for CloudWatch logging.',
+    });
+
+    Validations.of(handler).acknowledge({
+      id: 'AwsSolutions-IAM5',
+      reason: 'Lake Formation settings are account-level and do not support resource-level permissions.',
+    });
 
     const provider = new cr.Provider(this, 'Provider', { onEventHandler: handler });
 
-    NagSuppressions.addResourceSuppressions(
-      provider,
-      [
-        {
-          id: 'AwsSolutions-IAM4',
-          reason: 'Provider framework Lambda requires basic execution role for CloudWatch logging.',
-          appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'],
-        } satisfies NagPackSuppression,
-        {
-          id: 'AwsSolutions-L1',
-          reason: 'Provider framework manages its own Lambda runtime version.',
-        } satisfies NagPackSuppression,
-      ],
-      true,
-    );
+    Validations.of(provider).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason: 'Provider framework Lambda requires basic execution role for CloudWatch logging.',
+    });
 
-    const policyPath = `${provider.node.path}/framework-onEvent/ServiceRole/DefaultPolicy/Resource`;
-    NagSuppressions.addResourceSuppressionsByPath(Stack.of(this), policyPath, [
-      {
-        id: 'AwsSolutions-IAM5',
-        reason: 'Provider framework requires lambda:InvokeFunction with :* suffix.',
-      } satisfies NagPackSuppression,
-    ]);
+    Validations.of(provider).acknowledge({
+      id: 'AwsSolutions-L1',
+      reason: 'Provider framework manages its own Lambda runtime version.',
+    });
+
+    Validations.of(provider).acknowledge({
+      id: 'AwsSolutions-IAM5',
+      reason: 'Provider framework requires lambda:InvokeFunction with :* suffix.',
+    });
 
     new CustomResource(this, 'Resource', {
       serviceToken: provider.serviceToken,

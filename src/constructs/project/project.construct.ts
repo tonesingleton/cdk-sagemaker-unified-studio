@@ -1,6 +1,4 @@
-import { Stack, aws_datazone as datazone, aws_iam as iam } from 'aws-cdk-lib';
-import type { NagPackSuppression } from 'cdk-nag';
-import { NagSuppressions } from 'cdk-nag';
+import { Stack, Validations, aws_datazone as datazone, aws_iam as iam } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { IProject, ProjectProps } from './project.interface';
 import { ProjectMemberDesignation } from './project.interface';
@@ -42,14 +40,11 @@ export class Project extends Construct implements IProject {
         managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioUserIAMDefaultExecutionPolicy')],
       });
 
-      NagSuppressions.addResourceSuppressions(this.projectExecutionRole, [
-        {
-          id: 'AwsSolutions-IAM4',
-          reason:
-            'SageMakerStudioUserIAMDefaultExecutionPolicy is the AWS-recommended managed policy for SageMaker Unified Studio project execution roles.',
-          appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/SageMakerStudioUserIAMDefaultExecutionPolicy'],
-        } satisfies NagPackSuppression,
-      ]);
+      Validations.of(this.projectExecutionRole).acknowledge({
+        id: 'AwsSolutions-IAM4',
+        reason:
+          'SageMakerStudioUserIAMDefaultExecutionPolicy is the AWS-recommended managed policy for SageMaker Unified Studio project execution roles.',
+      });
 
       this.projectExecutionRole.assumeRolePolicy!.addStatements(
         new iam.PolicyStatement({

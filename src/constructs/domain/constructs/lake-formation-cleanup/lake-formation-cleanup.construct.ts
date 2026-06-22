@@ -2,12 +2,11 @@ import {
   CustomResource,
   Duration,
   Stack,
+  Validations,
   aws_iam as iam,
   aws_lambda as lambda_,
   custom_resources as cr,
 } from 'aws-cdk-lib';
-import type { NagPackSuppression } from 'cdk-nag';
-import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { CLEANUP_HANDLER_CODE } from './lake-formation-cleanup.handler';
 
@@ -75,52 +74,41 @@ export class LakeFormationCleanup extends Construct {
       }),
     );
 
-    NagSuppressions.addResourceSuppressions(
-      handler,
-      [
-        {
-          id: 'AwsSolutions-IAM4',
-          reason: 'Lambda basic execution role is required for CloudWatch logging.',
-          appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'],
-        } satisfies NagPackSuppression,
-        {
-          id: 'AwsSolutions-IAM5',
-          reason:
-            'Lake Formation settings, SageMaker Unified Studio list operations, and Glue database cleanup are account-level and do not support resource-level permissions.',
-          appliesTo: ['Resource::*', `Resource::arn:aws:glue:${region}:${account}:database/glue_db_*`],
-        } satisfies NagPackSuppression,
-      ],
-      true,
-    );
+    Validations.of(handler).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason: 'Lambda basic execution role is required for CloudWatch logging.',
+    });
+
+    Validations.of(handler).acknowledge({
+      id: 'AwsSolutions-IAM5',
+      reason:
+        'Lake Formation settings, SageMaker Unified Studio list operations, and Glue database cleanup are account-level and do not support resource-level permissions.',
+    });
+
+    Validations.of(handler).acknowledge({
+      id: 'AwsSolutions-IAM5',
+      reason: 'Glue database cleanup requires wildcard to match all databases created by DataLake environments.',
+    });
 
     const provider = new cr.Provider(this, 'Provider', {
       onEventHandler: handler,
     });
 
-    NagSuppressions.addResourceSuppressions(
-      provider,
-      [
-        {
-          id: 'AwsSolutions-IAM4',
-          reason: 'Provider framework Lambda requires basic execution role for CloudWatch logging.',
-          appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'],
-        } satisfies NagPackSuppression,
-        {
-          id: 'AwsSolutions-L1',
-          reason: 'Provider framework manages its own Lambda runtime version.',
-        } satisfies NagPackSuppression,
-      ],
-      true,
-    );
+    Validations.of(provider).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason: 'Provider framework Lambda requires basic execution role for CloudWatch logging.',
+    });
 
-    const policyPath = `${provider.node.path}/framework-onEvent/ServiceRole/DefaultPolicy/Resource`;
-    NagSuppressions.addResourceSuppressionsByPath(Stack.of(this), policyPath, [
-      {
-        id: 'AwsSolutions-IAM5',
-        reason:
-          'Provider framework requires lambda:InvokeFunction with a :* suffix to invoke all versions of the cleanup handler.',
-      } satisfies NagPackSuppression,
-    ]);
+    Validations.of(provider).acknowledge({
+      id: 'AwsSolutions-L1',
+      reason: 'Provider framework manages its own Lambda runtime version.',
+    });
+
+    Validations.of(provider).acknowledge({
+      id: 'AwsSolutions-IAM5',
+      reason:
+        'Provider framework requires lambda:InvokeFunction with a :* suffix to invoke all versions of the cleanup handler.',
+    });
 
     new CustomResource(this, 'Resource', {
       serviceToken: provider.serviceToken,

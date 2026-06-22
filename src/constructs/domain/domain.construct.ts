@@ -1,13 +1,12 @@
 import {
   RemovalPolicy,
   Stack,
+  Validations,
   aws_datazone as datazone,
   aws_ec2 as ec2,
   aws_iam as iam,
   aws_s3 as s3,
 } from 'aws-cdk-lib';
-import type { NagPackSuppression } from 'cdk-nag';
-import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { LakeFormationCleanup } from './constructs';
 import type { DomainProps, DomainUnitConfig } from './domain.interface';
@@ -158,16 +157,11 @@ export class Domain extends Construct {
       domainExecutionRole.grantAssumeRole(importedRole);
     }
 
-    NagSuppressions.addResourceSuppressions(domainExecutionRole, [
-      {
-        id: 'AwsSolutions-IAM4',
-        reason:
-          'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonSageMakerDomainExecution.html',
-        appliesTo: [
-          'Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/SageMakerStudioDomainExecutionRolePolicy',
-        ],
-      } satisfies NagPackSuppression,
-    ]);
+    Validations.of(domainExecutionRole).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason:
+        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonSageMakerDomainExecution.html',
+    });
 
     const serviceRole = new iam.Role(this, 'ServiceRole', {
       assumedBy: new iam.ServicePrincipal('datazone.amazonaws.com', {
@@ -178,14 +172,11 @@ export class Domain extends Construct {
       ],
     });
 
-    NagSuppressions.addResourceSuppressions(serviceRole, [
-      {
-        id: 'AwsSolutions-IAM4',
-        reason:
-          'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonSageMakerDomainService.html',
-        appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/SageMakerStudioDomainServiceRolePolicy'],
-      } satisfies NagPackSuppression,
-    ]);
+    Validations.of(serviceRole).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason:
+        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonSageMakerDomainService.html',
+    });
 
     const domain = new datazone.CfnDomain(this, 'Resource', {
       name: props.name,
@@ -225,23 +216,28 @@ export class Domain extends Construct {
       },
     });
 
-    NagSuppressions.addResourceSuppressions(manageAccessRole, [
-      {
-        id: 'AwsSolutions-IAM4',
-        reason:
-          'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-domain-manage-access-role.html',
-        appliesTo: [
-          'Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AmazonDataZoneGlueManageAccessRolePolicy',
-          'Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AmazonDataZoneRedshiftManageAccessRolePolicy',
-          'Policy::arn:<AWS::Partition>:iam::aws:policy/AmazonDataZoneSageMakerManageAccessRolePolicy',
-        ],
-      } satisfies NagPackSuppression,
-      {
-        id: 'AwsSolutions-IAM5',
-        reason: 'Wildcard resources required for Secrets Manager access scoped by domain tag.',
-        appliesTo: ['Resource::*'],
-      } satisfies NagPackSuppression,
-    ]);
+    Validations.of(manageAccessRole).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason:
+        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-domain-manage-access-role.html',
+    });
+
+    Validations.of(manageAccessRole).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason:
+        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-domain-manage-access-role.html',
+    });
+
+    Validations.of(manageAccessRole).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason:
+        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-domain-manage-access-role.html',
+    });
+
+    Validations.of(manageAccessRole).acknowledge({
+      id: 'AwsSolutions-IAM5',
+      reason: 'Wildcard resources required for Secrets Manager access scoped by domain tag.',
+    });
 
     const units: { [name: string]: datazone.CfnDomainUnit } = {};
     for (const config of Domain.topologicalSort(props.domainUnits ?? [])) {
@@ -273,16 +269,10 @@ export class Domain extends Construct {
       enforceSSL: true,
     });
 
-    NagSuppressions.addResourceSuppressions(
-      accessLogsBucket,
-      [
-        {
-          id: 'AwsSolutions-S1',
-          reason: 'This is the access logs destination bucket. Logging it to itself would create an infinite loop.',
-        } satisfies NagPackSuppression,
-      ],
-      true,
-    );
+    Validations.of(accessLogsBucket).acknowledge({
+      id: 'AwsSolutions-S1',
+      reason: 'This is the access logs destination bucket. Logging it to itself would create an infinite loop.',
+    });
 
     const projectsBucket = new s3.Bucket(this, 'ProjectsBucket', {
       bucketName: props.projectsBucketName,
