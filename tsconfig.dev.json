@@ -28,7 +28,10 @@
       "jest",
       "node"
     ],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "outDir": "./lib",
+    "rootDir": "."
   },
   "include": [
     "src/**/*.ts",

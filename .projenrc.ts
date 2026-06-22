@@ -56,7 +56,20 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // Dependencies
   deps: ['cdk-nag'],
   bundledDeps: ['cdk-nag'],
-  devDeps: ['husky', 'npm-check-updates'],
+  devDeps: ['husky', 'npm-check-updates', '@types/node@^26', '@types/jest@^30'],
+
+  jestOptions: {
+    jestVersion: '^30',
+  },
+
+  // ts-jest requires isolatedModules + outDir when module is node16
+  tsconfigDev: {
+    compilerOptions: {
+      isolatedModules: true,
+      outDir: './lib',
+      rootDir: '.',
+    },
+  },
 
   // GitHub
   githubOptions: {
