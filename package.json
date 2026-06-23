@@ -1,193 +1,193 @@
 {
-  "name": "@tonesingleton/cdk-sagemaker-unified-studio",
-  "description": "L2 CDK constructs for AWS SageMaker Unified Studio",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tonesingleton/cdk-sagemaker-unified-studio"
-  },
-  "scripts": {
-    "build": "projen build",
-    "bump": "projen bump",
-    "clobber": "projen clobber",
-    "compat": "projen compat",
-    "compile": "projen compile",
-    "default": "projen default",
-    "docgen": "projen docgen",
-    "eject": "projen eject",
-    "eslint": "projen eslint",
-    "package": "projen package",
-    "package-all": "projen package-all",
-    "package:dotnet": "projen package:dotnet",
-    "package:go": "projen package:go",
-    "package:java": "projen package:java",
-    "package:js": "projen package:js",
-    "package:python": "projen package:python",
-    "post-compile": "projen post-compile",
-    "post-upgrade": "projen post-upgrade",
-    "pre-compile": "projen pre-compile",
-    "prepare": "projen prepare",
-    "release": "projen release",
-    "test": "projen test",
-    "test:watch": "projen test:watch",
-    "unbump": "projen unbump",
-    "upgrade": "projen upgrade",
-    "watch": "projen watch",
-    "projen": "projen"
-  },
-  "author": {
-    "name": "Tone Singleton",
-    "url": "https://tonesingleton.com",
-    "organization": true
-  },
-  "devDependencies": {
-    "@types/jest": "^30",
-    "@types/node": "^26",
-    "@typescript-eslint/eslint-plugin": "^8",
-    "@typescript-eslint/parser": "^8",
-    "aws-cdk-lib": "2.260.0",
-    "commit-and-tag-version": "^12",
-    "constructs": "10.5.1",
-    "eslint": "^9",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-import-resolver-typescript": "^4.4.5",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-prettier": "^5.5.6",
-    "husky": "^9.1.7",
-    "jest": "^30",
-    "jest-junit": "^17",
-    "jsii": "~6.0.2",
-    "jsii-diff": "^1.136.0",
-    "jsii-docgen": "^10.5.0",
-    "jsii-pacmak": "^1.136.0",
-    "jsii-rosetta": "~6.0.2",
-    "npm-check-updates": "^22.2.7",
-    "prettier": "^3.8.4",
-    "projen": "^0.100.2",
-    "ts-jest": "^29",
-    "ts-node": "^10.9.2",
-    "typescript": "^6.0.3"
-  },
-  "peerDependencies": {
-    "aws-cdk-lib": "^2.260.0",
-    "constructs": "^10.5.1"
-  },
-  "dependencies": {
-    "cdk-nag": "^3.0.1"
-  },
-  "bundledDependencies": [
-    "cdk-nag"
-  ],
-  "keywords": [
-    "analytics",
-    "athena",
-    "aws",
-    "aws-cdk",
-    "bedrock",
-    "cdk",
-    "constructs",
-    "data-catalog",
-    "data-lake",
-    "data-mesh",
-    "datazone",
-    "glue",
-    "infrastructure-as-code",
-    "lake-formation",
-    "lakehouse",
-    "machine-learning",
-    "mlflow",
-    "redshift",
-    "sagemaker",
-    "sagemaker-unified-studio"
-  ],
-  "devEngines": {
-    "packageManager": {
-      "name": "npm",
-      "onFail": "ignore"
-    }
-  },
-  "main": "lib/index.js",
-  "license": "Apache-2.0",
-  "stability": "experimental",
-  "version": "0.0.0",
-  "jest": {
-    "coverageProvider": "v8",
-    "testMatch": [
-      "<rootDir>/@(src|test)/**/*(*.)@(spec|test).ts?(x)",
-      "<rootDir>/@(src|test)/**/__tests__/**/*.ts?(x)",
-      "<rootDir>/@(projenrc)/**/*(*.)@(spec|test).ts?(x)",
-      "<rootDir>/@(projenrc)/**/__tests__/**/*.ts?(x)"
-    ],
-    "clearMocks": true,
-    "collectCoverage": true,
-    "coverageReporters": [
-      "json",
-      "lcov",
-      "clover",
-      "cobertura",
-      "text"
-    ],
-    "coverageDirectory": "coverage",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "\\.interface\\.ts$"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "watchPathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "reporters": [
-      "default",
-      [
-        "jest-junit",
-        {
-          "outputDirectory": "test-reports"
-        }
-      ]
-    ],
-    "transform": {
-      "^.+\\.[t]sx?$": [
-        "ts-jest",
-        {
-          "tsconfig": "tsconfig.dev.json"
-        }
-      ]
-    },
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
-    }
-  },
-  "types": "lib/index.d.ts",
-  "jsii": {
-    "outdir": "dist",
-    "targets": {
-      "java": {
-        "package": "io.github.tonesingleton.cdksagemakerunifiedstudio",
-        "maven": {
-          "groupId": "io.github.tonesingleton",
-          "artifactId": "cdk-sagemaker-unified-studio"
-        }
-      },
-      "python": {
-        "distName": "cdk-sagemaker-unified-studio",
-        "module": "cdk_sagemaker_unified_studio"
-      },
-      "dotnet": {
-        "namespace": "ToneSingleton.CdkSageMakerUnifiedStudio",
-        "packageId": "ToneSingleton.CdkSageMakerUnifiedStudio"
-      },
-      "go": {
-        "moduleName": "github.com/tonesingleton/cdk-sagemaker-unified-studio-go"
-      }
-    },
-    "tsconfig": "tsconfig.json",
-    "validateTsconfig": "strict"
-  },
-  "//": "~~ Generated by projen. To modify, edit .projenrc.ts and run \"npx projen\"."
+	"name": "@tonesingleton/cdk-sagemaker-unified-studio",
+	"description": "L2 CDK constructs for AWS SageMaker Unified Studio",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tonesingleton/cdk-sagemaker-unified-studio"
+	},
+	"scripts": {
+		"build": "projen build",
+		"bump": "projen bump",
+		"clobber": "projen clobber",
+		"compat": "projen compat",
+		"compile": "projen compile",
+		"default": "projen default",
+		"docgen": "projen docgen",
+		"eject": "projen eject",
+		"eslint": "projen eslint",
+		"package": "projen package",
+		"package-all": "projen package-all",
+		"package:dotnet": "projen package:dotnet",
+		"package:go": "projen package:go",
+		"package:java": "projen package:java",
+		"package:js": "projen package:js",
+		"package:python": "projen package:python",
+		"post-compile": "projen post-compile",
+		"post-upgrade": "projen post-upgrade",
+		"pre-compile": "projen pre-compile",
+		"prepare": "projen prepare",
+		"release": "projen release",
+		"test": "projen test",
+		"test:watch": "projen test:watch",
+		"unbump": "projen unbump",
+		"upgrade": "projen upgrade",
+		"watch": "projen watch",
+		"projen": "projen"
+	},
+	"author": {
+		"name": "Tone Singleton",
+		"url": "https://tonesingleton.com",
+		"organization": true
+	},
+	"devDependencies": {
+		"@types/jest": "^30",
+		"@types/node": "^26",
+		"@typescript-eslint/eslint-plugin": "^8",
+		"@typescript-eslint/parser": "^8",
+		"aws-cdk-lib": "2.260.0",
+		"commit-and-tag-version": "^12",
+		"constructs": "10.5.1",
+		"eslint": "^9",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-import-resolver-typescript": "^4.4.5",
+		"eslint-plugin-import": "^2.32.0",
+		"eslint-plugin-prettier": "^5.5.6",
+		"husky": "^9.1.7",
+		"jest": "^30",
+		"jest-junit": "^17",
+		"jsii": "~6.0.2",
+		"jsii-diff": "^1.137.0",
+		"jsii-docgen": "^10.5.0",
+		"jsii-pacmak": "^1.137.0",
+		"jsii-rosetta": "~6.0.2",
+		"npm-check-updates": "^22.2.7",
+		"prettier": "^3.8.4",
+		"projen": "^0.100.4",
+		"ts-jest": "^29",
+		"ts-node": "^10.9.2",
+		"typescript": "^6.0.3"
+	},
+	"peerDependencies": {
+		"aws-cdk-lib": "^2.260.0",
+		"constructs": "^10.5.1"
+	},
+	"dependencies": {
+		"cdk-nag": "^3.0.1"
+	},
+	"bundledDependencies": [
+		"cdk-nag"
+	],
+	"keywords": [
+		"analytics",
+		"athena",
+		"aws",
+		"aws-cdk",
+		"bedrock",
+		"cdk",
+		"constructs",
+		"data-catalog",
+		"data-lake",
+		"data-mesh",
+		"datazone",
+		"glue",
+		"infrastructure-as-code",
+		"lake-formation",
+		"lakehouse",
+		"machine-learning",
+		"mlflow",
+		"redshift",
+		"sagemaker",
+		"sagemaker-unified-studio"
+	],
+	"devEngines": {
+		"packageManager": {
+			"name": "npm",
+			"onFail": "ignore"
+		}
+	},
+	"main": "lib/index.js",
+	"license": "Apache-2.0",
+	"stability": "experimental",
+	"version": "0.0.0",
+	"jest": {
+		"coverageProvider": "v8",
+		"testMatch": [
+			"<rootDir>/@(src|test)/**/*(*.)@(spec|test).ts?(x)",
+			"<rootDir>/@(src|test)/**/__tests__/**/*.ts?(x)",
+			"<rootDir>/@(projenrc)/**/*(*.)@(spec|test).ts?(x)",
+			"<rootDir>/@(projenrc)/**/__tests__/**/*.ts?(x)"
+		],
+		"clearMocks": true,
+		"collectCoverage": true,
+		"coverageReporters": [
+			"json",
+			"lcov",
+			"clover",
+			"cobertura",
+			"text"
+		],
+		"coverageDirectory": "coverage",
+		"coveragePathIgnorePatterns": [
+			"/node_modules/",
+			"\\.interface\\.ts$"
+		],
+		"testPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"watchPathIgnorePatterns": [
+			"/node_modules/"
+		],
+		"reporters": [
+			"default",
+			[
+				"jest-junit",
+				{
+					"outputDirectory": "test-reports"
+				}
+			]
+		],
+		"transform": {
+			"^.+\\.[t]sx?$": [
+				"ts-jest",
+				{
+					"tsconfig": "test/tsconfig.json"
+				}
+			]
+		},
+		"coverageThreshold": {
+			"global": {
+				"branches": 100,
+				"functions": 100,
+				"lines": 100,
+				"statements": 100
+			}
+		}
+	},
+	"types": "lib/index.d.ts",
+	"jsii": {
+		"outdir": "dist",
+		"targets": {
+			"java": {
+				"package": "io.github.tonesingleton.cdksagemakerunifiedstudio",
+				"maven": {
+					"groupId": "io.github.tonesingleton",
+					"artifactId": "cdk-sagemaker-unified-studio"
+				}
+			},
+			"python": {
+				"distName": "cdk-sagemaker-unified-studio",
+				"module": "cdk_sagemaker_unified_studio"
+			},
+			"dotnet": {
+				"namespace": "ToneSingleton.CdkSageMakerUnifiedStudio",
+				"packageId": "ToneSingleton.CdkSageMakerUnifiedStudio"
+			},
+			"go": {
+				"moduleName": "github.com/tonesingleton/cdk-sagemaker-unified-studio-go"
+			}
+		},
+		"tsconfig": "tsconfig.json",
+		"validateTsconfig": "strict"
+	},
+	"//": "~~ Generated by projen. To modify, edit .projenrc.ts and run \"npx projen\"."
 }
