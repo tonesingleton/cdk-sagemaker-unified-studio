@@ -85,7 +85,7 @@ describe('GlueConnection', () => {
     });
   });
 
-  it('creates a minimal Glue connection', () => {
+  it('creates a minimal Glue connection without validation', () => {
     new GlueConnection(stack, 'Conn', {
       name: 'glue_conn_network',
       domainIdentifier: 'dzd-test',
@@ -117,5 +117,23 @@ describe('GlueConnection', () => {
   it('exposes the connection ID', () => {
     const conn = new GlueConnection(stack, 'Conn', defaultProps);
     expect(conn.attrConnectionId).toBeDefined();
+  });
+
+  it('throws when validateForComputeEnvironments is empty', () => {
+    expect(() => {
+      new GlueConnection(stack, 'Conn', {
+        ...defaultProps,
+        validateForComputeEnvironments: [],
+      });
+    }).toThrow('validateForComputeEnvironments must contain at least one compute environment when provided.');
+  });
+
+  it('throws when validateForComputeEnvironments contains an invalid value', () => {
+    expect(() => {
+      new GlueConnection(stack, 'Conn', {
+        ...defaultProps,
+        validateForComputeEnvironments: ['INVALID' as GlueComputeEnvironment],
+      });
+    }).toThrow(/Invalid compute environment "INVALID"/);
   });
 });

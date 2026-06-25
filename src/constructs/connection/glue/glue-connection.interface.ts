@@ -159,7 +159,7 @@ export interface GlueConnectionProps extends ConnectionProps {
   /**
    * Compute environments to validate the connection for.
    *
-   * @default - no validation
+   * @default [GlueComputeEnvironment.SPARK, GlueComputeEnvironment.ATHENA]
    */
   readonly validateForComputeEnvironments?: Array<GlueComputeEnvironment>;
   /**
