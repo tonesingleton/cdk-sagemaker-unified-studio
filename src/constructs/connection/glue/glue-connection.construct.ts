@@ -18,6 +18,12 @@ const ALL_COMPUTE_ENVIRONMENTS = [
  */
 export class GlueConnection extends datazone.CfnConnection {
   constructor(scope: Construct, id: string, props: GlueConnectionProps) {
+    if (!props.environmentIdentifier) {
+      throw new Error(
+        'environmentIdentifier is required for Glue connections in the context of SageMaker Unified Studio.',
+      );
+    }
+
     const computeEnvironments = props.validateForComputeEnvironments ?? ALL_COMPUTE_ENVIRONMENTS;
 
     if (computeEnvironments.length === 0) {

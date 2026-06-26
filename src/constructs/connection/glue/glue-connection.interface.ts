@@ -130,11 +130,6 @@ export interface GlueAuthenticationConfiguration {
  * Properties for a GlueConnection construct.
  */
 export interface GlueConnectionProps extends ConnectionProps {
-  /**
-   * The ID of the environment where the connection is created.
-   * Required for Glue connections in SageMaker Unified Studio.
-   */
-  readonly environmentIdentifier: string;
   /** The Glue connection type. */
   readonly connectionType: GlueConnectionType;
   /**
