@@ -14,6 +14,7 @@ describe('GlueConnection', () => {
     name: 'glue_conn_snowflake',
     domainIdentifier: 'dzd-test',
     projectIdentifier: 'proj-test',
+    environmentIdentifier: 'env-test',
     connectionType: GlueConnectionType.SNOWFLAKE,
     connectionProperties: {
       DATABASE: 'my_db',
@@ -48,6 +49,7 @@ describe('GlueConnection', () => {
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
       DomainIdentifier: 'dzd-test',
       ProjectIdentifier: 'proj-test',
+      EnvironmentIdentifier: 'env-test',
       Name: 'glue_conn_snowflake',
       Props: {
         GlueProperties: {
@@ -74,7 +76,7 @@ describe('GlueConnection', () => {
               },
             },
             ValidateCredentials: true,
-            ValidateForComputeEnvironments: ['SPARK', 'ATHENA'],
+            ValidateForComputeEnvironments: ['ATHENA'],
             AthenaProperties: {
               spill_bucket: 'my-spill-bucket',
               spill_prefix: 'spill/',
@@ -85,21 +87,47 @@ describe('GlueConnection', () => {
     });
   });
 
+  it('sets default configurations with PROVISIONING_MODE', () => {
+    new GlueConnection(stack, 'Conn', defaultProps);
+
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
+      Configurations: [
+        {
+          Classification: 'ProvisioningConfiguration',
+          Properties: { PROVISIONING_MODE: 'GLUE_CONNECTION' },
+        },
+      ],
+    });
+  });
+
   it('creates a minimal Glue connection without validation', () => {
     new GlueConnection(stack, 'Conn', {
       name: 'glue_conn_network',
       domainIdentifier: 'dzd-test',
       projectIdentifier: 'proj-test',
+      environmentIdentifier: 'env-test',
       connectionType: GlueConnectionType.NETWORK,
     });
 
-    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Connection', {
+    const template = Template.fromStack(stack);
+    template.hasResourceProperties('AWS::DataZone::Connection', {
+      EnvironmentIdentifier: 'env-test',
       Props: {
         GlueProperties: {
           GlueConnectionInput: Match.objectLike({
             Name: 'glue_conn_network',
             ConnectionType: 'NETWORK',
             ValidateCredentials: false,
+          }),
+        },
+      },
+    });
+    // No compute environment properties provided, so validateForComputeEnvironments is omitted
+    template.hasResourceProperties('AWS::DataZone::Connection', {
+      Props: {
+        GlueProperties: {
+          GlueConnectionInput: Match.objectLike({
+            ValidateForComputeEnvironments: Match.absent(),
           }),
         },
       },

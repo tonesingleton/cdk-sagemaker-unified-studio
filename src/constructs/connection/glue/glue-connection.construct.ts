@@ -2,6 +2,12 @@ import { aws_datazone as datazone } from 'aws-cdk-lib';
 import type { Construct } from 'constructs';
 import { GlueComputeEnvironment, type GlueConnectionProps } from './glue-connection.interface';
 
+const ALL_COMPUTE_ENVIRONMENTS = [
+  GlueComputeEnvironment.SPARK,
+  GlueComputeEnvironment.ATHENA,
+  GlueComputeEnvironment.PYTHON,
+];
+
 /**
  * A SageMaker Unified Studio Glue connection that provides connectivity to external data sources via AWS Glue.
  *
@@ -12,20 +18,27 @@ import { GlueComputeEnvironment, type GlueConnectionProps } from './glue-connect
  */
 export class GlueConnection extends datazone.CfnConnection {
   constructor(scope: Construct, id: string, props: GlueConnectionProps) {
-    const computeEnvironments = props.validateForComputeEnvironments;
+    const computeEnvironments = props.validateForComputeEnvironments ?? ALL_COMPUTE_ENVIRONMENTS;
 
-    if (computeEnvironments !== undefined) {
-      if (computeEnvironments.length === 0) {
-        throw new Error('validateForComputeEnvironments must contain at least one compute environment when provided.');
-      }
+    if (computeEnvironments.length === 0) {
+      throw new Error('validateForComputeEnvironments must contain at least one compute environment when provided.');
+    }
 
-      const validValues = new Set(Object.values(GlueComputeEnvironment));
-      for (const env of computeEnvironments) {
-        if (!validValues.has(env)) {
-          throw new Error(`Invalid compute environment "${env}". Must be one of: ${[...validValues].join(', ')}.`);
-        }
+    const validValues = new Set(Object.values(GlueComputeEnvironment));
+    for (const env of computeEnvironments) {
+      if (!validValues.has(env)) {
+        throw new Error(`Invalid compute environment "${env}". Must be one of: ${[...validValues].join(', ')}.`);
       }
     }
+
+    // Filter out compute environments whose required properties are not provided,
+    // to avoid CloudFormation handler null pointer or missing-property errors.
+    const envPropsMap: Record<GlueComputeEnvironment, Record<string, string> | undefined> = {
+      [GlueComputeEnvironment.ATHENA]: props.athenaProperties,
+      [GlueComputeEnvironment.SPARK]: props.sparkProperties,
+      [GlueComputeEnvironment.PYTHON]: props.pythonProperties,
+    };
+    const effectiveEnvironments = computeEnvironments.filter((env) => envPropsMap[env] !== undefined);
 
     super(scope, id, {
       domainIdentifier: props.domainIdentifier,
@@ -33,7 +46,13 @@ export class GlueConnection extends datazone.CfnConnection {
       environmentIdentifier: props.environmentIdentifier,
       name: props.name,
       description: props.description,
-      configurations: props.configurations,
+      awsLocation: props.awsLocation,
+      scope: props.connectionScope,
+      enableTrustedIdentityPropagation: props.enableTrustedIdentityPropagation,
+      configurations: [
+        { classification: 'ProvisioningConfiguration', properties: { PROVISIONING_MODE: 'GLUE_CONNECTION' } },
+        ...(props.configurations ?? []),
+      ],
       props: {
         glueProperties: {
           glueConnectionInput: {
@@ -43,7 +62,7 @@ export class GlueConnection extends datazone.CfnConnection {
             physicalConnectionRequirements: props.physicalConnectionRequirements,
             authenticationConfiguration: props.authenticationConfiguration,
             validateCredentials: props.validateCredentials ?? false,
-            validateForComputeEnvironments: computeEnvironments,
+            validateForComputeEnvironments: effectiveEnvironments.length > 0 ? effectiveEnvironments : undefined,
             athenaProperties: props.athenaProperties,
             sparkProperties: props.sparkProperties,
             pythonProperties: props.pythonProperties,

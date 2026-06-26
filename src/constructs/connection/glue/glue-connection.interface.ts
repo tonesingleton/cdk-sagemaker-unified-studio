@@ -130,6 +130,11 @@ export interface GlueAuthenticationConfiguration {
  * Properties for a GlueConnection construct.
  */
 export interface GlueConnectionProps extends ConnectionProps {
+  /**
+   * The ID of the environment where the connection is created.
+   * Required for Glue connections in SageMaker Unified Studio.
+   */
+  readonly environmentIdentifier: string;
   /** The Glue connection type. */
   readonly connectionType: GlueConnectionType;
   /**
@@ -158,8 +163,9 @@ export interface GlueConnectionProps extends ConnectionProps {
   readonly validateCredentials?: boolean;
   /**
    * Compute environments to validate the connection for.
+   * Must contain at least one value when provided.
    *
-   * @default [GlueComputeEnvironment.SPARK, GlueComputeEnvironment.ATHENA]
+   * @default - all compute environments (SPARK, ATHENA, PYTHON)
    */
   readonly validateForComputeEnvironments?: Array<GlueComputeEnvironment>;
   /**
