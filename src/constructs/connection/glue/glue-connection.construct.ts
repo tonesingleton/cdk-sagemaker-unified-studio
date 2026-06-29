@@ -1,6 +1,7 @@
 import { aws_datazone as datazone } from 'aws-cdk-lib';
 import type { Construct } from 'constructs';
 import { GlueComputeEnvironment, type GlueConnectionProps } from './glue-connection.interface';
+import { Environment } from '../../environment/environment.construct';
 
 const ALL_COMPUTE_ENVIRONMENTS = [
   GlueComputeEnvironment.SPARK,
@@ -18,9 +19,13 @@ const ALL_COMPUTE_ENVIRONMENTS = [
  */
 export class GlueConnection extends datazone.CfnConnection {
   constructor(scope: Construct, id: string, props: GlueConnectionProps) {
-    if (!props.environmentIdentifier) {
+    const environmentIdentifier =
+      props.environmentIdentifier ??
+      scope.node.scopes.reverse().find((s): s is Environment => s instanceof Environment)?.environmentId;
+
+    if (!environmentIdentifier) {
       throw new Error(
-        'environmentIdentifier is required for Glue connections in the context of SageMaker Unified Studio.',
+        'environmentIdentifier is required for GlueConnection. Provide it explicitly or place the construct inside an Environment.',
       );
     }
 
@@ -49,7 +54,7 @@ export class GlueConnection extends datazone.CfnConnection {
     super(scope, id, {
       domainIdentifier: props.domainIdentifier,
       projectIdentifier: props.projectIdentifier,
-      environmentIdentifier: props.environmentIdentifier,
+      environmentIdentifier,
       name: props.name,
       description: props.description,
       awsLocation: props.awsLocation,
