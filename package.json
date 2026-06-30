@@ -61,8 +61,8 @@
     "jsii-pacmak": "^1.137.0",
     "jsii-rosetta": "~6.0.3",
     "npm-check-updates": "^22.2.9",
-    "prettier": "^3.9.3",
-    "projen": "^0.100.7",
+    "prettier": "^3.9.4",
+    "projen": "^0.101.1",
     "ts-jest": "^29",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
