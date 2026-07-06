@@ -1,7 +1,7 @@
 import { Stack, Validations, aws_iam as iam } from 'aws-cdk-lib';
 import { CfnProject } from 'aws-cdk-lib/aws-datazone';
 import { Construct } from 'constructs';
-import type { IProject, ProjectProps } from './project.interface';
+import type { EnvironmentConfigurationUserParameter, IProject, ProjectProps } from './project.interface';
 
 const DATALAKE_BLUEPRINT_NAME = 'DataLake';
 
@@ -99,7 +99,7 @@ export class Project extends Construct implements IProject {
 
     if (hasDataLake) return props.userParameters;
 
-    const dataLakeParam = {
+    const dataLakeParam: EnvironmentConfigurationUserParameter = {
       environmentConfigurationName: DATALAKE_BLUEPRINT_NAME,
       environmentParameters: [{ name: 'userRoleArn', value: this.projectExecutionRole.roleArn }],
     };
