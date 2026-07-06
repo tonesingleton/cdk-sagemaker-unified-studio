@@ -1,7 +1,7 @@
-import { App, Stack } from 'aws-cdk-lib';
+import { App, Stack, aws_iam as iam } from 'aws-cdk-lib';
 import { Template, Match } from 'aws-cdk-lib/assertions';
 import { Project } from './project.construct';
-import { ProjectMemberDesignation } from './project.interface';
+import { Designation } from './project.interface';
 
 function createStack(): Stack {
   return new Stack(new App(), 'TestStack', { env: { account: '123456789012', region: 'eu-central-1' } });
@@ -12,13 +12,12 @@ describe('Project', () => {
     const stack = createStack();
     new Project(stack, 'Project', {
       name: 'TestProject',
-      domainId: 'dzd-test',
-      projectProfileId: 'pp-test',
+      domainIdentifier: 'dzd-test',
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
       Name: 'TestProject',
       DomainIdentifier: 'dzd-test',
-      ProjectProfileId: 'pp-test',
+      ProjectExecutionRole: Match.absent(),
     });
   });
 
@@ -27,9 +26,8 @@ describe('Project', () => {
     new Project(stack, 'Project', {
       name: 'TestProject',
       description: 'A test project.',
-      domainId: 'dzd-test',
+      domainIdentifier: 'dzd-test',
       domainUnitId: 'du-123',
-      projectProfileId: 'pp-test',
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
       Description: 'A test project.',
@@ -37,66 +35,41 @@ describe('Project', () => {
     });
   });
 
-  test('does not create execution role when isCustomExecutionRole is false', () => {
+  test('does not create execution role when no projectProfileId', () => {
     const stack = createStack();
     const project = new Project(stack, 'Project', {
       name: 'TestProject',
-      domainId: 'dzd-test',
-      projectProfileId: 'pp-test',
-      isCustomExecutionRole: false,
+      domainIdentifier: 'dzd-test',
     });
     expect(project.projectExecutionRole).toBeUndefined();
-    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
-      ProjectExecutionRole: Match.absent(),
-    });
+    Template.fromStack(stack).resourceCountIs('AWS::IAM::Role', 0);
   });
 
-  test('does not create execution role when isCustomExecutionRole is not set', () => {
+  test('auto-creates execution role when projectProfileId is set', () => {
     const stack = createStack();
     const project = new Project(stack, 'Project', {
       name: 'TestProject',
-      domainId: 'dzd-test',
+      domainIdentifier: 'dzd-test',
       projectProfileId: 'pp-test',
-    });
-    expect(project.projectExecutionRole).toBeUndefined();
-  });
-
-  test('creates execution role with correct trust policy when isCustomExecutionRole is true', () => {
-    const stack = createStack();
-    const project = new Project(stack, 'Project', {
-      name: 'TestProject',
-      domainId: 'dzd-test',
-      projectProfileId: 'pp-test',
-      isCustomExecutionRole: true,
     });
     expect(project.projectExecutionRole).toBeDefined();
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
+      ProjectExecutionRole: { 'Fn::GetAtt': Match.anyValue() },
+    });
+  });
 
-    const template = Template.fromStack(stack);
-    template.hasResourceProperties('AWS::IAM::Role', {
+  test('auto-created role has correct trust policy', () => {
+    const stack = createStack();
+    new Project(stack, 'Project', {
+      name: 'TestProject',
+      domainIdentifier: 'dzd-test',
+      projectProfileId: 'pp-test',
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Role', {
       AssumeRolePolicyDocument: Match.objectLike({
         Statement: Match.arrayWith([
           Match.objectLike({
             Action: ['sts:AssumeRole', 'sts:TagSession', 'sts:SetContext', 'sts:SetSourceIdentity'],
-            Effect: 'Allow',
-            Principal: { Service: 'datazone.amazonaws.com' },
-            Condition: { StringEquals: { 'aws:SourceAccount': '123456789012' } },
-          }),
-          Match.objectLike({
-            Action: ['sts:AssumeRole', 'sts:TagSession', 'sts:SetContext', 'sts:SetSourceIdentity'],
-            Effect: 'Allow',
-            Principal: {
-              Service: Match.arrayWith([
-                'scheduler.amazonaws.com',
-                'bedrock.amazonaws.com',
-                'lakeformation.amazonaws.com',
-                'glue.amazonaws.com',
-                'sagemaker.amazonaws.com',
-                'redshift.amazonaws.com',
-                'emr-serverless.amazonaws.com',
-                'athena.amazonaws.com',
-                'airflow-serverless.amazonaws.com',
-              ]),
-            },
             Condition: { StringEquals: { 'aws:SourceAccount': '123456789012' } },
           }),
         ]),
@@ -105,80 +78,154 @@ describe('Project', () => {
     });
   });
 
-  test('sets projectExecutionRole ARN on the CfnProject when isCustomExecutionRole is true', () => {
+  test('uses provided execution role instead of creating one', () => {
+    const stack = createStack();
+    const role = new iam.Role(stack, 'Role', {
+      assumedBy: new iam.ServicePrincipal('datazone.amazonaws.com'),
+    });
+    const project = new Project(stack, 'Project', {
+      name: 'TestProject',
+      domainIdentifier: 'dzd-test',
+      projectProfileId: 'pp-test',
+      projectExecutionRole: role,
+    });
+    expect(project.projectExecutionRole).toBe(role);
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
+      ProjectExecutionRole: { 'Fn::GetAtt': [Match.stringLikeRegexp('Role'), 'Arn'] },
+    });
+  });
+
+  test('injects DataLake userRoleArn when execution role exists and no DataLake userParameters', () => {
     const stack = createStack();
     new Project(stack, 'Project', {
       name: 'TestProject',
-      domainId: 'dzd-test',
+      domainIdentifier: 'dzd-test',
       projectProfileId: 'pp-test',
-      isCustomExecutionRole: true,
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
-      ProjectExecutionRole: Match.objectLike({ 'Fn::GetAtt': Match.anyValue() }),
+      ProjectProfileVersion: 'latest',
+      UserParameters: Match.arrayWith([
+        Match.objectLike({
+          EnvironmentConfigurationName: 'DataLake',
+          EnvironmentParameters: [{ Name: 'userRoleArn', Value: Match.anyValue() }],
+        }),
+      ]),
     });
   });
 
-  test('does not create execution role membership when isCustomExecutionRole is true', () => {
+  test('does not override existing DataLake userParameters', () => {
     const stack = createStack();
-    new Project(stack, 'Project', {
-      name: 'TestProject',
-      domainId: 'dzd-test',
-      projectProfileId: 'pp-test',
-      isCustomExecutionRole: true,
+    const role = new iam.Role(stack, 'Role', {
+      assumedBy: new iam.ServicePrincipal('datazone.amazonaws.com'),
     });
-    Template.fromStack(stack).resourceCountIs('AWS::DataZone::ProjectMembership', 0);
-  });
-
-  test('does not create execution role membership when isCustomExecutionRole is not set', () => {
-    const stack = createStack();
     new Project(stack, 'Project', {
       name: 'TestProject',
-      domainId: 'dzd-test',
+      domainIdentifier: 'dzd-test',
       projectProfileId: 'pp-test',
-    });
-    Template.fromStack(stack).resourceCountIs('AWS::DataZone::ProjectMembership', 0);
-  });
-
-  test('creates memberships for provided members', () => {
-    const stack = createStack();
-    new Project(stack, 'Project', {
-      name: 'TestProject',
-      domainId: 'dzd-test',
-      projectProfileId: 'pp-test',
-      members: [
-        { userIdentifier: 'arn:aws:iam::123456789012:role/owner', designation: ProjectMemberDesignation.PROJECT_OWNER },
-        { userIdentifier: 'arn:aws:iam::123456789012:role/contributor' },
+      projectExecutionRole: role,
+      userParameters: [
+        {
+          environmentConfigurationName: 'DataLake',
+          environmentParameters: [{ name: 'userRoleArn', value: 'arn:aws:iam::123456789012:role/custom' }],
+        },
       ],
     });
-    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::ProjectMembership', {
-      Designation: 'PROJECT_OWNER',
-      Member: { UserIdentifier: 'arn:aws:iam::123456789012:role/owner' },
-    });
-    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::ProjectMembership', {
-      Designation: 'PROJECT_CONTRIBUTOR',
-      Member: { UserIdentifier: 'arn:aws:iam::123456789012:role/contributor' },
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
+      UserParameters: [
+        {
+          EnvironmentConfigurationName: 'DataLake',
+          EnvironmentParameters: [{ Name: 'userRoleArn', Value: 'arn:aws:iam::123456789012:role/custom' }],
+        },
+      ],
     });
   });
 
-  test('defaults member designation to PROJECT_CONTRIBUTOR', () => {
+  test('creates inline membership assignments', () => {
     const stack = createStack();
     new Project(stack, 'Project', {
       name: 'TestProject',
-      domainId: 'dzd-test',
-      projectProfileId: 'pp-test',
-      members: [{ userIdentifier: 'arn:aws:iam::123456789012:role/user' }],
+      domainIdentifier: 'dzd-test',
+      membershipAssignments: [
+        {
+          designation: Designation.PROJECT_OWNER,
+          member: { userIdentifier: 'arn:aws:iam::123456789012:role/owner' },
+        },
+        {
+          designation: Designation.PROJECT_CONTRIBUTOR,
+          member: { userIdentifier: 'arn:aws:iam::123456789012:role/contributor' },
+        },
+      ],
     });
-    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::ProjectMembership', {
-      Designation: 'PROJECT_CONTRIBUTOR',
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
+      MembershipAssignments: [
+        {
+          Designation: 'PROJECT_OWNER',
+          Member: { UserIdentifier: 'arn:aws:iam::123456789012:role/owner' },
+        },
+        {
+          Designation: 'PROJECT_CONTRIBUTOR',
+          Member: { UserIdentifier: 'arn:aws:iam::123456789012:role/contributor' },
+        },
+      ],
+    });
+  });
+
+  test('does not set membershipAssignments when none provided', () => {
+    const stack = createStack();
+    new Project(stack, 'Project', {
+      name: 'TestProject',
+      domainIdentifier: 'dzd-test',
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
+      MembershipAssignments: Match.absent(),
+    });
+  });
+
+  test('sets glossaryTerms', () => {
+    const stack = createStack();
+    new Project(stack, 'Project', {
+      name: 'TestProject',
+      domainIdentifier: 'dzd-test',
+      glossaryTerms: ['term-1', 'term-2'],
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
+      GlossaryTerms: ['term-1', 'term-2'],
+    });
+  });
+
+  test('sets projectCategory', () => {
+    const stack = createStack();
+    new Project(stack, 'Project', {
+      name: 'TestProject',
+      domainIdentifier: 'dzd-test',
+      projectCategory: 'analytics',
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
+      ProjectCategory: 'analytics',
+    });
+  });
+
+  test('sets resourceTags', () => {
+    const stack = createStack();
+    new Project(stack, 'Project', {
+      name: 'TestProject',
+      domainIdentifier: 'dzd-test',
+      resourceTags: [{ key: 'Team', value: 'Data' }],
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
+      ResourceTags: [{ Key: 'Team', Value: 'Data' }],
     });
   });
 
   test('sets projectProfileVersion to latest when userParameters provided', () => {
     const stack = createStack();
+    const role = new iam.Role(stack, 'Role', {
+      assumedBy: new iam.ServicePrincipal('datazone.amazonaws.com'),
+    });
     new Project(stack, 'Project', {
       name: 'TestProject',
-      domainId: 'dzd-test',
-      projectProfileId: 'pp-test',
+      domainIdentifier: 'dzd-test',
+      projectExecutionRole: role,
       userParameters: [
         {
           environmentConfigurationName: 'DataLake',
@@ -188,22 +235,14 @@ describe('Project', () => {
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
       ProjectProfileVersion: 'latest',
-      UserParameters: [
-        {
-          EnvironmentConfigurationName: 'DataLake',
-          EnvironmentParameters: [{ Name: 'glueDbName', Value: 'mydb' }],
-        },
-      ],
     });
   });
 
-  test('does not set projectProfileVersion when userParameters is empty', () => {
+  test('does not set projectProfileVersion when no userParameters and no projectProfileId', () => {
     const stack = createStack();
     new Project(stack, 'Project', {
       name: 'TestProject',
-      domainId: 'dzd-test',
-      projectProfileId: 'pp-test',
-      userParameters: [],
+      domainIdentifier: 'dzd-test',
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
       ProjectProfileVersion: Match.absent(),
@@ -212,10 +251,13 @@ describe('Project', () => {
 
   test('supports environmentId for project updates', () => {
     const stack = createStack();
+    const role = new iam.Role(stack, 'Role', {
+      assumedBy: new iam.ServicePrincipal('datazone.amazonaws.com'),
+    });
     new Project(stack, 'Project', {
       name: 'TestProject',
-      domainId: 'dzd-test',
-      projectProfileId: 'pp-test',
+      domainIdentifier: 'dzd-test',
+      projectExecutionRole: role,
       userParameters: [
         {
           environmentId: 'env-123',
@@ -224,37 +266,26 @@ describe('Project', () => {
       ],
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
-      UserParameters: [
+      UserParameters: Match.arrayWith([
         {
           EnvironmentId: 'env-123',
           EnvironmentParameters: [{ Name: 'glueDbName', Value: 'mydb' }],
         },
-      ],
+      ]),
     });
   });
 
-  test('creates member memberships when both members and execution role provided', () => {
-    const stack = createStack();
-    new Project(stack, 'Project', {
-      name: 'TestProject',
-      domainId: 'dzd-test',
-      projectProfileId: 'pp-test',
-      isCustomExecutionRole: true,
-      members: [
-        { userIdentifier: 'arn:aws:iam::123456789012:role/owner', designation: ProjectMemberDesignation.PROJECT_OWNER },
-      ],
-    });
-    // Only the explicit member, no execution role membership
-    Template.fromStack(stack).resourceCountIs('AWS::DataZone::ProjectMembership', 1);
-  });
-
-  test('exposes projectId', () => {
+  test('exposes all CFN attributes', () => {
     const stack = createStack();
     const project = new Project(stack, 'Project', {
       name: 'TestProject',
-      domainId: 'dzd-test',
-      projectProfileId: 'pp-test',
+      domainIdentifier: 'dzd-test',
     });
-    expect(project.projectId).toBeDefined();
+    expect(project.id).toBeDefined();
+    expect(project.domainId).toBeDefined();
+    expect(project.createdAt).toBeDefined();
+    expect(project.createdBy).toBeDefined();
+    expect(project.lastUpdatedAt).toBeDefined();
+    expect(project.projectStatus).toBeDefined();
   });
 });

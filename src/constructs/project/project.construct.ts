@@ -1,94 +1,138 @@
-import { Stack, Validations, aws_datazone as datazone, aws_iam as iam } from 'aws-cdk-lib';
+import { Stack, Validations, aws_iam as iam } from 'aws-cdk-lib';
+import { CfnProject } from 'aws-cdk-lib/aws-datazone';
 import { Construct } from 'constructs';
 import type { IProject, ProjectProps } from './project.interface';
-import { ProjectMemberDesignation } from './project.interface';
+
+const DATALAKE_BLUEPRINT_NAME = 'DataLake';
+
+const EXECUTION_ROLE_TRUST_PRINCIPALS = [
+  'datazone.amazonaws.com',
+  'scheduler.amazonaws.com',
+  'bedrock.amazonaws.com',
+  'lakeformation.amazonaws.com',
+  'glue.amazonaws.com',
+  'sagemaker.amazonaws.com',
+  'redshift.amazonaws.com',
+  'emr-serverless.amazonaws.com',
+  'athena.amazonaws.com',
+  'airflow-serverless.amazonaws.com',
+];
 
 /**
  * A SageMaker Unified Studio project within a domain.
  *
+ * Projects enable a group of users to collaborate on various business use cases that involve publishing,
+ * discovering, subscribing to, and consuming data in the Amazon SageMaker Unified Studio catalog.
+ * Project members consume assets from the Amazon SageMaker Unified Studio catalog and produce new assets
+ * using one or more analytical workflows.
+ *
+ * When a `projectProfileId` is provided and no `projectExecutionRole` is specified, the construct
+ * automatically creates a project-scoped execution role and injects its ARN as the `userRoleArn`
+ * parameter for the DataLake environment configuration.
+ *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/projects.html
  */
 export class Project extends Construct implements IProject {
-  /** The project ID. */
-  public readonly projectId: string;
-  /** The project's execution role. */
-  public readonly projectExecutionRole?: iam.Role;
+  /** The identifier of a project. */
+  public readonly id: string;
+  /** The identifier of the domain where the project exists. */
+  public readonly domainId: string;
+  /** The timestamp of when the project was created. */
+  public readonly createdAt: string;
+  /** The Amazon DataZone user who created the project. */
+  public readonly createdBy: string;
+  /** The timestamp of when the project was last updated. */
+  public readonly lastUpdatedAt: string;
+  /** The status of the project. */
+  public readonly projectStatus: string;
+  /** The project execution role (provided or auto-created when projectProfileId is set). */
+  public readonly projectExecutionRole?: iam.IRole;
 
   constructor(scope: Construct, id: string, props: ProjectProps) {
     super(scope, id);
 
-    const account = Stack.of(this).account;
-    const trustActions = ['sts:AssumeRole', 'sts:TagSession', 'sts:SetContext', 'sts:SetSourceIdentity'];
-    const sourceAccountCondition = { StringEquals: { 'aws:SourceAccount': account } };
+    // Create an execution role when a project profile is specified but no role is provided.
+    // The DataLake blueprint requires userRoleArn to provision the Glue database.
+    this.projectExecutionRole =
+      props.projectExecutionRole ?? (props.projectProfileId ? this.createExecutionRole() : undefined);
 
-    if (props.isCustomExecutionRole) {
-      const servicePrincipals = [
-        'scheduler.amazonaws.com',
-        'bedrock.amazonaws.com',
-        'lakeformation.amazonaws.com',
-        'glue.amazonaws.com',
-        'sagemaker.amazonaws.com',
-        'redshift.amazonaws.com',
-        'emr-serverless.amazonaws.com',
-        'athena.amazonaws.com',
-        'airflow-serverless.amazonaws.com',
-      ].map((s) => new iam.ServicePrincipal(s));
+    const userParameters = this.buildUserParameters(props);
 
-      this.projectExecutionRole = new iam.Role(this, 'ProjectExecutionRole', {
-        description: '',
-        assumedBy: new iam.CompositePrincipal(new iam.ServicePrincipal('datazone.amazonaws.com'), ...servicePrincipals),
-        managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioUserIAMDefaultExecutionPolicy')],
-      });
-
-      Validations.of(this.projectExecutionRole).acknowledge({
-        id: 'AwsSolutions-IAM4',
-        reason:
-          'SageMakerStudioUserIAMDefaultExecutionPolicy is the AWS-recommended managed policy for SageMaker Unified Studio project execution roles.',
-      });
-
-      this.projectExecutionRole.assumeRolePolicy!.addStatements(
-        new iam.PolicyStatement({
-          actions: trustActions,
-          principals: [new iam.ServicePrincipal('datazone.amazonaws.com')],
-          conditions: sourceAccountCondition,
-        }),
-        new iam.PolicyStatement({
-          actions: trustActions,
-          principals: servicePrincipals,
-          conditions: sourceAccountCondition,
-        }),
-      );
-    }
-
-    const project = new datazone.CfnProject(this, 'Resource', {
-      domainIdentifier: props.domainId,
-      domainUnitId: props.domainUnitId,
+    const project = new CfnProject(this, 'Resource', {
       name: props.name,
       description: props.description,
+      domainIdentifier: props.domainIdentifier,
+      domainUnitId: props.domainUnitId,
+      glossaryTerms: props.glossaryTerms,
       projectProfileId: props.projectProfileId,
-      projectProfileVersion: props.userParameters?.length ? 'latest' : undefined,
+      projectProfileVersion: userParameters?.length ? 'latest' : undefined,
+      projectCategory: props.projectCategory,
       projectExecutionRole: this.projectExecutionRole?.roleArn,
-      userParameters: props.userParameters?.map((up) => ({
+      membershipAssignments: props.membershipAssignments?.map((m) => ({
+        designation: m.designation,
+        member: { userIdentifier: m.member.userIdentifier, groupIdentifier: m.member.groupIdentifier },
+      })),
+      resourceTags: props.resourceTags?.map((t) => ({ key: t.key, value: t.value })),
+      userParameters: userParameters?.map((up) => ({
         environmentConfigurationName: up.environmentConfigurationName,
         environmentId: up.environmentId,
         environmentParameters: up.environmentParameters.map((ep) => ({ name: ep.name, value: ep.value })),
       })),
     });
 
-    this.projectId = project.attrId;
-
-    for (const member of props.members ?? []) {
-      const memberId = this.sanitizeId(member.userIdentifier);
-      new datazone.CfnProjectMembership(this, `Membership${memberId}`, {
-        domainIdentifier: props.domainId,
-        projectIdentifier: this.projectId,
-        designation: member.designation ?? ProjectMemberDesignation.PROJECT_CONTRIBUTOR,
-        member: { userIdentifier: member.userIdentifier },
-      });
-    }
+    this.id = project.attrId;
+    this.domainId = project.attrDomainId;
+    this.createdAt = project.attrCreatedAt;
+    this.createdBy = project.attrCreatedBy;
+    this.lastUpdatedAt = project.attrLastUpdatedAt;
+    this.projectStatus = project.attrProjectStatus;
   }
 
-  private sanitizeId(identifier: string): string {
-    return identifier.replace(/[^a-zA-Z0-9]/g, '').slice(-40);
+  /**
+   * Builds the final userParameters array, injecting userRoleArn into the
+   * DataLake environment configuration if an execution role exists.
+   */
+  private buildUserParameters(props: ProjectProps) {
+    if (!this.projectExecutionRole) return props.userParameters;
+
+    const hasDataLake = props.userParameters?.some((up) => up.environmentConfigurationName === DATALAKE_BLUEPRINT_NAME);
+
+    if (hasDataLake) return props.userParameters;
+
+    const dataLakeParam = {
+      environmentConfigurationName: DATALAKE_BLUEPRINT_NAME,
+      environmentParameters: [{ name: 'userRoleArn', value: this.projectExecutionRole.roleArn }],
+    };
+
+    return [...(props.userParameters ?? []), dataLakeParam];
+  }
+
+  private createExecutionRole(): iam.Role {
+    const account = Stack.of(this).account;
+    const servicePrincipals = EXECUTION_ROLE_TRUST_PRINCIPALS.map((s) => new iam.ServicePrincipal(s));
+
+    const role = new iam.Role(this, 'ProjectExecutionRole', {
+      description:
+        'Project-scoped execution role for SageMaker Unified Studio. ' +
+        'Defines which AWS services and data can be accessed within this project.',
+      assumedBy: new iam.CompositePrincipal(...servicePrincipals),
+      managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioUserIAMDefaultExecutionPolicy')],
+    });
+
+    Validations.of(role).acknowledge({
+      id: 'AwsSolutions-IAM4',
+      reason:
+        'SageMakerStudioUserIAMDefaultExecutionPolicy is the AWS-recommended managed policy for SageMaker Unified Studio project execution roles.',
+    });
+
+    role.assumeRolePolicy!.addStatements(
+      new iam.PolicyStatement({
+        actions: ['sts:AssumeRole', 'sts:TagSession', 'sts:SetContext', 'sts:SetSourceIdentity'],
+        principals: servicePrincipals,
+        conditions: { StringEquals: { 'aws:SourceAccount': account } },
+      }),
+    );
+
+    return role;
   }
 }

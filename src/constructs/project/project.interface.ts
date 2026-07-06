@@ -1,7 +1,9 @@
+import type { aws_iam as iam } from 'aws-cdk-lib';
+
 /**
  * Designations for a project member.
  */
-export enum ProjectMemberDesignation {
+export enum Designation {
   /** Full owner access to the project. */
   PROJECT_OWNER = 'PROJECT_OWNER',
   /** Contributor access to the project. */
@@ -9,17 +11,31 @@ export enum ProjectMemberDesignation {
 }
 
 /**
- * A member of a SageMaker Unified Studio project.
+ * A membership assignment for a project.
  */
-export interface ProjectMember {
-  /** The IAM role ARN or SageMaker Unified Studio user identifier for this member. */
-  readonly userIdentifier: string;
+export interface MembershipAssignment {
+  /** The member's designation within the project. */
+  readonly designation: Designation;
+  /** The member identifier. */
+  readonly member: Member;
+}
+
+/**
+ * A member of a project (either a user or a group).
+ */
+export interface Member {
   /**
-   * The member's designation within the project.
+   * The group identifier.
    *
-   * @default ProjectMemberDesignation.PROJECT_CONTRIBUTOR
+   * @default - not a group member
    */
-  readonly designation?: ProjectMemberDesignation;
+  readonly groupIdentifier?: string;
+  /**
+   * The user identifier (IAM role ARN or SSO user ID).
+   *
+   * @default - not a user member
+   */
+  readonly userIdentifier?: string;
 }
 
 /**
@@ -38,7 +54,7 @@ export interface EnvironmentParameterValue {
  * Specify `environmentConfigurationName` when creating a new project, or
  * `environmentId` when updating an existing project.
  */
-export interface ProjectEnvironmentUserParameter {
+export interface EnvironmentConfigurationUserParameter {
   /**
    * The environment configuration name (as defined in the project profile).
    * Use this when creating a new project.
@@ -57,18 +73,40 @@ export interface ProjectEnvironmentUserParameter {
 }
 
 /**
+ * A resource tag for a project.
+ */
+export interface ResourceTag {
+  /** The tag key. */
+  readonly key: string;
+  /** The tag value. */
+  readonly value: string;
+}
+
+/**
  * Exposed attributes of the Project construct.
  */
 export interface IProject {
-  /** The project ID. */
-  readonly projectId: string;
+  /** The identifier of a project. */
+  readonly id: string;
+  /** The identifier of the domain where the project exists. */
+  readonly domainId: string;
+  /** The timestamp of when the project was created. */
+  readonly createdAt: string;
+  /** The Amazon DataZone user who created the project. */
+  readonly createdBy: string;
+  /** The timestamp of when the project was last updated. */
+  readonly lastUpdatedAt: string;
+  /** The status of the project. */
+  readonly projectStatus: string;
+  /** The project execution role (provided or auto-created when projectProfileId is set). */
+  readonly projectExecutionRole?: iam.IRole;
 }
 
 /**
  * Properties for a Project construct.
  */
 export interface ProjectProps {
-  /** Display name of the project. */
+  /** Display name of the project (1–64 characters, `[\w -]+`). */
   readonly name: string;
   /**
    * Human-readable description of the project's purpose.
@@ -77,28 +115,54 @@ export interface ProjectProps {
    */
   readonly description?: string;
   /** The SageMaker Unified Studio domain ID this project belongs to. */
-  readonly domainId: string;
+  readonly domainIdentifier: string;
   /**
    * The domain unit ID to place this project in.
    *
    * @default - root domain unit
    */
   readonly domainUnitId?: string;
-  /** The project profile ID that defines the project's capabilities. */
-  readonly projectProfileId: string;
   /**
-   * Project members with their designations.
+   * Glossary terms that can be used in this project.
    *
-   * @default - no members
+   * @default - no glossary terms
    */
-  readonly members?: Array<ProjectMember>;
+  readonly glossaryTerms?: Array<string>;
+  /**
+   * The project profile ID that defines the project's capabilities.
+   *
+   * @default - no project profile
+   */
+  readonly projectProfileId?: string;
+  /**
+   * The category of the project.
+   *
+   * @default - no category
+   */
+  readonly projectCategory?: string;
+  /**
+   * An existing IAM role to use as the project execution role.
+   *
+   * @default - no project execution role (uses account-level execution role)
+   */
+  readonly projectExecutionRole?: iam.IRole;
+  /**
+   * Membership assignments for the project.
+   *
+   * @default - no membership assignments
+   */
+  readonly membershipAssignments?: Array<MembershipAssignment>;
+  /**
+   * Resource tags for the project.
+   *
+   * @default - no resource tags
+   */
+  readonly resourceTags?: Array<ResourceTag>;
   /**
    * User parameters for environment configurations. Use this to customize
    * environments provisioned by the project profile (e.g. database names).
    *
    * @default - no user parameters
    */
-  readonly userParameters?: Array<ProjectEnvironmentUserParameter>;
-
-  readonly isCustomExecutionRole?: boolean;
+  readonly userParameters?: Array<EnvironmentConfigurationUserParameter>;
 }

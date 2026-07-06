@@ -27,10 +27,12 @@ export { Project } from './project/project.construct';
 export {
   ProjectProps,
   IProject,
-  ProjectMember,
-  ProjectMemberDesignation,
-  ProjectEnvironmentUserParameter,
+  MembershipAssignment,
+  Member,
+  Designation,
+  EnvironmentConfigurationUserParameter,
   EnvironmentParameterValue,
+  ResourceTag,
 } from './project/project.interface';
 export { ProjectProfile } from './project-profile/project-profile.construct';
 export {
