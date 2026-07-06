@@ -98,8 +98,8 @@ export interface IProject {
   readonly lastUpdatedAt: string;
   /** The status of the project. */
   readonly projectStatus: string;
-  /** The project execution role (provided or auto-created when projectProfileId is set). */
-  readonly projectExecutionRole?: iam.IRole;
+  /** The project execution role (provided or auto-created). */
+  readonly projectExecutionRole: iam.IRole;
 }
 
 /**
@@ -143,7 +143,7 @@ export interface ProjectProps {
   /**
    * An existing IAM role to use as the project execution role.
    *
-   * @default - no project execution role (uses account-level execution role)
+   * @default - a new execution role is created automatically
    */
   readonly projectExecutionRole?: iam.IRole;
   /**

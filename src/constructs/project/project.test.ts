@@ -17,7 +17,7 @@ describe('Project', () => {
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
       Name: 'TestProject',
       DomainIdentifier: 'dzd-test',
-      ProjectExecutionRole: Match.absent(),
+      ProjectExecutionRole: { 'Fn::GetAtt': Match.anyValue() },
     });
   });
 
@@ -35,27 +35,14 @@ describe('Project', () => {
     });
   });
 
-  test('does not create execution role when no projectProfileId', () => {
+  test('auto-creates execution role', () => {
     const stack = createStack();
     const project = new Project(stack, 'Project', {
       name: 'TestProject',
       domainIdentifier: 'dzd-test',
-    });
-    expect(project.projectExecutionRole).toBeUndefined();
-    Template.fromStack(stack).resourceCountIs('AWS::IAM::Role', 0);
-  });
-
-  test('auto-creates execution role when projectProfileId is set', () => {
-    const stack = createStack();
-    const project = new Project(stack, 'Project', {
-      name: 'TestProject',
-      domainIdentifier: 'dzd-test',
-      projectProfileId: 'pp-test',
     });
     expect(project.projectExecutionRole).toBeDefined();
-    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
-      ProjectExecutionRole: { 'Fn::GetAtt': Match.anyValue() },
-    });
+    Template.fromStack(stack).resourceCountIs('AWS::IAM::Role', 1);
   });
 
   test('auto-created role has correct trust policy', () => {
@@ -63,7 +50,6 @@ describe('Project', () => {
     new Project(stack, 'Project', {
       name: 'TestProject',
       domainIdentifier: 'dzd-test',
-      projectProfileId: 'pp-test',
     });
     Template.fromStack(stack).hasResourceProperties('AWS::IAM::Role', {
       AssumeRolePolicyDocument: Match.objectLike({
@@ -86,7 +72,6 @@ describe('Project', () => {
     const project = new Project(stack, 'Project', {
       name: 'TestProject',
       domainIdentifier: 'dzd-test',
-      projectProfileId: 'pp-test',
       projectExecutionRole: role,
     });
     expect(project.projectExecutionRole).toBe(role);
@@ -95,7 +80,7 @@ describe('Project', () => {
     });
   });
 
-  test('injects DataLake userRoleArn when execution role exists and no DataLake userParameters', () => {
+  test('does not inject userParameters automatically', () => {
     const stack = createStack();
     new Project(stack, 'Project', {
       name: 'TestProject',
@@ -103,26 +88,16 @@ describe('Project', () => {
       projectProfileId: 'pp-test',
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
-      ProjectProfileVersion: 'latest',
-      UserParameters: Match.arrayWith([
-        Match.objectLike({
-          EnvironmentConfigurationName: 'DataLake',
-          EnvironmentParameters: [{ Name: 'userRoleArn', Value: Match.anyValue() }],
-        }),
-      ]),
+      UserParameters: Match.absent(),
+      ProjectProfileVersion: Match.absent(),
     });
   });
 
-  test('does not override existing DataLake userParameters', () => {
+  test('passes userParameters as-is', () => {
     const stack = createStack();
-    const role = new iam.Role(stack, 'Role', {
-      assumedBy: new iam.ServicePrincipal('datazone.amazonaws.com'),
-    });
     new Project(stack, 'Project', {
       name: 'TestProject',
       domainIdentifier: 'dzd-test',
-      projectProfileId: 'pp-test',
-      projectExecutionRole: role,
       userParameters: [
         {
           environmentConfigurationName: 'DataLake',
@@ -131,6 +106,7 @@ describe('Project', () => {
       ],
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
+      ProjectProfileVersion: 'latest',
       UserParameters: [
         {
           EnvironmentConfigurationName: 'DataLake',
@@ -219,13 +195,9 @@ describe('Project', () => {
 
   test('sets projectProfileVersion to latest when userParameters provided', () => {
     const stack = createStack();
-    const role = new iam.Role(stack, 'Role', {
-      assumedBy: new iam.ServicePrincipal('datazone.amazonaws.com'),
-    });
     new Project(stack, 'Project', {
       name: 'TestProject',
       domainIdentifier: 'dzd-test',
-      projectExecutionRole: role,
       userParameters: [
         {
           environmentConfigurationName: 'DataLake',
@@ -238,11 +210,12 @@ describe('Project', () => {
     });
   });
 
-  test('does not set projectProfileVersion when no userParameters and no projectProfileId', () => {
+  test('does not set projectProfileVersion when no userParameters', () => {
     const stack = createStack();
     new Project(stack, 'Project', {
       name: 'TestProject',
       domainIdentifier: 'dzd-test',
+      projectProfileId: 'pp-test',
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
       ProjectProfileVersion: Match.absent(),
@@ -251,13 +224,9 @@ describe('Project', () => {
 
   test('supports environmentId for project updates', () => {
     const stack = createStack();
-    const role = new iam.Role(stack, 'Role', {
-      assumedBy: new iam.ServicePrincipal('datazone.amazonaws.com'),
-    });
     new Project(stack, 'Project', {
       name: 'TestProject',
       domainIdentifier: 'dzd-test',
-      projectExecutionRole: role,
       userParameters: [
         {
           environmentId: 'env-123',
@@ -266,12 +235,12 @@ describe('Project', () => {
       ],
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
-      UserParameters: Match.arrayWith([
+      UserParameters: [
         {
           EnvironmentId: 'env-123',
           EnvironmentParameters: [{ Name: 'glueDbName', Value: 'mydb' }],
         },
-      ]),
+      ],
     });
   });
 

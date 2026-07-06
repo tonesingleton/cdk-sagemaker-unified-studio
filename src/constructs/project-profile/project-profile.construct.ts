@@ -43,7 +43,11 @@ export class ProjectProfile extends Construct implements IProjectProfile {
               awsAccount: { awsAccountId: c.accountId ?? account },
               awsRegion: { regionName: c.region ?? region },
               description: c.description,
-              deploymentOrder: c.deploymentOrder,
+              deploymentOrder:
+                c.deploymentOrder ??
+                (c.name === ManagedBlueprintIdentifier.TOOLING || c.name === ManagedBlueprintIdentifier.TOOLING_LITE
+                  ? 0
+                  : undefined),
               deploymentMode:
                 c.deploymentMode ??
                 (c.name === ManagedBlueprintIdentifier.TOOLING || c.name === ManagedBlueprintIdentifier.TOOLING_LITE

@@ -1,9 +1,7 @@
 import { Stack, Validations, aws_iam as iam } from 'aws-cdk-lib';
 import { CfnProject } from 'aws-cdk-lib/aws-datazone';
 import { Construct } from 'constructs';
-import type { EnvironmentConfigurationUserParameter, IProject, ProjectProps } from './project.interface';
-
-const DATALAKE_BLUEPRINT_NAME = 'DataLake';
+import type { IProject, ProjectProps } from './project.interface';
 
 const EXECUTION_ROLE_TRUST_PRINCIPALS = [
   'datazone.amazonaws.com',
@@ -26,9 +24,8 @@ const EXECUTION_ROLE_TRUST_PRINCIPALS = [
  * Project members consume assets from the Amazon SageMaker Unified Studio catalog and produce new assets
  * using one or more analytical workflows.
  *
- * When a `projectProfileId` is provided and no `projectExecutionRole` is specified, the construct
- * automatically creates a project-scoped execution role and injects its ARN as the `userRoleArn`
- * parameter for the DataLake environment configuration.
+ * The construct always ensures a project execution role exists — either provided via `projectExecutionRole`
+ * or auto-created with the necessary trust policy for SageMaker Unified Studio services.
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/projects.html
  */
@@ -45,18 +42,13 @@ export class Project extends Construct implements IProject {
   public readonly lastUpdatedAt: string;
   /** The status of the project. */
   public readonly projectStatus: string;
-  /** The project execution role (provided or auto-created when projectProfileId is set). */
-  public readonly projectExecutionRole?: iam.IRole;
+  /** The project execution role (provided or auto-created). */
+  public readonly projectExecutionRole: iam.IRole;
 
   constructor(scope: Construct, id: string, props: ProjectProps) {
     super(scope, id);
 
-    // Create an execution role when a project profile is specified but no role is provided.
-    // The DataLake blueprint requires userRoleArn to provision the Glue database.
-    this.projectExecutionRole =
-      props.projectExecutionRole ?? (props.projectProfileId ? this.createExecutionRole() : undefined);
-
-    const userParameters = this.buildUserParameters(props);
+    this.projectExecutionRole = props.projectExecutionRole ?? this.createExecutionRole();
 
     const project = new CfnProject(this, 'Resource', {
       name: props.name,
@@ -65,15 +57,15 @@ export class Project extends Construct implements IProject {
       domainUnitId: props.domainUnitId,
       glossaryTerms: props.glossaryTerms,
       projectProfileId: props.projectProfileId,
-      projectProfileVersion: userParameters?.length ? 'latest' : undefined,
+      projectProfileVersion: props.userParameters?.length ? 'latest' : undefined,
       projectCategory: props.projectCategory,
-      projectExecutionRole: this.projectExecutionRole?.roleArn,
+      projectExecutionRole: this.projectExecutionRole.roleArn,
       membershipAssignments: props.membershipAssignments?.map((m) => ({
         designation: m.designation,
         member: { userIdentifier: m.member.userIdentifier, groupIdentifier: m.member.groupIdentifier },
       })),
       resourceTags: props.resourceTags?.map((t) => ({ key: t.key, value: t.value })),
-      userParameters: userParameters?.map((up) => ({
+      userParameters: props.userParameters?.map((up) => ({
         environmentConfigurationName: up.environmentConfigurationName,
         environmentId: up.environmentId,
         environmentParameters: up.environmentParameters.map((ep) => ({ name: ep.name, value: ep.value })),
@@ -86,25 +78,6 @@ export class Project extends Construct implements IProject {
     this.createdBy = project.attrCreatedBy;
     this.lastUpdatedAt = project.attrLastUpdatedAt;
     this.projectStatus = project.attrProjectStatus;
-  }
-
-  /**
-   * Builds the final userParameters array, injecting userRoleArn into the
-   * DataLake environment configuration if an execution role exists.
-   */
-  private buildUserParameters(props: ProjectProps) {
-    if (!this.projectExecutionRole) return props.userParameters;
-
-    const hasDataLake = props.userParameters?.some((up) => up.environmentConfigurationName === DATALAKE_BLUEPRINT_NAME);
-
-    if (hasDataLake) return props.userParameters;
-
-    const dataLakeParam: EnvironmentConfigurationUserParameter = {
-      environmentConfigurationName: DATALAKE_BLUEPRINT_NAME,
-      environmentParameters: [{ name: 'userRoleArn', value: this.projectExecutionRole.roleArn }],
-    };
-
-    return [...(props.userParameters ?? []), dataLakeParam];
   }
 
   private createExecutionRole(): iam.Role {
