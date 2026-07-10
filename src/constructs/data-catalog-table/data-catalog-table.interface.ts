@@ -106,6 +106,14 @@ export interface DataCatalogTableProps {
   readonly tableName: string;
   /** The Glue database name to create this table in. */
   readonly databaseName: string;
+  /**
+   * The SageMaker Unified Studio project ID.
+   *
+   * The `AmazonDataZoneProject` tag is automatically applied
+   * to any DQDL ruleset created via `addDqdlRuleset()`.
+   *
+   */
+  readonly projectId: string;
   /** The S3 location of the table data. */
   readonly location: string;
   /** The columns of the table (excluding partition keys). */

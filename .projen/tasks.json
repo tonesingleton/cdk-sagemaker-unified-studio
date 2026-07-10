@@ -93,9 +93,6 @@
       "steps": [
         {
           "exec": "jsii --silence-warnings=reserved-word"
-        },
-        {
-          "exec": "node -e \"const f='tsconfig.json';const c=JSON.parse(require('fs').readFileSync(f));c.compilerOptions.types=['jest','node'];require('fs').writeFileSync(f,JSON.stringify(c,null,2))\""
         }
       ]
     },

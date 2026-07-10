@@ -16,4 +16,10 @@ export interface DqdlRulesetProps {
    * @default - no description
    */
   readonly description?: string;
+  /**
+   * Tags to apply to the ruleset.
+   *
+   * @default - no tags
+   */
+  readonly tags?: Record<string, string>;
 }

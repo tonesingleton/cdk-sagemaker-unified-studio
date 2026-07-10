@@ -35,12 +35,14 @@ const FORMAT_CONFIG: Record<DataFormat, { inputFormat: string; outputFormat: str
 export class DataCatalogTable extends Construct implements IDataCatalogTable {
   public readonly tableName: string;
   public readonly databaseName: string;
+  private readonly projectId: string;
 
   constructor(scope: Construct, id: string, props: DataCatalogTableProps) {
     super(scope, id);
 
     this.tableName = props.tableName;
     this.databaseName = props.databaseName;
+    this.projectId = props.projectId;
 
     const format = props.dataFormat ?? DataFormat.PARQUET;
     const config = FORMAT_CONFIG[format];
@@ -91,14 +93,26 @@ export class DataCatalogTable extends Construct implements IDataCatalogTable {
    * @param name Unique name for the ruleset.
    * @param ruleset The DQDL rules string (e.g. 'Rules = [ Completeness "col" = 1.0 ]').
    * @param description Optional description.
+   * @param tags Optional tags to apply to the ruleset.
    */
-  public addDqdlRuleset(id: string, name: string, ruleset: string, description?: string): DqdlRuleset {
+  public addDqdlRuleset(
+    id: string,
+    name: string,
+    ruleset: string,
+    description?: string,
+    tags?: Record<string, string>,
+  ): DqdlRuleset {
+    const mergedTags = {
+      AmazonDataZoneProject: this.projectId,
+      ...tags,
+    };
     const dqdl = new DqdlRuleset(this, id, {
       name,
       ruleset,
       databaseName: this.databaseName,
       tableName: this.tableName,
       description,
+      tags: mergedTags,
     });
     dqdl.node.addDependency(this);
     return dqdl;

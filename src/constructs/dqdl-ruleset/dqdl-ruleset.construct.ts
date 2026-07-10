@@ -23,6 +23,7 @@ export class DqdlRuleset extends Construct {
         databaseName: props.databaseName,
         tableName: props.tableName,
       },
+      tags: props.tags,
     });
   }
 }

@@ -71,6 +71,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
+  // Add jest + node types to tsconfig for IDE support
+  tsconfig: {
+    compilerOptions: {
+      types: ['jest', 'node'],
+    },
+  },
+
   // GitHub
   githubOptions: {
     pullRequestLintOptions: {
@@ -128,13 +135,6 @@ project.jest!.config.coverageThreshold = {
   },
 };
 project.jest!.config.coveragePathIgnorePatterns = ['/node_modules/', '\\.interface\\.ts$'];
-
-// Patch JSII-generated tsconfig.json with jest types for IDE support
-project.tasks
-  .tryFind('compile')!
-  .exec(
-    "node -e \"const f='tsconfig.json';const c=JSON.parse(require('fs').readFileSync(f));c.compilerOptions.types=['jest','node'];require('fs').writeFileSync(f,JSON.stringify(c,null,2))\"",
-  );
 
 // Exclude test files from JSII published package
 project.addPackageIgnore('src/**/*.test.ts');

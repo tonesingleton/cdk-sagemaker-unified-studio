@@ -13,6 +13,7 @@ describe('DataCatalogTable', () => {
     new DataCatalogTable(stack, 'Table', {
       tableName: 'dos',
       databaseName: 'guidewire',
+      projectId: 'proj123',
       location: 's3://my-bucket/data/dos',
       columns: [
         { name: 'pol_no', type: 'string' },
@@ -47,6 +48,7 @@ describe('DataCatalogTable', () => {
     new DataCatalogTable(stack, 'Table', {
       tableName: 'dos',
       databaseName: 'guidewire',
+      projectId: 'proj123',
       location: 's3://my-bucket/data/dos',
       columns: [{ name: 'pol_no', type: 'string' }],
       partitionKeys: [
@@ -69,6 +71,7 @@ describe('DataCatalogTable', () => {
     new DataCatalogTable(stack, 'Table', {
       tableName: 'data',
       databaseName: 'db',
+      projectId: 'proj123',
       location: 's3://bucket/csv',
       columns: [{ name: 'id', type: 'string' }],
       dataFormat: DataFormat.CSV,
@@ -92,6 +95,7 @@ describe('DataCatalogTable', () => {
     new DataCatalogTable(stack, 'Table', {
       tableName: 'events',
       databaseName: 'db',
+      projectId: 'proj123',
       location: 's3://bucket/json',
       columns: [{ name: 'event_id', type: 'string' }],
       dataFormat: DataFormat.JSON,
@@ -112,6 +116,7 @@ describe('DataCatalogTable', () => {
     new DataCatalogTable(stack, 'Table', {
       tableName: 'logs',
       databaseName: 'db',
+      projectId: 'proj123',
       location: 's3://bucket/orc',
       columns: [{ name: 'ts', type: 'timestamp' }],
       dataFormat: DataFormat.ORC,
@@ -132,6 +137,7 @@ describe('DataCatalogTable', () => {
     new DataCatalogTable(stack, 'Table', {
       tableName: 'dos',
       databaseName: 'db',
+      projectId: 'proj123',
       location: 's3://bucket/dos',
       columns: [{ name: 'id', type: 'string' }],
       description: 'DOS policy table',
@@ -146,6 +152,7 @@ describe('DataCatalogTable', () => {
     new DataCatalogTable(stack, 'Table', {
       tableName: 'dos',
       databaseName: 'db',
+      projectId: 'proj123',
       location: 's3://bucket/dos',
       columns: [{ name: 'pol_no', type: 'string', comment: 'Policy number' }],
     });
@@ -163,6 +170,7 @@ describe('DataCatalogTable', () => {
     new DataCatalogTable(stack, 'Table', {
       tableName: 'dos',
       databaseName: 'db',
+      projectId: 'proj123',
       location: 's3://bucket/dos',
       columns: [{ name: 'id', type: 'string' }],
       parameters: { 'spark.sql.partitionProvider': 'catalog' },
@@ -179,6 +187,7 @@ describe('DataCatalogTable', () => {
     new DataCatalogTable(stack, 'Table', {
       tableName: 'dos',
       databaseName: 'db',
+      projectId: 'proj123',
       location: 's3://my-bucket/data/dos',
       columns: [{ name: 'id', type: 'string' }],
       tableType: TableType.GOVERNED,
@@ -196,6 +205,7 @@ describe('DataCatalogTable', () => {
     new DataCatalogTable(stack, 'Table', {
       tableName: 'dos',
       databaseName: 'db',
+      projectId: 'proj123',
       location: 's3://my-bucket/data/dos',
       columns: [{ name: 'id', type: 'string' }],
       tableType: TableType.GOVERNED,
@@ -207,11 +217,12 @@ describe('DataCatalogTable', () => {
     });
   });
 
-  test('addDqdlRuleset creates a ruleset targeting the table', () => {
+  test('addDqdlRuleset creates a ruleset targeting the table with project tag', () => {
     const stack = createStack();
     const table = new DataCatalogTable(stack, 'Table', {
       tableName: 'dos',
       databaseName: 'guidewire',
+      projectId: 'proj123',
       location: 's3://my-bucket/data/dos',
       columns: [{ name: 'id', type: 'string' }],
     });
@@ -220,6 +231,7 @@ describe('DataCatalogTable', () => {
       Name: 'dos-quality',
       Ruleset: 'Rules = [ Completeness "id" = 1.0 ]',
       TargetTable: { DatabaseName: 'guidewire', TableName: 'dos' },
+      Tags: { AmazonDataZoneProject: 'proj123' },
     });
   });
 });

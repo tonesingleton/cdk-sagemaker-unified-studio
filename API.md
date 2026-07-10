@@ -5543,6 +5543,14 @@ The CloudFormation resource type name for this resource class.
 
 A SageMaker Unified Studio project within a domain.
 
+Projects enable a group of users to collaborate on various business use cases that involve publishing,
+discovering, subscribing to, and consuming data in the Amazon SageMaker Unified Studio catalog.
+Project members consume assets from the Amazon SageMaker Unified Studio catalog and produce new assets
+using one or more analytical workflows.
+
+The construct always ensures a project execution role exists — either provided via `projectExecutionRole`
+or auto-created with the necessary trust policy for SageMaker Unified Studio services.
+
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/projects.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/projects.html)
 
 #### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.Initializer"></a>
@@ -5556,7 +5564,7 @@ new Project(scope: Construct, id: string, props: ProjectProps)
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.Initializer.parameter.id">id</a></code> | <code>string</code> | The identifier of a project. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps">ProjectProps</a></code> | *No description.* |
 
 ---
@@ -5570,6 +5578,8 @@ new Project(scope: Construct, id: string, props: ProjectProps)
 ##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.Initializer.parameter.id"></a>
 
 - *Type:* string
+
+The identifier of a project.
 
 ---
 
@@ -5662,8 +5672,13 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.projectId">projectId</a></code> | <code>string</code> | The project ID. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.projectExecutionRole">projectExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.Role</code> | The project's execution role. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.createdAt">createdAt</a></code> | <code>string</code> | The timestamp of when the project was created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.createdBy">createdBy</a></code> | <code>string</code> | The Amazon DataZone user who created the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.domainId">domainId</a></code> | <code>string</code> | The identifier of the domain where the project exists. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.id">id</a></code> | <code>string</code> | The identifier of a project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.lastUpdatedAt">lastUpdatedAt</a></code> | <code>string</code> | The timestamp of when the project was last updated. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.projectExecutionRole">projectExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The project execution role (provided or auto-created). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.property.projectStatus">projectStatus</a></code> | <code>string</code> | The status of the project. |
 
 ---
 
@@ -5679,27 +5694,87 @@ The tree node.
 
 ---
 
-##### `projectId`<sup>Required</sup> <a name="projectId" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.property.projectId"></a>
+##### `createdAt`<sup>Required</sup> <a name="createdAt" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.property.createdAt"></a>
 
 ```typescript
-public readonly projectId: string;
+public readonly createdAt: string;
 ```
 
 - *Type:* string
 
-The project ID.
+The timestamp of when the project was created.
 
 ---
 
-##### `projectExecutionRole`<sup>Optional</sup> <a name="projectExecutionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.property.projectExecutionRole"></a>
+##### `createdBy`<sup>Required</sup> <a name="createdBy" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.property.createdBy"></a>
 
 ```typescript
-public readonly projectExecutionRole: Role;
+public readonly createdBy: string;
 ```
 
-- *Type:* aws-cdk-lib.aws_iam.Role
+- *Type:* string
 
-The project's execution role.
+The Amazon DataZone user who created the project.
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The identifier of the domain where the project exists.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+The identifier of a project.
+
+---
+
+##### `lastUpdatedAt`<sup>Required</sup> <a name="lastUpdatedAt" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.property.lastUpdatedAt"></a>
+
+```typescript
+public readonly lastUpdatedAt: string;
+```
+
+- *Type:* string
+
+The timestamp of when the project was last updated.
+
+---
+
+##### `projectExecutionRole`<sup>Required</sup> <a name="projectExecutionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.property.projectExecutionRole"></a>
+
+```typescript
+public readonly projectExecutionRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The project execution role (provided or auto-created).
+
+---
+
+##### `projectStatus`<sup>Required</sup> <a name="projectStatus" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.property.projectStatus"></a>
+
+```typescript
+public readonly projectStatus: string;
+```
+
+- *Type:* string
+
+The status of the project.
 
 ---
 
@@ -9854,6 +9929,177 @@ The CloudFormation resource type name for this resource class.
 
 ---
 
+### Workflow <a name="Workflow" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IWorkflow">IWorkflow</a>
+
+An MWAA Serverless Workflow for orchestrating tasks in SageMaker Unified Studio.
+
+Creates an `AWS::MWAAServerless::Workflow` resource that references a YAML
+workflow definition stored in S3. The YAML defines the DAG structure using
+supported AWS operators (e.g. GlueJobOperator, RedshiftSQLOperator).
+
+> [https://docs.aws.amazon.com/mwaa/latest/mwaa-serverless-userguide/workflows.html](https://docs.aws.amazon.com/mwaa/latest/mwaa-serverless-userguide/workflows.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.Initializer"></a>
+
+```typescript
+import { Workflow } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new Workflow(scope: Construct, id: string, props: WorkflowProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps">WorkflowProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps">WorkflowProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.isConstruct"></a>
+
+```typescript
+import { Workflow } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Workflow.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow.property.workflowArn">workflowArn</a></code> | <code>string</code> | The workflow ARN. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow.property.workflowName">workflowName</a></code> | <code>string</code> | The workflow name. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `workflowArn`<sup>Required</sup> <a name="workflowArn" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.property.workflowArn"></a>
+
+```typescript
+public readonly workflowArn: string;
+```
+
+- *Type:* string
+
+The workflow ARN.
+
+---
+
+##### `workflowName`<sup>Required</sup> <a name="workflowName" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.property.workflowName"></a>
+
+```typescript
+public readonly workflowName: string;
+```
+
+- *Type:* string
+
+The workflow name.
+
+---
+
+
 ## Structs <a name="Structs" id="Structs"></a>
 
 ### AccountRolesProps <a name="AccountRolesProps" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountRolesProps"></a>
@@ -9908,11 +10154,11 @@ const athenaConnectionProps: AthenaConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.name">name</a></code> | <code>string</code> | The name of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.awsLocation">awsLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a></code> | The AWS location where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.configurations">configurations</a></code> | <code>aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.connectionScope">connectionScope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.description">description</a></code> | <code>string</code> | Connection description. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean</code> | Whether trusted identity propagation is enabled. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this connection. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.scope">scope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.workgroupName">workgroupName</a></code> | <code>string</code> | The Athena workgroup name. |
 
 ---
@@ -9967,6 +10213,19 @@ The configurations of the connection.
 
 ---
 
+##### `connectionScope`<sup>Optional</sup> <a name="connectionScope" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.connectionScope"></a>
+
+```typescript
+public readonly connectionScope: ConnectionScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
+- *Default:* no scope
+
+The scope of the connection.
+
+---
+
 ##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.description"></a>
 
 ```typescript
@@ -10016,19 +10275,6 @@ public readonly projectIdentifier: string;
 - *Default:* derived from the environment
 
 The ID of the project that owns this connection.
-
----
-
-##### `scope`<sup>Optional</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.property.scope"></a>
-
-```typescript
-public readonly scope: ConnectionScope;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
-- *Default:* no scope
-
-The scope of the connection.
 
 ---
 
@@ -10325,11 +10571,11 @@ const connectionProps: ConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.name">name</a></code> | <code>string</code> | The name of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.awsLocation">awsLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a></code> | The AWS location where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.configurations">configurations</a></code> | <code>aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.connectionScope">connectionScope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.description">description</a></code> | <code>string</code> | Connection description. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean</code> | Whether trusted identity propagation is enabled. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this connection. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.scope">scope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 
 ---
 
@@ -10383,6 +10629,19 @@ The configurations of the connection.
 
 ---
 
+##### `connectionScope`<sup>Optional</sup> <a name="connectionScope" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.connectionScope"></a>
+
+```typescript
+public readonly connectionScope: ConnectionScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
+- *Default:* no scope
+
+The scope of the connection.
+
+---
+
 ##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.description"></a>
 
 ```typescript
@@ -10432,19 +10691,6 @@ public readonly projectIdentifier: string;
 - *Default:* derived from the environment
 
 The ID of the project that owns this connection.
-
----
-
-##### `scope`<sup>Optional</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.ConnectionProps.property.scope"></a>
-
-```typescript
-public readonly scope: ConnectionScope;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
-- *Default:* no scope
-
-The scope of the connection.
 
 ---
 
@@ -11233,6 +11479,73 @@ AWS region where the environment is deployed.
 
 ---
 
+### EnvironmentConfigurationUserParameter <a name="EnvironmentConfigurationUserParameter" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfigurationUserParameter"></a>
+
+User parameters for a specific environment configuration within a project.
+
+Specify `environmentConfigurationName` when creating a new project, or
+`environmentId` when updating an existing project.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfigurationUserParameter.Initializer"></a>
+
+```typescript
+import { EnvironmentConfigurationUserParameter } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const environmentConfigurationUserParameter: EnvironmentConfigurationUserParameter = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfigurationUserParameter.property.environmentParameters">environmentParameters</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentParameterValue">EnvironmentParameterValue</a>[]</code> | The parameters to pass to this environment configuration. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfigurationUserParameter.property.environmentConfigurationName">environmentConfigurationName</a></code> | <code>string</code> | The environment configuration name (as defined in the project profile). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfigurationUserParameter.property.environmentId">environmentId</a></code> | <code>string</code> | The environment ID. |
+
+---
+
+##### `environmentParameters`<sup>Required</sup> <a name="environmentParameters" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfigurationUserParameter.property.environmentParameters"></a>
+
+```typescript
+public readonly environmentParameters: EnvironmentParameterValue[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentParameterValue">EnvironmentParameterValue</a>[]
+
+The parameters to pass to this environment configuration.
+
+---
+
+##### `environmentConfigurationName`<sup>Optional</sup> <a name="environmentConfigurationName" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfigurationUserParameter.property.environmentConfigurationName"></a>
+
+```typescript
+public readonly environmentConfigurationName: string;
+```
+
+- *Type:* string
+- *Default:* not set (use environmentId for updates)
+
+The environment configuration name (as defined in the project profile).
+
+Use this when creating a new project.
+
+---
+
+##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfigurationUserParameter.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+- *Default:* not set (use environmentConfigurationName for creates)
+
+The environment ID.
+
+Use this when updating an existing project.
+
+---
+
 ### EnvironmentParameter <a name="EnvironmentParameter" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentParameter"></a>
 
 A user parameter for an environment.
@@ -11701,11 +12014,11 @@ const glueConnectionProps: GlueConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.name">name</a></code> | <code>string</code> | The name of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.awsLocation">awsLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a></code> | The AWS location where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.configurations">configurations</a></code> | <code>aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.connectionScope">connectionScope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.description">description</a></code> | <code>string</code> | Connection description. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean</code> | Whether trusted identity propagation is enabled. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this connection. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.scope">scope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.connectionType">connectionType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType">GlueConnectionType</a></code> | The Glue connection type. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.athenaProperties">athenaProperties</a></code> | <code>{[ key: string ]: string}</code> | Athena-specific properties (e.g. spill_bucket, spill_prefix). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.authenticationConfiguration">authenticationConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueAuthenticationConfiguration">GlueAuthenticationConfiguration</a></code> | Authentication configuration. |
@@ -11769,6 +12082,19 @@ The configurations of the connection.
 
 ---
 
+##### `connectionScope`<sup>Optional</sup> <a name="connectionScope" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.connectionScope"></a>
+
+```typescript
+public readonly connectionScope: ConnectionScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
+- *Default:* no scope
+
+The scope of the connection.
+
+---
+
 ##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.description"></a>
 
 ```typescript
@@ -11818,19 +12144,6 @@ public readonly projectIdentifier: string;
 - *Default:* derived from the environment
 
 The ID of the project that owns this connection.
-
----
-
-##### `scope`<sup>Optional</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.scope"></a>
-
-```typescript
-public readonly scope: ConnectionScope;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
-- *Default:* no scope
-
-The scope of the connection.
 
 ---
 
@@ -11957,9 +12270,11 @@ public readonly validateForComputeEnvironments: GlueComputeEnvironment[];
 ```
 
 - *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueComputeEnvironment">GlueComputeEnvironment</a>[]
-- *Default:* no validation
+- *Default:* all compute environments (SPARK, ATHENA, PYTHON)
 
 Compute environments to validate the connection for.
+
+Must contain at least one value when provided.
 
 ---
 
@@ -12268,11 +12583,11 @@ const hyperPodConnectionProps: HyperPodConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.name">name</a></code> | <code>string</code> | The name of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.awsLocation">awsLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a></code> | The AWS location where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.configurations">configurations</a></code> | <code>aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.connectionScope">connectionScope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.description">description</a></code> | <code>string</code> | Connection description. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean</code> | Whether trusted identity propagation is enabled. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this connection. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.scope">scope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.clusterName">clusterName</a></code> | <code>string</code> | The HyperPod cluster name. |
 
 ---
@@ -12324,6 +12639,19 @@ public readonly configurations: ConnectionConfigurationProperty[];
 - *Default:* no configurations
 
 The configurations of the connection.
+
+---
+
+##### `connectionScope`<sup>Optional</sup> <a name="connectionScope" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.connectionScope"></a>
+
+```typescript
+public readonly connectionScope: ConnectionScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
+- *Default:* no scope
+
+The scope of the connection.
 
 ---
 
@@ -12379,19 +12707,6 @@ The ID of the project that owns this connection.
 
 ---
 
-##### `scope`<sup>Optional</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.scope"></a>
-
-```typescript
-public readonly scope: ConnectionScope;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
-- *Default:* no scope
-
-The scope of the connection.
-
----
-
 ##### `clusterName`<sup>Required</sup> <a name="clusterName" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.property.clusterName"></a>
 
 ```typescript
@@ -12424,11 +12739,11 @@ const iamConnectionProps: IamConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.name">name</a></code> | <code>string</code> | The name of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.awsLocation">awsLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a></code> | The AWS location where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.configurations">configurations</a></code> | <code>aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.connectionScope">connectionScope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.description">description</a></code> | <code>string</code> | Connection description. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean</code> | Whether trusted identity propagation is enabled. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this connection. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.scope">scope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.glueLineageSyncEnabled">glueLineageSyncEnabled</a></code> | <code>boolean</code> | Whether Glue lineage sync is enabled for this connection. |
 
 ---
@@ -12480,6 +12795,19 @@ public readonly configurations: ConnectionConfigurationProperty[];
 - *Default:* no configurations
 
 The configurations of the connection.
+
+---
+
+##### `connectionScope`<sup>Optional</sup> <a name="connectionScope" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.connectionScope"></a>
+
+```typescript
+public readonly connectionScope: ConnectionScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
+- *Default:* no scope
+
+The scope of the connection.
 
 ---
 
@@ -12535,19 +12863,6 @@ The ID of the project that owns this connection.
 
 ---
 
-##### `scope`<sup>Optional</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.scope"></a>
-
-```typescript
-public readonly scope: ConnectionScope;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
-- *Default:* no scope
-
-The scope of the connection.
-
----
-
 ##### `glueLineageSyncEnabled`<sup>Optional</sup> <a name="glueLineageSyncEnabled" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.property.glueLineageSyncEnabled"></a>
 
 ```typescript
@@ -12558,6 +12873,98 @@ public readonly glueLineageSyncEnabled: boolean;
 - *Default:* false
 
 Whether Glue lineage sync is enabled for this connection.
+
+---
+
+### Member <a name="Member" id="@tonesingleton/cdk-sagemaker-unified-studio.Member"></a>
+
+A member of a project (either a user or a group).
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.Member.Initializer"></a>
+
+```typescript
+import { Member } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const member: Member = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Member.property.groupIdentifier">groupIdentifier</a></code> | <code>string</code> | The group identifier. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Member.property.userIdentifier">userIdentifier</a></code> | <code>string</code> | The user identifier (IAM role ARN or SSO user ID). |
+
+---
+
+##### `groupIdentifier`<sup>Optional</sup> <a name="groupIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.Member.property.groupIdentifier"></a>
+
+```typescript
+public readonly groupIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* not a group member
+
+The group identifier.
+
+---
+
+##### `userIdentifier`<sup>Optional</sup> <a name="userIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.Member.property.userIdentifier"></a>
+
+```typescript
+public readonly userIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* not a user member
+
+The user identifier (IAM role ARN or SSO user ID).
+
+---
+
+### MembershipAssignment <a name="MembershipAssignment" id="@tonesingleton/cdk-sagemaker-unified-studio.MembershipAssignment"></a>
+
+A membership assignment for a project.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.MembershipAssignment.Initializer"></a>
+
+```typescript
+import { MembershipAssignment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const membershipAssignment: MembershipAssignment = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MembershipAssignment.property.designation">designation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Designation">Designation</a></code> | The member's designation within the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MembershipAssignment.property.member">member</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Member">Member</a></code> | The member identifier. |
+
+---
+
+##### `designation`<sup>Required</sup> <a name="designation" id="@tonesingleton/cdk-sagemaker-unified-studio.MembershipAssignment.property.designation"></a>
+
+```typescript
+public readonly designation: Designation;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Designation">Designation</a>
+
+The member's designation within the project.
+
+---
+
+##### `member`<sup>Required</sup> <a name="member" id="@tonesingleton/cdk-sagemaker-unified-studio.MembershipAssignment.property.member"></a>
+
+```typescript
+public readonly member: Member;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Member">Member</a>
+
+The member identifier.
 
 ---
 
@@ -12631,119 +13038,6 @@ public readonly locationUri: string;
 - *Default:* no location (tables define their own locations)
 
 The S3 location URI for the database.
-
----
-
-### ProjectEnvironmentUserParameter <a name="ProjectEnvironmentUserParameter" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectEnvironmentUserParameter"></a>
-
-User parameters for a specific environment configuration within a project.
-
-Specify `environmentConfigurationName` when creating a new project, or
-`environmentId` when updating an existing project.
-
-#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectEnvironmentUserParameter.Initializer"></a>
-
-```typescript
-import { ProjectEnvironmentUserParameter } from '@tonesingleton/cdk-sagemaker-unified-studio'
-
-const projectEnvironmentUserParameter: ProjectEnvironmentUserParameter = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectEnvironmentUserParameter.property.environmentParameters">environmentParameters</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentParameterValue">EnvironmentParameterValue</a>[]</code> | The parameters to pass to this environment configuration. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectEnvironmentUserParameter.property.environmentConfigurationName">environmentConfigurationName</a></code> | <code>string</code> | The environment configuration name (as defined in the project profile). |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectEnvironmentUserParameter.property.environmentId">environmentId</a></code> | <code>string</code> | The environment ID. |
-
----
-
-##### `environmentParameters`<sup>Required</sup> <a name="environmentParameters" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectEnvironmentUserParameter.property.environmentParameters"></a>
-
-```typescript
-public readonly environmentParameters: EnvironmentParameterValue[];
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentParameterValue">EnvironmentParameterValue</a>[]
-
-The parameters to pass to this environment configuration.
-
----
-
-##### `environmentConfigurationName`<sup>Optional</sup> <a name="environmentConfigurationName" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectEnvironmentUserParameter.property.environmentConfigurationName"></a>
-
-```typescript
-public readonly environmentConfigurationName: string;
-```
-
-- *Type:* string
-- *Default:* not set (use environmentId for updates)
-
-The environment configuration name (as defined in the project profile).
-
-Use this when creating a new project.
-
----
-
-##### `environmentId`<sup>Optional</sup> <a name="environmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectEnvironmentUserParameter.property.environmentId"></a>
-
-```typescript
-public readonly environmentId: string;
-```
-
-- *Type:* string
-- *Default:* not set (use environmentConfigurationName for creates)
-
-The environment ID.
-
-Use this when updating an existing project.
-
----
-
-### ProjectMember <a name="ProjectMember" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember"></a>
-
-A member of a SageMaker Unified Studio project.
-
-#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.Initializer"></a>
-
-```typescript
-import { ProjectMember } from '@tonesingleton/cdk-sagemaker-unified-studio'
-
-const projectMember: ProjectMember = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.userIdentifier">userIdentifier</a></code> | <code>string</code> | The IAM role ARN or SageMaker Unified Studio user identifier for this member. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.designation">designation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation">ProjectMemberDesignation</a></code> | The member's designation within the project. |
-
----
-
-##### `userIdentifier`<sup>Required</sup> <a name="userIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.userIdentifier"></a>
-
-```typescript
-public readonly userIdentifier: string;
-```
-
-- *Type:* string
-
-The IAM role ARN or SageMaker Unified Studio user identifier for this member.
-
----
-
-##### `designation`<sup>Optional</sup> <a name="designation" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.designation"></a>
-
-```typescript
-public readonly designation: ProjectMemberDesignation;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation">ProjectMemberDesignation</a>
-- *Default:* ProjectMemberDesignation.PROJECT_CONTRIBUTOR
-
-The member's designation within the project.
 
 ---
 
@@ -12864,21 +13158,24 @@ const projectProps: ProjectProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainId">domainId</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID this project belongs to. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.name">name</a></code> | <code>string</code> | Display name of the project. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.projectProfileId">projectProfileId</a></code> | <code>string</code> | The project profile ID that defines the project's capabilities. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID this project belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.name">name</a></code> | <code>string</code> | Display name of the project (1–64 characters, `[\w -]+`). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the project's purpose. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainUnitId">domainUnitId</a></code> | <code>string</code> | The domain unit ID to place this project in. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.isCustomExecutionRole">isCustomExecutionRole</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.members">members</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember">ProjectMember</a>[]</code> | Project members with their designations. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.userParameters">userParameters</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectEnvironmentUserParameter">ProjectEnvironmentUserParameter</a>[]</code> | User parameters for environment configurations. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms that can be used in this project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.membershipAssignments">membershipAssignments</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MembershipAssignment">MembershipAssignment</a>[]</code> | Membership assignments for the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.projectCategory">projectCategory</a></code> | <code>string</code> | The category of the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.projectExecutionRole">projectExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | An existing IAM role to use as the project execution role. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.projectProfileId">projectProfileId</a></code> | <code>string</code> | The project profile ID that defines the project's capabilities. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.resourceTags">resourceTags</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ResourceTag">ResourceTag</a>[]</code> | Resource tags for the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.userParameters">userParameters</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfigurationUserParameter">EnvironmentConfigurationUserParameter</a>[]</code> | User parameters for environment configurations. |
 
 ---
 
-##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainId"></a>
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainIdentifier"></a>
 
 ```typescript
-public readonly domainId: string;
+public readonly domainIdentifier: string;
 ```
 
 - *Type:* string
@@ -12895,19 +13192,7 @@ public readonly name: string;
 
 - *Type:* string
 
-Display name of the project.
-
----
-
-##### `projectProfileId`<sup>Required</sup> <a name="projectProfileId" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.projectProfileId"></a>
-
-```typescript
-public readonly projectProfileId: string;
-```
-
-- *Type:* string
-
-The project profile ID that defines the project's capabilities.
+Display name of the project (1–64 characters, `[\w -]+`).
 
 ---
 
@@ -12937,36 +13222,91 @@ The domain unit ID to place this project in.
 
 ---
 
-##### `isCustomExecutionRole`<sup>Optional</sup> <a name="isCustomExecutionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.isCustomExecutionRole"></a>
+##### `glossaryTerms`<sup>Optional</sup> <a name="glossaryTerms" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.glossaryTerms"></a>
 
 ```typescript
-public readonly isCustomExecutionRole: boolean;
+public readonly glossaryTerms: string[];
 ```
 
-- *Type:* boolean
+- *Type:* string[]
+- *Default:* no glossary terms
+
+Glossary terms that can be used in this project.
 
 ---
 
-##### `members`<sup>Optional</sup> <a name="members" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.members"></a>
+##### `membershipAssignments`<sup>Optional</sup> <a name="membershipAssignments" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.membershipAssignments"></a>
 
 ```typescript
-public readonly members: ProjectMember[];
+public readonly membershipAssignments: MembershipAssignment[];
 ```
 
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember">ProjectMember</a>[]
-- *Default:* no members
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.MembershipAssignment">MembershipAssignment</a>[]
+- *Default:* no membership assignments
 
-Project members with their designations.
+Membership assignments for the project.
+
+---
+
+##### `projectCategory`<sup>Optional</sup> <a name="projectCategory" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.projectCategory"></a>
+
+```typescript
+public readonly projectCategory: string;
+```
+
+- *Type:* string
+- *Default:* no category
+
+The category of the project.
+
+---
+
+##### `projectExecutionRole`<sup>Optional</sup> <a name="projectExecutionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.projectExecutionRole"></a>
+
+```typescript
+public readonly projectExecutionRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+- *Default:* a new execution role is created automatically
+
+An existing IAM role to use as the project execution role.
+
+---
+
+##### `projectProfileId`<sup>Optional</sup> <a name="projectProfileId" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.projectProfileId"></a>
+
+```typescript
+public readonly projectProfileId: string;
+```
+
+- *Type:* string
+- *Default:* no project profile
+
+The project profile ID that defines the project's capabilities.
+
+---
+
+##### `resourceTags`<sup>Optional</sup> <a name="resourceTags" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.resourceTags"></a>
+
+```typescript
+public readonly resourceTags: ResourceTag[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ResourceTag">ResourceTag</a>[]
+- *Default:* no resource tags
+
+Resource tags for the project.
 
 ---
 
 ##### `userParameters`<sup>Optional</sup> <a name="userParameters" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.userParameters"></a>
 
 ```typescript
-public readonly userParameters: ProjectEnvironmentUserParameter[];
+public readonly userParameters: EnvironmentConfigurationUserParameter[];
 ```
 
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectEnvironmentUserParameter">ProjectEnvironmentUserParameter</a>[]
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfigurationUserParameter">EnvironmentConfigurationUserParameter</a>[]
 - *Default:* no user parameters
 
 User parameters for environment configurations.
@@ -13028,11 +13368,11 @@ const redshiftConnectionProps: RedshiftConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.name">name</a></code> | <code>string</code> | The name of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.awsLocation">awsLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a></code> | The AWS location where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.configurations">configurations</a></code> | <code>aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.connectionScope">connectionScope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.description">description</a></code> | <code>string</code> | Connection description. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean</code> | Whether trusted identity propagation is enabled. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this connection. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.scope">scope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.credentials">credentials</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftCredentials">RedshiftCredentials</a></code> | The credentials for the Redshift database. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.databaseName">databaseName</a></code> | <code>string</code> | The Redshift database name. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.host">host</a></code> | <code>string</code> | The hostname of the Redshift cluster or serverless endpoint. |
@@ -13091,6 +13431,19 @@ The configurations of the connection.
 
 ---
 
+##### `connectionScope`<sup>Optional</sup> <a name="connectionScope" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.connectionScope"></a>
+
+```typescript
+public readonly connectionScope: ConnectionScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
+- *Default:* no scope
+
+The scope of the connection.
+
+---
+
 ##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.description"></a>
 
 ```typescript
@@ -13140,19 +13493,6 @@ public readonly projectIdentifier: string;
 - *Default:* derived from the environment
 
 The ID of the project that owns this connection.
-
----
-
-##### `scope`<sup>Optional</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.property.scope"></a>
-
-```typescript
-public readonly scope: ConnectionScope;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
-- *Default:* no scope
-
-The scope of the connection.
 
 ---
 
@@ -13602,6 +13942,51 @@ The schema name to filter on (Redshift only).
 
 ---
 
+### ResourceTag <a name="ResourceTag" id="@tonesingleton/cdk-sagemaker-unified-studio.ResourceTag"></a>
+
+A resource tag for a project.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ResourceTag.Initializer"></a>
+
+```typescript
+import { ResourceTag } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const resourceTag: ResourceTag = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ResourceTag.property.key">key</a></code> | <code>string</code> | The tag key. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ResourceTag.property.value">value</a></code> | <code>string</code> | The tag value. |
+
+---
+
+##### `key`<sup>Required</sup> <a name="key" id="@tonesingleton/cdk-sagemaker-unified-studio.ResourceTag.property.key"></a>
+
+```typescript
+public readonly key: string;
+```
+
+- *Type:* string
+
+The tag key.
+
+---
+
+##### `value`<sup>Required</sup> <a name="value" id="@tonesingleton/cdk-sagemaker-unified-studio.ResourceTag.property.value"></a>
+
+```typescript
+public readonly value: string;
+```
+
+- *Type:* string
+
+The tag value.
+
+---
+
 ### S3ConnectionProps <a name="S3ConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps"></a>
 
 Properties for an S3Connection construct.
@@ -13622,11 +14007,11 @@ const s3ConnectionProps: S3ConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.name">name</a></code> | <code>string</code> | The name of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.awsLocation">awsLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a></code> | The AWS location where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.configurations">configurations</a></code> | <code>aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.connectionScope">connectionScope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.description">description</a></code> | <code>string</code> | Connection description. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean</code> | Whether trusted identity propagation is enabled. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this connection. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.scope">scope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.s3Uri">s3Uri</a></code> | <code>string</code> | The S3 URI to connect to. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.registerS3AccessGrantLocation">registerS3AccessGrantLocation</a></code> | <code>boolean</code> | Whether to register the S3 Access Grant location. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.s3AccessGrantLocationId">s3AccessGrantLocationId</a></code> | <code>string</code> | The S3 Access Grant location ID. |
@@ -13683,6 +14068,19 @@ The configurations of the connection.
 
 ---
 
+##### `connectionScope`<sup>Optional</sup> <a name="connectionScope" id="@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.connectionScope"></a>
+
+```typescript
+public readonly connectionScope: ConnectionScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
+- *Default:* no scope
+
+The scope of the connection.
+
+---
+
 ##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.description"></a>
 
 ```typescript
@@ -13732,19 +14130,6 @@ public readonly projectIdentifier: string;
 - *Default:* derived from the environment
 
 The ID of the project that owns this connection.
-
----
-
-##### `scope`<sup>Optional</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.property.scope"></a>
-
-```typescript
-public readonly scope: ConnectionScope;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
-- *Default:* no scope
-
-The scope of the connection.
 
 ---
 
@@ -13806,11 +14191,11 @@ const sparkEmrConnectionProps: SparkEmrConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.name">name</a></code> | <code>string</code> | The name of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.awsLocation">awsLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a></code> | The AWS location where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.configurations">configurations</a></code> | <code>aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.connectionScope">connectionScope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.description">description</a></code> | <code>string</code> | Connection description. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean</code> | Whether trusted identity propagation is enabled. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this connection. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.scope">scope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.computeArn">computeArn</a></code> | <code>string</code> | The ARN of the EMR Serverless application or EMR cluster. |
 
 ---
@@ -13862,6 +14247,19 @@ public readonly configurations: ConnectionConfigurationProperty[];
 - *Default:* no configurations
 
 The configurations of the connection.
+
+---
+
+##### `connectionScope`<sup>Optional</sup> <a name="connectionScope" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.connectionScope"></a>
+
+```typescript
+public readonly connectionScope: ConnectionScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
+- *Default:* no scope
+
+The scope of the connection.
 
 ---
 
@@ -13917,19 +14315,6 @@ The ID of the project that owns this connection.
 
 ---
 
-##### `scope`<sup>Optional</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.scope"></a>
-
-```typescript
-public readonly scope: ConnectionScope;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
-- *Default:* no scope
-
-The scope of the connection.
-
----
-
 ##### `computeArn`<sup>Required</sup> <a name="computeArn" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.property.computeArn"></a>
 
 ```typescript
@@ -13962,11 +14347,11 @@ const sparkGlueConnectionProps: SparkGlueConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.name">name</a></code> | <code>string</code> | The name of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.awsLocation">awsLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a></code> | The AWS location where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.configurations">configurations</a></code> | <code>aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.connectionScope">connectionScope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.description">description</a></code> | <code>string</code> | Connection description. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean</code> | Whether trusted identity propagation is enabled. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this connection. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.scope">scope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.glueVersion">glueVersion</a></code> | <code>string</code> | The Glue version (e.g. '4.0'). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.idleTimeout">idleTimeout</a></code> | <code>number</code> | The idle timeout in minutes before the session is terminated. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.numberOfWorkers">numberOfWorkers</a></code> | <code>number</code> | The number of workers allocated to the Glue session. |
@@ -14024,6 +14409,19 @@ The configurations of the connection.
 
 ---
 
+##### `connectionScope`<sup>Optional</sup> <a name="connectionScope" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.connectionScope"></a>
+
+```typescript
+public readonly connectionScope: ConnectionScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
+- *Default:* no scope
+
+The scope of the connection.
+
+---
+
 ##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.description"></a>
 
 ```typescript
@@ -14076,19 +14474,6 @@ The ID of the project that owns this connection.
 
 ---
 
-##### `scope`<sup>Optional</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.scope"></a>
-
-```typescript
-public readonly scope: ConnectionScope;
-```
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
-- *Default:* no scope
-
-The scope of the connection.
-
----
-
 ##### `glueVersion`<sup>Optional</sup> <a name="glueVersion" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.property.glueVersion"></a>
 
 ```typescript
@@ -14138,6 +14523,212 @@ public readonly workerType: string;
 - *Default:* 'G.1X'
 
 The Glue worker type (e.g. 'G.1X', 'G.2X').
+
+---
+
+### WorkflowDefinitionLocation <a name="WorkflowDefinitionLocation" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation"></a>
+
+S3 location of the YAML workflow definition.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation.Initializer"></a>
+
+```typescript
+import { WorkflowDefinitionLocation } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const workflowDefinitionLocation: WorkflowDefinitionLocation = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | The S3 bucket containing the YAML definition. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation.property.objectKey">objectKey</a></code> | <code>string</code> | The S3 object key of the YAML definition file. |
+
+---
+
+##### `bucket`<sup>Required</sup> <a name="bucket" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation.property.bucket"></a>
+
+```typescript
+public readonly bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+The S3 bucket containing the YAML definition.
+
+---
+
+##### `objectKey`<sup>Required</sup> <a name="objectKey" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation.property.objectKey"></a>
+
+```typescript
+public readonly objectKey: string;
+```
+
+- *Type:* string
+
+The S3 object key of the YAML definition file.
+
+---
+
+### WorkflowNetworkConfiguration <a name="WorkflowNetworkConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration"></a>
+
+Network configuration for workflow execution.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.Initializer"></a>
+
+```typescript
+import { WorkflowNetworkConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const workflowNetworkConfiguration: WorkflowNetworkConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.securityGroupIds">securityGroupIds</a></code> | <code>string[]</code> | Security group IDs for the workflow execution environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.subnetIds">subnetIds</a></code> | <code>string[]</code> | Subnet IDs for the workflow execution environment. |
+
+---
+
+##### `securityGroupIds`<sup>Required</sup> <a name="securityGroupIds" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.securityGroupIds"></a>
+
+```typescript
+public readonly securityGroupIds: string[];
+```
+
+- *Type:* string[]
+
+Security group IDs for the workflow execution environment.
+
+---
+
+##### `subnetIds`<sup>Required</sup> <a name="subnetIds" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.subnetIds"></a>
+
+```typescript
+public readonly subnetIds: string[];
+```
+
+- *Type:* string[]
+
+Subnet IDs for the workflow execution environment.
+
+---
+
+### WorkflowProps <a name="WorkflowProps" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps"></a>
+
+Properties for a Workflow construct.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.Initializer"></a>
+
+```typescript
+import { WorkflowProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const workflowProps: WorkflowProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.definitionLocation">definitionLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation">WorkflowDefinitionLocation</a></code> | The S3 location of the YAML workflow definition. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.name">name</a></code> | <code>string</code> | The name of the workflow. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.roleArn">roleArn</a></code> | <code>string</code> | The ARN of the IAM role that MWAA Serverless assumes when executing the workflow. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.description">description</a></code> | <code>string</code> | Description of the workflow. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.networkConfiguration">networkConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration">WorkflowNetworkConfiguration</a></code> | Network configuration for VPC access during execution. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags to apply to the workflow resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.triggerMode">triggerMode</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TriggerMode">TriggerMode</a></code> | The trigger mode for the workflow. |
+
+---
+
+##### `definitionLocation`<sup>Required</sup> <a name="definitionLocation" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.definitionLocation"></a>
+
+```typescript
+public readonly definitionLocation: WorkflowDefinitionLocation;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation">WorkflowDefinitionLocation</a>
+
+The S3 location of the YAML workflow definition.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the workflow.
+
+Must be unique within the AWS account.
+
+---
+
+##### `roleArn`<sup>Required</sup> <a name="roleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.roleArn"></a>
+
+```typescript
+public readonly roleArn: string;
+```
+
+- *Type:* string
+
+The ARN of the IAM role that MWAA Serverless assumes when executing the workflow.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Description of the workflow.
+
+---
+
+##### `networkConfiguration`<sup>Optional</sup> <a name="networkConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.networkConfiguration"></a>
+
+```typescript
+public readonly networkConfiguration: WorkflowNetworkConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration">WorkflowNetworkConfiguration</a>
+- *Default:* runs in the service's default worker VPC
+
+Network configuration for VPC access during execution.
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.tags"></a>
+
+```typescript
+public readonly tags: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* no tags
+
+Tags to apply to the workflow resource.
+
+---
+
+##### `triggerMode`<sup>Optional</sup> <a name="triggerMode" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.triggerMode"></a>
+
+```typescript
+public readonly triggerMode: TriggerMode;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.TriggerMode">TriggerMode</a>
+- *Default:* TriggerMode.MANUAL_ONLY
+
+The trigger mode for the workflow.
 
 ---
 
@@ -14875,19 +15466,97 @@ Exposed attributes of the Project construct.
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.projectId">projectId</a></code> | <code>string</code> | The project ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.createdAt">createdAt</a></code> | <code>string</code> | The timestamp of when the project was created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.createdBy">createdBy</a></code> | <code>string</code> | The Amazon DataZone user who created the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.domainId">domainId</a></code> | <code>string</code> | The identifier of the domain where the project exists. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.id">id</a></code> | <code>string</code> | The identifier of a project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.lastUpdatedAt">lastUpdatedAt</a></code> | <code>string</code> | The timestamp of when the project was last updated. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.projectExecutionRole">projectExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The project execution role (provided or auto-created). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.projectStatus">projectStatus</a></code> | <code>string</code> | The status of the project. |
 
 ---
 
-##### `projectId`<sup>Required</sup> <a name="projectId" id="@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.projectId"></a>
+##### `createdAt`<sup>Required</sup> <a name="createdAt" id="@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.createdAt"></a>
 
 ```typescript
-public readonly projectId: string;
+public readonly createdAt: string;
 ```
 
 - *Type:* string
 
-The project ID.
+The timestamp of when the project was created.
+
+---
+
+##### `createdBy`<sup>Required</sup> <a name="createdBy" id="@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.createdBy"></a>
+
+```typescript
+public readonly createdBy: string;
+```
+
+- *Type:* string
+
+The Amazon DataZone user who created the project.
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The identifier of the domain where the project exists.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+The identifier of a project.
+
+---
+
+##### `lastUpdatedAt`<sup>Required</sup> <a name="lastUpdatedAt" id="@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.lastUpdatedAt"></a>
+
+```typescript
+public readonly lastUpdatedAt: string;
+```
+
+- *Type:* string
+
+The timestamp of when the project was last updated.
+
+---
+
+##### `projectExecutionRole`<sup>Required</sup> <a name="projectExecutionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.projectExecutionRole"></a>
+
+```typescript
+public readonly projectExecutionRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The project execution role (provided or auto-created).
+
+---
+
+##### `projectStatus`<sup>Required</sup> <a name="projectStatus" id="@tonesingleton/cdk-sagemaker-unified-studio.IProject.property.projectStatus"></a>
+
+```typescript
+public readonly projectStatus: string;
+```
+
+- *Type:* string
+
+The status of the project.
 
 ---
 
@@ -14942,6 +15611,46 @@ public readonly projectProfileId: string;
 - *Type:* string
 
 The project profile ID.
+
+---
+
+### IWorkflow <a name="IWorkflow" id="@tonesingleton/cdk-sagemaker-unified-studio.IWorkflow"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow">Workflow</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IWorkflow">IWorkflow</a>
+
+Exposed attributes of the Workflow construct.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IWorkflow.property.workflowArn">workflowArn</a></code> | <code>string</code> | The workflow ARN. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IWorkflow.property.workflowName">workflowName</a></code> | <code>string</code> | The workflow name. |
+
+---
+
+##### `workflowArn`<sup>Required</sup> <a name="workflowArn" id="@tonesingleton/cdk-sagemaker-unified-studio.IWorkflow.property.workflowArn"></a>
+
+```typescript
+public readonly workflowArn: string;
+```
+
+- *Type:* string
+
+The workflow ARN.
+
+---
+
+##### `workflowName`<sup>Required</sup> <a name="workflowName" id="@tonesingleton/cdk-sagemaker-unified-studio.IWorkflow.property.workflowName"></a>
+
+```typescript
+public readonly workflowName: string;
+```
+
+- *Type:* string
+
+The workflow name.
 
 ---
 
@@ -15167,6 +15876,33 @@ Environment is provisioned automatically when a project is created.
 ##### `ON_DEMAND` <a name="ON_DEMAND" id="@tonesingleton/cdk-sagemaker-unified-studio.DeploymentMode.ON_DEMAND"></a>
 
 Environment must be provisioned manually after project creation.
+
+---
+
+
+### Designation <a name="Designation" id="@tonesingleton/cdk-sagemaker-unified-studio.Designation"></a>
+
+Designations for a project member.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Designation.PROJECT_OWNER">PROJECT_OWNER</a></code> | Full owner access to the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Designation.PROJECT_CONTRIBUTOR">PROJECT_CONTRIBUTOR</a></code> | Contributor access to the project. |
+
+---
+
+##### `PROJECT_OWNER` <a name="PROJECT_OWNER" id="@tonesingleton/cdk-sagemaker-unified-studio.Designation.PROJECT_OWNER"></a>
+
+Full owner access to the project.
+
+---
+
+
+##### `PROJECT_CONTRIBUTOR` <a name="PROJECT_CONTRIBUTOR" id="@tonesingleton/cdk-sagemaker-unified-studio.Designation.PROJECT_CONTRIBUTOR"></a>
+
+Contributor access to the project.
 
 ---
 
@@ -15401,33 +16137,6 @@ Custom connector.
 ---
 
 
-### ProjectMemberDesignation <a name="ProjectMemberDesignation" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation"></a>
-
-Designations for a project member.
-
-#### Members <a name="Members" id="Members"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_OWNER">PROJECT_OWNER</a></code> | Full owner access to the project. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_CONTRIBUTOR">PROJECT_CONTRIBUTOR</a></code> | Contributor access to the project. |
-
----
-
-##### `PROJECT_OWNER` <a name="PROJECT_OWNER" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_OWNER"></a>
-
-Full owner access to the project.
-
----
-
-
-##### `PROJECT_CONTRIBUTOR` <a name="PROJECT_CONTRIBUTOR" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_CONTRIBUTOR"></a>
-
-Contributor access to the project.
-
----
-
-
 ### ProjectProfileStatus <a name="ProjectProfileStatus" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus"></a>
 
 Status of a project profile.
@@ -15478,6 +16187,41 @@ External table — data managed outside Lake Formation governance.
 ##### `GOVERNED` <a name="GOVERNED" id="@tonesingleton/cdk-sagemaker-unified-studio.TableType.GOVERNED"></a>
 
 Governed table — data managed with Lake Formation transactions.
+
+---
+
+
+### TriggerMode <a name="TriggerMode" id="@tonesingleton/cdk-sagemaker-unified-studio.TriggerMode"></a>
+
+Trigger mode for the workflow execution.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TriggerMode.SCHEDULED">SCHEDULED</a></code> | Workflow runs on the defined schedule. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TriggerMode.MANUAL_ONLY">MANUAL_ONLY</a></code> | Workflow can only be run on-demand. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TriggerMode.DISABLED">DISABLED</a></code> | Workflow cannot be run on schedule or on-demand. |
+
+---
+
+##### `SCHEDULED` <a name="SCHEDULED" id="@tonesingleton/cdk-sagemaker-unified-studio.TriggerMode.SCHEDULED"></a>
+
+Workflow runs on the defined schedule.
+
+---
+
+
+##### `MANUAL_ONLY` <a name="MANUAL_ONLY" id="@tonesingleton/cdk-sagemaker-unified-studio.TriggerMode.MANUAL_ONLY"></a>
+
+Workflow can only be run on-demand.
+
+---
+
+
+##### `DISABLED` <a name="DISABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.TriggerMode.DISABLED"></a>
+
+Workflow cannot be run on schedule or on-demand.
 
 ---
 

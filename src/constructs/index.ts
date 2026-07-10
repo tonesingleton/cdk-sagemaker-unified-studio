@@ -56,3 +56,11 @@ export {
 } from './data-catalog-table/data-catalog-table.interface';
 export { DqdlRuleset } from './dqdl-ruleset/dqdl-ruleset.construct';
 export { DqdlRulesetProps } from './dqdl-ruleset/dqdl-ruleset.interface';
+export { Workflow } from './workflow/workflow.construct';
+export {
+  WorkflowProps,
+  IWorkflow,
+  TriggerMode,
+  WorkflowDefinitionLocation,
+  WorkflowNetworkConfiguration,
+} from './workflow/workflow.interface';

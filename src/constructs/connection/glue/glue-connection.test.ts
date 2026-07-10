@@ -164,4 +164,13 @@ describe('GlueConnection', () => {
       });
     }).toThrow(/Invalid compute environment "INVALID"/);
   });
+
+  it('throws when environmentIdentifier is not provided', () => {
+    expect(() => {
+      new GlueConnection(stack, 'Conn', {
+        ...defaultProps,
+        environmentIdentifier: undefined as unknown as string,
+      });
+    }).toThrow('environmentIdentifier is required for GlueConnection');
+  });
 });
