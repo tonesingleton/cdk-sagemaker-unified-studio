@@ -165,7 +165,6 @@ export class ManagedBlueprintIdentifier {
     ];
   }
 
-  /* istanbul ignore next */
   private constructor() {}
 }
 
