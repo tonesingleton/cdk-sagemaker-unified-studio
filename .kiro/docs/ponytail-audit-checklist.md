@@ -21,10 +21,6 @@ Over-engineering findings for `cdk-sagemaker-unified-studio`, ranked biggest cut
       `src/constructs/data-source/data-source.construct.ts:57-78`
       `buildGlueConfiguration` and `buildRedshiftConfiguration` share identical filter mapping. Extract shared helper.
 
-- [ ] **native: `Workflow` uses raw `CfnResource` — check if L1 exists at CDK 2.261**
-      `src/constructs/workflow/workflow.construct.ts`
-      If `aws-cdk-lib` has added `CfnWorkflow` in MWAAServerless, switch for type safety. If not, the escape hatch is correct.
-
 - [ ] **shrink: `Host` iterates stack children to suppress AwsCustomResource Lambda**
       `src/constructs/git-connection/host.construct.ts:118-131`
       Known CDK workaround. Move to a stack-level utility or one-time acknowledge to avoid duplication if more AwsCustomResources are added.
