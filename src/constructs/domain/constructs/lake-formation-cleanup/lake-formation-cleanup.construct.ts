@@ -74,41 +74,41 @@ export class LakeFormationCleanup extends Construct {
       }),
     );
 
-    Validations.of(handler).acknowledge({
-      id: 'AwsSolutions-IAM4',
-      reason: 'Lambda basic execution role is required for CloudWatch logging.',
-    });
-
-    Validations.of(handler).acknowledge({
-      id: 'AwsSolutions-IAM5',
-      reason:
-        'Lake Formation settings, SageMaker Unified Studio list operations, and Glue database cleanup are account-level and do not support resource-level permissions.',
-    });
-
-    Validations.of(handler).acknowledge({
-      id: 'AwsSolutions-IAM5',
-      reason: 'Glue database cleanup requires wildcard to match all databases created by DataLake environments.',
-    });
+    Validations.of(handler).acknowledge(
+      {
+        id: 'AwsSolutions-IAM4',
+        reason: 'Lambda basic execution role is required for CloudWatch logging.',
+      },
+      {
+        id: 'AwsSolutions-IAM5',
+        reason:
+          'Lake Formation settings, SageMaker Unified Studio list operations, and Glue database cleanup are account-level and do not support resource-level permissions.',
+      },
+      {
+        id: 'AwsSolutions-IAM5',
+        reason: 'Glue database cleanup requires wildcard to match all databases created by DataLake environments.',
+      },
+    );
 
     const provider = new cr.Provider(this, 'Provider', {
       onEventHandler: handler,
     });
 
-    Validations.of(provider).acknowledge({
-      id: 'AwsSolutions-IAM4',
-      reason: 'Provider framework Lambda requires basic execution role for CloudWatch logging.',
-    });
-
-    Validations.of(provider).acknowledge({
-      id: 'AwsSolutions-L1',
-      reason: 'Provider framework manages its own Lambda runtime version.',
-    });
-
-    Validations.of(provider).acknowledge({
-      id: 'AwsSolutions-IAM5',
-      reason:
-        'Provider framework requires lambda:InvokeFunction with a :* suffix to invoke all versions of the cleanup handler.',
-    });
+    Validations.of(provider).acknowledge(
+      {
+        id: 'AwsSolutions-IAM4',
+        reason: 'Provider framework Lambda requires basic execution role for CloudWatch logging.',
+      },
+      {
+        id: 'AwsSolutions-L1',
+        reason: 'Provider framework manages its own Lambda runtime version.',
+      },
+      {
+        id: 'AwsSolutions-IAM5',
+        reason:
+          'Provider framework requires lambda:InvokeFunction with a :* suffix to invoke all versions of the cleanup handler.',
+      },
+    );
 
     new CustomResource(this, 'Resource', {
       serviceToken: provider.serviceToken,

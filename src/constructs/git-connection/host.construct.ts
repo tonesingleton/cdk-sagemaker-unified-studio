@@ -89,17 +89,18 @@ export class Host extends Construct implements IHost {
       policy: cr.AwsCustomResourcePolicy.fromStatements(policyStatements),
     });
 
-    Validations.of(host).acknowledge({
-      id: 'AwsSolutions-IAM5',
-      reason: props.vpcConfiguration
-        ? 'codeconnections:CreateHost and EC2 network interface actions require wildcard resource because the host ARN and ENI IDs are not known before creation.'
-        : 'codeconnections:CreateHost requires wildcard resource because the host ARN is not known before creation.',
-    });
-
-    Validations.of(host).acknowledge({
-      id: 'AwsSolutions-IAM5',
-      reason: 'Host ARN contains a generated ID that is not known at deploy time.',
-    });
+    Validations.of(host).acknowledge(
+      {
+        id: 'AwsSolutions-IAM5',
+        reason: props.vpcConfiguration
+          ? 'codeconnections:CreateHost and EC2 network interface actions require wildcard resource because the host ARN and ENI IDs are not known before creation.'
+          : 'codeconnections:CreateHost requires wildcard resource because the host ARN is not known before creation.',
+      },
+      {
+        id: 'AwsSolutions-IAM5',
+        reason: 'Host ARN contains a generated ID that is not known at deploy time.',
+      },
+    );
 
     // AwsCustomResource creates a singleton Lambda at the stack level that is
     // shared across all AwsCustomResource instances. Suppressions must target
@@ -107,14 +108,16 @@ export class Host extends Construct implements IHost {
     const stack = Stack.of(this);
     for (const child of stack.node.children) {
       if (child instanceof lambda_.Function && child.node.id.startsWith('AWS')) {
-        Validations.of(child).acknowledge({
-          id: 'AwsSolutions-L1',
-          reason: 'AwsCustomResource singleton Lambda runtime is managed by the CDK framework.',
-        });
-        Validations.of(child).acknowledge({
-          id: 'AwsSolutions-IAM4',
-          reason: 'AwsCustomResource singleton Lambda requires basic execution role for CloudWatch logging.',
-        });
+        Validations.of(child).acknowledge(
+          {
+            id: 'AwsSolutions-L1',
+            reason: 'AwsCustomResource singleton Lambda runtime is managed by the CDK framework.',
+          },
+          {
+            id: 'AwsSolutions-IAM4',
+            reason: 'AwsCustomResource singleton Lambda requires basic execution role for CloudWatch logging.',
+          },
+        );
         break;
       }
     }

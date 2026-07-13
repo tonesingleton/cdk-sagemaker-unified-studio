@@ -90,18 +90,19 @@ export class AccountRoles extends Construct implements IAccountRoles {
       ],
     });
 
-    Validations.of(provisioningRole).acknowledge({
-      id: 'AwsSolutions-IAM4',
-      reason:
-        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonSageMakerProvisioning.html',
-    });
-
-    Validations.of(provisioningRole).acknowledge({
-      id: 'AwsSolutions-IAM5',
-      reason:
-        'The ToolingLite blueprint creates S3 buckets named amazon-sagemaker-<account>-<region>-<projectId>. ' +
-        'The provisioning role needs bucket policy management on these buckets for environment cleanup.',
-    });
+    Validations.of(provisioningRole).acknowledge(
+      {
+        id: 'AwsSolutions-IAM4',
+        reason:
+          'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/AmazonSageMakerProvisioning.html',
+      },
+      {
+        id: 'AwsSolutions-IAM5',
+        reason:
+          'The ToolingLite blueprint creates S3 buckets named amazon-sagemaker-<account>-<region>-<projectId>. ' +
+          'The provisioning role needs bucket policy management on these buckets for environment cleanup.',
+      },
+    );
 
     provisioningRole.addToPolicy(
       new iam.PolicyStatement({

@@ -33,32 +33,33 @@ export class LakeFormationAdminSync extends Construct {
       }),
     );
 
-    Validations.of(handler).acknowledge({
-      id: 'AwsSolutions-IAM4',
-      reason: 'Lambda basic execution role is required for CloudWatch logging.',
-    });
-
-    Validations.of(handler).acknowledge({
-      id: 'AwsSolutions-IAM5',
-      reason: 'Lake Formation settings are account-level and do not support resource-level permissions.',
-    });
+    Validations.of(handler).acknowledge(
+      {
+        id: 'AwsSolutions-IAM4',
+        reason: 'Lambda basic execution role is required for CloudWatch logging.',
+      },
+      {
+        id: 'AwsSolutions-IAM5',
+        reason: 'Lake Formation settings are account-level and do not support resource-level permissions.',
+      },
+    );
 
     const provider = new cr.Provider(this, 'Provider', { onEventHandler: handler });
 
-    Validations.of(provider).acknowledge({
-      id: 'AwsSolutions-IAM4',
-      reason: 'Provider framework Lambda requires basic execution role for CloudWatch logging.',
-    });
-
-    Validations.of(provider).acknowledge({
-      id: 'AwsSolutions-L1',
-      reason: 'Provider framework manages its own Lambda runtime version.',
-    });
-
-    Validations.of(provider).acknowledge({
-      id: 'AwsSolutions-IAM5',
-      reason: 'Provider framework requires lambda:InvokeFunction with :* suffix.',
-    });
+    Validations.of(provider).acknowledge(
+      {
+        id: 'AwsSolutions-IAM4',
+        reason: 'Provider framework Lambda requires basic execution role for CloudWatch logging.',
+      },
+      {
+        id: 'AwsSolutions-L1',
+        reason: 'Provider framework manages its own Lambda runtime version.',
+      },
+      {
+        id: 'AwsSolutions-IAM5',
+        reason: 'Provider framework requires lambda:InvokeFunction with :* suffix.',
+      },
+    );
 
     new CustomResource(this, 'Resource', {
       serviceToken: provider.serviceToken,
