@@ -1,4 +1,4 @@
-import type { aws_kms as kms, aws_s3 as s3 } from 'aws-cdk-lib';
+import type { aws_iam as iam, aws_kms as kms, aws_s3 as s3 } from 'aws-cdk-lib';
 
 /**
  * Trigger mode for the workflow execution.
@@ -61,6 +61,9 @@ export interface WorkflowEncryptionConfiguration {
 /**
  * Logging configuration for workflow execution.
  *
+ * Amazon MWAA Serverless automatically exports worker logs and task-level
+ * information to the specified log group using remote logging.
+ *
  * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-loggingconfiguration.html
  */
 export interface WorkflowLoggingConfiguration {
@@ -70,6 +73,11 @@ export interface WorkflowLoggingConfiguration {
 
 /**
  * Network configuration for workflow execution.
+ *
+ * When specified, MWAA Serverless deploys ECS worker tasks in your VPC for
+ * secure connectivity to VPC-only resources (e.g. RDS, private endpoints).
+ * If not specified, tasks run in the service's default worker VPC with
+ * network isolation from other customers.
  *
  * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-networkconfiguration.html
  */
@@ -99,6 +107,16 @@ export interface IWorkflow {
 }
 
 /**
+ * Attributes required to import an existing Workflow.
+ */
+export interface WorkflowAttributes {
+  /** The workflow ARN. */
+  readonly workflowArn: string;
+  /** The workflow name. */
+  readonly workflowName: string;
+}
+
+/**
  * Properties for a Workflow construct.
  *
  * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-mwaaserverless-workflow.html
@@ -121,12 +139,15 @@ export interface WorkflowProps {
   readonly definitionFile: WorkflowDefinitionFile;
 
   /**
-   * The ARN of the IAM role that MWAA Serverless assumes when executing the workflow.
+   * The IAM role that MWAA Serverless assumes when executing the workflow.
+   *
+   * Must have permissions to access the AWS services and resources that
+   * your workflow tasks interact with.
    */
-  readonly roleArn: string;
+  readonly role: iam.IRole;
 
   /**
-   * Description of the workflow.
+   * Description of the workflow (1–1024 characters).
    *
    * @default - no description
    */

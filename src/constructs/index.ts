@@ -67,6 +67,7 @@ export { Workflow } from './workflow/workflow.construct';
 export {
   WorkflowProps,
   IWorkflow,
+  WorkflowAttributes,
   TriggerMode,
   EncryptionType,
   WorkflowDefinitionFile,

@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { App, Stack, aws_kms as kms, aws_s3 as s3 } from 'aws-cdk-lib';
+import { App, Stack, aws_iam as iam, aws_kms as kms, aws_s3 as s3 } from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import { Workflow } from './workflow.construct';
 import { EncryptionType, TriggerMode } from './workflow.interface';
@@ -10,6 +10,10 @@ function createStack(): Stack {
   return new Stack(new App(), 'TestStack', { env: { account: '123456789012', region: 'eu-central-1' } });
 }
 
+function importRole(stack: Stack, id = 'Role'): iam.IRole {
+  return iam.Role.fromRoleArn(stack, id, 'arn:aws:iam::123456789012:role/execution-role');
+}
+
 describe('Workflow', () => {
   test('creates workflow with content-hashed S3 key', () => {
     const stack = createStack();
@@ -17,7 +21,7 @@ describe('Workflow', () => {
     new Workflow(stack, 'Workflow', {
       name: 'motor-portfolio-kpi',
       definitionFile: { path: FIXTURE, bucket },
-      roleArn: 'arn:aws:iam::123456789012:role/execution-role',
+      role: importRole(stack),
     });
     const template = Template.fromStack(stack);
     template.hasResourceProperties('AWS::MWAAServerless::Workflow', {
@@ -37,7 +41,7 @@ describe('Workflow', () => {
     new Workflow(stack, 'Workflow', {
       name: 'scheduled-wf',
       definitionFile: { path: FIXTURE, bucket },
-      roleArn: 'arn:aws:iam::123456789012:role/role',
+      role: importRole(stack),
       triggerMode: TriggerMode.SCHEDULED,
     });
     Template.fromStack(stack).hasResourceProperties('AWS::MWAAServerless::Workflow', {
@@ -51,7 +55,7 @@ describe('Workflow', () => {
     new Workflow(stack, 'Workflow', {
       name: 'tagged-wf',
       definitionFile: { path: FIXTURE, bucket },
-      roleArn: 'arn:aws:iam::123456789012:role/role',
+      role: importRole(stack),
       description: 'My workflow',
       tags: { AmazonDataZoneProject: 'proj-123' },
     });
@@ -67,7 +71,7 @@ describe('Workflow', () => {
     new Workflow(stack, 'Workflow', {
       name: 'vpc-wf',
       definitionFile: { path: FIXTURE, bucket },
-      roleArn: 'arn:aws:iam::123456789012:role/role',
+      role: importRole(stack),
       networkConfiguration: {
         securityGroupIds: ['sg-123'],
         subnetIds: ['subnet-a', 'subnet-b'],
@@ -87,7 +91,7 @@ describe('Workflow', () => {
     new Workflow(stack, 'Workflow', {
       name: 'enc-wf',
       definitionFile: { path: FIXTURE, bucket },
-      roleArn: 'arn:aws:iam::123456789012:role/role',
+      role: importRole(stack),
       encryptionConfiguration: { type: EncryptionType.AWS_MANAGED_KEY },
     });
     Template.fromStack(stack).hasResourceProperties('AWS::MWAAServerless::Workflow', {
@@ -102,7 +106,7 @@ describe('Workflow', () => {
     new Workflow(stack, 'Workflow', {
       name: 'cmk-wf',
       definitionFile: { path: FIXTURE, bucket },
-      roleArn: 'arn:aws:iam::123456789012:role/role',
+      role: importRole(stack),
       encryptionConfiguration: { type: EncryptionType.CUSTOMER_MANAGED_KEY, kmsKey: key },
     });
     Template.fromStack(stack).hasResourceProperties('AWS::MWAAServerless::Workflow', {
@@ -119,7 +123,7 @@ describe('Workflow', () => {
     new Workflow(stack, 'Workflow', {
       name: 'log-wf',
       definitionFile: { path: FIXTURE, bucket },
-      roleArn: 'arn:aws:iam::123456789012:role/role',
+      role: importRole(stack),
       loggingConfiguration: { logGroupName: '/aws/mwaa/my-workflow' },
     });
     Template.fromStack(stack).hasResourceProperties('AWS::MWAAServerless::Workflow', {
@@ -133,8 +137,71 @@ describe('Workflow', () => {
     const wf = new Workflow(stack, 'Workflow', {
       name: 'my-wf',
       definitionFile: { path: FIXTURE, bucket },
-      roleArn: 'arn:aws:iam::123456789012:role/role',
+      role: importRole(stack),
     });
     expect(wf.workflowName).toBe('my-wf');
+  });
+});
+
+describe('Workflow validation', () => {
+  test('throws on invalid name pattern', () => {
+    const stack = createStack();
+    const bucket = s3.Bucket.fromBucketName(stack, 'Bucket', 'my-bucket');
+    expect(
+      () =>
+        new Workflow(stack, 'Workflow', {
+          name: '-invalid',
+          definitionFile: { path: FIXTURE, bucket },
+          role: importRole(stack),
+        }),
+    ).toThrow(/Workflow name/);
+  });
+
+  test('throws on name exceeding 255 characters', () => {
+    const stack = createStack();
+    const bucket = s3.Bucket.fromBucketName(stack, 'Bucket', 'my-bucket');
+    expect(
+      () =>
+        new Workflow(stack, 'Workflow', {
+          name: 'a'.repeat(256),
+          definitionFile: { path: FIXTURE, bucket },
+          role: importRole(stack),
+        }),
+    ).toThrow(/Workflow name/);
+  });
+
+  test('throws on description exceeding 1024 characters', () => {
+    const stack = createStack();
+    const bucket = s3.Bucket.fromBucketName(stack, 'Bucket', 'my-bucket');
+    expect(
+      () =>
+        new Workflow(stack, 'Workflow', {
+          name: 'valid-name',
+          definitionFile: { path: FIXTURE, bucket },
+          role: importRole(stack),
+          description: 'x'.repeat(1025),
+        }),
+    ).toThrow(/description must be at most 1024/);
+  });
+});
+
+describe('Workflow.fromAttributes', () => {
+  test('imports workflow with attributes', () => {
+    const stack = createStack();
+    const imported = Workflow.fromAttributes(stack, 'Imported', {
+      workflowArn: 'arn:aws:airflow-serverless:eu-central-1:123456789012:workflow/my-wf',
+      workflowName: 'my-wf',
+    });
+    expect(imported.workflowArn).toBe('arn:aws:airflow-serverless:eu-central-1:123456789012:workflow/my-wf');
+    expect(imported.workflowName).toBe('my-wf');
+  });
+
+  test('does not create any CloudFormation resources', () => {
+    const stack = createStack();
+    Workflow.fromAttributes(stack, 'Imported', {
+      workflowArn: 'arn:aws:airflow-serverless:eu-central-1:123456789012:workflow/my-wf',
+      workflowName: 'my-wf',
+    });
+    Template.fromStack(stack).resourceCountIs('AWS::MWAAServerless::Workflow', 0);
   });
 });

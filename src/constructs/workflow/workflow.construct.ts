@@ -1,48 +1,14 @@
 import * as crypto from 'crypto';
 import * as fs from 'fs';
 import * as path from 'path';
-import { CfnResource, aws_s3_deployment as s3deploy } from 'aws-cdk-lib';
+import { aws_mwaaserverless as mwaa, aws_s3_deployment as s3deploy } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import type { IWorkflow, WorkflowProps } from './workflow.interface';
+import type { IWorkflow, WorkflowAttributes, WorkflowProps } from './workflow.interface';
 import { TriggerMode } from './workflow.interface';
 
-// ---------------------------------------------------------------------------
-// CloudFormation property interfaces (internal)
-// Mirror the AWS::MWAAServerless::Workflow resource shape exactly.
-// @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-mwaaserverless-workflow.html
-// ---------------------------------------------------------------------------
-
-interface CfnS3Location {
-  readonly Bucket: string;
-  readonly ObjectKey: string;
-  readonly VersionId?: string;
-}
-
-interface CfnEncryptionConfiguration {
-  readonly Type: string;
-  readonly KmsKeyId?: string;
-}
-
-interface CfnLoggingConfiguration {
-  readonly LogGroupName: string;
-}
-
-interface CfnNetworkConfiguration {
-  readonly SecurityGroupIds?: Array<string>;
-  readonly SubnetIds?: Array<string>;
-}
-
-interface CfnWorkflowProperties {
-  readonly Name: string;
-  readonly DefinitionS3Location: CfnS3Location;
-  readonly RoleArn: string;
-  readonly TriggerMode: string;
-  readonly Description?: string;
-  readonly EncryptionConfiguration?: CfnEncryptionConfiguration;
-  readonly LoggingConfiguration?: CfnLoggingConfiguration;
-  readonly NetworkConfiguration?: CfnNetworkConfiguration;
-  readonly Tags?: Record<string, string>;
-}
+const NAME_PATTERN = /^[a-zA-Z0-9]+[a-zA-Z0-9.\-_]*$/;
+const MAX_NAME_LENGTH = 255;
+const MAX_DESCRIPTION_LENGTH = 1024;
 
 /**
  * An MWAA Serverless Workflow for orchestrating tasks in SageMaker Unified Studio.
@@ -54,11 +20,34 @@ interface CfnWorkflowProperties {
  * @see https://docs.aws.amazon.com/mwaa/latest/mwaa-serverless-userguide/workflows.html
  */
 export class Workflow extends Construct implements IWorkflow {
+  /**
+   * Import an existing workflow from its attributes.
+   */
+  public static fromAttributes(scope: Construct, id: string, attrs: WorkflowAttributes): IWorkflow {
+    class ImportedWorkflow extends Construct implements IWorkflow {
+      public readonly workflowArn = attrs.workflowArn;
+      public readonly workflowName = attrs.workflowName;
+    }
+    return new ImportedWorkflow(scope, id);
+  }
+
   public readonly workflowArn: string;
   public readonly workflowName: string;
 
   constructor(scope: Construct, id: string, props: WorkflowProps) {
     super(scope, id);
+
+    if (!NAME_PATTERN.test(props.name) || props.name.length > MAX_NAME_LENGTH) {
+      throw new Error(
+        `Workflow name '${props.name}' must match ${NAME_PATTERN} and be between 1–${MAX_NAME_LENGTH} characters.`,
+      );
+    }
+
+    if (props.description && props.description.length > MAX_DESCRIPTION_LENGTH) {
+      throw new Error(
+        `Workflow description must be at most ${MAX_DESCRIPTION_LENGTH} characters, got ${props.description.length}.`,
+      );
+    }
 
     this.workflowName = props.name;
 
@@ -77,42 +66,35 @@ export class Workflow extends Construct implements IWorkflow {
       prune: false,
     });
 
-    const cfnProps: CfnWorkflowProperties = {
-      Name: props.name,
-      DefinitionS3Location: {
-        Bucket: props.definitionFile.bucket.bucketName,
-        ObjectKey: objectKey,
+    const resource = new mwaa.CfnWorkflow(this, 'Resource', {
+      name: props.name,
+      definitionS3Location: {
+        bucket: props.definitionFile.bucket.bucketName,
+        objectKey,
       },
-      RoleArn: props.roleArn,
-      TriggerMode: props.triggerMode ?? TriggerMode.MANUAL_ONLY,
-      ...(props.description && { Description: props.description }),
-      ...(props.encryptionConfiguration && {
-        EncryptionConfiguration: {
-          Type: props.encryptionConfiguration.type,
-          ...(props.encryptionConfiguration.kmsKey && { KmsKeyId: props.encryptionConfiguration.kmsKey.keyArn }),
-        },
-      }),
-      ...(props.loggingConfiguration && {
-        LoggingConfiguration: { LogGroupName: props.loggingConfiguration.logGroupName },
-      }),
-      ...(props.networkConfiguration && {
-        NetworkConfiguration: {
-          ...(props.networkConfiguration.securityGroupIds && {
-            SecurityGroupIds: props.networkConfiguration.securityGroupIds,
-          }),
-          ...(props.networkConfiguration.subnetIds && { SubnetIds: props.networkConfiguration.subnetIds }),
-        },
-      }),
-      ...(props.tags && { Tags: props.tags }),
-    };
-
-    const resource = new CfnResource(this, 'Resource', {
-      type: 'AWS::MWAAServerless::Workflow',
-      properties: cfnProps as unknown as Record<string, unknown>,
+      roleArn: props.role.roleArn,
+      triggerMode: props.triggerMode ?? TriggerMode.MANUAL_ONLY,
+      description: props.description,
+      encryptionConfiguration: props.encryptionConfiguration
+        ? {
+            type: props.encryptionConfiguration.type,
+            kmsKeyId: props.encryptionConfiguration.kmsKey?.keyArn,
+          }
+        : undefined,
+      loggingConfiguration: props.loggingConfiguration
+        ? { logGroupName: props.loggingConfiguration.logGroupName }
+        : undefined,
+      networkConfiguration: props.networkConfiguration
+        ? {
+            securityGroupIds: props.networkConfiguration.securityGroupIds,
+            subnetIds: props.networkConfiguration.subnetIds,
+          }
+        : undefined,
+      tags: props.tags,
     });
 
     resource.node.addDependency(deployment);
 
-    this.workflowArn = resource.getAtt('WorkflowArn').toString();
+    this.workflowArn = resource.attrWorkflowArn;
   }
 }
