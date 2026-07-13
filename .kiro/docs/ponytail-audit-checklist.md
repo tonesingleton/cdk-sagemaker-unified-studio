@@ -33,10 +33,6 @@ Over-engineering findings for `cdk-sagemaker-unified-studio`, ranked biggest cut
       `src/constructs/domain/domain.construct.ts:271-280`
       Dead code with a TODO. Track in an issue, delete from source.
 
-- [ ] **shrink: `ManagedBlueprintIdentifier` — remove `/* istanbul ignore next */`**
-      `src/constructs/blueprint/blueprint.interface.ts`
-      Private constructor with coverage exclusion is test smell. The class structure is required by JSII, but the ignore comment is noise. Delete the comment.
-
 ---
 
 ## Confirmed Not Over-Engineered (no action)
