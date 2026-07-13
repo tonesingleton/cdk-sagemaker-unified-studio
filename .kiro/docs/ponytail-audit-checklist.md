@@ -21,10 +21,6 @@ Over-engineering findings for `cdk-sagemaker-unified-studio`, ranked biggest cut
       `src/constructs/data-source/data-source.construct.ts:57-78`
       `buildGlueConfiguration` and `buildRedshiftConfiguration` share identical filter mapping. Extract shared helper.
 
-- [ ] **yagni: `I*` interfaces without `fromAttributes`/`fromArn` factory methods**
-      `src/constructs/*/\*.interface.ts`
-      `IDomain`, `IProject`, `IEnvironment`, `IProjectProfile` etc. expose readonly attrs but no static import method. Without `fromArn()`, these serve no CDK cross-stack purpose. Either add factory methods (make them real L2s) or drop the `I*` interfaces.
-
 - [ ] **native: `Workflow` uses raw `CfnResource` — check if L1 exists at CDK 2.261**
       `src/constructs/workflow/workflow.construct.ts`
       If `aws-cdk-lib` has added `CfnWorkflow` in MWAAServerless, switch for type safety. If not, the escape hatch is correct.
