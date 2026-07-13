@@ -20,7 +20,7 @@ describe('Workflow', () => {
       Name: 'motor-portfolio-kpi',
       DefinitionS3Location: { Bucket: 'my-bucket', ObjectKey: 'dags/motor_portfolio_kpi.yml' },
       RoleArn: 'arn:aws:iam::123456789012:role/execution-role',
-      TriggerMode: 'MANUAL_ONLY',
+      TriggerMode: 'manual_only',
     });
   });
 
@@ -34,7 +34,7 @@ describe('Workflow', () => {
       triggerMode: TriggerMode.SCHEDULED,
     });
     Template.fromStack(stack).hasResourceProperties('AWS::MWAAServerless::Workflow', {
-      TriggerMode: 'SCHEDULED',
+      TriggerMode: 'scheduled',
     });
   });
 
