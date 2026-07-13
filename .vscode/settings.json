@@ -9,5 +9,16 @@
   "coverage-gutters.showLineCoverage": true,
   "coverage-gutters.showRulerCoverage": true,
   "npm.enableRunFromFolder": true,
-  "cSpell.words": ["codeconnections", "datazone", "lakehouse", "projen", "projenrc"]
+  "cSpell.words": [
+    "cdksagemakerunifiedstudio",
+    "codeconnections",
+    "datazone",
+    "jsii",
+    "lakehouse",
+    "mwaa",
+    "projen",
+    "projenrc",
+    "pypi",
+    "stdlib"
+  ]
 }
