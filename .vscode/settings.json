@@ -10,5 +10,5 @@
   "coverage-gutters.showLineCoverage": true,
   "coverage-gutters.showRulerCoverage": true,
   "npm.enableRunFromFolder": true,
-  "cSpell.words": ["projen", "projenrc"]
+  "cSpell.words": ["datazone", "lakehouse", "projen", "projenrc"]
 }
