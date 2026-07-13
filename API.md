@@ -1425,7 +1425,7 @@ The mixins to apply.
 ##### `addDqdlRuleset` <a name="addDqdlRuleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDqdlRuleset"></a>
 
 ```typescript
-public addDqdlRuleset(id: string, name: string, ruleset: string, description?: string): DqdlRuleset
+public addDqdlRuleset(id: string, name: string, ruleset: string, description?: string, tags?: {[ key: string ]: string}): DqdlRuleset
 ```
 
 Attaches a DQDL ruleset to this table.
@@ -1459,6 +1459,14 @@ The DQDL rules string (e.g. 'Rules = [ Completeness "col" = 1.0 ]').
 - *Type:* string
 
 Optional description.
+
+---
+
+###### `tags`<sup>Optional</sup> <a name="tags" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDqdlRuleset.parameter.tags"></a>
+
+- *Type:* {[ key: string ]: string}
+
+Optional tags to apply to the ruleset.
 
 ---
 
@@ -10713,6 +10721,7 @@ const dataCatalogTableProps: DataCatalogTableProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.columns">columns</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Column">Column</a>[]</code> | The columns of the table (excluding partition keys). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.databaseName">databaseName</a></code> | <code>string</code> | The Glue database name to create this table in. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.location">location</a></code> | <code>string</code> | The S3 location of the table data. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.projectId">projectId</a></code> | <code>string</code> | The SageMaker Unified Studio project ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.tableName">tableName</a></code> | <code>string</code> | The table name. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.dataFormat">dataFormat</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataFormat">DataFormat</a></code> | The data format of the table. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the table. |
@@ -10755,6 +10764,21 @@ public readonly location: string;
 - *Type:* string
 
 The S3 location of the table data.
+
+---
+
+##### `projectId`<sup>Required</sup> <a name="projectId" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.projectId"></a>
+
+```typescript
+public readonly projectId: string;
+```
+
+- *Type:* string
+
+The SageMaker Unified Studio project ID.
+
+The `AmazonDataZoneProject` tag is automatically applied
+to any DQDL ruleset created via `addDqdlRuleset()`.
 
 ---
 
@@ -11276,6 +11300,7 @@ const dqdlRulesetProps: DqdlRulesetProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.ruleset">ruleset</a></code> | <code>string</code> | The DQDL ruleset string (e.g. 'Rules = [ Completeness "col" = 1.0 ]'). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.tableName">tableName</a></code> | <code>string</code> | The target table name. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the ruleset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags to apply to the ruleset. |
 
 ---
 
@@ -11339,6 +11364,19 @@ public readonly description: string;
 - *Default:* no description
 
 Human-readable description of the ruleset.
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.tags"></a>
+
+```typescript
+public readonly tags: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* no tags
+
+Tags to apply to the ruleset.
 
 ---
 
