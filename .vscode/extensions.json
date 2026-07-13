@@ -2,7 +2,6 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "amazonwebservices.amazon-q-vscode",
     "amazonwebservices.aws-toolkit-vscode",
     "ryanluker.vscode-coverage-gutters",
     "orta.vscode-jest"
