@@ -126,3 +126,27 @@ export interface IDomain {
   readonly projectsBucket: s3.IBucket;
   readonly accessLogsBucket: s3.IBucket;
 }
+
+/**
+ * Attributes required to import an existing Domain.
+ */
+export interface DomainAttributes {
+  /** The domain ID (e.g. `dzd-abc123`). */
+  readonly domainId: string;
+  /** The domain ARN. */
+  readonly domainArn: string;
+  /** The root domain unit ID. */
+  readonly rootDomainUnitId: string;
+  /**
+   * The ARN of the domain execution role.
+   *
+   * @default - no execution role imported
+   */
+  readonly domainExecutionRoleArn?: string;
+  /**
+   * The ARN of the manage access role.
+   *
+   * @default - no manage access role imported
+   */
+  readonly manageAccessRoleArn?: string;
+}

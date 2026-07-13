@@ -1,7 +1,7 @@
 import { Stack, Validations, aws_iam as iam } from 'aws-cdk-lib';
 import { CfnProject } from 'aws-cdk-lib/aws-datazone';
 import { Construct } from 'constructs';
-import type { IProject, ProjectProps } from './project.interface';
+import type { IProject, ProjectAttributes, ProjectProps } from './project.interface';
 
 const EXECUTION_ROLE_TRUST_PRINCIPALS = [
   'datazone.amazonaws.com',
@@ -30,6 +30,23 @@ const EXECUTION_ROLE_TRUST_PRINCIPALS = [
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/projects.html
  */
 export class Project extends Construct implements IProject {
+  /**
+   * Import an existing project from its attributes.
+   */
+  public static fromAttributes(scope: Construct, id: string, attrs: ProjectAttributes): IProject {
+    class ImportedProject extends Construct implements IProject {
+      public readonly id = attrs.projectId;
+      public readonly domainId = attrs.domainId;
+      public readonly createdAt = '';
+      public readonly createdBy = '';
+      public readonly lastUpdatedAt = '';
+      public readonly projectStatus = '';
+      public readonly projectExecutionRole = attrs.projectExecutionRoleArn
+        ? iam.Role.fromRoleArn(this, 'ProjectExecutionRole', attrs.projectExecutionRoleArn)
+        : (undefined as unknown as iam.IRole);
+    }
+    return new ImportedProject(scope, id);
+  }
   /** The identifier of a project. */
   public readonly id: string;
   /** The identifier of the domain where the project exists. */

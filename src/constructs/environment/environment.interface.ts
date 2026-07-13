@@ -17,6 +17,14 @@ export interface IEnvironment {
 }
 
 /**
+ * Attributes required to import an existing Environment.
+ */
+export interface EnvironmentAttributes {
+  /** The environment ID. */
+  readonly environmentId: string;
+}
+
+/**
  * Properties for an Environment construct.
  */
 export interface EnvironmentProps {

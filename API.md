@@ -1713,6 +1713,8 @@ The data source ID.
 
 ### Domain <a name="Domain" id="@tonesingleton/cdk-sagemaker-unified-studio.Domain"></a>
 
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain">IDomain</a>
+
 An AWS SageMaker Unified Studio domain with its associated IAM roles, domain units, and blueprint configurations.
 
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/create-domain.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/create-domain.html)
@@ -1794,6 +1796,7 @@ The mixins to apply.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.fromAttributes">fromAttributes</a></code> | Import an existing domain from its attributes. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.topologicalSort">topologicalSort</a></code> | Sort domain units topologically so that parents are created before children. |
 
 ---
@@ -1827,6 +1830,38 @@ this type-testing method instead.
 - *Type:* any
 
 Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.Domain.fromAttributes"></a>
+
+```typescript
+import { Domain } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Domain.fromAttributes(scope: Construct, id: string, attrs: DomainAttributes)
+```
+
+Import an existing domain from its attributes.
+
+This method returns a read-only `IDomain`-compatible object for cross-stack
+references. The imported domain does not expose domain units, blueprints,
+policy grants, or S3 buckets — only the identifiers and roles.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Domain.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Domain.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.Domain.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes">DomainAttributes</a>
 
 ---
 
@@ -2262,6 +2297,7 @@ The mixins to apply.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Environment.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Environment.fromAttributes">fromAttributes</a></code> | Import an existing environment from its attributes. |
 
 ---
 
@@ -2294,6 +2330,34 @@ this type-testing method instead.
 - *Type:* any
 
 Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.Environment.fromAttributes"></a>
+
+```typescript
+import { Environment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Environment.fromAttributes(scope: Construct, id: string, attrs: EnvironmentAttributes)
+```
+
+Import an existing environment from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Environment.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Environment.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.Environment.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentAttributes">EnvironmentAttributes</a>
 
 ---
 
@@ -5640,6 +5704,7 @@ The mixins to apply.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Project.fromAttributes">fromAttributes</a></code> | Import an existing project from its attributes. |
 
 ---
 
@@ -5672,6 +5737,34 @@ this type-testing method instead.
 - *Type:* any
 
 Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.fromAttributes"></a>
+
+```typescript
+import { Project } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Project.fromAttributes(scope: Construct, id: string, attrs: ProjectAttributes)
+```
+
+Import an existing project from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.Project.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectAttributes">ProjectAttributes</a>
 
 ---
 
@@ -6036,6 +6129,7 @@ The mixins to apply.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.fromAttributes">fromAttributes</a></code> | Import an existing project profile from its attributes. |
 
 ---
 
@@ -6068,6 +6162,34 @@ this type-testing method instead.
 - *Type:* any
 
 Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.fromAttributes"></a>
+
+```typescript
+import { ProjectProfile } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+ProjectProfile.fromAttributes(scope: Construct, id: string, attrs: ProjectProfileAttributes)
+```
+
+Import an existing project profile from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileAttributes">ProjectProfileAttributes</a>
 
 ---
 
@@ -11004,6 +11126,92 @@ A cron expression for the data source run schedule.
 
 ---
 
+### DomainAttributes <a name="DomainAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes"></a>
+
+Attributes required to import an existing Domain.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.Initializer"></a>
+
+```typescript
+import { DomainAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const domainAttributes: DomainAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.domainArn">domainArn</a></code> | <code>string</code> | The domain ARN. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.domainId">domainId</a></code> | <code>string</code> | The domain ID (e.g. `dzd-abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.rootDomainUnitId">rootDomainUnitId</a></code> | <code>string</code> | The root domain unit ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.domainExecutionRoleArn">domainExecutionRoleArn</a></code> | <code>string</code> | The ARN of the domain execution role. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.manageAccessRoleArn">manageAccessRoleArn</a></code> | <code>string</code> | The ARN of the manage access role. |
+
+---
+
+##### `domainArn`<sup>Required</sup> <a name="domainArn" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.domainArn"></a>
+
+```typescript
+public readonly domainArn: string;
+```
+
+- *Type:* string
+
+The domain ARN.
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The domain ID (e.g. `dzd-abc123`).
+
+---
+
+##### `rootDomainUnitId`<sup>Required</sup> <a name="rootDomainUnitId" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.rootDomainUnitId"></a>
+
+```typescript
+public readonly rootDomainUnitId: string;
+```
+
+- *Type:* string
+
+The root domain unit ID.
+
+---
+
+##### `domainExecutionRoleArn`<sup>Optional</sup> <a name="domainExecutionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.domainExecutionRoleArn"></a>
+
+```typescript
+public readonly domainExecutionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no execution role imported
+
+The ARN of the domain execution role.
+
+---
+
+##### `manageAccessRoleArn`<sup>Optional</sup> <a name="manageAccessRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.manageAccessRoleArn"></a>
+
+```typescript
+public readonly manageAccessRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no manage access role imported
+
+The ARN of the manage access role.
+
+---
+
 ### DomainProps <a name="DomainProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainProps"></a>
 
 Properties for the Domain construct.
@@ -11377,6 +11585,38 @@ public readonly tags: {[ key: string ]: string};
 - *Default:* no tags
 
 Tags to apply to the ruleset.
+
+---
+
+### EnvironmentAttributes <a name="EnvironmentAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentAttributes"></a>
+
+Attributes required to import an existing Environment.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentAttributes.Initializer"></a>
+
+```typescript
+import { EnvironmentAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const environmentAttributes: EnvironmentAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentAttributes.property.environmentId">environmentId</a></code> | <code>string</code> | The environment ID. |
+
+---
+
+##### `environmentId`<sup>Required</sup> <a name="environmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentAttributes.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+The environment ID.
 
 ---
 
@@ -13006,6 +13246,65 @@ The member identifier.
 
 ---
 
+### ProjectAttributes <a name="ProjectAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectAttributes"></a>
+
+Attributes required to import an existing Project.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectAttributes.Initializer"></a>
+
+```typescript
+import { ProjectAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const projectAttributes: ProjectAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectAttributes.property.domainId">domainId</a></code> | <code>string</code> | The domain ID the project belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectAttributes.property.projectId">projectId</a></code> | <code>string</code> | The project ID (e.g. `dzp-abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectAttributes.property.projectExecutionRoleArn">projectExecutionRoleArn</a></code> | <code>string</code> | The ARN of the project execution role. |
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectAttributes.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The domain ID the project belongs to.
+
+---
+
+##### `projectId`<sup>Required</sup> <a name="projectId" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectAttributes.property.projectId"></a>
+
+```typescript
+public readonly projectId: string;
+```
+
+- *Type:* string
+
+The project ID (e.g. `dzp-abc123`).
+
+---
+
+##### `projectExecutionRoleArn`<sup>Optional</sup> <a name="projectExecutionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectAttributes.property.projectExecutionRoleArn"></a>
+
+```typescript
+public readonly projectExecutionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no execution role imported
+
+The ARN of the project execution role.
+
+---
+
 ### ProjectDatabaseProps <a name="ProjectDatabaseProps" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps"></a>
 
 Properties for a ProjectDatabase construct.
@@ -13076,6 +13375,38 @@ public readonly locationUri: string;
 - *Default:* no location (tables define their own locations)
 
 The S3 location URI for the database.
+
+---
+
+### ProjectProfileAttributes <a name="ProjectProfileAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileAttributes"></a>
+
+Attributes required to import an existing ProjectProfile.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileAttributes.Initializer"></a>
+
+```typescript
+import { ProjectProfileAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const projectProfileAttributes: ProjectProfileAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileAttributes.property.projectProfileId">projectProfileId</a></code> | <code>string</code> | The project profile ID. |
+
+---
+
+##### `projectProfileId`<sup>Required</sup> <a name="projectProfileId" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileAttributes.property.projectProfileId"></a>
+
+```typescript
+public readonly projectProfileId: string;
+```
+
+- *Type:* string
+
+The project profile ID.
 
 ---
 
@@ -15417,7 +15748,7 @@ The data source ID.
 
 ### IDomain <a name="IDomain" id="@tonesingleton/cdk-sagemaker-unified-studio.IDomain"></a>
 
-- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain">IDomain</a>
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain">Domain</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain">IDomain</a>
 
 Exposed attributes of the Domain construct.
 

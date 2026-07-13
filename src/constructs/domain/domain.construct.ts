@@ -9,7 +9,7 @@ import {
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { LakeFormationCleanup } from './constructs';
-import type { DomainProps, DomainUnitConfig } from './domain.interface';
+import type { DomainAttributes, DomainProps, DomainUnitConfig, IDomain } from './domain.interface';
 
 import { Blueprint } from '../blueprint/blueprint.construct';
 import type { BlueprintProps } from '../blueprint/blueprint.interface';
@@ -21,7 +21,7 @@ import { ManagedBlueprintIdentifier } from '../blueprint/blueprint.interface';
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/create-domain.html
  */
-export class Domain extends Construct {
+export class Domain extends Construct implements IDomain {
   /**
    * Allowed S3 bucket name prefixes for SageMaker Unified Studio.
    *
@@ -31,6 +31,33 @@ export class Domain extends Construct {
    * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-account-roles.html
    */
   public static readonly ALLOWED_BUCKET_PREFIXES: Array<string> = ['amazon-sagemaker-', 'sagemaker-'];
+
+  /**
+   * Import an existing domain from its attributes.
+   *
+   * This method returns a read-only `IDomain`-compatible object for cross-stack
+   * references. The imported domain does not expose domain units, blueprints,
+   * policy grants, or S3 buckets — only the identifiers and roles.
+   */
+  public static fromAttributes(scope: Construct, id: string, attrs: DomainAttributes): IDomain {
+    class ImportedDomain extends Construct implements IDomain {
+      public readonly domainId = attrs.domainId;
+      public readonly domainArn = attrs.domainArn;
+      public readonly rootDomainUnitId = attrs.rootDomainUnitId;
+      public readonly domainExecutionRole = attrs.domainExecutionRoleArn
+        ? iam.Role.fromRoleArn(this, 'DomainExecutionRole', attrs.domainExecutionRoleArn)
+        : (undefined as unknown as iam.IRole);
+      public readonly manageAccessRole = attrs.manageAccessRoleArn
+        ? iam.Role.fromRoleArn(this, 'ManageAccessRole', attrs.manageAccessRoleArn)
+        : (undefined as unknown as iam.IRole);
+      public readonly domainUnits = {};
+      public readonly blueprints = {};
+      public readonly blueprintPolicyGrants: Array<datazone.CfnPolicyGrant> = [];
+      public readonly projectsBucket = undefined as unknown as s3.IBucket;
+      public readonly accessLogsBucket = undefined as unknown as s3.IBucket;
+    }
+    return new ImportedDomain(scope, id);
+  }
 
   /**
    * Sort domain units topologically so that parents are created before children.

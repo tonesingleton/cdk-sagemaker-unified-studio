@@ -258,3 +258,41 @@ describe('Project', () => {
     expect(project.projectStatus).toBeDefined();
   });
 });
+
+describe('Project.fromAttributes', () => {
+  test('imports project with all attributes', () => {
+    const stack = createStack();
+    const imported = Project.fromAttributes(stack, 'Imported', {
+      projectId: 'dzp-abc123',
+      domainId: 'dzd-test',
+      projectExecutionRoleArn: 'arn:aws:iam::123456789012:role/ProjectExec',
+    });
+    expect(imported.id).toBe('dzp-abc123');
+    expect(imported.domainId).toBe('dzd-test');
+    expect(imported.projectExecutionRole).toBeDefined();
+  });
+
+  test('imports project without optional role ARN', () => {
+    const stack = createStack();
+    const imported = Project.fromAttributes(stack, 'Imported', {
+      projectId: 'dzp-abc123',
+      domainId: 'dzd-test',
+    });
+    expect(imported.id).toBe('dzp-abc123');
+    expect(imported.domainId).toBe('dzd-test');
+    expect(imported.createdAt).toBe('');
+    expect(imported.createdBy).toBe('');
+    expect(imported.lastUpdatedAt).toBe('');
+    expect(imported.projectStatus).toBe('');
+  });
+
+  test('does not create any CloudFormation resources', () => {
+    const stack = createStack();
+    Project.fromAttributes(stack, 'Imported', {
+      projectId: 'dzp-abc123',
+      domainId: 'dzd-test',
+    });
+    Template.fromStack(stack).resourceCountIs('AWS::DataZone::Project', 0);
+    Template.fromStack(stack).resourceCountIs('AWS::IAM::Role', 0);
+  });
+});

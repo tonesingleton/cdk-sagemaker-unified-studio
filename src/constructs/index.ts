@@ -16,9 +16,14 @@ export {
   RelationalFilterConfiguration,
 } from './data-source/data-source.interface';
 export { Domain } from './domain/domain.construct';
-export { DomainProps, DomainUnitConfig, IDomain } from './domain/domain.interface';
+export { DomainProps, DomainUnitConfig, IDomain, DomainAttributes } from './domain/domain.interface';
 export { Environment } from './environment/environment.construct';
-export { EnvironmentProps, EnvironmentParameter, IEnvironment } from './environment/environment.interface';
+export {
+  EnvironmentProps,
+  EnvironmentParameter,
+  IEnvironment,
+  EnvironmentAttributes,
+} from './environment/environment.interface';
 export { GitConnection } from './git-connection/git-connection.construct';
 export { GitConnectionProps, GitProviderType, IGitConnection } from './git-connection/git-connection.interface';
 export { Host } from './git-connection/host.construct';
@@ -27,6 +32,7 @@ export { Project } from './project/project.construct';
 export {
   ProjectProps,
   IProject,
+  ProjectAttributes,
   MembershipAssignment,
   Member,
   Designation,
@@ -38,6 +44,7 @@ export { ProjectProfile } from './project-profile/project-profile.construct';
 export {
   ProjectProfileProps,
   IProjectProfile,
+  ProjectProfileAttributes,
   ProjectProfileStatus,
   DeploymentMode,
   EnvironmentConfiguration,

@@ -152,3 +152,21 @@ describe('ProjectProfile validation', () => {
     });
   });
 });
+
+describe('ProjectProfile.fromAttributes', () => {
+  test('imports project profile with projectProfileId', () => {
+    const stack = createStack();
+    const imported = ProjectProfile.fromAttributes(stack, 'Imported', {
+      projectProfileId: 'pp-abc123',
+    });
+    expect(imported.projectProfileId).toBe('pp-abc123');
+  });
+
+  test('does not create any CloudFormation resources', () => {
+    const stack = createStack();
+    ProjectProfile.fromAttributes(stack, 'Imported', {
+      projectProfileId: 'pp-abc123',
+    });
+    Template.fromStack(stack).resourceCountIs('AWS::DataZone::ProjectProfile', 0);
+  });
+});

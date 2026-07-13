@@ -361,3 +361,46 @@ describe('Domain topological sort', () => {
     ).toThrow(/not found/);
   });
 });
+
+describe('Domain.fromAttributes', () => {
+  test('imports domain with all attributes', () => {
+    const stack = createStack();
+    const imported = Domain.fromAttributes(stack, 'Imported', {
+      domainId: 'dzd-abc123',
+      domainArn: 'arn:aws:datazone:eu-central-1:123456789012:domain/dzd-abc123',
+      rootDomainUnitId: 'du-root123',
+      domainExecutionRoleArn: 'arn:aws:iam::123456789012:role/DomainExecution',
+      manageAccessRoleArn: 'arn:aws:iam::123456789012:role/ManageAccess',
+    });
+    expect(imported.domainId).toBe('dzd-abc123');
+    expect(imported.domainArn).toBe('arn:aws:datazone:eu-central-1:123456789012:domain/dzd-abc123');
+    expect(imported.rootDomainUnitId).toBe('du-root123');
+    expect(imported.domainExecutionRole).toBeDefined();
+    expect(imported.manageAccessRole).toBeDefined();
+  });
+
+  test('imports domain without optional role ARNs', () => {
+    const stack = createStack();
+    const imported = Domain.fromAttributes(stack, 'Imported', {
+      domainId: 'dzd-abc123',
+      domainArn: 'arn:aws:datazone:eu-central-1:123456789012:domain/dzd-abc123',
+      rootDomainUnitId: 'du-root123',
+    });
+    expect(imported.domainId).toBe('dzd-abc123');
+    expect(imported.domainArn).toBe('arn:aws:datazone:eu-central-1:123456789012:domain/dzd-abc123');
+    expect(imported.rootDomainUnitId).toBe('du-root123');
+    expect(imported.domainUnits).toEqual({});
+    expect(imported.blueprints).toEqual({});
+    expect(imported.blueprintPolicyGrants).toEqual([]);
+  });
+
+  test('does not create any CloudFormation resources', () => {
+    const stack = createStack();
+    Domain.fromAttributes(stack, 'Imported', {
+      domainId: 'dzd-abc123',
+      domainArn: 'arn:aws:datazone:eu-central-1:123456789012:domain/dzd-abc123',
+      rootDomainUnitId: 'du-root123',
+    });
+    Template.fromStack(stack).resourceCountIs('AWS::DataZone::Domain', 0);
+  });
+});

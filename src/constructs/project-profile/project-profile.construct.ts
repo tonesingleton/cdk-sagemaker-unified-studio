@@ -1,6 +1,11 @@
 import { Stack, aws_datazone as datazone } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import type { EnvironmentConfiguration, IProjectProfile, ProjectProfileProps } from './project-profile.interface';
+import type {
+  EnvironmentConfiguration,
+  IProjectProfile,
+  ProjectProfileAttributes,
+  ProjectProfileProps,
+} from './project-profile.interface';
 import { DeploymentMode, ProjectProfileStatus } from './project-profile.interface';
 import { ManagedBlueprintIdentifier } from '../blueprint/blueprint.interface';
 
@@ -14,6 +19,16 @@ import { ManagedBlueprintIdentifier } from '../blueprint/blueprint.interface';
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/project-profiles.html
  */
 export class ProjectProfile extends Construct implements IProjectProfile {
+  /**
+   * Import an existing project profile from its attributes.
+   */
+  public static fromAttributes(scope: Construct, id: string, attrs: ProjectProfileAttributes): IProjectProfile {
+    class ImportedProjectProfile extends Construct implements IProjectProfile {
+      public readonly projectProfileId = attrs.projectProfileId;
+    }
+    return new ImportedProjectProfile(scope, id);
+  }
+
   /** The project profile ID. */
   public readonly projectProfileId: string;
 

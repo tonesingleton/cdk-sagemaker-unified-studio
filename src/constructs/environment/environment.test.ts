@@ -136,3 +136,21 @@ describe('Environment', () => {
     expect(env.environmentId).toBeDefined();
   });
 });
+
+describe('Environment.fromAttributes', () => {
+  test('imports environment with environmentId', () => {
+    const stack = createStack();
+    const imported = Environment.fromAttributes(stack, 'Imported', {
+      environmentId: 'env-abc123',
+    });
+    expect(imported.environmentId).toBe('env-abc123');
+  });
+
+  test('does not create any CloudFormation resources', () => {
+    const stack = createStack();
+    Environment.fromAttributes(stack, 'Imported', {
+      environmentId: 'env-abc123',
+    });
+    Template.fromStack(stack).resourceCountIs('AWS::DataZone::Environment', 0);
+  });
+});

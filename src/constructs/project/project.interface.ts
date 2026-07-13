@@ -103,6 +103,22 @@ export interface IProject {
 }
 
 /**
+ * Attributes required to import an existing Project.
+ */
+export interface ProjectAttributes {
+  /** The project ID (e.g. `dzp-abc123`). */
+  readonly projectId: string;
+  /** The domain ID the project belongs to. */
+  readonly domainId: string;
+  /**
+   * The ARN of the project execution role.
+   *
+   * @default - no execution role imported
+   */
+  readonly projectExecutionRoleArn?: string;
+}
+
+/**
  * Properties for a Project construct.
  */
 export interface ProjectProps {

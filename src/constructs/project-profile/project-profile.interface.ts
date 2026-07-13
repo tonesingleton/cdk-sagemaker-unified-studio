@@ -78,6 +78,14 @@ export interface IProjectProfile {
 }
 
 /**
+ * Attributes required to import an existing ProjectProfile.
+ */
+export interface ProjectProfileAttributes {
+  /** The project profile ID. */
+  readonly projectProfileId: string;
+}
+
+/**
  * Properties for a ProjectProfile construct.
  */
 export interface ProjectProfileProps {
