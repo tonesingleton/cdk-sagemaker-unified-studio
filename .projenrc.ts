@@ -97,6 +97,26 @@ const project = new awscdk.AwsCdkConstructLibrary({
   releaseToNpm: false,
   release: false,
 
+  publishToPypi: {
+    distName: 'cdk-sagemaker-unified-studio',
+    module: 'cdk_sagemaker_unified_studio',
+  },
+
+  publishToMaven: {
+    javaPackage: 'io.github.tonesingleton.cdksagemakerunifiedstudio',
+    mavenGroupId: 'io.github.tonesingleton',
+    mavenArtifactId: 'cdk-sagemaker-unified-studio',
+  },
+
+  publishToNuget: {
+    dotNetNamespace: 'ToneSingleton.CdkSageMakerUnifiedStudio',
+    packageId: 'ToneSingleton.CdkSageMakerUnifiedStudio',
+  },
+
+  publishToGo: {
+    moduleName: 'github.com/tonesingleton/cdk-sagemaker-unified-studio-go',
+  },
+
   // Dependency management via Dependabot
   depsUpgrade: false,
   dependabot: true,
