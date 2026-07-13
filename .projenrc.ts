@@ -1,4 +1,4 @@
-import { AiInstructions, awscdk, javascript, TextFile } from 'projen';
+import { AiInstructions, awscdk, github, javascript, TextFile } from 'projen';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Tone Singleton',
@@ -96,6 +96,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // Publishing targets (disabled — not yet publishing to public registries)
   releaseToNpm: false,
   release: false,
+
+  // Dependency management via Dependabot
+  depsUpgrade: false,
+  dependabot: true,
+  dependabotOptions: {
+    scheduleInterval: github.DependabotScheduleInterval.WEEKLY,
+  },
 });
 
 // AI instructions for coding assistants
