@@ -12,7 +12,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
   jsiiVersion: '~6.0.4',
   license: 'Apache-2.0',
   name: '@tonesingleton/cdk-sagemaker-unified-studio',
-  packageManager: javascript.NodePackageManager.NPM,
+  packageManager: javascript.NodePackageManager.YARN_BERRY,
+  yarnBerryOptions: {
+    version: '4.17.1',
+    yarnRcOptions: {
+      nodeLinker: javascript.YarnNodeLinker.NODE_MODULES,
+    },
+  },
   projenrcTs: true,
   repositoryUrl: 'https://github.com/tonesingleton/cdk-sagemaker-unified-studio',
   stability: 'experimental',
