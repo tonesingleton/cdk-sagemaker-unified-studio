@@ -1,0 +1,9 @@
+test_workflow:
+  dag_id: test_workflow
+  description: Test workflow
+  schedule: null
+  tasks:
+    hello:
+      operator: airflow.operators.bash.BashOperator
+      bash_command: echo hello
+      dependencies: []

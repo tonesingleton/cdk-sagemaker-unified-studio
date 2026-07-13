@@ -61,6 +61,9 @@ export {
   WorkflowProps,
   IWorkflow,
   TriggerMode,
-  WorkflowDefinitionLocation,
+  EncryptionType,
+  WorkflowDefinitionFile,
+  WorkflowEncryptionConfiguration,
+  WorkflowLoggingConfiguration,
   WorkflowNetworkConfiguration,
 } from './workflow/workflow.interface';

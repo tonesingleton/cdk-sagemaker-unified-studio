@@ -1425,7 +1425,7 @@ The mixins to apply.
 ##### `addDqdlRuleset` <a name="addDqdlRuleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDqdlRuleset"></a>
 
 ```typescript
-public addDqdlRuleset(id: string, name: string, ruleset: string, description?: string): DqdlRuleset
+public addDqdlRuleset(id: string, name: string, ruleset: string, description?: string, tags?: {[ key: string ]: string}): DqdlRuleset
 ```
 
 Attaches a DQDL ruleset to this table.
@@ -1459,6 +1459,14 @@ The DQDL rules string (e.g. 'Rules = [ Completeness "col" = 1.0 ]').
 - *Type:* string
 
 Optional description.
+
+---
+
+###### `tags`<sup>Optional</sup> <a name="tags" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDqdlRuleset.parameter.tags"></a>
+
+- *Type:* {[ key: string ]: string}
+
+Optional tags to apply to the ruleset.
 
 ---
 
@@ -9935,9 +9943,9 @@ The CloudFormation resource type name for this resource class.
 
 An MWAA Serverless Workflow for orchestrating tasks in SageMaker Unified Studio.
 
-Creates an `AWS::MWAAServerless::Workflow` resource that references a YAML
-workflow definition stored in S3. The YAML defines the DAG structure using
-supported AWS operators (e.g. GlueJobOperator, RedshiftSQLOperator).
+Creates an `AWS::MWAAServerless::Workflow` resource backed by a local YAML
+definition file. The file is deployed to S3 with a content-hash in the object
+key so that any edit triggers a CloudFormation update and a fresh MWAA snapshot.
 
 > [https://docs.aws.amazon.com/mwaa/latest/mwaa-serverless-userguide/workflows.html](https://docs.aws.amazon.com/mwaa/latest/mwaa-serverless-userguide/workflows.html)
 
@@ -10713,6 +10721,7 @@ const dataCatalogTableProps: DataCatalogTableProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.columns">columns</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Column">Column</a>[]</code> | The columns of the table (excluding partition keys). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.databaseName">databaseName</a></code> | <code>string</code> | The Glue database name to create this table in. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.location">location</a></code> | <code>string</code> | The S3 location of the table data. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.projectId">projectId</a></code> | <code>string</code> | The SageMaker Unified Studio project ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.tableName">tableName</a></code> | <code>string</code> | The table name. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.dataFormat">dataFormat</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataFormat">DataFormat</a></code> | The data format of the table. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the table. |
@@ -10755,6 +10764,21 @@ public readonly location: string;
 - *Type:* string
 
 The S3 location of the table data.
+
+---
+
+##### `projectId`<sup>Required</sup> <a name="projectId" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.projectId"></a>
+
+```typescript
+public readonly projectId: string;
+```
+
+- *Type:* string
+
+The SageMaker Unified Studio project ID.
+
+The `AmazonDataZoneProject` tag is automatically applied
+to any DQDL ruleset created via `addDqdlRuleset()`.
 
 ---
 
@@ -11276,6 +11300,7 @@ const dqdlRulesetProps: DqdlRulesetProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.ruleset">ruleset</a></code> | <code>string</code> | The DQDL ruleset string (e.g. 'Rules = [ Completeness "col" = 1.0 ]'). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.tableName">tableName</a></code> | <code>string</code> | The target table name. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the ruleset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags to apply to the ruleset. |
 
 ---
 
@@ -11339,6 +11364,19 @@ public readonly description: string;
 - *Default:* no description
 
 Human-readable description of the ruleset.
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.tags"></a>
+
+```typescript
+public readonly tags: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* no tags
+
+Tags to apply to the ruleset.
 
 ---
 
@@ -14526,28 +14564,33 @@ The Glue worker type (e.g. 'G.1X', 'G.2X').
 
 ---
 
-### WorkflowDefinitionLocation <a name="WorkflowDefinitionLocation" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation"></a>
+### WorkflowDefinitionFile <a name="WorkflowDefinitionFile" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile"></a>
 
-S3 location of the YAML workflow definition.
+Local workflow definition file configuration.
 
-#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation.Initializer"></a>
+The construct deploys the file to S3 with a content-hash in the object key
+so that CloudFormation detects changes and triggers a workflow update
+(MWAA Serverless snapshots the definition on create/update).
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile.Initializer"></a>
 
 ```typescript
-import { WorkflowDefinitionLocation } from '@tonesingleton/cdk-sagemaker-unified-studio'
+import { WorkflowDefinitionFile } from '@tonesingleton/cdk-sagemaker-unified-studio'
 
-const workflowDefinitionLocation: WorkflowDefinitionLocation = { ... }
+const workflowDefinitionFile: WorkflowDefinitionFile = { ... }
 ```
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | The S3 bucket containing the YAML definition. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation.property.objectKey">objectKey</a></code> | <code>string</code> | The S3 object key of the YAML definition file. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | The S3 bucket to deploy the definition to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile.property.path">path</a></code> | <code>string</code> | Absolute path to the local YAML workflow definition file. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile.property.keyPrefix">keyPrefix</a></code> | <code>string</code> | S3 key prefix for the deployed definition. |
 
 ---
 
-##### `bucket`<sup>Required</sup> <a name="bucket" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation.property.bucket"></a>
+##### `bucket`<sup>Required</sup> <a name="bucket" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile.property.bucket"></a>
 
 ```typescript
 public readonly bucket: IBucket;
@@ -14555,19 +14598,32 @@ public readonly bucket: IBucket;
 
 - *Type:* aws-cdk-lib.aws_s3.IBucket
 
-The S3 bucket containing the YAML definition.
+The S3 bucket to deploy the definition to.
 
 ---
 
-##### `objectKey`<sup>Required</sup> <a name="objectKey" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation.property.objectKey"></a>
+##### `path`<sup>Required</sup> <a name="path" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile.property.path"></a>
 
 ```typescript
-public readonly objectKey: string;
+public readonly path: string;
 ```
 
 - *Type:* string
 
-The S3 object key of the YAML definition file.
+Absolute path to the local YAML workflow definition file.
+
+---
+
+##### `keyPrefix`<sup>Optional</sup> <a name="keyPrefix" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile.property.keyPrefix"></a>
+
+```typescript
+public readonly keyPrefix: string;
+```
+
+- *Type:* string
+- *Default:* 'workflows'
+
+S3 key prefix for the deployed definition.
 
 ---
 
@@ -14632,7 +14688,7 @@ const workflowProps: WorkflowProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.definitionLocation">definitionLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation">WorkflowDefinitionLocation</a></code> | The S3 location of the YAML workflow definition. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.definitionFile">definitionFile</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile">WorkflowDefinitionFile</a></code> | The local YAML workflow definition file. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.name">name</a></code> | <code>string</code> | The name of the workflow. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.roleArn">roleArn</a></code> | <code>string</code> | The ARN of the IAM role that MWAA Serverless assumes when executing the workflow. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.description">description</a></code> | <code>string</code> | Description of the workflow. |
@@ -14642,15 +14698,18 @@ const workflowProps: WorkflowProps = { ... }
 
 ---
 
-##### `definitionLocation`<sup>Required</sup> <a name="definitionLocation" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.definitionLocation"></a>
+##### `definitionFile`<sup>Required</sup> <a name="definitionFile" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.definitionFile"></a>
 
 ```typescript
-public readonly definitionLocation: WorkflowDefinitionLocation;
+public readonly definitionFile: WorkflowDefinitionFile;
 ```
 
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionLocation">WorkflowDefinitionLocation</a>
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile">WorkflowDefinitionFile</a>
 
-The S3 location of the YAML workflow definition.
+The local YAML workflow definition file.
+
+The construct deploys this file to S3 and appends a content hash to the
+object key so that any edit triggers a CloudFormation update.
 
 ---
 
