@@ -49,136 +49,304 @@ go get github.com/tonesingleton/cdk-sagemaker-unified-studio-go
 
 AWS SageMaker Unified Studio provides a unified experience for data engineering, analytics, and machine learning. Setting it up via CloudFormation requires orchestrating many resources with specific dependency ordering, IAM roles, blueprint configurations, and policy grants.
 
-This library provides opinionated L2 constructs that handle:
+This library provides opinionated L2 constructs that handle all of this automatically.
 
-- **Domain** — Creates a SageMaker Unified Studio (DataZone V2) domain with its execution, service, and manage access IAM roles, domain units, blueprint configurations, and policy grants.
-- **Blueprint** — Activates an environment blueprint on a domain with the correct manage access and provisioning role configuration.
-- **ProjectProfile** — Defines a reusable project profile with environment configurations and deployment ordering.
-- **Project** — Creates a project within a domain, with membership management.
-- **Roles** — Creates the account-level provisioning and query execution roles required by SageMaker Unified Studio.
+## Account Roles
 
-## Usage
-
-### Full Data Mesh Setup
+Before creating a domain, provision the account-level IAM roles required by SageMaker Unified Studio. These are shared across all domains in an account.
 
 ```ts
-import { App, Stack } from 'aws-cdk-lib';
-import {
-  Domain,
-  DomainUnitConfig,
-  ManagedBlueprintIdentifier,
-  AccountRoles,
-  ProjectProfile,
-  Project,
-} from '@tonesingleton/cdk-sagemaker-unified-studio';
+import { AccountRoles } from '@tonesingleton/cdk-sagemaker-unified-studio';
 
-const app = new App();
-const stack = new Stack(app, 'DataMeshStack');
-
-// Account-level roles (shared across domains)
 const roles = new AccountRoles(stack, 'Roles', {
-  account: '123456789012',
+  kmsKeyArn: 'arn:aws:kms:eu-central-1:123456789012:key/my-key-id',
 });
+```
 
-// SageMaker Unified Studio domain
+The construct creates:
+
+| Role                     | Purpose                                      |
+| ------------------------ | -------------------------------------------- |
+| **Provisioning Role**    | Provisions and manages blueprint resources   |
+| **Query Execution Role** | Vends credentials for Athena query execution |
+
+See the [SageMaker Unified Studio documentation](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-account-roles.html) for details.
+
+## Domain
+
+A `Domain` creates a SageMaker Unified Studio domain with its associated IAM roles, domain units, S3 buckets, blueprint configurations, and policy grants.
+
+```ts
+import { aws_ec2 as ec2 } from 'aws-cdk-lib';
+import { Domain, ManagedBlueprintIdentifier } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+const vpc = ec2.Vpc.fromLookup(stack, 'Vpc', { vpcId: 'vpc-0123456789abcdef0' });
+
 const domain = new Domain(stack, 'Domain', {
   name: 'Analytics',
   description: 'Central analytics domain',
-  assumeRoleArns: ['arn:aws:iam::123456789012:role/data-contributor'],
   provisioningRoleArn: roles.provisioningRole.roleArn,
-  vpcId: 'vpc-0123456789abcdef0',
-  subnetIds: ['subnet-0123456789abcdef0', 'subnet-0123456789abcdef1'],
+  vpc,
+  vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+  assumeRoleArns: ['arn:aws:iam::123456789012:role/SSOContributor'],
   domainUnits: [
     { name: 'Data', description: 'Data engineering team' },
-    { name: 'Analytics', description: 'Analytics team' },
+    { name: 'Analytics', description: 'Analytics team', parentDomainUnitName: 'Data' },
   ],
   additionalBlueprintIdentifiers: [
     ManagedBlueprintIdentifier.LAKEHOUSE_DATABASE,
     ManagedBlueprintIdentifier.LAKEHOUSE_CATALOG,
-    ManagedBlueprintIdentifier.REDSHIFT_SERVERLESS,
   ],
 });
 ```
 
-### Domain with Nested Domain Units
+The construct automatically:
+
+- Creates domain execution, service, and manage access IAM roles
+- Configures the Tooling blueprint with VPC and S3 parameters
+- Creates versioned projects and access logs S3 buckets
+- Sorts domain units topologically (parents created before children)
+- Grants blueprint usage permissions via policy grants
+- Registers Lake Formation cleanup on stack deletion
+
+### Importing an existing Domain
+
+To reference a domain created in another stack:
 
 ```ts
-const domain = new Domain(stack, 'Domain', {
+const imported = Domain.fromAttributes(stack, 'ImportedDomain', {
+  domainId: 'dzd-abc123',
+  domainArn: 'arn:aws:datazone:eu-central-1:123456789012:domain/dzd-abc123',
+  rootDomainUnitId: 'du-root123',
+  domainExecutionRoleArn: 'arn:aws:iam::123456789012:role/DomainExecution',
+  manageAccessRoleArn: 'arn:aws:iam::123456789012:role/ManageAccess',
+});
+```
+
+### Bucket naming
+
+S3 bucket names must start with `amazon-sagemaker-` or `sagemaker-` to comply with the provisioning role's IAM policy:
+
+```ts
+new Domain(stack, 'Domain', {
   // ...
-  domainUnits: [
-    { name: 'Engineering', description: 'Engineering division' },
+  projectsBucketName: 'amazon-sagemaker-projects-123456789012',
+  accessLogsBucketName: 'sagemaker-logs-123456789012',
+});
+```
+
+### Removal policy
+
+By default, S3 buckets are retained on stack deletion. To enable cleanup in development:
+
+```ts
+import { RemovalPolicy } from 'aws-cdk-lib';
+
+new Domain(stack, 'Domain', {
+  // ...
+  removalPolicy: RemovalPolicy.DESTROY,
+  autoDeleteObjects: true,
+});
+```
+
+## Project Profile
+
+A `ProjectProfile` defines which environment blueprints are provisioned when a project is created.
+
+```ts
+import { ProjectProfile, DeploymentMode } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+const profile = new ProjectProfile(stack, 'Profile', {
+  name: 'DataEngineering',
+  description: 'Standard data engineering project profile',
+  domainId: domain.domainId,
+  domainUnitId: domain.domainUnits['Data'].attrId,
+  environmentConfigurations: [
     {
-      name: 'DataPlatform',
-      description: 'Data platform team',
-      parentDomainUnitName: 'Engineering',
+      name: 'Tooling',
+      environmentBlueprintId: domain.blueprints['Tooling'].environmentBlueprintId,
+      deploymentOrder: 0,
+    },
+    {
+      name: 'DataLake',
+      environmentBlueprintId: domain.blueprints['LakehouseDatabase'].environmentBlueprintId,
+      deploymentOrder: 1,
+      deploymentMode: DeploymentMode.ON_CREATE,
     },
   ],
 });
 ```
 
-Domain units are automatically sorted topologically — parents are always created before their children, regardless of the order you specify them.
+Non-Tooling environments default to `ON_DEMAND` deployment mode to avoid unnecessary costs.
+
+### Importing an existing Project Profile
+
+```ts
+const imported = ProjectProfile.fromAttributes(stack, 'ImportedProfile', {
+  projectProfileId: 'pp-abc123',
+});
+```
+
+## Project
+
+A `Project` creates a collaborative workspace within a domain. It automatically provisions an execution role with the necessary trust policy for SageMaker Unified Studio services.
+
+```ts
+import { Project, Designation } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+const project = new Project(stack, 'Project', {
+  name: 'CustomerAnalytics',
+  description: 'Customer behavior analytics project',
+  domainIdentifier: domain.domainId,
+  domainUnitId: domain.domainUnits['Analytics'].attrId,
+  projectProfileId: profile.projectProfileId,
+  membershipAssignments: [
+    {
+      designation: Designation.PROJECT_OWNER,
+      member: { userIdentifier: 'arn:aws:iam::123456789012:role/DataLead' },
+    },
+  ],
+});
+```
+
+### Custom execution role
+
+To bring your own execution role instead of auto-creating one:
+
+```ts
+import { aws_iam as iam } from 'aws-cdk-lib';
+
+const role = iam.Role.fromRoleArn(stack, 'ExecRole', 'arn:aws:iam::123456789012:role/MyExecRole');
+
+new Project(stack, 'Project', {
+  name: 'CustomProject',
+  domainIdentifier: domain.domainId,
+  projectExecutionRole: role,
+});
+```
+
+### Importing an existing Project
+
+```ts
+const imported = Project.fromAttributes(stack, 'ImportedProject', {
+  projectId: 'dzp-abc123',
+  domainId: 'dzd-test',
+  projectExecutionRoleArn: 'arn:aws:iam::123456789012:role/ProjectExec',
+});
+```
+
+## Environment
+
+An `Environment` provisions runtime infrastructure within a project based on a blueprint.
+
+```ts
+import { Environment } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+const env = new Environment(stack, 'DataLakeEnv', {
+  name: 'DataLake',
+  description: 'Glue database and Athena workgroup',
+  domainId: domain.domainId,
+  projectId: project.id,
+  environmentBlueprintId: domain.blueprints['LakehouseDatabase'].environmentBlueprintId,
+  userParameters: [{ name: 'glueDbName', value: 'customer_analytics' }],
+});
+```
+
+### Importing an existing Environment
+
+```ts
+const imported = Environment.fromAttributes(stack, 'ImportedEnv', {
+  environmentId: 'env-abc123',
+});
+```
+
+## Blueprint
+
+The `Blueprint` construct activates an environment blueprint on a domain. The `Domain` construct creates blueprints automatically, but you can also use it directly:
+
+```ts
+import { Blueprint, ManagedBlueprintIdentifier } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+const blueprint = new Blueprint(stack, 'RedshiftBP', {
+  identifier: ManagedBlueprintIdentifier.REDSHIFT_SERVERLESS,
+  domainId: domain.domainId,
+  manageAccessRoleArn: domain.manageAccessRole.roleArn,
+  provisioningRoleArn: roles.provisioningRole.roleArn,
+});
+```
 
 ### Available Blueprints
 
-The following blueprint identifiers are supported:
+| Identifier                      | Description                                             |
+| ------------------------------- | ------------------------------------------------------- |
+| `TOOLING`                       | SageMaker domain, security groups, IAM user roles       |
+| `TOOLING_LITE`                  | Lightweight tooling (no SageMaker domain)               |
+| `LAKEHOUSE_DATABASE`            | Glue database and Athena workgroup                      |
+| `LAKEHOUSE_CATALOG`             | Lakehouse catalog backed by Redshift Managed Storage    |
+| `REDSHIFT_SERVERLESS`           | Amazon Redshift Serverless warehouse                    |
+| `WORKFLOWS`                     | MWAA environment for Airflow workflows                  |
+| `ML_EXPERIMENTS`                | MLflow tracking server                                  |
+| `EMR_SERVERLESS`                | EMR Serverless for Spark batch and interactive sessions |
+| `EMR_ON_EC2`                    | EMR on EC2 for Spark, Hive, and big data workloads      |
+| `AMAZON_BEDROCK_CHAT_AGENT`     | Bedrock Agent with execution and consumption roles      |
+| `AMAZON_BEDROCK_KNOWLEDGE_BASE` | Bedrock Knowledge Base with OpenSearch Serverless       |
 
-| Identifier                      | Description                                                        | Auto-Provision     |
-| ------------------------------- | ------------------------------------------------------------------ | ------------------ |
-| `TOOLING`                       | IAM user roles, security groups, and SageMaker unified domains     | ✅ Always included |
-| `LAKEHOUSE_DATABASE`            | AWS Glue database and Amazon Athena workgroup (API name: DataLake) | ✅                 |
-| `LAKEHOUSE_CATALOG`             | SageMaker Lakehouse catalog backed by Redshift Managed Storage     | ✅                 |
-| `REDSHIFT_SERVERLESS`           | Amazon Redshift Serverless warehouse                               | ✅                 |
-| `WORKFLOWS`                     | MWAA environment for Airflow-based workflows                       | ✅                 |
-| `ML_EXPERIMENTS`                | MLflow tracking server for experimentation                         | ✅                 |
-| `MLFLOW_APP`                    | MLflow App for Unified Studio                                      | ✅                 |
-| `EMR_SERVERLESS`                | EMR Serverless for Spark batch jobs and interactive sessions       | ✅                 |
-| `EMR_ON_EC2`                    | EMR on EC2 for Spark, Hive, and big data workloads                 | ✅                 |
-| `EMR_ON_EKS`                    | EMR on EKS environment                                             | ✅                 |
-| `PARTNER_APPS`                  | IAM role and Connection for Partner AI Apps                        | ✅                 |
-| `QUICKSIGHT`                    | Amazon QuickSight data visualization                               | ✅                 |
-| `AMAZON_BEDROCK_CHAT_AGENT`     | Bedrock Agent with execution and consumption roles                 | ❌ On-demand       |
-| `AMAZON_BEDROCK_EVALUATION`     | Bedrock evaluation job service role                                | ❌ On-demand       |
-| `AMAZON_BEDROCK_FLOW`           | Bedrock Prompt Flow with execution role                            | ❌ On-demand       |
-| `AMAZON_BEDROCK_FUNCTION`       | Lambda function with execution role and Secrets Manager             | ❌ On-demand       |
-| `AMAZON_BEDROCK_GUARDRAIL`      | Bedrock Guardrail with execution role                              | ❌ On-demand       |
-| `AMAZON_BEDROCK_KNOWLEDGE_BASE` | Bedrock Knowledge Base with OpenSearch Serverless                   | ❌ On-demand       |
-| `AMAZON_BEDROCK_PROMPT`         | Bedrock Prompt with consumption role                               | ❌ On-demand       |
+See `ManagedBlueprintIdentifier` for the full list.
 
-Blueprints marked **Auto-Provision** can be included in a project profile and will be automatically provisioned when a project is created. **On-demand** blueprints require additional parameters and are created from the SageMaker Unified Studio UI.
+## Data Source
 
-### Tooling Blueprint Regional Parameters
-
-The Tooling blueprint requires VPC configuration via regional parameters. The parameter names are PascalCase:
+A `DataSource` connects a project to existing data in Glue or Redshift for cataloging and access management.
 
 ```ts
-// These are set automatically by the Domain construct:
-// - S3Location: s3://bucket-name
-// - VpcId: vpc-0123456789abcdef0
-// - Subnets: subnet-abc,subnet-def,subnet-ghi
+import { DataSource } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+new DataSource(stack, 'GlueSource', {
+  name: 'CustomerData',
+  domainId: domain.domainId,
+  projectId: project.id,
+  connectionId: 'conn-abc123',
+  glueConfiguration: {
+    dataAccessRole: 'arn:aws:iam::123456789012:role/GlueAccess',
+    relationalFilterConfigurations: [{ databaseName: 'customer_db', filterExpressions: [] }],
+  },
+});
 ```
 
-### Deployment Ordering
+## Git Connection
 
-When creating a project profile with multiple blueprints, the Tooling blueprint must be deployed first (it sets up the SageMaker domain and S3 bucket that other blueprints depend on). The DataLake blueprint should be deployed after Tooling has registered the manage access role as a Lake Formation admin.
+A `GitConnection` integrates source control with a CodeConnections-based connection.
 
 ```ts
-// Deployment order is handled automatically:
-// 0: Tooling (first — creates SageMaker domain, S3 bucket, Lake Formation admin)
-// 1: All other auto-provision blueprints (parallel)
-// 2: DataLake (after Tooling has set up Lake Formation)
+import { GitConnection, GitProviderType } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+new GitConnection(stack, 'Git', {
+  name: 'MyGitHub',
+  providerType: GitProviderType.GITHUB,
+});
 ```
 
-## IAM Roles
+After deployment, the connection must be authorized manually in the AWS Console.
 
-The library creates several IAM roles following the [SageMaker Unified Studio documentation](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-account-roles.html):
+## Workflow
 
-| Role                      | Scope         | Purpose                                      |
-| ------------------------- | ------------- | -------------------------------------------- |
-| **Provisioning Role**     | Account-level | Provisions and manages blueprint resources   |
-| **Query Execution Role**  | Account-level | Vends credentials for Athena query execution |
-| **Domain Execution Role** | Per-domain    | Manages the domain and its resources         |
-| **Service Role**          | Per-domain    | SageMaker service operations                 |
-| **Manage Access Role**    | Per-domain    | Publishes, grants, and revokes data access   |
+A `Workflow` creates a managed Airflow workflow (MWAA Serverless).
+
+```ts
+import { aws_s3 as s3 } from 'aws-cdk-lib';
+import { Workflow, TriggerMode } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+const dagsBucket = s3.Bucket.fromBucketName(stack, 'DagsBucket', 'my-dags-bucket');
+
+new Workflow(stack, 'ETL', {
+  name: 'DailyETL',
+  roleArn: 'arn:aws:iam::123456789012:role/MWAAExecution',
+  definitionFile: {
+    path: 'workflows/etl.yaml',
+    bucket: dagsBucket,
+  },
+  triggerMode: TriggerMode.MANUAL_ONLY,
+});
+```
 
 ## CDK Nag Compliance
 
@@ -186,76 +354,44 @@ All constructs are validated against the [AWS Solutions](https://github.com/cdkl
 
 ## VPC Requirements
 
-When using `VpcOnly` network access (the default for SageMaker Unified Studio), the following VPC endpoints must be available in the configured VPC.
+When using `VpcOnly` network access (the default for SageMaker Unified Studio), the following VPC endpoints must be available.
 
 **Important:**
+
 - All interface endpoints must be associated with the **same subnets** used by the Tooling blueprint.
-- The `datazone` endpoint **must have Private DNS enabled** for personal notebooks to function.
-- The `glue` endpoint **must have Private DNS enabled** for Spark/Athena connectivity.
+- The `datazone` and `glue` endpoints **must have Private DNS enabled**.
 - The VPC must have `enableDnsSupport` and `enableDnsHostnames` set to `true`.
-- The security groups on VPC endpoints must allow **inbound port 443** from the SageMaker domain's security groups. The Tooling blueprint creates security groups for the SageMaker domain (e.g. `sagemaker_<domain-name>`) — these must be allowed as sources on the VPC endpoint security groups.
+- VPC endpoint security groups must allow **inbound port 443** from the SageMaker domain's security groups.
 
-| Endpoint                                   | Required For                                      | Private DNS |
-| ------------------------------------------ | ------------------------------------------------- | ----------- |
-| `com.amazonaws.<region>.datazone`          | Personal notebooks (kernel ↔ DataZone API)        | **Required** |
-| `com.amazonaws.<region>.glue`              | Personal notebooks (Glue Interactive Sessions)    | **Required** |
-| `com.amazonaws.<region>.athena`            | Athena Spark sessions                             | **Required** |
-| `com.amazonaws.<region>.sagemaker.api`     | SageMaker API (JupyterLab, spaces)                | Recommended |
-| `com.amazonaws.<region>.sagemaker.runtime` | Model inference                                   | Recommended |
-| `com.amazonaws.<region>.sts`               | Token service                                     | Recommended |
-| `com.amazonaws.<region>.s3`                | Data and notebook storage (Gateway endpoint)      | N/A         |
-| `com.amazonaws.<region>.ssm`               | Parameter lookups for container images             | Recommended |
-| `com.amazonaws.<region>.ssmmessages`       | SSM Session Manager messaging                     | Recommended |
-| `com.amazonaws.<region>.ec2messages`       | SSM agent messaging                               | Recommended |
-| `com.amazonaws.<region>.ecr.api`           | Container image registry                          | Recommended |
-| `com.amazonaws.<region>.ecr.dkr`           | Container image pulls                             | Recommended |
-| `com.amazonaws.<region>.logs`              | CloudWatch logging                                | Recommended |
-
-### Security Group Configuration
-
-The Tooling blueprint creates a SageMaker domain with its own security groups. For VPC endpoints to be reachable from JupyterLab spaces and personal notebooks, the endpoint security groups must allow inbound HTTPS (port 443) from the SageMaker domain's security groups.
-
-To find the SageMaker domain's security groups:
-
-```bash
-aws ec2 describe-network-interfaces \
-  --filters "Name=description,Values=*<sagemaker-domain-id>*" \
-  --query "NetworkInterfaces[0].Groups[].GroupId"
-```
-
-Then add inbound rules on each VPC endpoint's security group:
-
-```bash
-aws ec2 authorize-security-group-ingress \
-  --group-id <endpoint-security-group-id> \
-  --protocol tcp --port 443 \
-  --source-group <sagemaker-domain-security-group-id>
-```
+| Endpoint                                   | Required For                                   | Private DNS  |
+| ------------------------------------------ | ---------------------------------------------- | ------------ |
+| `com.amazonaws.<region>.datazone`          | Personal notebooks (kernel ↔ DataZone API)     | **Required** |
+| `com.amazonaws.<region>.glue`              | Personal notebooks (Glue Interactive Sessions) | **Required** |
+| `com.amazonaws.<region>.athena`            | Athena Spark sessions                          | **Required** |
+| `com.amazonaws.<region>.sagemaker.api`     | SageMaker API (JupyterLab, spaces)             | Recommended  |
+| `com.amazonaws.<region>.sagemaker.runtime` | Model inference                                | Recommended  |
+| `com.amazonaws.<region>.sts`               | Token service                                  | Recommended  |
+| `com.amazonaws.<region>.s3`                | Data and notebook storage (Gateway endpoint)   | N/A          |
+| `com.amazonaws.<region>.ssm`               | Parameter lookups for container images         | Recommended  |
+| `com.amazonaws.<region>.ecr.api`           | Container image registry                       | Recommended  |
+| `com.amazonaws.<region>.ecr.dkr`           | Container image pulls                          | Recommended  |
+| `com.amazonaws.<region>.logs`              | CloudWatch logging                             | Recommended  |
 
 ## Known Limitations
 
-- **IAM Identity Center**: SageMaker Unified Studio works best with AWS IAM Identity Center for per-user attribution. With IAM federation, all users sharing a role appear as a single identity within Unified Studio.
-- **Lake Formation cleanup**: The `Domain` construct automatically deregisters the manage access and provisioning roles from Lake Formation data lake administrators on stack deletion via a custom resource.
-- **Domain deletion**: CloudFormation cannot delete a SageMaker Unified Studio domain that still has active projects. Projects created through the Unified Studio UI (outside of CDK) must be manually deleted before running `cdk destroy`. Delete projects in reverse dependency order, leaving the `admin-project` for last:
+- **IAM Identity Center**: SageMaker Unified Studio works best with AWS IAM Identity Center for per-user attribution. With IAM federation, all users sharing a role appear as a single identity.
+- **Lake Formation cleanup**: The `Domain` construct automatically deregisters admin roles from Lake Formation on stack deletion via a custom resource.
+- **Domain deletion**: CloudFormation cannot delete a domain with active projects. Projects created through the UI must be deleted manually before `cdk destroy`:
 
 ```bash
-# 1. List projects on the domain
+# List projects
 aws datazone list-projects --domain-identifier <domain-id> \
-  --query "items[].{id:id,name:name,status:projectStatus}" --output table
+  --query "items[].{id:id,name:name}" --output table
 
-# 2. Delete each non-admin project
+# Delete each project (admin project last)
 aws datazone delete-project --domain-identifier <domain-id> \
   --identifier <project-id> --skip-deletion-check
-
-# 3. Delete the admin project last
-aws datazone delete-project --domain-identifier <domain-id> \
-  --identifier <admin-project-id> --skip-deletion-check
-
-# 4. Now cdk destroy will succeed, or delete the domain manually:
-aws datazone delete-domain --identifier <domain-id> --skip-deletion-check
 ```
-
-  If a project is stuck in `DELETE_FAILED`, check its environments for the failure reason (`aws datazone get-environment --domain-identifier <domain-id> --identifier <env-id> --query "lastDeployment.failureReason"`). Common causes include missing IAM permissions on the provisioning role (e.g. `s3:DeleteBucketPolicy`). Resolve the permission issue, then retry the delete.
 
 ## Contributing
 
