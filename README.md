@@ -332,14 +332,15 @@ After deployment, the connection must be authorized manually in the AWS Console.
 A `Workflow` creates a managed Airflow workflow (MWAA Serverless).
 
 ```ts
-import { aws_s3 as s3 } from 'aws-cdk-lib';
+import { aws_iam as iam, aws_s3 as s3 } from 'aws-cdk-lib';
 import { Workflow, TriggerMode } from '@tonesingleton/cdk-sagemaker-unified-studio';
 
 const dagsBucket = s3.Bucket.fromBucketName(stack, 'DagsBucket', 'my-dags-bucket');
+const executionRole = iam.Role.fromRoleArn(stack, 'MWAARole', 'arn:aws:iam::123456789012:role/MWAAExecution');
 
 new Workflow(stack, 'ETL', {
   name: 'DailyETL',
-  roleArn: 'arn:aws:iam::123456789012:role/MWAAExecution',
+  role: executionRole,
   definitionFile: {
     path: 'workflows/etl.yaml',
     bucket: dagsBucket,
