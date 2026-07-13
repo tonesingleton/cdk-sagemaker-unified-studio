@@ -126,7 +126,32 @@ const project = new awscdk.AwsCdkConstructLibrary({
 });
 
 // AI instructions for coding assistants
-new AiInstructions(project);
+const ai = new AiInstructions(project);
+ai.addInstructions(
+  '# CDK Construct Library Conventions',
+  '',
+  'This project is an L2 CDK construct library. All constructs must follow AWS CDK library conventions:',
+  '',
+  '## Interface and Import Pattern',
+  '',
+  '- Every construct that represents a deployable resource MUST have:',
+  '  - An `I*` interface (e.g. `IDomain`, `IProject`) defining the read-only contract.',
+  '  - A `*Attributes` interface (e.g. `DomainAttributes`) with the minimal fields needed to reference the resource from another stack.',
+  '  - A `static fromAttributes(scope, id, attrs)` factory method that returns `I*` without creating CloudFormation resources.',
+  '  - The construct class MUST declare `implements I*`.',
+  '- A construct is **not complete** without its `fromAttributes` factory method when cross-stack referencing is applicable.',
+  '- The `fromAttributes` implementation uses a private inner class extending `Construct` that implements the `I*` interface with the provided attribute values.',
+  '',
+  '## Validation',
+  '',
+  '- Use eager `throw new Error()` in the constructor for props validation when values are known at construct time.',
+  '- Inline validation at the point the prop is consumed — do not use standalone helper functions.',
+  '- Use `Validations.of().acknowledge()` variadic form to suppress multiple cdk-nag findings on a single construct in one call.',
+  '',
+  '## Exports',
+  '',
+  "- All `*Attributes` interfaces must be exported from the construct's barrel file (`index.ts`).",
+);
 
 // ESLint: require Array<T> syntax instead of T[]
 project.eslint!.addRules({
