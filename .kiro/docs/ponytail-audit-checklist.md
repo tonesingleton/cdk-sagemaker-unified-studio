@@ -4,9 +4,9 @@ Over-engineering findings for `cdk-sagemaker-unified-studio`, ranked biggest cut
 
 ---
 
-- [ ] **shrink: 3× duplicate `Validations.of(manageAccessRole).acknowledge`**
+- [x] **shrink: 3× duplicate `Validations.of(manageAccessRole).acknowledge`**
       `src/constructs/domain/domain.construct.ts:219-235`
-      Three identical `AwsSolutions-IAM4` acknowledges with the same id/reason. One suffices — cdk-nag v3 deduplicates per id. Delete two.
+      Three identical `AwsSolutions-IAM4` acknowledges with the same id/reason. One suffices — cdk-nag v3 deduplicates per id. ~~Delete two.~~ Done.
 
 - [ ] **shrink: `EXECUTION_ROLE_TRUST_PRINCIPALS` duplicated across two files**
       `src/constructs/account-roles/account-roles.construct.ts:6`
