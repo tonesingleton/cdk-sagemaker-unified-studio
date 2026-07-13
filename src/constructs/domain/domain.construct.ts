@@ -16,20 +16,6 @@ import type { BlueprintProps } from '../blueprint/blueprint.interface';
 import { ManagedBlueprintIdentifier } from '../blueprint/blueprint.interface';
 
 /**
- * Validates that a bucket name starts with one of the allowed prefixes.
- *
- * @throws Error if the bucket name does not start with an allowed prefix.
- */
-function validateBucketName(bucketName: string): void {
-  if (!Domain.ALLOWED_BUCKET_PREFIXES.some((prefix) => bucketName.startsWith(prefix))) {
-    throw new Error(
-      `Bucket name '${bucketName}' must start with one of: ${Domain.ALLOWED_BUCKET_PREFIXES.join(', ')}. ` +
-        'See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-account-roles.html',
-    );
-  }
-}
-
-/**
  * An AWS SageMaker Unified Studio domain with its associated IAM roles,
  * domain units, and blueprint configurations.
  *
@@ -216,28 +202,17 @@ export class Domain extends Construct {
       },
     });
 
-    Validations.of(manageAccessRole).acknowledge({
-      id: 'AwsSolutions-IAM4',
-      reason:
-        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-domain-manage-access-role.html',
-    });
-
-    Validations.of(manageAccessRole).acknowledge({
-      id: 'AwsSolutions-IAM4',
-      reason:
-        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-domain-manage-access-role.html',
-    });
-
-    Validations.of(manageAccessRole).acknowledge({
-      id: 'AwsSolutions-IAM4',
-      reason:
-        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-domain-manage-access-role.html',
-    });
-
-    Validations.of(manageAccessRole).acknowledge({
-      id: 'AwsSolutions-IAM5',
-      reason: 'Wildcard resources required for Secrets Manager access scoped by domain tag.',
-    });
+    Validations.of(manageAccessRole).acknowledge(
+      {
+        id: 'AwsSolutions-IAM4',
+        reason:
+          'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-domain-manage-access-role.html',
+      },
+      {
+        id: 'AwsSolutions-IAM5',
+        reason: 'Wildcard resources required for Secrets Manager access scoped by domain tag.',
+      },
+    );
 
     const units: { [name: string]: datazone.CfnDomainUnit } = {};
     for (const config of Domain.topologicalSort(props.domainUnits ?? [])) {
@@ -256,10 +231,20 @@ export class Domain extends Construct {
     const autoDeleteObjects = props.autoDeleteObjects ?? false;
 
     if (props.projectsBucketName) {
-      validateBucketName(props.projectsBucketName);
+      if (!Domain.ALLOWED_BUCKET_PREFIXES.some((prefix) => props.projectsBucketName!.startsWith(prefix))) {
+        throw new Error(
+          `Bucket name '${props.projectsBucketName}' must start with one of: ${Domain.ALLOWED_BUCKET_PREFIXES.join(', ')}. ` +
+            'See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-account-roles.html',
+        );
+      }
     }
     if (props.accessLogsBucketName) {
-      validateBucketName(props.accessLogsBucketName);
+      if (!Domain.ALLOWED_BUCKET_PREFIXES.some((prefix) => props.accessLogsBucketName!.startsWith(prefix))) {
+        throw new Error(
+          `Bucket name '${props.accessLogsBucketName}' must start with one of: ${Domain.ALLOWED_BUCKET_PREFIXES.join(', ')}. ` +
+            'See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-account-roles.html',
+        );
+      }
     }
 
     const accessLogsBucket = new s3.Bucket(this, 'AccessLogsBucket', {

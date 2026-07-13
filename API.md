@@ -14627,9 +14627,95 @@ S3 key prefix for the deployed definition.
 
 ---
 
+### WorkflowEncryptionConfiguration <a name="WorkflowEncryptionConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowEncryptionConfiguration"></a>
+
+Encryption configuration for workflow data at rest and in transit.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-encryptionconfiguration.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-encryptionconfiguration.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowEncryptionConfiguration.Initializer"></a>
+
+```typescript
+import { WorkflowEncryptionConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const workflowEncryptionConfiguration: WorkflowEncryptionConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowEncryptionConfiguration.property.type">type</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EncryptionType">EncryptionType</a></code> | The type of encryption to use. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowEncryptionConfiguration.property.kmsKey">kmsKey</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | The KMS key to use for encryption. |
+
+---
+
+##### `type`<sup>Required</sup> <a name="type" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowEncryptionConfiguration.property.type"></a>
+
+```typescript
+public readonly type: EncryptionType;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.EncryptionType">EncryptionType</a>
+
+The type of encryption to use.
+
+---
+
+##### `kmsKey`<sup>Optional</sup> <a name="kmsKey" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowEncryptionConfiguration.property.kmsKey"></a>
+
+```typescript
+public readonly kmsKey: IKey;
+```
+
+- *Type:* aws-cdk-lib.aws_kms.IKey
+- *Default:* AWS managed key
+
+The KMS key to use for encryption.
+
+Required when type is CUSTOMER_MANAGED_KEY.
+
+---
+
+### WorkflowLoggingConfiguration <a name="WorkflowLoggingConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowLoggingConfiguration"></a>
+
+Logging configuration for workflow execution.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-loggingconfiguration.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-loggingconfiguration.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowLoggingConfiguration.Initializer"></a>
+
+```typescript
+import { WorkflowLoggingConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const workflowLoggingConfiguration: WorkflowLoggingConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowLoggingConfiguration.property.logGroupName">logGroupName</a></code> | <code>string</code> | The name of the CloudWatch log group where workflow execution logs are stored. |
+
+---
+
+##### `logGroupName`<sup>Required</sup> <a name="logGroupName" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowLoggingConfiguration.property.logGroupName"></a>
+
+```typescript
+public readonly logGroupName: string;
+```
+
+- *Type:* string
+
+The name of the CloudWatch log group where workflow execution logs are stored.
+
+---
+
 ### WorkflowNetworkConfiguration <a name="WorkflowNetworkConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration"></a>
 
 Network configuration for workflow execution.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-networkconfiguration.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-networkconfiguration.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.Initializer"></a>
 
@@ -14643,38 +14729,42 @@ const workflowNetworkConfiguration: WorkflowNetworkConfiguration = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.securityGroupIds">securityGroupIds</a></code> | <code>string[]</code> | Security group IDs for the workflow execution environment. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.subnetIds">subnetIds</a></code> | <code>string[]</code> | Subnet IDs for the workflow execution environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.securityGroupIds">securityGroupIds</a></code> | <code>string[]</code> | VPC security group IDs for the workflow execution environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.subnetIds">subnetIds</a></code> | <code>string[]</code> | VPC subnet IDs where the workflow execution environment is deployed. |
 
 ---
 
-##### `securityGroupIds`<sup>Required</sup> <a name="securityGroupIds" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.securityGroupIds"></a>
+##### `securityGroupIds`<sup>Optional</sup> <a name="securityGroupIds" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.securityGroupIds"></a>
 
 ```typescript
 public readonly securityGroupIds: string[];
 ```
 
 - *Type:* string[]
+- *Default:* service default
 
-Security group IDs for the workflow execution environment.
+VPC security group IDs for the workflow execution environment.
 
 ---
 
-##### `subnetIds`<sup>Required</sup> <a name="subnetIds" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.subnetIds"></a>
+##### `subnetIds`<sup>Optional</sup> <a name="subnetIds" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration.property.subnetIds"></a>
 
 ```typescript
 public readonly subnetIds: string[];
 ```
 
 - *Type:* string[]
+- *Default:* service default
 
-Subnet IDs for the workflow execution environment.
+VPC subnet IDs where the workflow execution environment is deployed.
 
 ---
 
 ### WorkflowProps <a name="WorkflowProps" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps"></a>
 
 Properties for a Workflow construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-mwaaserverless-workflow.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-mwaaserverless-workflow.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.Initializer"></a>
 
@@ -14692,6 +14782,8 @@ const workflowProps: WorkflowProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.name">name</a></code> | <code>string</code> | The name of the workflow. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.roleArn">roleArn</a></code> | <code>string</code> | The ARN of the IAM role that MWAA Serverless assumes when executing the workflow. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.description">description</a></code> | <code>string</code> | Description of the workflow. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.encryptionConfiguration">encryptionConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowEncryptionConfiguration">WorkflowEncryptionConfiguration</a></code> | Encryption configuration for workflow data. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.loggingConfiguration">loggingConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowLoggingConfiguration">WorkflowLoggingConfiguration</a></code> | Logging configuration for workflow execution. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.networkConfiguration">networkConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration">WorkflowNetworkConfiguration</a></code> | Network configuration for VPC access during execution. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags to apply to the workflow resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.triggerMode">triggerMode</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TriggerMode">TriggerMode</a></code> | The trigger mode for the workflow. |
@@ -14723,7 +14815,8 @@ public readonly name: string;
 
 The name of the workflow.
 
-Must be unique within the AWS account.
+Must match `^[a-zA-Z0-9]+[a-zA-Z0-9.\-_]*$` and be between 1–255 characters.
+Changing this value requires replacement.
 
 ---
 
@@ -14752,6 +14845,34 @@ Description of the workflow.
 
 ---
 
+##### `encryptionConfiguration`<sup>Optional</sup> <a name="encryptionConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.encryptionConfiguration"></a>
+
+```typescript
+public readonly encryptionConfiguration: WorkflowEncryptionConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowEncryptionConfiguration">WorkflowEncryptionConfiguration</a>
+- *Default:* AWS managed encryption
+
+Encryption configuration for workflow data.
+
+Changing this value requires replacement.
+
+---
+
+##### `loggingConfiguration`<sup>Optional</sup> <a name="loggingConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.loggingConfiguration"></a>
+
+```typescript
+public readonly loggingConfiguration: WorkflowLoggingConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowLoggingConfiguration">WorkflowLoggingConfiguration</a>
+- *Default:* no logging
+
+Logging configuration for workflow execution.
+
+---
+
 ##### `networkConfiguration`<sup>Optional</sup> <a name="networkConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.networkConfiguration"></a>
 
 ```typescript
@@ -14762,6 +14883,9 @@ public readonly networkConfiguration: WorkflowNetworkConfiguration;
 - *Default:* runs in the service's default worker VPC
 
 Network configuration for VPC access during execution.
+
+When specified, ECS worker tasks are deployed in your VPC for secure
+connectivity to VPC-only resources (e.g. RDS, private endpoints).
 
 ---
 
@@ -15962,6 +16086,33 @@ Full owner access to the project.
 ##### `PROJECT_CONTRIBUTOR` <a name="PROJECT_CONTRIBUTOR" id="@tonesingleton/cdk-sagemaker-unified-studio.Designation.PROJECT_CONTRIBUTOR"></a>
 
 Contributor access to the project.
+
+---
+
+
+### EncryptionType <a name="EncryptionType" id="@tonesingleton/cdk-sagemaker-unified-studio.EncryptionType"></a>
+
+Encryption type for workflow data.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EncryptionType.AWS_MANAGED_KEY">AWS_MANAGED_KEY</a></code> | AWS manages the encryption key. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EncryptionType.CUSTOMER_MANAGED_KEY">CUSTOMER_MANAGED_KEY</a></code> | You provide a KMS key. |
+
+---
+
+##### `AWS_MANAGED_KEY` <a name="AWS_MANAGED_KEY" id="@tonesingleton/cdk-sagemaker-unified-studio.EncryptionType.AWS_MANAGED_KEY"></a>
+
+AWS manages the encryption key.
+
+---
+
+
+##### `CUSTOMER_MANAGED_KEY` <a name="CUSTOMER_MANAGED_KEY" id="@tonesingleton/cdk-sagemaker-unified-studio.EncryptionType.CUSTOMER_MANAGED_KEY"></a>
+
+You provide a KMS key.
 
 ---
 
