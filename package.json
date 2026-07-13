@@ -17,11 +17,7 @@
     "eslint": "projen eslint",
     "package": "projen package",
     "package-all": "projen package-all",
-    "package:dotnet": "projen package:dotnet",
-    "package:go": "projen package:go",
-    "package:java": "projen package:java",
     "package:js": "projen package:js",
-    "package:python": "projen package:python",
     "post-compile": "projen post-compile",
     "post-upgrade": "projen post-upgrade",
     "pre-compile": "projen pre-compile",
@@ -168,26 +164,7 @@
   "types": "lib/index.d.ts",
   "jsii": {
     "outdir": "dist",
-    "targets": {
-      "java": {
-        "package": "io.github.tonesingleton.cdksagemakerunifiedstudio",
-        "maven": {
-          "groupId": "io.github.tonesingleton",
-          "artifactId": "cdk-sagemaker-unified-studio"
-        }
-      },
-      "python": {
-        "distName": "cdk-sagemaker-unified-studio",
-        "module": "cdk_sagemaker_unified_studio"
-      },
-      "dotnet": {
-        "namespace": "ToneSingleton.CdkSageMakerUnifiedStudio",
-        "packageId": "ToneSingleton.CdkSageMakerUnifiedStudio"
-      },
-      "go": {
-        "moduleName": "github.com/tonesingleton/cdk-sagemaker-unified-studio-go"
-      }
-    },
+    "targets": {},
     "tsconfig": "tsconfig.json",
     "validateTsconfig": "strict"
   },

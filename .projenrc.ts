@@ -93,26 +93,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
-  // Publishing targets
-  publishToPypi: {
-    distName: 'cdk-sagemaker-unified-studio',
-    module: 'cdk_sagemaker_unified_studio',
-  },
-
-  publishToMaven: {
-    javaPackage: 'io.github.tonesingleton.cdksagemakerunifiedstudio',
-    mavenGroupId: 'io.github.tonesingleton',
-    mavenArtifactId: 'cdk-sagemaker-unified-studio',
-  },
-
-  publishToNuget: {
-    dotNetNamespace: 'ToneSingleton.CdkSageMakerUnifiedStudio',
-    packageId: 'ToneSingleton.CdkSageMakerUnifiedStudio',
-  },
-
-  publishToGo: {
-    moduleName: 'github.com/tonesingleton/cdk-sagemaker-unified-studio-go',
-  },
+  // Publishing targets (disabled — not yet publishing to public registries)
+  releaseToNpm: false,
 });
 
 // AI instructions for coding assistants
