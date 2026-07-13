@@ -95,6 +95,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // Publishing targets (disabled — not yet publishing to public registries)
   releaseToNpm: false,
+  release: false,
 });
 
 // AI instructions for coding assistants
