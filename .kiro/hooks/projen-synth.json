@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Synth After Projenrc Changes",
+      "trigger": "PostFileSave",
+      "description": "Automatically runs projen synth when .projenrc.ts is saved to keep generated files in sync.",
+      "matcher": "\\\\.projenrc\\\\.ts$",
+      "action": {
+        "type": "command",
+        "command": "cd /Users/antikvar/Projects/tone-singleton/core/cdk-sagemaker-unified-studio && yarn projen",
+        "timeout": 60
+      }
+    }
+  ]
+}

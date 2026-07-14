@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Run Tests After Test File Changes",
+      "trigger": "PostFileSave",
+      "description": "Runs the full test suite (with 100% coverage enforcement) whenever a test file is saved.",
+      "matcher": "\\\\.test\\\\.ts$",
+      "action": {
+        "type": "command",
+        "command": "cd /Users/antikvar/Projects/tone-singleton/core/cdk-sagemaker-unified-studio && yarn projen test",
+        "timeout": 120
+      }
+    }
+  ]
+}
