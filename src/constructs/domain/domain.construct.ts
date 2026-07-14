@@ -71,7 +71,7 @@ export class Domain extends Construct implements IDomain {
       throw new Error(`Duplicate domain unit names: ${[...new Set(duplicates)].join(', ')}.`);
     }
 
-    const byName: { [name: string]: DomainUnitConfig } = {};
+    const byName: Record<string, DomainUnitConfig> = {};
     for (const u of domainUnits) {
       byName[u.name] = u;
     }
@@ -115,9 +115,9 @@ export class Domain extends Construct implements IDomain {
   /** The manage access role. */
   public readonly manageAccessRole: iam.IRole;
   /** Map of domain unit name to its CloudFormation resource. */
-  public readonly domainUnits: { [name: string]: datazone.CfnDomainUnit };
+  public readonly domainUnits: Record<string, datazone.CfnDomainUnit>;
   /** Map of blueprint identifier to its Blueprint construct. */
-  public readonly blueprints: { [identifier: string]: Blueprint };
+  public readonly blueprints: Record<string, Blueprint>;
   /**
    * Policy grants that authorize blueprint usage. Downstream resources
    * (e.g. projects) should depend on these to ensure correct ordering.
@@ -241,7 +241,7 @@ export class Domain extends Construct implements IDomain {
       },
     );
 
-    const units: { [name: string]: datazone.CfnDomainUnit } = {};
+    const units: Record<string, datazone.CfnDomainUnit> = {};
     for (const config of Domain.topologicalSort(props.domainUnits ?? [])) {
       const parentId = config.parentDomainUnitName
         ? units[config.parentDomainUnitName].attrId
@@ -295,7 +295,7 @@ export class Domain extends Construct implements IDomain {
       enforceSSL: true,
     });
 
-    const blueprints: { [identifier: string]: Blueprint } = {};
+    const blueprints: Record<string, Blueprint> = {};
     const toolingProps: BlueprintProps = {
       identifier: ManagedBlueprintIdentifier.TOOLING,
       domainId: domain.attrId,

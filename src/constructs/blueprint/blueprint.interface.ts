@@ -7,8 +7,13 @@
 export interface RegionalParameter {
   /** The AWS region this parameter set applies to. */
   readonly region: string;
-  /** Key-value pairs of parameters for this region. */
-  readonly parameters: { [key: string]: string };
+  /**
+   * Key-value pairs of blueprint parameters for this region.
+   *
+   * Known keys for Tooling: `S3Location`, `VpcId`, `Subnets`.
+   * Other blueprints may define additional keys.
+   */
+  readonly parameters: Record<string, string>;
 }
 
 /**
@@ -204,10 +209,12 @@ export interface BlueprintProps {
   /**
    * Region-agnostic parameters passed to the blueprint configuration.
    *
-   * Used by blueprints that require account-wide settings (e.g. QuickSight
-   * needs `{ QuickSightVpcManagerRoleArn: 'arn:...' }`).
+   * Used by blueprints that require account-wide settings.
+   *
+   * Known keys:
+   * - QuickSight: `QuickSightVpcManagerRoleArn`
    *
    * @default - no global parameters
    */
-  readonly globalParameters?: { [key: string]: string };
+  readonly globalParameters?: Record<string, string>;
 }

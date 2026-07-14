@@ -21746,8 +21746,10 @@ public readonly globalParameters: {[ key: string ]: string};
 
 Region-agnostic parameters passed to the blueprint configuration.
 
-Used by blueprints that require account-wide settings (e.g. QuickSight
-needs `{ QuickSightVpcManagerRoleArn: 'arn:...' }`).
+Used by blueprints that require account-wide settings.
+
+Known keys:
+- QuickSight: `QuickSightVpcManagerRoleArn`
 
 ---
 
@@ -28126,7 +28128,7 @@ const regionalParameter: RegionalParameter = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RegionalParameter.property.parameters">parameters</a></code> | <code>{[ key: string ]: string}</code> | Key-value pairs of parameters for this region. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RegionalParameter.property.parameters">parameters</a></code> | <code>{[ key: string ]: string}</code> | Key-value pairs of blueprint parameters for this region. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RegionalParameter.property.region">region</a></code> | <code>string</code> | The AWS region this parameter set applies to. |
 
 ---
@@ -28139,7 +28141,10 @@ public readonly parameters: {[ key: string ]: string};
 
 - *Type:* {[ key: string ]: string}
 
-Key-value pairs of parameters for this region.
+Key-value pairs of blueprint parameters for this region.
+
+Known keys for Tooling: `S3Location`, `VpcId`, `Subnets`.
+Other blueprints may define additional keys.
 
 ---
 

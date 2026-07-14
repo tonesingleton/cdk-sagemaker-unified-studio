@@ -51,7 +51,7 @@ export interface HostProps {
    *
    * @default - no tags
    */
-  readonly tags?: { [key: string]: string };
+  readonly tags?: Record<string, string>;
 }
 
 /**

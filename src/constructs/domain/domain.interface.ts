@@ -122,8 +122,8 @@ export interface IDomain {
   readonly rootDomainUnitId: string;
   readonly domainExecutionRole: iam.IRole;
   readonly manageAccessRole: iam.IRole;
-  readonly domainUnits: { [name: string]: datazone.CfnDomainUnit };
-  readonly blueprints: { [identifier: string]: Blueprint };
+  readonly domainUnits: Record<string, datazone.CfnDomainUnit>;
+  readonly blueprints: Record<string, Blueprint>;
   readonly blueprintPolicyGrants: Array<datazone.CfnPolicyGrant>;
   readonly projectsBucket: s3.IBucket;
   readonly accessLogsBucket: s3.IBucket;

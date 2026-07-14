@@ -66,7 +66,7 @@ export interface EnvironmentConfiguration {
    *
    * @default - no parameters
    */
-  readonly parameters?: { [key: string]: string };
+  readonly parameters?: Record<string, string>;
 }
 
 /**
