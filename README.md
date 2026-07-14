@@ -327,6 +327,104 @@ new GitConnection(stack, 'Git', {
 
 After deployment, the connection must be authorized manually in the AWS Console.
 
+## Governance & Data Mesh
+
+### PolicyGrant
+
+A `PolicyGrant` authorizes fine-grained permissions on domain units, environment blueprint configurations, environment profiles, or asset types.
+
+```ts
+import { PolicyGrant, PolicyGrantEntityType, PolicyType } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+new PolicyGrant(stack, 'AllowCreateProject', {
+  domainIdentifier: domain.domainId,
+  entityIdentifier: domain.rootDomainUnitId,
+  entityType: PolicyGrantEntityType.DOMAIN_UNIT,
+  policyType: PolicyType.CREATE_PROJECT,
+  principal: {
+    project: {
+      projectDesignation: 'CONTRIBUTOR',
+      projectGrantFilter: {
+        domainUnitFilter: {
+          domainUnit: domain.rootDomainUnitId,
+          includeChildDomainUnits: true,
+        },
+      },
+    },
+  },
+  detail: { createProject: {} },
+});
+```
+
+### FormType
+
+A `FormType` defines a custom metadata schema (Smithy model) that can be attached to assets for structured classification.
+
+```ts
+import { FormType, FormTypeStatus } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+new FormType(stack, 'Classification', {
+  name: 'DataClassification',
+  domainIdentifier: domain.domainId,
+  owningProjectIdentifier: project.id,
+  model: {
+    smithy: [
+      '$version: "2"',
+      'namespace com.example',
+      'structure DataClassification {',
+      '  sensitivity: String',
+      '  retentionDays: Integer',
+      '}',
+    ].join('\n'),
+  },
+  description: 'Classifies data assets by sensitivity and retention.',
+  status: FormTypeStatus.ENABLED,
+});
+```
+
+### SubscriptionTarget
+
+A `SubscriptionTarget` defines how subscribed data is fulfilled (e.g. Glue table grants, Redshift data shares), enabling the publish/subscribe workflow.
+
+```ts
+import { SubscriptionTarget } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+new SubscriptionTarget(stack, 'GlueGrant', {
+  name: 'GlueTableGrant',
+  domainIdentifier: domain.domainId,
+  environmentIdentifier: 'env-abc123',
+  type: 'amazon.datazone.GlueTableGrantType',
+  applicableAssetTypes: ['amazon.datazone.GlueTableAssetType'],
+  authorizedPrincipals: ['arn:aws:iam::123456789012:role/DataZoneAdmin'],
+  subscriptionTargetConfig: [{ content: '{}', formName: 'GlueTableForm' }],
+  manageAccessRole: 'arn:aws:iam::123456789012:role/ManageAccess',
+});
+```
+
+### Glossary & GlossaryTerm
+
+A `Glossary` defines a business glossary for catalog standardization. Since no CloudFormation resource exists, this uses `AwsCustomResource` to call the DataZone API directly.
+
+```ts
+import { Glossary, GlossaryStatus, GlossaryTerm } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+const glossary = new Glossary(stack, 'Glossary', {
+  name: 'Business Terms',
+  domainIdentifier: domain.domainId,
+  owningProjectIdentifier: project.id,
+  description: 'Central glossary for standardized business terminology.',
+  status: GlossaryStatus.ENABLED,
+});
+
+new GlossaryTerm(stack, 'TermRevenue', {
+  name: 'Revenue',
+  domainIdentifier: domain.domainId,
+  glossaryIdentifier: glossary.glossaryId,
+  shortDescription: 'Total income from all sources.',
+  longDescription: 'Revenue encompasses written premiums, earned premiums, and investment income.',
+});
+```
+
 ## Connections
 
 Connection constructs correspond to the tiles available in the SageMaker Unified Studio "Add Connection" interface. Each provides a focused, validated interface tailored to its data source.
