@@ -1,7 +1,7 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { FormType } from './form-type.construct';
-import { FormTypeStatus } from './form-type.interface';
+import { FormFieldType, FormTypeStatus } from './form-type.interface';
 
 function createStack(): Stack {
   return new Stack(new App(), 'TestStack', { env: { account: '123456789012', region: 'us-east-1' } });
@@ -11,18 +11,80 @@ const validProps = {
   name: 'MyFormType',
   domainIdentifier: 'dzd-abc123',
   owningProjectIdentifier: 'proj-abc123',
-  model: { smithy: 'string MyForm { @required name: String }' },
+  model: { smithy: 'structure MyFormType { name: String }' },
 };
 
 describe('FormType', () => {
-  test('creates a form type with required props', () => {
+  test('creates a form type with raw smithy model', () => {
     const stack = createStack();
     new FormType(stack, 'Form', validProps);
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::FormType', {
       Name: 'MyFormType',
       DomainIdentifier: 'dzd-abc123',
       OwningProjectIdentifier: 'proj-abc123',
-      Model: { Smithy: 'string MyForm { @required name: String }' },
+      Model: { Smithy: 'structure MyFormType { name: String }' },
+    });
+  });
+
+  test('creates a form type with typed fields', () => {
+    const stack = createStack();
+    new FormType(stack, 'Form', {
+      ...validProps,
+      model: {
+        fields: [
+          { name: 'sensitivity', type: FormFieldType.STRING, required: true, documentation: 'Level' },
+          { name: 'retentionDays', type: FormFieldType.INTEGER, range: { min: 1, max: 365 } },
+        ],
+      },
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::FormType', {
+      Model: {
+        Smithy: [
+          'structure MyFormType {',
+          '    @required',
+          '    @documentation("Level")',
+          '    sensitivity: String',
+          '    @range(min: 1, max: 365)',
+          '    retentionDays: Integer',
+          '}',
+        ].join('\n'),
+      },
+    });
+  });
+
+  test('typed fields with displayName annotation', () => {
+    const stack = createStack();
+    new FormType(stack, 'Form', {
+      ...validProps,
+      model: {
+        fields: [{ name: 'owner', type: FormFieldType.STRING, displayName: 'Data Owner' }],
+      },
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::FormType', {
+      Model: {
+        Smithy: [
+          'structure MyFormType {',
+          '    @amazon.datazone#displayname(defaultName: "Data Owner")',
+          '    owner: String',
+          '}',
+        ].join('\n'),
+      },
+    });
+  });
+
+  test('typed fields take precedence over raw smithy', () => {
+    const stack = createStack();
+    new FormType(stack, 'Form', {
+      ...validProps,
+      model: {
+        fields: [{ name: 'x', type: FormFieldType.BOOLEAN }],
+        smithy: 'structure Ignored { y: String }',
+      },
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::FormType', {
+      Model: {
+        Smithy: ['structure MyFormType {', '    x: Boolean', '}'].join('\n'),
+      },
     });
   });
 
@@ -74,9 +136,16 @@ describe('FormType', () => {
       );
     });
 
-    test('throws on empty smithy model', () => {
+    test('throws when neither fields nor smithy is provided', () => {
       const stack = createStack();
-      expect(() => new FormType(stack, 'F', { ...validProps, model: { smithy: '' } })).toThrow(/smithy/);
+      expect(() => new FormType(stack, 'F', { ...validProps, model: {} })).toThrow(/fields.*smithy/);
+    });
+
+    test('throws when generated smithy exceeds 100000 characters', () => {
+      const stack = createStack();
+      expect(() => new FormType(stack, 'F', { ...validProps, model: { smithy: 'x'.repeat(100001) } })).toThrow(
+        /100000 characters/,
+      );
     });
 
     test('throws on description exceeding 2048 characters', () => {

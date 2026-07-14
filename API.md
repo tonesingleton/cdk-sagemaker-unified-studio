@@ -6280,10 +6280,13 @@ The environment ID.
 
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IFormType">IFormType</a>
 
-A DataZone form type that defines a custom metadata schema using Smithy models.
+A DataZone form type that defines a custom metadata schema.
 
 Form types are structured metadata schemas that can be attached to assets,
 enabling custom metadata curation and classification within a domain.
+
+Use `model.fields` for a typed definition (recommended) or `model.smithy`
+for raw Smithy when you need annotations the typed interface doesn't cover.
 
 > [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-formtype.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-formtype.html)
 
@@ -23929,6 +23932,154 @@ The filter type (INCLUDE or EXCLUDE).
 
 ---
 
+### FormField <a name="FormField" id="@tonesingleton/cdk-sagemaker-unified-studio.FormField"></a>
+
+A single field definition in a form type.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.FormField.Initializer"></a>
+
+```typescript
+import { FormField } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const formField: FormField = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.name">name</a></code> | <code>string</code> | The field name (must be a valid Smithy identifier). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.type">type</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType">FormFieldType</a></code> | The data type of the field. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.displayName">displayName</a></code> | <code>string</code> | Display name shown in the DataZone UI. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.documentation">documentation</a></code> | <code>string</code> | Human-readable description shown in the UI. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.range">range</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormFieldRange">FormFieldRange</a></code> | Numeric range constraint (only applies to Integer, Float, Long). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.required">required</a></code> | <code>boolean</code> | Whether the field is required. |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The field name (must be a valid Smithy identifier).
+
+---
+
+##### `type`<sup>Required</sup> <a name="type" id="@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.type"></a>
+
+```typescript
+public readonly type: FormFieldType;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType">FormFieldType</a>
+
+The data type of the field.
+
+---
+
+##### `displayName`<sup>Optional</sup> <a name="displayName" id="@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.displayName"></a>
+
+```typescript
+public readonly displayName: string;
+```
+
+- *Type:* string
+- *Default:* uses the field name
+
+Display name shown in the DataZone UI.
+
+---
+
+##### `documentation`<sup>Optional</sup> <a name="documentation" id="@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.documentation"></a>
+
+```typescript
+public readonly documentation: string;
+```
+
+- *Type:* string
+- *Default:* no documentation
+
+Human-readable description shown in the UI.
+
+---
+
+##### `range`<sup>Optional</sup> <a name="range" id="@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.range"></a>
+
+```typescript
+public readonly range: FormFieldRange;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormFieldRange">FormFieldRange</a>
+- *Default:* no range constraint
+
+Numeric range constraint (only applies to Integer, Float, Long).
+
+---
+
+##### `required`<sup>Optional</sup> <a name="required" id="@tonesingleton/cdk-sagemaker-unified-studio.FormField.property.required"></a>
+
+```typescript
+public readonly required: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether the field is required.
+
+---
+
+### FormFieldRange <a name="FormFieldRange" id="@tonesingleton/cdk-sagemaker-unified-studio.FormFieldRange"></a>
+
+A numeric range constraint for Integer, Float, or Long fields.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.FormFieldRange.Initializer"></a>
+
+```typescript
+import { FormFieldRange } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const formFieldRange: FormFieldRange = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormFieldRange.property.max">max</a></code> | <code>number</code> | Maximum value (inclusive). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormFieldRange.property.min">min</a></code> | <code>number</code> | Minimum value (inclusive). |
+
+---
+
+##### `max`<sup>Optional</sup> <a name="max" id="@tonesingleton/cdk-sagemaker-unified-studio.FormFieldRange.property.max"></a>
+
+```typescript
+public readonly max: number;
+```
+
+- *Type:* number
+- *Default:* no maximum
+
+Maximum value (inclusive).
+
+---
+
+##### `min`<sup>Optional</sup> <a name="min" id="@tonesingleton/cdk-sagemaker-unified-studio.FormFieldRange.property.min"></a>
+
+```typescript
+public readonly min: number;
+```
+
+- *Type:* number
+- *Default:* no minimum
+
+Minimum value (inclusive).
+
+---
+
 ### FormTypeAttributes <a name="FormTypeAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeAttributes"></a>
 
 Attributes required to import an existing FormType.
@@ -23978,6 +24129,9 @@ The revision of the form type.
 
 The Smithy model definition for the form type schema.
 
+Provide either `fields` (typed, recommended) or `smithy` (raw escape hatch).
+If both are provided, `fields` takes precedence.
+
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel.Initializer"></a>
 
 ```typescript
@@ -23990,25 +24144,53 @@ const formTypeModel: FormTypeModel = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel.property.smithy">smithy</a></code> | <code>string</code> | The Smithy model string defining the form schema. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel.property.fields">fields</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormField">FormField</a>[]</code> | Typed field definitions. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel.property.smithy">smithy</a></code> | <code>string</code> | Raw Smithy model string. Use only when `fields` cannot express your schema. |
 
 ---
 
-##### `smithy`<sup>Required</sup> <a name="smithy" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel.property.smithy"></a>
+##### `fields`<sup>Optional</sup> <a name="fields" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel.property.fields"></a>
+
+```typescript
+public readonly fields: FormField[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormField">FormField</a>[]
+- *Default:* uses `smithy` raw string instead
+
+Typed field definitions.
+
+The construct serializes these to Smithy internally.
+
+---
+
+##### `smithy`<sup>Optional</sup> <a name="smithy" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel.property.smithy"></a>
 
 ```typescript
 public readonly smithy: string;
 ```
 
 - *Type:* string
+- *Default:* uses `fields` typed definition instead
 
-The Smithy model string defining the form schema.
+Raw Smithy model string. Use only when `fields` cannot express your schema.
 
 Must be 1–100,000 characters.
 
-> [https://smithy.io/2.0/quickstart.html](https://smithy.io/2.0/quickstart.html)
+**Important:** Do NOT include `$version` or `namespace` directives.
+DataZone infers the namespace from the domain ID automatically.
+The model should contain only the `structure` block.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateFormType.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateFormType.html)
 
 ---
+
+*Example*
+
+```typescript
+'structure MyForm {@required[object Object]
+```
+
 
 ### FormTypeProps <a name="FormTypeProps" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps"></a>
 
@@ -24028,8 +24210,8 @@ const formTypeProps: FormTypeProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd-abc123`). |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.model">model</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel">FormTypeModel</a></code> | The Smithy model defining the form schema. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.model">model</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel">FormTypeModel</a></code> | The model defining the form schema (typed fields or raw Smithy). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.name">name</a></code> | <code>string</code> | The name of the form type. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.owningProjectIdentifier">owningProjectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this form type. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the form type. |
@@ -24045,7 +24227,7 @@ public readonly domainIdentifier: string;
 
 - *Type:* string
 
-The ID of the domain (e.g. `dzd-abc123`).
+The ID of the domain (e.g. `dzd_abc123`).
 
 ---
 
@@ -24057,7 +24239,7 @@ public readonly model: FormTypeModel;
 
 - *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel">FormTypeModel</a>
 
-The Smithy model defining the form schema.
+The model defining the form schema (typed fields or raw Smithy).
 
 ---
 
@@ -24249,7 +24431,8 @@ const glossaryProps: GlossaryProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd-abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for glossary operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.name">name</a></code> | <code>string</code> | The name of the glossary (1–256 characters). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.owningProjectIdentifier">owningProjectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this glossary. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the glossary. |
@@ -24265,7 +24448,19 @@ public readonly domainIdentifier: string;
 
 - *Type:* string
 
-The ID of the domain (e.g. `dzd-abc123`).
+The ID of the domain (e.g. `dzd_abc123`).
+
+---
+
+##### `executionRoleArn`<sup>Required</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+
+ARN of a role that DataZone trusts for glossary operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
 
 ---
 
@@ -24372,7 +24567,8 @@ const glossaryTermProps: GlossaryTermProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd-abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for glossary term operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.glossaryIdentifier">glossaryIdentifier</a></code> | <code>string</code> | The ID of the glossary that owns this term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.name">name</a></code> | <code>string</code> | The name of the glossary term (1–256 characters). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.longDescription">longDescription</a></code> | <code>string</code> | Human-readable long description of the term. |
@@ -24390,7 +24586,19 @@ public readonly domainIdentifier: string;
 
 - *Type:* string
 
-The ID of the domain (e.g. `dzd-abc123`).
+The ID of the domain (e.g. `dzd_abc123`).
+
+---
+
+##### `executionRoleArn`<sup>Required</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+
+ARN of a role that DataZone trusts for glossary term operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
 
 ---
 
@@ -31488,6 +31696,57 @@ AWS manages the encryption key.
 ##### `CUSTOMER_MANAGED_KEY` <a name="CUSTOMER_MANAGED_KEY" id="@tonesingleton/cdk-sagemaker-unified-studio.EncryptionType.CUSTOMER_MANAGED_KEY"></a>
 
 You provide a KMS key.
+
+---
+
+
+### FormFieldType <a name="FormFieldType" id="@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType"></a>
+
+Supported field types in a DataZone form type.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType.STRING">STRING</a></code> | A text field. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType.INTEGER">INTEGER</a></code> | A whole number field. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType.BOOLEAN">BOOLEAN</a></code> | A true/false field. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType.FLOAT">FLOAT</a></code> | A floating-point number field. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType.LONG">LONG</a></code> | A 64-bit integer field. |
+
+---
+
+##### `STRING` <a name="STRING" id="@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType.STRING"></a>
+
+A text field.
+
+---
+
+
+##### `INTEGER` <a name="INTEGER" id="@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType.INTEGER"></a>
+
+A whole number field.
+
+---
+
+
+##### `BOOLEAN` <a name="BOOLEAN" id="@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType.BOOLEAN"></a>
+
+A true/false field.
+
+---
+
+
+##### `FLOAT` <a name="FLOAT" id="@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType.FLOAT"></a>
+
+A floating-point number field.
+
+---
+
+
+##### `LONG` <a name="LONG" id="@tonesingleton/cdk-sagemaker-unified-studio.FormFieldType.LONG"></a>
+
+A 64-bit integer field.
 
 ---
 

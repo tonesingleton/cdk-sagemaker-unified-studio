@@ -1,2 +1,11 @@
 export { FormType } from './form-type.construct';
-export { FormTypeProps, IFormType, FormTypeAttributes, FormTypeStatus, FormTypeModel } from './form-type.interface';
+export {
+  FormTypeProps,
+  IFormType,
+  FormTypeAttributes,
+  FormTypeStatus,
+  FormTypeModel,
+  FormField,
+  FormFieldType,
+  FormFieldRange,
+} from './form-type.interface';

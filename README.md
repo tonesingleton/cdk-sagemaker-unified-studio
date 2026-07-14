@@ -407,6 +407,8 @@ new PolicyGrant(stack, 'AllowCreateProject', {
 
 A `FormType` defines a custom metadata schema (Smithy model) that can be attached to assets for structured classification.
 
+> **Important:** The Smithy model must contain only the `structure` block. Do not include `$version` or `namespace` — DataZone infers the namespace from the domain ID automatically.
+
 ```ts
 import { FormType, FormTypeStatus } from '@tonesingleton/cdk-sagemaker-unified-studio';
 
@@ -416,10 +418,10 @@ new FormType(stack, 'Classification', {
   owningProjectIdentifier: project.id,
   model: {
     smithy: [
-      '$version: "2"',
-      'namespace dzd_com.example',
       'structure DataClassification {',
+      '  @documentation("Sensitivity level of the data asset.")',
       '  sensitivity: String',
+      '  @documentation("Retention period in days.")',
       '  retentionDays: Integer',
       '}',
     ].join('\n'),
