@@ -130,6 +130,10 @@
         "prefer": "type-imports",
         "fixStyle": "separate-type-imports"
       }
+    ],
+    "@typescript-eslint/consistent-indexed-object-style": [
+      "error",
+      "record"
     ]
   },
   "overrides": [

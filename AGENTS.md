@@ -109,3 +109,17 @@ This project is an L2 CDK construct library. All constructs must follow AWS CDK 
 - Links MUST be verified against the actual AWS documentation — never hallucinate a URL.
 
 - Use the format `https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-{service}-{resource}.html`.
+
+
+
+## TypeScript Idioms
+
+
+
+- Use `Array<T>` instead of `T[]` (enforced by eslint `@typescript-eslint/array-type`).
+
+- Use `Record<K, V>` instead of `{ [key: string]: V }` for mapped types (enforced by eslint `@typescript-eslint/consistent-indexed-object-style`).
+
+- Use `import type` for type-only imports (enforced by eslint `@typescript-eslint/consistent-type-imports`).
+
+- Use CDK `Token.isUnresolved(value)` to skip validation when a prop may be an unresolved CloudFormation reference.

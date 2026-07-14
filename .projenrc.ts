@@ -158,6 +158,13 @@ ai.addInstructions(
   '- Example: `@see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-glue-dataqualityruleset.html`',
   '- Links MUST be verified against the actual AWS documentation — never hallucinate a URL.',
   '- Use the format `https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-{service}-{resource}.html`.',
+  '',
+  '## TypeScript Idioms',
+  '',
+  '- Use `Array<T>` instead of `T[]` (enforced by eslint `@typescript-eslint/array-type`).',
+  '- Use `Record<K, V>` instead of `{ [key: string]: V }` for mapped types (enforced by eslint `@typescript-eslint/consistent-indexed-object-style`).',
+  '- Use `import type` for type-only imports (enforced by eslint `@typescript-eslint/consistent-type-imports`).',
+  '- Use CDK `Token.isUnresolved(value)` to skip validation when a prop may be an unresolved CloudFormation reference.',
 );
 
 // ESLint: require Array<T> syntax instead of T[]
@@ -171,6 +178,11 @@ project.eslint!.addRules({
     'error',
     { prefer: 'type-imports', fixStyle: 'separate-type-imports' },
   ],
+});
+
+// ESLint: force Record<K, V> instead of { [key: string]: V }
+project.eslint!.addRules({
+  '@typescript-eslint/consistent-indexed-object-style': ['error', 'record'],
 });
 
 // Jest: enforce 100% coverage
