@@ -6276,6 +6276,205 @@ The environment ID.
 ---
 
 
+### FormType <a name="FormType" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IFormType">IFormType</a>
+
+A DataZone form type that defines a custom metadata schema using Smithy models.
+
+Form types are structured metadata schemas that can be attached to assets,
+enabling custom metadata curation and classification within a domain.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-formtype.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-formtype.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.Initializer"></a>
+
+```typescript
+import { FormType } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new FormType(scope: Construct, id: string, props: FormTypeProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormType.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormType.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormType.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps">FormTypeProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps">FormTypeProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormType.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormType.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormType.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormType.fromAttributes">fromAttributes</a></code> | Import an existing form type from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.isConstruct"></a>
+
+```typescript
+import { FormType } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+FormType.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.fromAttributes"></a>
+
+```typescript
+import { FormType } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+FormType.fromAttributes(scope: Construct, id: string, attrs: FormTypeAttributes)
+```
+
+Import an existing form type from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeAttributes">FormTypeAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormType.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormType.property.formTypeIdentifier">formTypeIdentifier</a></code> | <code>string</code> | The form type identifier. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormType.property.revision">revision</a></code> | <code>string</code> | The revision of the form type. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `formTypeIdentifier`<sup>Required</sup> <a name="formTypeIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.property.formTypeIdentifier"></a>
+
+```typescript
+public readonly formTypeIdentifier: string;
+```
+
+- *Type:* string
+
+The form type identifier.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.FormType.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the form type.
+
+---
+
+
 ### GitConnection <a name="GitConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.GitConnection"></a>
 
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGitConnection">IGitConnection</a>
@@ -6447,6 +6646,380 @@ public readonly connectionStatus: string;
 - *Type:* string
 
 The status of the CodeConnections connection (e.g. PENDING, AVAILABLE).
+
+---
+
+
+### Glossary <a name="Glossary" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGlossary">IGlossary</a>
+
+A DataZone business glossary for catalog standardization.
+
+There is no CloudFormation resource type for DataZone glossaries, so this
+construct uses `AwsCustomResource` to call the DataZone API directly
+(CreateGlossary / UpdateGlossary / DeleteGlossary).
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.Initializer"></a>
+
+```typescript
+import { Glossary } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new Glossary(scope: Construct, id: string, props: GlossaryProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Glossary.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Glossary.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Glossary.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps">GlossaryProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps">GlossaryProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Glossary.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Glossary.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Glossary.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Glossary.fromAttributes">fromAttributes</a></code> | Import an existing glossary from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.isConstruct"></a>
+
+```typescript
+import { Glossary } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Glossary.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.fromAttributes"></a>
+
+```typescript
+import { Glossary } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Glossary.fromAttributes(scope: Construct, id: string, attrs: GlossaryAttributes)
+```
+
+Import an existing glossary from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryAttributes">GlossaryAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Glossary.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Glossary.property.glossaryId">glossaryId</a></code> | <code>string</code> | The glossary ID assigned by DataZone. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `glossaryId`<sup>Required</sup> <a name="glossaryId" id="@tonesingleton/cdk-sagemaker-unified-studio.Glossary.property.glossaryId"></a>
+
+```typescript
+public readonly glossaryId: string;
+```
+
+- *Type:* string
+
+The glossary ID assigned by DataZone.
+
+---
+
+
+### GlossaryTerm <a name="GlossaryTerm" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGlossaryTerm">IGlossaryTerm</a>
+
+A DataZone glossary term within a business glossary.
+
+There is no CloudFormation resource type for DataZone glossary terms, so this
+construct uses `AwsCustomResource` to call the DataZone API directly
+(CreateGlossaryTerm / UpdateGlossaryTerm / DeleteGlossaryTerm).
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.Initializer"></a>
+
+```typescript
+import { GlossaryTerm } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new GlossaryTerm(scope: Construct, id: string, props: GlossaryTermProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps">GlossaryTermProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps">GlossaryTermProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.fromAttributes">fromAttributes</a></code> | Import an existing glossary term from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.isConstruct"></a>
+
+```typescript
+import { GlossaryTerm } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+GlossaryTerm.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.fromAttributes"></a>
+
+```typescript
+import { GlossaryTerm } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+GlossaryTerm.fromAttributes(scope: Construct, id: string, attrs: GlossaryTermAttributes)
+```
+
+Import an existing glossary term from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermAttributes">GlossaryTermAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.property.glossaryTermId">glossaryTermId</a></code> | <code>string</code> | The glossary term ID assigned by DataZone. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `glossaryTermId`<sup>Required</sup> <a name="glossaryTermId" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm.property.glossaryTermId"></a>
+
+```typescript
+public readonly glossaryTermId: string;
+```
+
+- *Type:* string
+
+The glossary term ID assigned by DataZone.
 
 ---
 
@@ -12372,6 +12945,192 @@ public readonly CFN_RESOURCE_TYPE_NAME: string;
 The CloudFormation resource type name for this resource class.
 
 ---
+
+### PolicyGrant <a name="PolicyGrant" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IPolicyGrant">IPolicyGrant</a>
+
+A standalone DataZone policy grant that authorizes fine-grained permissions (e.g. USE_BLUEPRINT, CREATE_PROJECT) on domain units, environment blueprint configurations, environment profiles, or asset types.
+
+This construct wraps `AWS::DataZone::PolicyGrant` and can be used independently
+of the `Domain` construct to build custom governance topologies.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-policygrant.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-policygrant.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.Initializer"></a>
+
+```typescript
+import { PolicyGrant } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new PolicyGrant(scope: Construct, id: string, props: PolicyGrantProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps">PolicyGrantProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps">PolicyGrantProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.fromAttributes">fromAttributes</a></code> | Import an existing policy grant from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.isConstruct"></a>
+
+```typescript
+import { PolicyGrant } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+PolicyGrant.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.fromAttributes"></a>
+
+```typescript
+import { PolicyGrant } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+PolicyGrant.fromAttributes(scope: Construct, id: string, attrs: PolicyGrantAttributes)
+```
+
+Import an existing policy grant from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantAttributes">PolicyGrantAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.property.grantId">grantId</a></code> | <code>string</code> | The grant ID assigned by DataZone. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `grantId`<sup>Required</sup> <a name="grantId" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant.property.grantId"></a>
+
+```typescript
+public readonly grantId: string;
+```
+
+- *Type:* string
+
+The grant ID assigned by DataZone.
+
+---
+
 
 ### PostgreSqlConnection <a name="PostgreSqlConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection"></a>
 
@@ -19706,6 +20465,193 @@ The CloudFormation resource type name for this resource class.
 
 ---
 
+### SubscriptionTarget <a name="SubscriptionTarget" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ISubscriptionTarget">ISubscriptionTarget</a>
+
+A DataZone subscription target that defines how subscribed data is fulfilled.
+
+Subscription targets enable the publish/subscribe workflow by specifying
+the mechanism through which subscribers receive access to data assets
+(e.g. Glue table grants, Redshift data shares).
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-subscriptiontarget.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-subscriptiontarget.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.Initializer"></a>
+
+```typescript
+import { SubscriptionTarget } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new SubscriptionTarget(scope: Construct, id: string, props: SubscriptionTargetProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps">SubscriptionTargetProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps">SubscriptionTargetProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.fromAttributes">fromAttributes</a></code> | Import an existing subscription target from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.isConstruct"></a>
+
+```typescript
+import { SubscriptionTarget } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+SubscriptionTarget.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.fromAttributes"></a>
+
+```typescript
+import { SubscriptionTarget } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+SubscriptionTarget.fromAttributes(scope: Construct, id: string, attrs: SubscriptionTargetAttributes)
+```
+
+Import an existing subscription target from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetAttributes">SubscriptionTargetAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.property.subscriptionTargetId">subscriptionTargetId</a></code> | <code>string</code> | The subscription target ID assigned by DataZone. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `subscriptionTargetId`<sup>Required</sup> <a name="subscriptionTargetId" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget.property.subscriptionTargetId"></a>
+
+```typescript
+public readonly subscriptionTargetId: string;
+```
+
+- *Type:* string
+
+The subscription target ID assigned by DataZone.
+
+---
+
+
 ### Workflow <a name="Workflow" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow"></a>
 
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IWorkflow">IWorkflow</a>
@@ -22164,6 +23110,98 @@ Name of the parent domain unit (must match another unit's `name`).
 
 ---
 
+### DomainUnitFilter <a name="DomainUnitFilter" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitFilter"></a>
+
+A domain-unit-based filter for project grant principal.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitFilter.Initializer"></a>
+
+```typescript
+import { DomainUnitFilter } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const domainUnitFilter: DomainUnitFilter = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitFilter.property.domainUnit">domainUnit</a></code> | <code>string</code> | The domain unit ID to scope the grant. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitFilter.property.includeChildDomainUnits">includeChildDomainUnits</a></code> | <code>boolean</code> | Whether to include child domain units. |
+
+---
+
+##### `domainUnit`<sup>Required</sup> <a name="domainUnit" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitFilter.property.domainUnit"></a>
+
+```typescript
+public readonly domainUnit: string;
+```
+
+- *Type:* string
+
+The domain unit ID to scope the grant.
+
+---
+
+##### `includeChildDomainUnits`<sup>Optional</sup> <a name="includeChildDomainUnits" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitFilter.property.includeChildDomainUnits"></a>
+
+```typescript
+public readonly includeChildDomainUnits: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to include child domain units.
+
+---
+
+### DomainUnitPrincipal <a name="DomainUnitPrincipal" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitPrincipal"></a>
+
+A domain-unit-based principal for the policy grant.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitPrincipal.Initializer"></a>
+
+```typescript
+import { DomainUnitPrincipal } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const domainUnitPrincipal: DomainUnitPrincipal = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitPrincipal.property.domainUnitDesignation">domainUnitDesignation</a></code> | <code>string</code> | The domain unit designation. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitPrincipal.property.domainUnitIdentifier">domainUnitIdentifier</a></code> | <code>string</code> | A specific domain unit identifier. |
+
+---
+
+##### `domainUnitDesignation`<sup>Required</sup> <a name="domainUnitDesignation" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitPrincipal.property.domainUnitDesignation"></a>
+
+```typescript
+public readonly domainUnitDesignation: string;
+```
+
+- *Type:* string
+
+The domain unit designation.
+
+---
+
+##### `domainUnitIdentifier`<sup>Optional</sup> <a name="domainUnitIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitPrincipal.property.domainUnitIdentifier"></a>
+
+```typescript
+public readonly domainUnitIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* applies to the domain unit owner broadly
+
+A specific domain unit identifier.
+
+---
+
 ### DynamoDbConnectionProps <a name="DynamoDbConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnectionProps"></a>
 
 Properties for a DynamoDbConnection construct.
@@ -22872,6 +23910,192 @@ The filter type (INCLUDE or EXCLUDE).
 
 ---
 
+### FormTypeAttributes <a name="FormTypeAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeAttributes"></a>
+
+Attributes required to import an existing FormType.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeAttributes.Initializer"></a>
+
+```typescript
+import { FormTypeAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const formTypeAttributes: FormTypeAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeAttributes.property.formTypeIdentifier">formTypeIdentifier</a></code> | <code>string</code> | The form type identifier. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeAttributes.property.revision">revision</a></code> | <code>string</code> | The revision of the form type. |
+
+---
+
+##### `formTypeIdentifier`<sup>Required</sup> <a name="formTypeIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeAttributes.property.formTypeIdentifier"></a>
+
+```typescript
+public readonly formTypeIdentifier: string;
+```
+
+- *Type:* string
+
+The form type identifier.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeAttributes.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the form type.
+
+---
+
+### FormTypeModel <a name="FormTypeModel" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel"></a>
+
+The Smithy model definition for the form type schema.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel.Initializer"></a>
+
+```typescript
+import { FormTypeModel } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const formTypeModel: FormTypeModel = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel.property.smithy">smithy</a></code> | <code>string</code> | The Smithy model string defining the form schema. |
+
+---
+
+##### `smithy`<sup>Required</sup> <a name="smithy" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel.property.smithy"></a>
+
+```typescript
+public readonly smithy: string;
+```
+
+- *Type:* string
+
+The Smithy model string defining the form schema.
+
+Must be 1–100,000 characters.
+
+> [https://smithy.io/2.0/quickstart.html](https://smithy.io/2.0/quickstart.html)
+
+---
+
+### FormTypeProps <a name="FormTypeProps" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps"></a>
+
+Properties for a FormType construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-formtype.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-formtype.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.Initializer"></a>
+
+```typescript
+import { FormTypeProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const formTypeProps: FormTypeProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd-abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.model">model</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel">FormTypeModel</a></code> | The Smithy model defining the form schema. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.name">name</a></code> | <code>string</code> | The name of the form type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.owningProjectIdentifier">owningProjectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this form type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the form type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeStatus">FormTypeStatus</a></code> | Status of the form type. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd-abc123`).
+
+---
+
+##### `model`<sup>Required</sup> <a name="model" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.model"></a>
+
+```typescript
+public readonly model: FormTypeModel;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeModel">FormTypeModel</a>
+
+The Smithy model defining the form schema.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the form type.
+
+Must be 1–128 characters and match `^(?![0-9_])\w+$|^_\w*[a-zA-Z0-9]\w*$`.
+
+---
+
+##### `owningProjectIdentifier`<sup>Required</sup> <a name="owningProjectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.owningProjectIdentifier"></a>
+
+```typescript
+public readonly owningProjectIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the project that owns this form type.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the form type.
+
+Must be at most 2048 characters.
+
+---
+
+##### `status`<sup>Optional</sup> <a name="status" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeProps.property.status"></a>
+
+```typescript
+public readonly status: FormTypeStatus;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeStatus">FormTypeStatus</a>
+- *Default:* FormTypeStatus.ENABLED
+
+Status of the form type.
+
+---
+
 ### GitConnectionProps <a name="GitConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.GitConnectionProps"></a>
 
 Properties for the GitConnection construct.
@@ -22950,6 +24174,280 @@ public readonly providerType: GitProviderType;
 The Git provider type.
 
 Required when `codeConnectionArn` is not provided.
+
+---
+
+### GlossaryAttributes <a name="GlossaryAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryAttributes"></a>
+
+Attributes required to import an existing Glossary.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryAttributes.Initializer"></a>
+
+```typescript
+import { GlossaryAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const glossaryAttributes: GlossaryAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryAttributes.property.glossaryId">glossaryId</a></code> | <code>string</code> | The glossary ID. |
+
+---
+
+##### `glossaryId`<sup>Required</sup> <a name="glossaryId" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryAttributes.property.glossaryId"></a>
+
+```typescript
+public readonly glossaryId: string;
+```
+
+- *Type:* string
+
+The glossary ID.
+
+---
+
+### GlossaryProps <a name="GlossaryProps" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps"></a>
+
+Properties for a Glossary construct.
+
+There is no CloudFormation resource for DataZone glossaries.
+This construct uses AwsCustomResource to call the DataZone API directly.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.Initializer"></a>
+
+```typescript
+import { GlossaryProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const glossaryProps: GlossaryProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd-abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.name">name</a></code> | <code>string</code> | The name of the glossary (1–256 characters). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.owningProjectIdentifier">owningProjectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this glossary. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the glossary. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryStatus">GlossaryStatus</a></code> | Status of the glossary. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd-abc123`).
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the glossary (1–256 characters).
+
+---
+
+##### `owningProjectIdentifier`<sup>Required</sup> <a name="owningProjectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.owningProjectIdentifier"></a>
+
+```typescript
+public readonly owningProjectIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the project that owns this glossary.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the glossary.
+
+---
+
+##### `status`<sup>Optional</sup> <a name="status" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.status"></a>
+
+```typescript
+public readonly status: GlossaryStatus;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryStatus">GlossaryStatus</a>
+- *Default:* GlossaryStatus.ENABLED
+
+Status of the glossary.
+
+---
+
+### GlossaryTermAttributes <a name="GlossaryTermAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermAttributes"></a>
+
+Attributes required to import an existing GlossaryTerm.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermAttributes.Initializer"></a>
+
+```typescript
+import { GlossaryTermAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const glossaryTermAttributes: GlossaryTermAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermAttributes.property.glossaryTermId">glossaryTermId</a></code> | <code>string</code> | The glossary term ID. |
+
+---
+
+##### `glossaryTermId`<sup>Required</sup> <a name="glossaryTermId" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermAttributes.property.glossaryTermId"></a>
+
+```typescript
+public readonly glossaryTermId: string;
+```
+
+- *Type:* string
+
+The glossary term ID.
+
+---
+
+### GlossaryTermProps <a name="GlossaryTermProps" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps"></a>
+
+Properties for a GlossaryTerm construct.
+
+There is no CloudFormation resource for DataZone glossary terms.
+This construct uses AwsCustomResource to call the DataZone API directly.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.Initializer"></a>
+
+```typescript
+import { GlossaryTermProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const glossaryTermProps: GlossaryTermProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd-abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.glossaryIdentifier">glossaryIdentifier</a></code> | <code>string</code> | The ID of the glossary that owns this term. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.name">name</a></code> | <code>string</code> | The name of the glossary term (1–256 characters). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.longDescription">longDescription</a></code> | <code>string</code> | Human-readable long description of the term. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.shortDescription">shortDescription</a></code> | <code>string</code> | Human-readable short description of the term. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermStatus">GlossaryTermStatus</a></code> | Status of the glossary term. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.termRelations">termRelations</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TermRelation">TermRelation</a>[]</code> | Relations to other glossary terms. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd-abc123`).
+
+---
+
+##### `glossaryIdentifier`<sup>Required</sup> <a name="glossaryIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.glossaryIdentifier"></a>
+
+```typescript
+public readonly glossaryIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the glossary that owns this term.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the glossary term (1–256 characters).
+
+---
+
+##### `longDescription`<sup>Optional</sup> <a name="longDescription" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.longDescription"></a>
+
+```typescript
+public readonly longDescription: string;
+```
+
+- *Type:* string
+- *Default:* no long description
+
+Human-readable long description of the term.
+
+---
+
+##### `shortDescription`<sup>Optional</sup> <a name="shortDescription" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.shortDescription"></a>
+
+```typescript
+public readonly shortDescription: string;
+```
+
+- *Type:* string
+- *Default:* no short description
+
+Human-readable short description of the term.
+
+---
+
+##### `status`<sup>Optional</sup> <a name="status" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.status"></a>
+
+```typescript
+public readonly status: GlossaryTermStatus;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermStatus">GlossaryTermStatus</a>
+- *Default:* GlossaryTermStatus.ENABLED
+
+Status of the glossary term.
+
+---
+
+##### `termRelations`<sup>Optional</sup> <a name="termRelations" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.termRelations"></a>
+
+```typescript
+public readonly termRelations: TermRelation[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.TermRelation">TermRelation</a>[]
+- *Default:* no relations
+
+Relations to other glossary terms.
 
 ---
 
@@ -23461,6 +24959,38 @@ public readonly subnetIdList: string[];
 - *Default:* no subnet list
 
 The subnet ID list for the connection.
+
+---
+
+### GroupPrincipal <a name="GroupPrincipal" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupPrincipal"></a>
+
+A group-based principal for the policy grant.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupPrincipal.Initializer"></a>
+
+```typescript
+import { GroupPrincipal } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const groupPrincipal: GroupPrincipal = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupPrincipal.property.groupIdentifier">groupIdentifier</a></code> | <code>string</code> | The IAM/SSO group identifier. |
+
+---
+
+##### `groupIdentifier`<sup>Required</sup> <a name="groupIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupPrincipal.property.groupIdentifier"></a>
+
+```typescript
+public readonly groupIdentifier: string;
+```
+
+- *Type:* string
+
+The IAM/SSO group identifier.
 
 ---
 
@@ -24788,6 +26318,421 @@ Additional Spark-specific connection properties.
 
 ---
 
+### PolicyGrantAttributes <a name="PolicyGrantAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantAttributes"></a>
+
+Attributes required to import an existing PolicyGrant.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantAttributes.Initializer"></a>
+
+```typescript
+import { PolicyGrantAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const policyGrantAttributes: PolicyGrantAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantAttributes.property.grantId">grantId</a></code> | <code>string</code> | The grant ID. |
+
+---
+
+##### `grantId`<sup>Required</sup> <a name="grantId" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantAttributes.property.grantId"></a>
+
+```typescript
+public readonly grantId: string;
+```
+
+- *Type:* string
+
+The grant ID.
+
+---
+
+### PolicyGrantDetail <a name="PolicyGrantDetail" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail"></a>
+
+Detail configuration for the policy grant.
+
+Each policy type has its own
+detail key (usually an empty object to enable the grant).
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.Initializer"></a>
+
+```typescript
+import { PolicyGrantDetail } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const policyGrantDetail: PolicyGrantDetail = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.addToProjectMemberPool">addToProjectMemberPool</a></code> | <code>{[ key: string ]: any}</code> | Detail for ADD_TO_PROJECT_MEMBER_POOL policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createAssetType">createAssetType</a></code> | <code>{[ key: string ]: any}</code> | Detail for CREATE_ASSET_TYPE policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createDomainUnit">createDomainUnit</a></code> | <code>{[ key: string ]: any}</code> | Detail for CREATE_DOMAIN_UNIT policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createEnvironment">createEnvironment</a></code> | <code>{[ key: string ]: any}</code> | Detail for CREATE_ENVIRONMENT policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createEnvironmentFromBlueprint">createEnvironmentFromBlueprint</a></code> | <code>{[ key: string ]: any}</code> | Detail for CREATE_ENVIRONMENT_FROM_BLUEPRINT policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createEnvironmentProfile">createEnvironmentProfile</a></code> | <code>{[ key: string ]: any}</code> | Detail for CREATE_ENVIRONMENT_PROFILE policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createFormType">createFormType</a></code> | <code>{[ key: string ]: any}</code> | Detail for CREATE_FORM_TYPE policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createGlossary">createGlossary</a></code> | <code>{[ key: string ]: any}</code> | Detail for CREATE_GLOSSARY policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createProject">createProject</a></code> | <code>{[ key: string ]: any}</code> | Detail for CREATE_PROJECT policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createProjectFromProjectProfile">createProjectFromProjectProfile</a></code> | <code>{[ key: string ]: any}</code> | Detail for CREATE_PROJECT_FROM_PROJECT_PROFILE policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.delegateCreateEnvironmentProfile">delegateCreateEnvironmentProfile</a></code> | <code>{[ key: string ]: any}</code> | Detail for DELEGATE_CREATE_ENVIRONMENT_PROFILE policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.overrideDomainUnitOwners">overrideDomainUnitOwners</a></code> | <code>{[ key: string ]: any}</code> | Detail for OVERRIDE_DOMAIN_UNIT_OWNERS policy type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.overrideProjectOwners">overrideProjectOwners</a></code> | <code>{[ key: string ]: any}</code> | Detail for OVERRIDE_PROJECT_OWNERS policy type. |
+
+---
+
+##### `addToProjectMemberPool`<sup>Optional</sup> <a name="addToProjectMemberPool" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.addToProjectMemberPool"></a>
+
+```typescript
+public readonly addToProjectMemberPool: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for ADD_TO_PROJECT_MEMBER_POOL policy type.
+
+---
+
+##### `createAssetType`<sup>Optional</sup> <a name="createAssetType" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createAssetType"></a>
+
+```typescript
+public readonly createAssetType: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for CREATE_ASSET_TYPE policy type.
+
+---
+
+##### `createDomainUnit`<sup>Optional</sup> <a name="createDomainUnit" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createDomainUnit"></a>
+
+```typescript
+public readonly createDomainUnit: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for CREATE_DOMAIN_UNIT policy type.
+
+---
+
+##### `createEnvironment`<sup>Optional</sup> <a name="createEnvironment" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createEnvironment"></a>
+
+```typescript
+public readonly createEnvironment: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for CREATE_ENVIRONMENT policy type.
+
+---
+
+##### `createEnvironmentFromBlueprint`<sup>Optional</sup> <a name="createEnvironmentFromBlueprint" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createEnvironmentFromBlueprint"></a>
+
+```typescript
+public readonly createEnvironmentFromBlueprint: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for CREATE_ENVIRONMENT_FROM_BLUEPRINT policy type.
+
+---
+
+##### `createEnvironmentProfile`<sup>Optional</sup> <a name="createEnvironmentProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createEnvironmentProfile"></a>
+
+```typescript
+public readonly createEnvironmentProfile: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for CREATE_ENVIRONMENT_PROFILE policy type.
+
+---
+
+##### `createFormType`<sup>Optional</sup> <a name="createFormType" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createFormType"></a>
+
+```typescript
+public readonly createFormType: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for CREATE_FORM_TYPE policy type.
+
+---
+
+##### `createGlossary`<sup>Optional</sup> <a name="createGlossary" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createGlossary"></a>
+
+```typescript
+public readonly createGlossary: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for CREATE_GLOSSARY policy type.
+
+---
+
+##### `createProject`<sup>Optional</sup> <a name="createProject" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createProject"></a>
+
+```typescript
+public readonly createProject: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for CREATE_PROJECT policy type.
+
+---
+
+##### `createProjectFromProjectProfile`<sup>Optional</sup> <a name="createProjectFromProjectProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.createProjectFromProjectProfile"></a>
+
+```typescript
+public readonly createProjectFromProjectProfile: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for CREATE_PROJECT_FROM_PROJECT_PROFILE policy type.
+
+---
+
+##### `delegateCreateEnvironmentProfile`<sup>Optional</sup> <a name="delegateCreateEnvironmentProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.delegateCreateEnvironmentProfile"></a>
+
+```typescript
+public readonly delegateCreateEnvironmentProfile: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for DELEGATE_CREATE_ENVIRONMENT_PROFILE policy type.
+
+---
+
+##### `overrideDomainUnitOwners`<sup>Optional</sup> <a name="overrideDomainUnitOwners" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.overrideDomainUnitOwners"></a>
+
+```typescript
+public readonly overrideDomainUnitOwners: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for OVERRIDE_DOMAIN_UNIT_OWNERS policy type.
+
+---
+
+##### `overrideProjectOwners`<sup>Optional</sup> <a name="overrideProjectOwners" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail.property.overrideProjectOwners"></a>
+
+```typescript
+public readonly overrideProjectOwners: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* not applicable
+
+Detail for OVERRIDE_PROJECT_OWNERS policy type.
+
+---
+
+### PolicyGrantPrincipal <a name="PolicyGrantPrincipal" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal"></a>
+
+Principal that receives the policy grant.
+
+Exactly one of the
+principal types must be specified.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal.Initializer"></a>
+
+```typescript
+import { PolicyGrantPrincipal } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const policyGrantPrincipal: PolicyGrantPrincipal = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal.property.domainUnit">domainUnit</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitPrincipal">DomainUnitPrincipal</a></code> | A domain unit principal. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal.property.group">group</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupPrincipal">GroupPrincipal</a></code> | A group principal. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal.property.project">project</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectPrincipal">ProjectPrincipal</a></code> | A project principal. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal.property.user">user</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserPrincipal">UserPrincipal</a></code> | A user principal. |
+
+---
+
+##### `domainUnit`<sup>Optional</sup> <a name="domainUnit" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal.property.domainUnit"></a>
+
+```typescript
+public readonly domainUnit: DomainUnitPrincipal;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitPrincipal">DomainUnitPrincipal</a>
+- *Default:* not a domain unit principal
+
+A domain unit principal.
+
+---
+
+##### `group`<sup>Optional</sup> <a name="group" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal.property.group"></a>
+
+```typescript
+public readonly group: GroupPrincipal;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupPrincipal">GroupPrincipal</a>
+- *Default:* not a group principal
+
+A group principal.
+
+---
+
+##### `project`<sup>Optional</sup> <a name="project" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal.property.project"></a>
+
+```typescript
+public readonly project: ProjectPrincipal;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectPrincipal">ProjectPrincipal</a>
+- *Default:* not a project principal
+
+A project principal.
+
+---
+
+##### `user`<sup>Optional</sup> <a name="user" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal.property.user"></a>
+
+```typescript
+public readonly user: UserPrincipal;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserPrincipal">UserPrincipal</a>
+- *Default:* not a user principal
+
+A user principal.
+
+---
+
+### PolicyGrantProps <a name="PolicyGrantProps" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps"></a>
+
+Properties for a PolicyGrant construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-policygrant.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-policygrant.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.Initializer"></a>
+
+```typescript
+import { PolicyGrantProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const policyGrantProps: PolicyGrantProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd-abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.entityIdentifier">entityIdentifier</a></code> | <code>string</code> | The ID of the entity (resource) to which the grant is added. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.entityType">entityType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType">PolicyGrantEntityType</a></code> | The type of entity to which the grant is added. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.policyType">policyType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType">PolicyType</a></code> | The type of policy to grant. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.detail">detail</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail">PolicyGrantDetail</a></code> | Detail configuration for the policy grant. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.principal">principal</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal">PolicyGrantPrincipal</a></code> | The principal that receives the grant. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd-abc123`).
+
+---
+
+##### `entityIdentifier`<sup>Required</sup> <a name="entityIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.entityIdentifier"></a>
+
+```typescript
+public readonly entityIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the entity (resource) to which the grant is added.
+
+---
+
+##### `entityType`<sup>Required</sup> <a name="entityType" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.entityType"></a>
+
+```typescript
+public readonly entityType: PolicyGrantEntityType;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType">PolicyGrantEntityType</a>
+
+The type of entity to which the grant is added.
+
+---
+
+##### `policyType`<sup>Required</sup> <a name="policyType" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.policyType"></a>
+
+```typescript
+public readonly policyType: PolicyType;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType">PolicyType</a>
+
+The type of policy to grant.
+
+---
+
+##### `detail`<sup>Optional</sup> <a name="detail" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.detail"></a>
+
+```typescript
+public readonly detail: PolicyGrantDetail;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantDetail">PolicyGrantDetail</a>
+- *Default:* no detail
+
+Detail configuration for the policy grant.
+
+---
+
+##### `principal`<sup>Optional</sup> <a name="principal" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantProps.property.principal"></a>
+
+```typescript
+public readonly principal: PolicyGrantPrincipal;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantPrincipal">PolicyGrantPrincipal</a>
+- *Default:* no principal specified
+
+The principal that receives the grant.
+
+---
+
 ### PostgreSqlConnectionProps <a name="PostgreSqlConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnectionProps"></a>
 
 Properties for a PostgreSqlConnection construct.
@@ -25219,6 +27164,98 @@ public readonly locationUri: string;
 - *Default:* no location (tables define their own locations)
 
 The S3 location URI for the database.
+
+---
+
+### ProjectGrantFilter <a name="ProjectGrantFilter" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectGrantFilter"></a>
+
+Project grant filter specifying which projects get the grant.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectGrantFilter.Initializer"></a>
+
+```typescript
+import { ProjectGrantFilter } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const projectGrantFilter: ProjectGrantFilter = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectGrantFilter.property.domainUnitFilter">domainUnitFilter</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitFilter">DomainUnitFilter</a></code> | Filter by domain unit. |
+
+---
+
+##### `domainUnitFilter`<sup>Required</sup> <a name="domainUnitFilter" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectGrantFilter.property.domainUnitFilter"></a>
+
+```typescript
+public readonly domainUnitFilter: DomainUnitFilter;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitFilter">DomainUnitFilter</a>
+
+Filter by domain unit.
+
+---
+
+### ProjectPrincipal <a name="ProjectPrincipal" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectPrincipal"></a>
+
+A project-based principal for the policy grant.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectPrincipal.Initializer"></a>
+
+```typescript
+import { ProjectPrincipal } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const projectPrincipal: ProjectPrincipal = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectPrincipal.property.projectDesignation">projectDesignation</a></code> | <code>string</code> | The project designation. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectPrincipal.property.projectGrantFilter">projectGrantFilter</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectGrantFilter">ProjectGrantFilter</a></code> | Filter to scope which projects receive the grant. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectPrincipal.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | A specific project identifier. |
+
+---
+
+##### `projectDesignation`<sup>Required</sup> <a name="projectDesignation" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectPrincipal.property.projectDesignation"></a>
+
+```typescript
+public readonly projectDesignation: string;
+```
+
+- *Type:* string
+
+The project designation.
+
+---
+
+##### `projectGrantFilter`<sup>Optional</sup> <a name="projectGrantFilter" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectPrincipal.property.projectGrantFilter"></a>
+
+```typescript
+public readonly projectGrantFilter: ProjectGrantFilter;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectGrantFilter">ProjectGrantFilter</a>
+- *Default:* all projects
+
+Filter to scope which projects receive the grant.
+
+---
+
+##### `projectIdentifier`<sup>Optional</sup> <a name="projectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectPrincipal.property.projectIdentifier"></a>
+
+```typescript
+public readonly projectIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* uses projectGrantFilter instead
+
+A specific project identifier.
 
 ---
 
@@ -27326,6 +29363,302 @@ Additional Spark-specific connection properties.
 
 ---
 
+### SubscriptionTargetAttributes <a name="SubscriptionTargetAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetAttributes"></a>
+
+Attributes required to import an existing SubscriptionTarget.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetAttributes.Initializer"></a>
+
+```typescript
+import { SubscriptionTargetAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const subscriptionTargetAttributes: SubscriptionTargetAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetAttributes.property.subscriptionTargetId">subscriptionTargetId</a></code> | <code>string</code> | The subscription target ID. |
+
+---
+
+##### `subscriptionTargetId`<sup>Required</sup> <a name="subscriptionTargetId" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetAttributes.property.subscriptionTargetId"></a>
+
+```typescript
+public readonly subscriptionTargetId: string;
+```
+
+- *Type:* string
+
+The subscription target ID.
+
+---
+
+### SubscriptionTargetForm <a name="SubscriptionTargetForm" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetForm"></a>
+
+A form entry in the subscription target configuration.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetForm.Initializer"></a>
+
+```typescript
+import { SubscriptionTargetForm } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const subscriptionTargetForm: SubscriptionTargetForm = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetForm.property.content">content</a></code> | <code>string</code> | The content of the subscription target configuration (JSON string). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetForm.property.formName">formName</a></code> | <code>string</code> | The form name for this configuration entry. |
+
+---
+
+##### `content`<sup>Required</sup> <a name="content" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetForm.property.content"></a>
+
+```typescript
+public readonly content: string;
+```
+
+- *Type:* string
+
+The content of the subscription target configuration (JSON string).
+
+---
+
+##### `formName`<sup>Required</sup> <a name="formName" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetForm.property.formName"></a>
+
+```typescript
+public readonly formName: string;
+```
+
+- *Type:* string
+
+The form name for this configuration entry.
+
+Must be 1–128 characters and match `^(?![0-9_])\w+$|^_\w*[a-zA-Z0-9]\w*$`.
+
+---
+
+### SubscriptionTargetProps <a name="SubscriptionTargetProps" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps"></a>
+
+Properties for a SubscriptionTarget construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-subscriptiontarget.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-subscriptiontarget.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.Initializer"></a>
+
+```typescript
+import { SubscriptionTargetProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const subscriptionTargetProps: SubscriptionTargetProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.applicableAssetTypes">applicableAssetTypes</a></code> | <code>string[]</code> | The asset types that can be fulfilled by this subscription target (1–256 characters each). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.authorizedPrincipals">authorizedPrincipals</a></code> | <code>string[]</code> | The principals authorized to use this subscription target (max 10). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd-abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment in which the subscription target is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.name">name</a></code> | <code>string</code> | The name of the subscription target (1–256 characters). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.subscriptionTargetConfig">subscriptionTargetConfig</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetForm">SubscriptionTargetForm</a>[]</code> | The subscription target configuration forms. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.type">type</a></code> | <code>string</code> | The type of the subscription target (e.g. data asset type identifier). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.manageAccessRole">manageAccessRole</a></code> | <code>string</code> | The IAM role used to manage access when fulfilling subscriptions. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.provider">provider</a></code> | <code>string</code> | The provider of this subscription target. |
+
+---
+
+##### `applicableAssetTypes`<sup>Required</sup> <a name="applicableAssetTypes" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.applicableAssetTypes"></a>
+
+```typescript
+public readonly applicableAssetTypes: string[];
+```
+
+- *Type:* string[]
+
+The asset types that can be fulfilled by this subscription target (1–256 characters each).
+
+---
+
+##### `authorizedPrincipals`<sup>Required</sup> <a name="authorizedPrincipals" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.authorizedPrincipals"></a>
+
+```typescript
+public readonly authorizedPrincipals: string[];
+```
+
+- *Type:* string[]
+
+The principals authorized to use this subscription target (max 10).
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd-abc123`).
+
+---
+
+##### `environmentIdentifier`<sup>Required</sup> <a name="environmentIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.environmentIdentifier"></a>
+
+```typescript
+public readonly environmentIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the environment in which the subscription target is created.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the subscription target (1–256 characters).
+
+---
+
+##### `subscriptionTargetConfig`<sup>Required</sup> <a name="subscriptionTargetConfig" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.subscriptionTargetConfig"></a>
+
+```typescript
+public readonly subscriptionTargetConfig: SubscriptionTargetForm[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetForm">SubscriptionTargetForm</a>[]
+
+The subscription target configuration forms.
+
+---
+
+##### `type`<sup>Required</sup> <a name="type" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.type"></a>
+
+```typescript
+public readonly type: string;
+```
+
+- *Type:* string
+
+The type of the subscription target (e.g. data asset type identifier).
+
+---
+
+##### `manageAccessRole`<sup>Optional</sup> <a name="manageAccessRole" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.manageAccessRole"></a>
+
+```typescript
+public readonly manageAccessRole: string;
+```
+
+- *Type:* string
+- *Default:* no manage access role
+
+The IAM role used to manage access when fulfilling subscriptions.
+
+---
+
+##### `provider`<sup>Optional</sup> <a name="provider" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.provider"></a>
+
+```typescript
+public readonly provider: string;
+```
+
+- *Type:* string
+- *Default:* no provider
+
+The provider of this subscription target.
+
+---
+
+### TermRelation <a name="TermRelation" id="@tonesingleton/cdk-sagemaker-unified-studio.TermRelation"></a>
+
+A term relation entry for linking glossary terms.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.TermRelation.Initializer"></a>
+
+```typescript
+import { TermRelation } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const termRelation: TermRelation = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TermRelation.property.termId">termId</a></code> | <code>string</code> | The ID of the related glossary term. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TermRelation.property.classifier">classifier</a></code> | <code>string</code> | The classifier of the relation (e.g. 'isA', 'hasA'). |
+
+---
+
+##### `termId`<sup>Required</sup> <a name="termId" id="@tonesingleton/cdk-sagemaker-unified-studio.TermRelation.property.termId"></a>
+
+```typescript
+public readonly termId: string;
+```
+
+- *Type:* string
+
+The ID of the related glossary term.
+
+---
+
+##### `classifier`<sup>Optional</sup> <a name="classifier" id="@tonesingleton/cdk-sagemaker-unified-studio.TermRelation.property.classifier"></a>
+
+```typescript
+public readonly classifier: string;
+```
+
+- *Type:* string
+
+The classifier of the relation (e.g. 'isA', 'hasA').
+
+---
+
+### UserPrincipal <a name="UserPrincipal" id="@tonesingleton/cdk-sagemaker-unified-studio.UserPrincipal"></a>
+
+A user-based principal for the policy grant.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.UserPrincipal.Initializer"></a>
+
+```typescript
+import { UserPrincipal } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const userPrincipal: UserPrincipal = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserPrincipal.property.userIdentifier">userIdentifier</a></code> | <code>string</code> | The IAM/SSO user identifier. |
+
+---
+
+##### `userIdentifier`<sup>Required</sup> <a name="userIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.UserPrincipal.property.userIdentifier"></a>
+
+```typescript
+public readonly userIdentifier: string;
+```
+
+- *Type:* string
+
+The IAM/SSO user identifier.
+
+---
+
 ### WorkflowAttributes <a name="WorkflowAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowAttributes"></a>
 
 Attributes required to import an existing Workflow.
@@ -28411,6 +30744,46 @@ The environment ID.
 
 ---
 
+### IFormType <a name="IFormType" id="@tonesingleton/cdk-sagemaker-unified-studio.IFormType"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormType">FormType</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IFormType">IFormType</a>
+
+Read-only contract for a FormType.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IFormType.property.formTypeIdentifier">formTypeIdentifier</a></code> | <code>string</code> | The form type identifier (e.g. `owningProjectId:formTypeName`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IFormType.property.revision">revision</a></code> | <code>string</code> | The revision of the form type. |
+
+---
+
+##### `formTypeIdentifier`<sup>Required</sup> <a name="formTypeIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.IFormType.property.formTypeIdentifier"></a>
+
+```typescript
+public readonly formTypeIdentifier: string;
+```
+
+- *Type:* string
+
+The form type identifier (e.g. `owningProjectId:formTypeName`).
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.IFormType.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the form type.
+
+---
+
 ### IGitConnection <a name="IGitConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.IGitConnection"></a>
 
 - *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GitConnection">GitConnection</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGitConnection">IGitConnection</a>
@@ -28456,6 +30829,60 @@ Only available when a new connection is created (not when using an existing ARN)
 
 ---
 
+### IGlossary <a name="IGlossary" id="@tonesingleton/cdk-sagemaker-unified-studio.IGlossary"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Glossary">Glossary</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGlossary">IGlossary</a>
+
+Read-only contract for a Glossary.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGlossary.property.glossaryId">glossaryId</a></code> | <code>string</code> | The glossary ID assigned by DataZone. |
+
+---
+
+##### `glossaryId`<sup>Required</sup> <a name="glossaryId" id="@tonesingleton/cdk-sagemaker-unified-studio.IGlossary.property.glossaryId"></a>
+
+```typescript
+public readonly glossaryId: string;
+```
+
+- *Type:* string
+
+The glossary ID assigned by DataZone.
+
+---
+
+### IGlossaryTerm <a name="IGlossaryTerm" id="@tonesingleton/cdk-sagemaker-unified-studio.IGlossaryTerm"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTerm">GlossaryTerm</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGlossaryTerm">IGlossaryTerm</a>
+
+Read-only contract for a GlossaryTerm.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGlossaryTerm.property.glossaryTermId">glossaryTermId</a></code> | <code>string</code> | The glossary term ID assigned by DataZone. |
+
+---
+
+##### `glossaryTermId`<sup>Required</sup> <a name="glossaryTermId" id="@tonesingleton/cdk-sagemaker-unified-studio.IGlossaryTerm.property.glossaryTermId"></a>
+
+```typescript
+public readonly glossaryTermId: string;
+```
+
+- *Type:* string
+
+The glossary term ID assigned by DataZone.
+
+---
+
 ### IHost <a name="IHost" id="@tonesingleton/cdk-sagemaker-unified-studio.IHost"></a>
 
 - *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Host">Host</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IHost">IHost</a>
@@ -28480,6 +30907,33 @@ public readonly hostArn: string;
 - *Type:* string
 
 The ARN of the CodeConnections host.
+
+---
+
+### IPolicyGrant <a name="IPolicyGrant" id="@tonesingleton/cdk-sagemaker-unified-studio.IPolicyGrant"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant">PolicyGrant</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IPolicyGrant">IPolicyGrant</a>
+
+Read-only contract for a PolicyGrant.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IPolicyGrant.property.grantId">grantId</a></code> | <code>string</code> | The grant ID assigned by DataZone. |
+
+---
+
+##### `grantId`<sup>Required</sup> <a name="grantId" id="@tonesingleton/cdk-sagemaker-unified-studio.IPolicyGrant.property.grantId"></a>
+
+```typescript
+public readonly grantId: string;
+```
+
+- *Type:* string
+
+The grant ID assigned by DataZone.
 
 ---
 
@@ -28639,6 +31093,33 @@ public readonly projectProfileId: string;
 - *Type:* string
 
 The project profile ID.
+
+---
+
+### ISubscriptionTarget <a name="ISubscriptionTarget" id="@tonesingleton/cdk-sagemaker-unified-studio.ISubscriptionTarget"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget">SubscriptionTarget</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ISubscriptionTarget">ISubscriptionTarget</a>
+
+Read-only contract for a SubscriptionTarget.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ISubscriptionTarget.property.subscriptionTargetId">subscriptionTargetId</a></code> | <code>string</code> | The subscription target ID assigned by DataZone. |
+
+---
+
+##### `subscriptionTargetId`<sup>Required</sup> <a name="subscriptionTargetId" id="@tonesingleton/cdk-sagemaker-unified-studio.ISubscriptionTarget.property.subscriptionTargetId"></a>
+
+```typescript
+public readonly subscriptionTargetId: string;
+```
+
+- *Type:* string
+
+The subscription target ID assigned by DataZone.
 
 ---
 
@@ -28989,6 +31470,33 @@ You provide a KMS key.
 ---
 
 
+### FormTypeStatus <a name="FormTypeStatus" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeStatus"></a>
+
+Status of the form type.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeStatus.ENABLED">ENABLED</a></code> | The form type is enabled. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormTypeStatus.DISABLED">DISABLED</a></code> | The form type is disabled. |
+
+---
+
+##### `ENABLED` <a name="ENABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeStatus.ENABLED"></a>
+
+The form type is enabled.
+
+---
+
+
+##### `DISABLED` <a name="DISABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.FormTypeStatus.DISABLED"></a>
+
+The form type is disabled.
+
+---
+
+
 ### GitProviderType <a name="GitProviderType" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType"></a>
 
 Supported Git provider types for CodeConnections.
@@ -29038,6 +31546,60 @@ GitLab self-managed.
 ##### `BITBUCKET` <a name="BITBUCKET" id="@tonesingleton/cdk-sagemaker-unified-studio.GitProviderType.BITBUCKET"></a>
 
 Bitbucket cloud-hosted.
+
+---
+
+
+### GlossaryStatus <a name="GlossaryStatus" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryStatus"></a>
+
+Status of the glossary.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryStatus.ENABLED">ENABLED</a></code> | The glossary is enabled. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryStatus.DISABLED">DISABLED</a></code> | The glossary is disabled. |
+
+---
+
+##### `ENABLED` <a name="ENABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryStatus.ENABLED"></a>
+
+The glossary is enabled.
+
+---
+
+
+##### `DISABLED` <a name="DISABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryStatus.DISABLED"></a>
+
+The glossary is disabled.
+
+---
+
+
+### GlossaryTermStatus <a name="GlossaryTermStatus" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermStatus"></a>
+
+Status of the glossary term.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermStatus.ENABLED">ENABLED</a></code> | The term is enabled. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermStatus.DISABLED">DISABLED</a></code> | The term is disabled. |
+
+---
+
+##### `ENABLED` <a name="ENABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermStatus.ENABLED"></a>
+
+The term is enabled.
+
+---
+
+
+##### `DISABLED` <a name="DISABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermStatus.DISABLED"></a>
+
+The term is disabled.
 
 ---
 
@@ -29226,6 +31788,164 @@ Generic JDBC connection.
 ##### `NETWORK` <a name="NETWORK" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.NETWORK"></a>
 
 Network connection within a VPC.
+
+---
+
+
+### PolicyGrantEntityType <a name="PolicyGrantEntityType" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType"></a>
+
+The type of entity (resource) to which the grant is added.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType.DOMAIN_UNIT">DOMAIN_UNIT</a></code> | A domain unit. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType.ENVIRONMENT_BLUEPRINT_CONFIGURATION">ENVIRONMENT_BLUEPRINT_CONFIGURATION</a></code> | An environment blueprint configuration. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType.ENVIRONMENT_PROFILE">ENVIRONMENT_PROFILE</a></code> | An environment profile. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType.ASSET_TYPE">ASSET_TYPE</a></code> | An asset type. |
+
+---
+
+##### `DOMAIN_UNIT` <a name="DOMAIN_UNIT" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType.DOMAIN_UNIT"></a>
+
+A domain unit.
+
+---
+
+
+##### `ENVIRONMENT_BLUEPRINT_CONFIGURATION` <a name="ENVIRONMENT_BLUEPRINT_CONFIGURATION" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType.ENVIRONMENT_BLUEPRINT_CONFIGURATION"></a>
+
+An environment blueprint configuration.
+
+---
+
+
+##### `ENVIRONMENT_PROFILE` <a name="ENVIRONMENT_PROFILE" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType.ENVIRONMENT_PROFILE"></a>
+
+An environment profile.
+
+---
+
+
+##### `ASSET_TYPE` <a name="ASSET_TYPE" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType.ASSET_TYPE"></a>
+
+An asset type.
+
+---
+
+
+### PolicyType <a name="PolicyType" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType"></a>
+
+The type of policy to grant.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_DOMAIN_UNIT">CREATE_DOMAIN_UNIT</a></code> | Create a domain unit. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.OVERRIDE_DOMAIN_UNIT_OWNERS">OVERRIDE_DOMAIN_UNIT_OWNERS</a></code> | Override domain unit owners. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.ADD_TO_PROJECT_MEMBER_POOL">ADD_TO_PROJECT_MEMBER_POOL</a></code> | Add to project member pool. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.OVERRIDE_PROJECT_OWNERS">OVERRIDE_PROJECT_OWNERS</a></code> | Override project owners. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_GLOSSARY">CREATE_GLOSSARY</a></code> | Create a glossary. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_FORM_TYPE">CREATE_FORM_TYPE</a></code> | Create a form type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_ASSET_TYPE">CREATE_ASSET_TYPE</a></code> | Create an asset type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_PROJECT">CREATE_PROJECT</a></code> | Create a project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_ENVIRONMENT_PROFILE">CREATE_ENVIRONMENT_PROFILE</a></code> | Create an environment profile. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.DELEGATE_CREATE_ENVIRONMENT_PROFILE">DELEGATE_CREATE_ENVIRONMENT_PROFILE</a></code> | Delegate creation of environment profiles. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_ENVIRONMENT">CREATE_ENVIRONMENT</a></code> | Create an environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_ENVIRONMENT_FROM_BLUEPRINT">CREATE_ENVIRONMENT_FROM_BLUEPRINT</a></code> | Create an environment from a blueprint. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_PROJECT_FROM_PROJECT_PROFILE">CREATE_PROJECT_FROM_PROJECT_PROFILE</a></code> | Create a project from a project profile. |
+
+---
+
+##### `CREATE_DOMAIN_UNIT` <a name="CREATE_DOMAIN_UNIT" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_DOMAIN_UNIT"></a>
+
+Create a domain unit.
+
+---
+
+
+##### `OVERRIDE_DOMAIN_UNIT_OWNERS` <a name="OVERRIDE_DOMAIN_UNIT_OWNERS" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.OVERRIDE_DOMAIN_UNIT_OWNERS"></a>
+
+Override domain unit owners.
+
+---
+
+
+##### `ADD_TO_PROJECT_MEMBER_POOL` <a name="ADD_TO_PROJECT_MEMBER_POOL" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.ADD_TO_PROJECT_MEMBER_POOL"></a>
+
+Add to project member pool.
+
+---
+
+
+##### `OVERRIDE_PROJECT_OWNERS` <a name="OVERRIDE_PROJECT_OWNERS" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.OVERRIDE_PROJECT_OWNERS"></a>
+
+Override project owners.
+
+---
+
+
+##### `CREATE_GLOSSARY` <a name="CREATE_GLOSSARY" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_GLOSSARY"></a>
+
+Create a glossary.
+
+---
+
+
+##### `CREATE_FORM_TYPE` <a name="CREATE_FORM_TYPE" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_FORM_TYPE"></a>
+
+Create a form type.
+
+---
+
+
+##### `CREATE_ASSET_TYPE` <a name="CREATE_ASSET_TYPE" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_ASSET_TYPE"></a>
+
+Create an asset type.
+
+---
+
+
+##### `CREATE_PROJECT` <a name="CREATE_PROJECT" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_PROJECT"></a>
+
+Create a project.
+
+---
+
+
+##### `CREATE_ENVIRONMENT_PROFILE` <a name="CREATE_ENVIRONMENT_PROFILE" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_ENVIRONMENT_PROFILE"></a>
+
+Create an environment profile.
+
+---
+
+
+##### `DELEGATE_CREATE_ENVIRONMENT_PROFILE` <a name="DELEGATE_CREATE_ENVIRONMENT_PROFILE" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.DELEGATE_CREATE_ENVIRONMENT_PROFILE"></a>
+
+Delegate creation of environment profiles.
+
+---
+
+
+##### `CREATE_ENVIRONMENT` <a name="CREATE_ENVIRONMENT" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_ENVIRONMENT"></a>
+
+Create an environment.
+
+---
+
+
+##### `CREATE_ENVIRONMENT_FROM_BLUEPRINT` <a name="CREATE_ENVIRONMENT_FROM_BLUEPRINT" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_ENVIRONMENT_FROM_BLUEPRINT"></a>
+
+Create an environment from a blueprint.
+
+---
+
+
+##### `CREATE_PROJECT_FROM_PROJECT_PROFILE` <a name="CREATE_PROJECT_FROM_PROJECT_PROFILE" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_PROJECT_FROM_PROJECT_PROFILE"></a>
+
+Create a project from a project profile.
 
 ---
 

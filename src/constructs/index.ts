@@ -80,3 +80,7 @@ export {
   WorkflowLoggingConfiguration,
   WorkflowNetworkConfiguration,
 } from './workflow/workflow.interface';
+export * from './policy-grant';
+export * from './form-type';
+export * from './subscription-target';
+export * from './glossary';
