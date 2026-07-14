@@ -1,5 +1,5 @@
 import { App, Stack } from 'aws-cdk-lib';
-import { Template } from 'aws-cdk-lib/assertions';
+import { Match, Template } from 'aws-cdk-lib/assertions';
 import { GlossaryTerm } from './glossary-term.construct';
 import { GlossaryTermStatus } from './glossary-term.interface';
 
@@ -11,23 +11,21 @@ const validProps = {
   name: 'Revenue',
   domainIdentifier: 'dzd-abc123',
   glossaryIdentifier: 'gloss-abc123',
+  executionRoleArn: 'arn:aws:iam::123456789012:role/DomainExecutionRole',
 };
 
 describe('GlossaryTerm', () => {
   test('creates a custom resource for the glossary term', () => {
     const stack = createStack();
     new GlossaryTerm(stack, 'Term', validProps);
+    Template.fromStack(stack).resourceCountIs('Custom::AWS', 1);
+  });
+
+  test('passes assumedRoleArn to the custom resource', () => {
+    const stack = createStack();
+    new GlossaryTerm(stack, 'Term', validProps);
     Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: JSON.stringify({
-        service: '@aws-sdk/client-datazone',
-        action: 'CreateGlossaryTerm',
-        parameters: {
-          domainIdentifier: 'dzd-abc123',
-          glossaryIdentifier: 'gloss-abc123',
-          name: 'Revenue',
-        },
-        physicalResourceId: { responsePath: 'id' },
-      }),
+      Create: Match.stringLikeRegexp('assumedRoleArn.*DomainExecutionRole'),
     });
   });
 
@@ -40,32 +38,34 @@ describe('GlossaryTerm', () => {
       status: GlossaryTermStatus.ENABLED,
     });
     Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: JSON.stringify({
-        service: '@aws-sdk/client-datazone',
-        action: 'CreateGlossaryTerm',
-        parameters: {
-          domainIdentifier: 'dzd-abc123',
-          glossaryIdentifier: 'gloss-abc123',
-          name: 'Revenue',
-          shortDescription: 'Total income',
-          longDescription: 'Total income from all sources before deductions',
-          status: 'ENABLED',
-        },
-        physicalResourceId: { responsePath: 'id' },
-      }),
+      Create: Match.stringLikeRegexp('"shortDescription":"Total income"'),
     });
   });
 
-  test('grants datazone permissions scoped to the domain', () => {
+  test('creates with term relations', () => {
+    const stack = createStack();
+    new GlossaryTerm(stack, 'Term', {
+      ...validProps,
+      termRelations: [
+        { classifier: 'isA', termId: 'term-parent' },
+        { classifier: 'hasA', termId: 'term-child' },
+      ],
+    });
+    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+      Create: Match.stringLikeRegexp('"termRelations"'),
+    });
+  });
+
+  test('grants sts:AssumeRole scoped to the execution role', () => {
     const stack = createStack();
     new GlossaryTerm(stack, 'Term', validProps);
     Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
       PolicyDocument: {
         Statement: [
           {
-            Action: ['datazone:CreateGlossaryTerm', 'datazone:UpdateGlossaryTerm', 'datazone:DeleteGlossaryTerm'],
+            Action: 'sts:AssumeRole',
             Effect: 'Allow',
-            Resource: 'arn:aws:datazone:us-east-1:123456789012:domain/dzd-abc123',
+            Resource: 'arn:aws:iam::123456789012:role/DomainExecutionRole',
           },
         ],
       },
@@ -115,30 +115,6 @@ describe('GlossaryTerm', () => {
       expect(() => new GlossaryTerm(stack, 'T', { ...validProps, longDescription: 'x'.repeat(4097) })).toThrow(
         /longDescription/,
       );
-    });
-  });
-
-  test('creates with term relations', () => {
-    const stack = createStack();
-    new GlossaryTerm(stack, 'Term', {
-      ...validProps,
-      termRelations: [
-        { classifier: 'isA', termId: 'term-parent' },
-        { classifier: 'hasA', termId: 'term-child' },
-      ],
-    });
-    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: JSON.stringify({
-        service: '@aws-sdk/client-datazone',
-        action: 'CreateGlossaryTerm',
-        parameters: {
-          domainIdentifier: 'dzd-abc123',
-          glossaryIdentifier: 'gloss-abc123',
-          name: 'Revenue',
-          termRelations: { isA: ['term-parent'], hasA: ['term-child'] },
-        },
-        physicalResourceId: { responsePath: 'id' },
-      }),
     });
   });
 

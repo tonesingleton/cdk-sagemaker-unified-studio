@@ -27,10 +27,16 @@ export enum GlossaryStatus {
 export interface GlossaryProps {
   /** The name of the glossary (1–256 characters). */
   readonly name: string;
-  /** The ID of the domain (e.g. `dzd-abc123`). */
+  /** The ID of the domain (e.g. `dzd_abc123`). */
   readonly domainIdentifier: string;
   /** The ID of the project that owns this glossary. */
   readonly owningProjectIdentifier: string;
+  /**
+   * ARN of a role that DataZone trusts for glossary operations (e.g. the
+   * domain execution role). The custom resource Lambda assumes this role
+   * to satisfy DataZone's internal authorization checks.
+   */
+  readonly executionRoleArn: string;
   /**
    * Human-readable description of the glossary.
    *

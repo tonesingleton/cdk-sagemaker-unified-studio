@@ -53,9 +53,6 @@ export class Glossary extends Construct implements IGlossary {
       );
     }
 
-    const region = Stack.of(this).region;
-    const account = Stack.of(this).account;
-
     const glossary = new cr.AwsCustomResource(this, 'Resource', {
       onCreate: {
         service: '@aws-sdk/client-datazone',
@@ -68,6 +65,7 @@ export class Glossary extends Construct implements IGlossary {
           status: props.status,
         },
         physicalResourceId: cr.PhysicalResourceId.fromResponse('id'),
+        assumedRoleArn: props.executionRoleArn,
       },
       onUpdate: {
         service: '@aws-sdk/client-datazone',
@@ -80,6 +78,7 @@ export class Glossary extends Construct implements IGlossary {
           status: props.status,
         },
         physicalResourceId: cr.PhysicalResourceId.fromResponse('id'),
+        assumedRoleArn: props.executionRoleArn,
       },
       onDelete: {
         service: '@aws-sdk/client-datazone',
@@ -89,11 +88,12 @@ export class Glossary extends Construct implements IGlossary {
           identifier: new cr.PhysicalResourceIdReference(),
         },
         ignoreErrorCodesMatching: 'ResourceNotFoundException',
+        assumedRoleArn: props.executionRoleArn,
       },
       policy: cr.AwsCustomResourcePolicy.fromStatements([
         new iam.PolicyStatement({
-          actions: ['datazone:CreateGlossary', 'datazone:UpdateGlossary', 'datazone:DeleteGlossary'],
-          resources: [`arn:aws:datazone:${region}:${account}:domain/${props.domainIdentifier}`],
+          actions: ['sts:AssumeRole'],
+          resources: [props.executionRoleArn],
         }),
       ]),
     });

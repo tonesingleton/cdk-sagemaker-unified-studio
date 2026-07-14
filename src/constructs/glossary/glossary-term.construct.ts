@@ -59,9 +59,6 @@ export class GlossaryTerm extends Construct implements IGlossaryTerm {
       );
     }
 
-    const region = Stack.of(this).region;
-    const account = Stack.of(this).account;
-
     const termRelations = props.termRelations?.length
       ? {
           isA: props.termRelations.filter((r) => r.classifier === 'isA').map((r) => r.termId),
@@ -83,6 +80,7 @@ export class GlossaryTerm extends Construct implements IGlossaryTerm {
           termRelations,
         },
         physicalResourceId: cr.PhysicalResourceId.fromResponse('id'),
+        assumedRoleArn: props.executionRoleArn,
       },
       onUpdate: {
         service: '@aws-sdk/client-datazone',
@@ -98,6 +96,7 @@ export class GlossaryTerm extends Construct implements IGlossaryTerm {
           termRelations,
         },
         physicalResourceId: cr.PhysicalResourceId.fromResponse('id'),
+        assumedRoleArn: props.executionRoleArn,
       },
       onDelete: {
         service: '@aws-sdk/client-datazone',
@@ -107,11 +106,12 @@ export class GlossaryTerm extends Construct implements IGlossaryTerm {
           identifier: new cr.PhysicalResourceIdReference(),
         },
         ignoreErrorCodesMatching: 'ResourceNotFoundException',
+        assumedRoleArn: props.executionRoleArn,
       },
       policy: cr.AwsCustomResourcePolicy.fromStatements([
         new iam.PolicyStatement({
-          actions: ['datazone:CreateGlossaryTerm', 'datazone:UpdateGlossaryTerm', 'datazone:DeleteGlossaryTerm'],
-          resources: [`arn:aws:datazone:${region}:${account}:domain/${props.domainIdentifier}`],
+          actions: ['sts:AssumeRole'],
+          resources: [props.executionRoleArn],
         }),
       ]),
     });

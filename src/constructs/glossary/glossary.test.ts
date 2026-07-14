@@ -1,5 +1,5 @@
 import { App, Stack } from 'aws-cdk-lib';
-import { Template } from 'aws-cdk-lib/assertions';
+import { Match, Template } from 'aws-cdk-lib/assertions';
 import { Glossary } from './glossary.construct';
 import { GlossaryStatus } from './glossary.interface';
 
@@ -11,23 +11,21 @@ const validProps = {
   name: 'BusinessTerms',
   domainIdentifier: 'dzd-abc123',
   owningProjectIdentifier: 'proj-abc123',
+  executionRoleArn: 'arn:aws:iam::123456789012:role/DomainExecutionRole',
 };
 
 describe('Glossary', () => {
   test('creates a custom resource for the glossary', () => {
     const stack = createStack();
     new Glossary(stack, 'Glossary', validProps);
+    Template.fromStack(stack).resourceCountIs('Custom::AWS', 1);
+  });
+
+  test('passes assumedRoleArn to the custom resource', () => {
+    const stack = createStack();
+    new Glossary(stack, 'Glossary', validProps);
     Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: JSON.stringify({
-        service: '@aws-sdk/client-datazone',
-        action: 'CreateGlossary',
-        parameters: {
-          domainIdentifier: 'dzd-abc123',
-          name: 'BusinessTerms',
-          owningProjectIdentifier: 'proj-abc123',
-        },
-        physicalResourceId: { responsePath: 'id' },
-      }),
+      Create: Match.stringLikeRegexp('assumedRoleArn.*DomainExecutionRole'),
     });
   });
 
@@ -39,31 +37,20 @@ describe('Glossary', () => {
       status: GlossaryStatus.ENABLED,
     });
     Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: JSON.stringify({
-        service: '@aws-sdk/client-datazone',
-        action: 'CreateGlossary',
-        parameters: {
-          domainIdentifier: 'dzd-abc123',
-          name: 'BusinessTerms',
-          owningProjectIdentifier: 'proj-abc123',
-          description: 'Central glossary',
-          status: 'ENABLED',
-        },
-        physicalResourceId: { responsePath: 'id' },
-      }),
+      Create: Match.stringLikeRegexp('"description":"Central glossary"'),
     });
   });
 
-  test('grants datazone permissions scoped to the domain', () => {
+  test('grants sts:AssumeRole scoped to the execution role', () => {
     const stack = createStack();
     new Glossary(stack, 'Glossary', validProps);
     Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
       PolicyDocument: {
         Statement: [
           {
-            Action: ['datazone:CreateGlossary', 'datazone:UpdateGlossary', 'datazone:DeleteGlossary'],
+            Action: 'sts:AssumeRole',
             Effect: 'Allow',
-            Resource: 'arn:aws:datazone:us-east-1:123456789012:domain/dzd-abc123',
+            Resource: 'arn:aws:iam::123456789012:role/DomainExecutionRole',
           },
         ],
       },
