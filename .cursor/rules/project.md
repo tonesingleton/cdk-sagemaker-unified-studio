@@ -95,3 +95,17 @@ This project is an L2 CDK construct library. All constructs must follow AWS CDK 
 
 
 - All `*Attributes` interfaces must be exported from the construct's barrel file (`index.ts`).
+
+
+
+## Documentation
+
+
+
+- Every `*Props` interface MUST include a `@see` JSDoc tag linking to the corresponding AWS CloudFormation Template Reference page.
+
+- Example: `@see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-glue-dataqualityruleset.html`
+
+- Links MUST be verified against the actual AWS documentation — never hallucinate a URL.
+
+- Use the format `https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-{service}-{resource}.html`.
