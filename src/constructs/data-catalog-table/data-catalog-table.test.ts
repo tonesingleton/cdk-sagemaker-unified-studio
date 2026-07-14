@@ -231,7 +231,7 @@ describe('DataCatalogTable', () => {
       Name: 'dos-quality',
       Ruleset: 'Rules = [ Completeness "id" = 1.0 ]',
       TargetTable: { DatabaseName: 'guidewire', TableName: 'dos' },
-      Tags: [{ Key: 'AmazonDataZoneProject', Value: 'proj123' }],
+      Tags: { AmazonDataZoneProject: 'proj123' },
     });
   });
 });

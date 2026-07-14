@@ -61,8 +61,6 @@ export class DataQualityRuleset extends Construct implements IDataQualityRuleset
 
     this.name = props.name;
 
-    const tags = props.tags ? Object.entries(props.tags).map(([key, value]) => ({ key, value })) : undefined;
-
     new glue.CfnDataQualityRuleset(this, 'Resource', {
       name: props.name,
       description: props.description,
@@ -72,7 +70,7 @@ export class DataQualityRuleset extends Construct implements IDataQualityRuleset
         databaseName: props.targetTable.databaseName,
         tableName: props.targetTable.tableName,
       },
-      tags: tags,
+      tags: props.tags,
     });
   }
 }

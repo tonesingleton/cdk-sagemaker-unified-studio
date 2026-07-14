@@ -61,8 +61,13 @@ export {
   ColumnType,
   Column,
 } from './data-catalog-table/data-catalog-table.interface';
-export { DqdlRuleset } from './dqdl-ruleset/dqdl-ruleset.construct';
-export { DqdlRulesetProps } from './dqdl-ruleset/dqdl-ruleset.interface';
+export { DataQualityRuleset } from './data-quality-ruleset/data-quality-ruleset.construct';
+export {
+  DataQualityRulesetProps,
+  IDataQualityRuleset,
+  DataQualityRulesetAttributes,
+  DataQualityTargetTable,
+} from './data-quality-ruleset/data-quality-ruleset.interface';
 export { Workflow } from './workflow/workflow.construct';
 export {
   WorkflowProps,

@@ -26,6 +26,8 @@ export interface DataQualityTargetTable {
 
 /**
  * Properties for a DataQualityRuleset construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-glue-dataqualityruleset.html
  */
 export interface DataQualityRulesetProps {
   /**
