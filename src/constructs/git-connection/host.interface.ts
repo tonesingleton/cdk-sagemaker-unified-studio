@@ -24,6 +24,8 @@ export interface HostVpcConfiguration {
 
 /**
  * Properties for the Host construct.
+ *
+ * @see https://docs.aws.amazon.com/codeconnections/latest/APIReference/API_CreateHost.html
  */
 export interface HostProps {
   /** Display name of the host. */

@@ -128,6 +128,8 @@ export interface GlueAuthenticationConfiguration {
 
 /**
  * Properties for a GlueConnection construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html
  */
 export interface GlueConnectionProps extends ConnectionProps {
   /** The Glue connection type. */

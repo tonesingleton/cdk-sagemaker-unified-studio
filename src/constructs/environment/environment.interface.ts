@@ -26,6 +26,8 @@ export interface EnvironmentAttributes {
 
 /**
  * Properties for an Environment construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environment.html
  */
 export interface EnvironmentProps {
   /** Display name of the environment. */

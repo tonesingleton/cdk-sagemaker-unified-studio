@@ -170,6 +170,8 @@ export class ManagedBlueprintIdentifier {
 
 /**
  * Properties for a Blueprint construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environmentblueprintconfiguration.html
  */
 export interface BlueprintProps {
   /**

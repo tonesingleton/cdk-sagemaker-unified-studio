@@ -49,6 +49,8 @@ export interface RedshiftCredentials {
 
 /**
  * Properties for a RedshiftConnection construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html
  */
 export interface RedshiftConnectionProps extends ConnectionProps {
   /** The credentials for the Redshift database. */

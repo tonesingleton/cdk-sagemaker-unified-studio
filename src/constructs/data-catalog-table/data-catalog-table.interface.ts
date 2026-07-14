@@ -100,6 +100,8 @@ export interface IDataCatalogTable {
 
 /**
  * Properties for a DataCatalogTable construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-glue-table.html
  */
 export interface DataCatalogTableProps {
   /** The table name. */

@@ -124,6 +124,8 @@ export interface IDataSource {
 
 /**
  * Properties for a DataSource construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-datasource.html
  */
 export interface DataSourceProps {
   /** Display name of the data source. */

@@ -18,6 +18,8 @@ export enum GitProviderType {
 
 /**
  * Properties for the GitConnection construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-codeconnections-connection.html
  */
 export interface GitConnectionProps {
   /** Display name of the connection. */

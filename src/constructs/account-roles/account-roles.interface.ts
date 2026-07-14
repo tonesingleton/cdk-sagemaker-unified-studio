@@ -2,6 +2,8 @@ import type { aws_iam as iam } from 'aws-cdk-lib';
 
 /**
  * Properties for the AccountRoles construct.
+ *
+ * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/security-iam-roles.html
  */
 export interface AccountRolesProps {
   /**

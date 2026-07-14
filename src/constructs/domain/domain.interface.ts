@@ -29,6 +29,8 @@ export interface DomainUnitConfig {
 
 /**
  * Properties for the Domain construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-domain.html
  */
 export interface DomainProps {
   /** Display name of the domain. */

@@ -120,6 +120,8 @@ export interface ProjectAttributes {
 
 /**
  * Properties for a Project construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-project.html
  */
 export interface ProjectProps {
   /** Display name of the project (1–64 characters, `[\w -]+`). */

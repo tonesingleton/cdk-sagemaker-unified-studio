@@ -1,5 +1,7 @@
 /**
  * Properties for a ProjectDatabase construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-glue-database.html
  */
 export interface ProjectDatabaseProps {
   /** The name of the Glue database to create. */

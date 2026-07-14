@@ -87,6 +87,8 @@ export interface ProjectProfileAttributes {
 
 /**
  * Properties for a ProjectProfile construct.
+ *
+ * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-projectprofile.html
  */
 export interface ProjectProfileProps {
   /** Display name of the project profile. */
