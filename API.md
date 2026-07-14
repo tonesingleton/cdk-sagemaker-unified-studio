@@ -13438,7 +13438,7 @@ const glueConnectionProps: GlueConnectionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.athenaProperties">athenaProperties</a></code> | <code>{[ key: string ]: string}</code> | Athena-specific properties (e.g. spill_bucket, spill_prefix). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.authenticationConfiguration">authenticationConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueAuthenticationConfiguration">GlueAuthenticationConfiguration</a></code> | Authentication configuration. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.connectionProperties">connectionProperties</a></code> | <code>{[ key: string ]: string}</code> | Connection properties such as HOST, PORT, DATABASE, SECRET_ID, ROLE_ARN. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.matchCriteria">matchCriteria</a></code> | <code>string</code> | Match criteria for selecting this connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.matchCriteria">matchCriteria</a></code> | <code>string</code> | A list of criteria that can be used in selecting this connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.physicalConnectionRequirements">physicalConnectionRequirements</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GluePhysicalConnectionRequirements">GluePhysicalConnectionRequirements</a></code> | Physical connection requirements (VPC, subnet, security groups). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.pythonProperties">pythonProperties</a></code> | <code>{[ key: string ]: string}</code> | Python-specific properties. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.property.sparkProperties">sparkProperties</a></code> | <code>{[ key: string ]: string}</code> | Spark-specific properties. |
@@ -13622,7 +13622,9 @@ public readonly matchCriteria: string;
 - *Type:* string
 - *Default:* no match criteria
 
-Match criteria for selecting this connection.
+A list of criteria that can be used in selecting this connection.
+
+Provided as a comma-separated string.
 
 ---
 
@@ -13672,7 +13674,7 @@ public readonly validateCredentials: boolean;
 ```
 
 - *Type:* boolean
-- *Default:* false
+- *Default:* true
 
 Whether to validate credentials on creation.
 
@@ -18103,22 +18105,26 @@ Python.
 
 The Glue connection type.
 
+Includes only connection types supported in the SageMaker Unified Studio
+"Create connection" interface.
+
 #### Members <a name="Members" id="Members"></a>
 
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.ORACLE">ORACLE</a></code> | Oracle database. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.MYSQL">MYSQL</a></code> | MySQL database. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.POSTGRESQL">POSTGRESQL</a></code> | PostgreSQL database. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.MYSQL">MYSQL</a></code> | MySQL database (including Aurora MySQL). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.POSTGRESQL">POSTGRESQL</a></code> | PostgreSQL database (including Aurora PostgreSQL). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.SQLSERVER">SQLSERVER</a></code> | Microsoft SQL Server database. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.REDSHIFT">REDSHIFT</a></code> | Amazon Redshift. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.SNOWFLAKE">SNOWFLAKE</a></code> | Snowflake. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.JDBC">JDBC</a></code> | Generic JDBC connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.DOCUMENTDB">DOCUMENTDB</a></code> | Amazon DocumentDB. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.DYNAMODB">DYNAMODB</a></code> | Amazon DynamoDB. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.BIGQUERY">BIGQUERY</a></code> | Google BigQuery. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.AZURESQL">AZURESQL</a></code> | Azure SQL. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.MONGODB">MONGODB</a></code> | MongoDB document database. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.KAFKA">KAFKA</a></code> | Apache Kafka streaming platform. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.JDBC">JDBC</a></code> | Generic JDBC connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.NETWORK">NETWORK</a></code> | Network connection within a VPC. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.MARKETPLACE">MARKETPLACE</a></code> | AWS Marketplace connector. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.CUSTOM">CUSTOM</a></code> | Custom connector. |
 
 ---
 
@@ -18131,14 +18137,14 @@ Oracle database.
 
 ##### `MYSQL` <a name="MYSQL" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.MYSQL"></a>
 
-MySQL database.
+MySQL database (including Aurora MySQL).
 
 ---
 
 
 ##### `POSTGRESQL` <a name="POSTGRESQL" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.POSTGRESQL"></a>
 
-PostgreSQL database.
+PostgreSQL database (including Aurora PostgreSQL).
 
 ---
 
@@ -18164,9 +18170,30 @@ Snowflake.
 ---
 
 
-##### `JDBC` <a name="JDBC" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.JDBC"></a>
+##### `DOCUMENTDB` <a name="DOCUMENTDB" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.DOCUMENTDB"></a>
 
-Generic JDBC connection.
+Amazon DocumentDB.
+
+---
+
+
+##### `DYNAMODB` <a name="DYNAMODB" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.DYNAMODB"></a>
+
+Amazon DynamoDB.
+
+---
+
+
+##### `BIGQUERY` <a name="BIGQUERY" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.BIGQUERY"></a>
+
+Google BigQuery.
+
+---
+
+
+##### `AZURESQL` <a name="AZURESQL" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.AZURESQL"></a>
+
+Azure SQL.
 
 ---
 
@@ -18178,9 +18205,9 @@ MongoDB document database.
 ---
 
 
-##### `KAFKA` <a name="KAFKA" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.KAFKA"></a>
+##### `JDBC` <a name="JDBC" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.JDBC"></a>
 
-Apache Kafka streaming platform.
+Generic JDBC connection.
 
 ---
 
@@ -18188,20 +18215,6 @@ Apache Kafka streaming platform.
 ##### `NETWORK` <a name="NETWORK" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.NETWORK"></a>
 
 Network connection within a VPC.
-
----
-
-
-##### `MARKETPLACE` <a name="MARKETPLACE" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.MARKETPLACE"></a>
-
-AWS Marketplace connector.
-
----
-
-
-##### `CUSTOM` <a name="CUSTOM" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.CUSTOM"></a>
-
-Custom connector.
 
 ---
 

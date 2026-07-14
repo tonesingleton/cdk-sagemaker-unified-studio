@@ -67,7 +67,7 @@ export class GlueConnection extends datazone.CfnConnection {
             connectionProperties: props.connectionProperties,
             physicalConnectionRequirements: props.physicalConnectionRequirements,
             authenticationConfiguration: props.authenticationConfiguration,
-            validateCredentials: props.validateCredentials ?? false,
+            validateCredentials: props.validateCredentials ?? true,
             validateForComputeEnvironments: effectiveEnvironments.length > 0 ? effectiveEnvironments : undefined,
             athenaProperties: props.athenaProperties,
             sparkProperties: props.sparkProperties,

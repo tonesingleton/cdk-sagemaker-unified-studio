@@ -107,6 +107,7 @@ describe('GlueConnection', () => {
       projectIdentifier: 'proj-test',
       environmentIdentifier: 'env-test',
       connectionType: GlueConnectionType.NETWORK,
+      validateCredentials: false,
     });
 
     const template = Template.fromStack(stack);

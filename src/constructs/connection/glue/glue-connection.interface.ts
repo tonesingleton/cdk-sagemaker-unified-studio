@@ -3,13 +3,16 @@ import type { ConnectionProps } from '../connection.interface';
 
 /**
  * The Glue connection type.
+ *
+ * Includes only connection types supported in the SageMaker Unified Studio
+ * "Create connection" interface.
  */
 export enum GlueConnectionType {
   /** Oracle database. */
   ORACLE = 'ORACLE',
-  /** MySQL database. */
+  /** MySQL database (including Aurora MySQL). */
   MYSQL = 'MYSQL',
-  /** PostgreSQL database. */
+  /** PostgreSQL database (including Aurora PostgreSQL). */
   POSTGRESQL = 'POSTGRESQL',
   /** Microsoft SQL Server database. */
   SQLSERVER = 'SQLSERVER',
@@ -17,18 +20,20 @@ export enum GlueConnectionType {
   REDSHIFT = 'REDSHIFT',
   /** Snowflake. */
   SNOWFLAKE = 'SNOWFLAKE',
-  /** Generic JDBC connection. */
-  JDBC = 'JDBC',
+  /** Amazon DocumentDB. */
+  DOCUMENTDB = 'DOCUMENTDB',
+  /** Amazon DynamoDB. */
+  DYNAMODB = 'DYNAMODB',
+  /** Google BigQuery. */
+  BIGQUERY = 'BIGQUERY',
+  /** Azure SQL. */
+  AZURESQL = 'AZURESQL',
   /** MongoDB document database. */
   MONGODB = 'MONGODB',
-  /** Apache Kafka streaming platform. */
-  KAFKA = 'KAFKA',
+  /** Generic JDBC connection. */
+  JDBC = 'JDBC',
   /** Network connection within a VPC. */
   NETWORK = 'NETWORK',
-  /** AWS Marketplace connector. */
-  MARKETPLACE = 'MARKETPLACE',
-  /** Custom connector. */
-  CUSTOM = 'CUSTOM',
 }
 
 /**
@@ -155,7 +160,7 @@ export interface GlueConnectionProps extends ConnectionProps {
   /**
    * Whether to validate credentials on creation.
    *
-   * @default false
+   * @default true
    */
   readonly validateCredentials?: boolean;
   /**
@@ -184,7 +189,8 @@ export interface GlueConnectionProps extends ConnectionProps {
    */
   readonly pythonProperties?: Record<string, string>;
   /**
-   * Match criteria for selecting this connection.
+   * A list of criteria that can be used in selecting this connection.
+   * Provided as a comma-separated string.
    *
    * @default - no match criteria
    */
