@@ -10148,6 +10148,7 @@ The mixins to apply.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Workflow.fromAttributes">fromAttributes</a></code> | Import an existing workflow from its attributes. |
 
 ---
 
@@ -10180,6 +10181,34 @@ this type-testing method instead.
 - *Type:* any
 
 Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.fromAttributes"></a>
+
+```typescript
+import { Workflow } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Workflow.fromAttributes(scope: Construct, id: string, attrs: WorkflowAttributes)
+```
+
+Import an existing workflow from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowAttributes">WorkflowAttributes</a>
 
 ---
 
@@ -14895,6 +14924,51 @@ The Glue worker type (e.g. 'G.1X', 'G.2X').
 
 ---
 
+### WorkflowAttributes <a name="WorkflowAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowAttributes"></a>
+
+Attributes required to import an existing Workflow.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowAttributes.Initializer"></a>
+
+```typescript
+import { WorkflowAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const workflowAttributes: WorkflowAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowAttributes.property.workflowArn">workflowArn</a></code> | <code>string</code> | The workflow ARN. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowAttributes.property.workflowName">workflowName</a></code> | <code>string</code> | The workflow name. |
+
+---
+
+##### `workflowArn`<sup>Required</sup> <a name="workflowArn" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowAttributes.property.workflowArn"></a>
+
+```typescript
+public readonly workflowArn: string;
+```
+
+- *Type:* string
+
+The workflow ARN.
+
+---
+
+##### `workflowName`<sup>Required</sup> <a name="workflowName" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowAttributes.property.workflowName"></a>
+
+```typescript
+public readonly workflowName: string;
+```
+
+- *Type:* string
+
+The workflow name.
+
+---
+
 ### WorkflowDefinitionFile <a name="WorkflowDefinitionFile" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile"></a>
 
 Local workflow definition file configuration.
@@ -15012,6 +15086,9 @@ Required when type is CUSTOMER_MANAGED_KEY.
 
 Logging configuration for workflow execution.
 
+Amazon MWAA Serverless automatically exports worker logs and task-level
+information to the specified log group using remote logging.
+
 > [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-loggingconfiguration.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-loggingconfiguration.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowLoggingConfiguration.Initializer"></a>
@@ -15045,6 +15122,11 @@ The name of the CloudWatch log group where workflow execution logs are stored.
 ### WorkflowNetworkConfiguration <a name="WorkflowNetworkConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration"></a>
 
 Network configuration for workflow execution.
+
+When specified, MWAA Serverless deploys ECS worker tasks in your VPC for
+secure connectivity to VPC-only resources (e.g. RDS, private endpoints).
+If not specified, tasks run in the service's default worker VPC with
+network isolation from other customers.
 
 > [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-networkconfiguration.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-mwaaserverless-workflow-networkconfiguration.html)
 
@@ -15111,8 +15193,8 @@ const workflowProps: WorkflowProps = { ... }
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.definitionFile">definitionFile</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowDefinitionFile">WorkflowDefinitionFile</a></code> | The local YAML workflow definition file. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.name">name</a></code> | <code>string</code> | The name of the workflow. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.roleArn">roleArn</a></code> | <code>string</code> | The ARN of the IAM role that MWAA Serverless assumes when executing the workflow. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.description">description</a></code> | <code>string</code> | Description of the workflow. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The IAM role that MWAA Serverless assumes when executing the workflow. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.description">description</a></code> | <code>string</code> | Description of the workflow (1–1024 characters). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.encryptionConfiguration">encryptionConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowEncryptionConfiguration">WorkflowEncryptionConfiguration</a></code> | Encryption configuration for workflow data. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.loggingConfiguration">loggingConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowLoggingConfiguration">WorkflowLoggingConfiguration</a></code> | Logging configuration for workflow execution. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.networkConfiguration">networkConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowNetworkConfiguration">WorkflowNetworkConfiguration</a></code> | Network configuration for VPC access during execution. |
@@ -15151,15 +15233,18 @@ Changing this value requires replacement.
 
 ---
 
-##### `roleArn`<sup>Required</sup> <a name="roleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.roleArn"></a>
+##### `role`<sup>Required</sup> <a name="role" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowProps.property.role"></a>
 
 ```typescript
-public readonly roleArn: string;
+public readonly role: IRole;
 ```
 
-- *Type:* string
+- *Type:* aws-cdk-lib.aws_iam.IRole
 
-The ARN of the IAM role that MWAA Serverless assumes when executing the workflow.
+The IAM role that MWAA Serverless assumes when executing the workflow.
+
+Must have permissions to access the AWS services and resources that
+your workflow tasks interact with.
 
 ---
 
@@ -15172,7 +15257,7 @@ public readonly description: string;
 - *Type:* string
 - *Default:* no description
 
-Description of the workflow.
+Description of the workflow (1–1024 characters).
 
 ---
 
