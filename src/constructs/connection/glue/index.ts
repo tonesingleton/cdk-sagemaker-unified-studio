@@ -7,3 +7,4 @@ export {
   GluePhysicalConnectionRequirements,
   GlueAuthenticationConfiguration,
 } from './glue-connection.interface';
+export { OracleConnection, OracleConnectionProps } from './oracle';
