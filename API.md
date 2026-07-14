@@ -1389,7 +1389,7 @@ new DataCatalogTable(scope: Construct, id: string, props: DataCatalogTableProps)
 | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.with">with</a></code> | Applies one or more mixins to this construct. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDqdlRuleset">addDqdlRuleset</a></code> | Attaches a DQDL ruleset to this table. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDataQualityRuleset">addDataQualityRuleset</a></code> | Attaches a Data Quality ruleset to this table. |
 
 ---
 
@@ -1422,15 +1422,15 @@ The mixins to apply.
 
 ---
 
-##### `addDqdlRuleset` <a name="addDqdlRuleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDqdlRuleset"></a>
+##### `addDataQualityRuleset` <a name="addDataQualityRuleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDataQualityRuleset"></a>
 
 ```typescript
-public addDqdlRuleset(id: string, name: string, ruleset: string, description?: string, tags?: {[ key: string ]: string}): DqdlRuleset
+public addDataQualityRuleset(id: string, name: string, ruleset: string, description?: string, tags?: {[ key: string ]: string}): DataQualityRuleset
 ```
 
-Attaches a DQDL ruleset to this table.
+Attaches a Data Quality ruleset to this table.
 
-###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDqdlRuleset.parameter.id"></a>
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDataQualityRuleset.parameter.id"></a>
 
 - *Type:* string
 
@@ -1438,7 +1438,7 @@ Construct ID for the ruleset.
 
 ---
 
-###### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDqdlRuleset.parameter.name"></a>
+###### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDataQualityRuleset.parameter.name"></a>
 
 - *Type:* string
 
@@ -1446,7 +1446,7 @@ Unique name for the ruleset.
 
 ---
 
-###### `ruleset`<sup>Required</sup> <a name="ruleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDqdlRuleset.parameter.ruleset"></a>
+###### `ruleset`<sup>Required</sup> <a name="ruleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDataQualityRuleset.parameter.ruleset"></a>
 
 - *Type:* string
 
@@ -1454,7 +1454,7 @@ The DQDL rules string (e.g. 'Rules = [ Completeness "col" = 1.0 ]').
 
 ---
 
-###### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDqdlRuleset.parameter.description"></a>
+###### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDataQualityRuleset.parameter.description"></a>
 
 - *Type:* string
 
@@ -1462,7 +1462,7 @@ Optional description.
 
 ---
 
-###### `tags`<sup>Optional</sup> <a name="tags" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDqdlRuleset.parameter.tags"></a>
+###### `tags`<sup>Optional</sup> <a name="tags" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable.addDataQualityRuleset.parameter.tags"></a>
 
 - *Type:* {[ key: string ]: string}
 
@@ -1553,6 +1553,192 @@ public readonly tableName: string;
 - *Type:* string
 
 The table name.
+
+---
+
+
+### DataQualityRuleset <a name="DataQualityRuleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataQualityRuleset">IDataQualityRuleset</a>
+
+A Glue Data Quality Ruleset using DQDL (Data Quality Definition Language).
+
+Creates an `AWS::Glue::DataQualityRuleset` resource targeting a specific
+Glue catalog table.
+
+> [https://docs.aws.amazon.com/glue/latest/dg/dqdl.html](https://docs.aws.amazon.com/glue/latest/dg/dqdl.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.Initializer"></a>
+
+```typescript
+import { DataQualityRuleset } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new DataQualityRuleset(scope: Construct, id: string, props: DataQualityRulesetProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps">DataQualityRulesetProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps">DataQualityRulesetProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.fromAttributes">fromAttributes</a></code> | Import an existing data quality ruleset from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.isConstruct"></a>
+
+```typescript
+import { DataQualityRuleset } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+DataQualityRuleset.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.fromAttributes"></a>
+
+```typescript
+import { DataQualityRuleset } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+DataQualityRuleset.fromAttributes(scope: Construct, id: string, attrs: DataQualityRulesetAttributes)
+```
+
+Import an existing data quality ruleset from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetAttributes">DataQualityRulesetAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.property.name">name</a></code> | <code>string</code> | The ruleset name. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The ruleset name.
 
 ---
 
@@ -2058,156 +2244,6 @@ buckets whose names start with one of these prefixes.
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-account-roles.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/configure-account-roles.html)
 
 ---
-
-### DqdlRuleset <a name="DqdlRuleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset"></a>
-
-A Glue Data Quality ruleset using DQDL (Data Quality Definition Language).
-
-> [https://docs.aws.amazon.com/glue/latest/dg/dqdl.html](https://docs.aws.amazon.com/glue/latest/dg/dqdl.html)
-
-#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.Initializer"></a>
-
-```typescript
-import { DqdlRuleset } from '@tonesingleton/cdk-sagemaker-unified-studio'
-
-new DqdlRuleset(scope: Construct, id: string, props: DqdlRulesetProps)
-```
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps">DqdlRulesetProps</a></code> | *No description.* |
-
----
-
-##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.Initializer.parameter.scope"></a>
-
-- *Type:* constructs.Construct
-
----
-
-##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.Initializer.parameter.id"></a>
-
-- *Type:* string
-
----
-
-##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.Initializer.parameter.props"></a>
-
-- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps">DqdlRulesetProps</a>
-
----
-
-#### Methods <a name="Methods" id="Methods"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.with">with</a></code> | Applies one or more mixins to this construct. |
-
----
-
-##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.toString"></a>
-
-```typescript
-public toString(): string
-```
-
-Returns a string representation of this construct.
-
-##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.with"></a>
-
-```typescript
-public with(mixins: ...IMixin[]): IConstruct
-```
-
-Applies one or more mixins to this construct.
-
-Mixins are applied in order. The list of constructs is captured at the
-start of the call, so constructs added by a mixin will not be visited.
-Use multiple `with()` calls if subsequent mixins should apply to added
-constructs.
-
-###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.with.parameter.mixins"></a>
-
-- *Type:* ...constructs.IMixin[]
-
-The mixins to apply.
-
----
-
-#### Static Functions <a name="Static Functions" id="Static Functions"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
-
----
-
-##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.isConstruct"></a>
-
-```typescript
-import { DqdlRuleset } from '@tonesingleton/cdk-sagemaker-unified-studio'
-
-DqdlRuleset.isConstruct(x: any)
-```
-
-Checks if `x` is a construct.
-
-Use this method instead of `instanceof` to properly detect `Construct`
-instances, even when the construct library is symlinked.
-
-Explanation: in JavaScript, multiple copies of the `constructs` library on
-disk are seen as independent, completely different libraries. As a
-consequence, the class `Construct` in each copy of the `constructs` library
-is seen as a different class, and an instance of one class will not test as
-`instanceof` the other class. `npm install` will not create installations
-like this, but users may manually symlink construct libraries together or
-use a monorepo tool: in those cases, multiple copies of the `constructs`
-library can be accidentally installed, and `instanceof` will behave
-unpredictably. It is safest to avoid using `instanceof`, and using
-this type-testing method instead.
-
-###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.isConstruct.parameter.x"></a>
-
-- *Type:* any
-
-Any object.
-
----
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.property.name">name</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.property.node"></a>
-
-```typescript
-public readonly node: Node;
-```
-
-- *Type:* constructs.Node
-
-The tree node.
-
----
-
-##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRuleset.property.name"></a>
-
-```typescript
-public readonly name: string;
-```
-
-- *Type:* string
-
----
-
 
 ### Environment <a name="Environment" id="@tonesingleton/cdk-sagemaker-unified-studio.Environment"></a>
 
@@ -10297,6 +10333,8 @@ The ARN of the KMS key used by the execution role for encrypting and decrypting 
 
 Properties for an AthenaConnection construct.
 
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html)
+
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnectionProps.Initializer"></a>
 
 ```typescript
@@ -10527,6 +10565,8 @@ The IAM connection ID.
 ### BlueprintProps <a name="BlueprintProps" id="@tonesingleton/cdk-sagemaker-unified-studio.BlueprintProps"></a>
 
 Properties for a Blueprint construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environmentblueprintconfiguration.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environmentblueprintconfiguration.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.BlueprintProps.Initializer"></a>
 
@@ -10857,6 +10897,8 @@ The ID of the project that owns this connection.
 
 Properties for a DataCatalogTable construct.
 
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-glue-table.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-glue-table.html)
+
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.Initializer"></a>
 
 ```typescript
@@ -11010,9 +11052,205 @@ The table type.
 
 ---
 
+### DataQualityRulesetAttributes <a name="DataQualityRulesetAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetAttributes"></a>
+
+Attributes required to import an existing Data Quality Ruleset.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetAttributes.Initializer"></a>
+
+```typescript
+import { DataQualityRulesetAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataQualityRulesetAttributes: DataQualityRulesetAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetAttributes.property.name">name</a></code> | <code>string</code> | The ruleset name. |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetAttributes.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The ruleset name.
+
+---
+
+### DataQualityRulesetProps <a name="DataQualityRulesetProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps"></a>
+
+Properties for a DataQualityRuleset construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-glue-dataqualityruleset.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-glue-dataqualityruleset.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.Initializer"></a>
+
+```typescript
+import { DataQualityRulesetProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataQualityRulesetProps: DataQualityRulesetProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.name">name</a></code> | <code>string</code> | The ruleset name. Must be unique within the account/region. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.ruleset">ruleset</a></code> | <code>string</code> | The DQDL ruleset string. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.targetTable">targetTable</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityTargetTable">DataQualityTargetTable</a></code> | The target Glue table for the ruleset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.clientToken">clientToken</a></code> | <code>string</code> | A client token for idempotent creation (e.g. a UUID). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the ruleset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags to apply to the ruleset. |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The ruleset name. Must be unique within the account/region.
+
+Must be 1–255 characters and match `^[a-zA-Z0-9_-]+$`.
+
+---
+
+##### `ruleset`<sup>Required</sup> <a name="ruleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.ruleset"></a>
+
+```typescript
+public readonly ruleset: string;
+```
+
+- *Type:* string
+
+The DQDL ruleset string.
+
+Must begin with `Rules = [` (case-insensitive whitespace flexible).
+
+> [https://docs.aws.amazon.com/glue/latest/dg/dqdl.html](https://docs.aws.amazon.com/glue/latest/dg/dqdl.html)
+
+---
+
+*Example*
+
+```typescript
+'Rules = [ Completeness "col" = 1.0 ]'
+```
+
+
+##### `targetTable`<sup>Required</sup> <a name="targetTable" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.targetTable"></a>
+
+```typescript
+public readonly targetTable: DataQualityTargetTable;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityTargetTable">DataQualityTargetTable</a>
+
+The target Glue table for the ruleset.
+
+---
+
+##### `clientToken`<sup>Optional</sup> <a name="clientToken" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.clientToken"></a>
+
+```typescript
+public readonly clientToken: string;
+```
+
+- *Type:* string
+- *Default:* no client token
+
+A client token for idempotent creation (e.g. a UUID).
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the ruleset.
+
+Must be at most 2048 characters.
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetProps.property.tags"></a>
+
+```typescript
+public readonly tags: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* no tags
+
+Tags to apply to the ruleset.
+
+---
+
+### DataQualityTargetTable <a name="DataQualityTargetTable" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityTargetTable"></a>
+
+Target table for the data quality ruleset.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityTargetTable.Initializer"></a>
+
+```typescript
+import { DataQualityTargetTable } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataQualityTargetTable: DataQualityTargetTable = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityTargetTable.property.databaseName">databaseName</a></code> | <code>string</code> | The Glue catalog database name. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityTargetTable.property.tableName">tableName</a></code> | <code>string</code> | The Glue catalog table name. |
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="databaseName" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityTargetTable.property.databaseName"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* string
+
+The Glue catalog database name.
+
+---
+
+##### `tableName`<sup>Required</sup> <a name="tableName" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityTargetTable.property.tableName"></a>
+
+```typescript
+public readonly tableName: string;
+```
+
+- *Type:* string
+
+The Glue catalog table name.
+
+---
+
 ### DataSourceProps <a name="DataSourceProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps"></a>
 
 Properties for a DataSource construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-datasource.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-datasource.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.Initializer"></a>
 
@@ -11244,6 +11482,8 @@ The ARN of the manage access role.
 ### DomainProps <a name="DomainProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainProps"></a>
 
 Properties for the Domain construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-domain.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-domain.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainProps.Initializer"></a>
 
@@ -11513,107 +11753,6 @@ public readonly parentDomainUnitName: string;
 - *Default:* root domain unit
 
 Name of the parent domain unit (must match another unit's `name`).
-
----
-
-### DqdlRulesetProps <a name="DqdlRulesetProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps"></a>
-
-Properties for a DqdlRuleset construct.
-
-#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.Initializer"></a>
-
-```typescript
-import { DqdlRulesetProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
-
-const dqdlRulesetProps: DqdlRulesetProps = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.databaseName">databaseName</a></code> | <code>string</code> | The target database name. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.name">name</a></code> | <code>string</code> | The ruleset name. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.ruleset">ruleset</a></code> | <code>string</code> | The DQDL ruleset string (e.g. 'Rules = [ Completeness "col" = 1.0 ]'). |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.tableName">tableName</a></code> | <code>string</code> | The target table name. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the ruleset. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags to apply to the ruleset. |
-
----
-
-##### `databaseName`<sup>Required</sup> <a name="databaseName" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.databaseName"></a>
-
-```typescript
-public readonly databaseName: string;
-```
-
-- *Type:* string
-
-The target database name.
-
----
-
-##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.name"></a>
-
-```typescript
-public readonly name: string;
-```
-
-- *Type:* string
-
-The ruleset name.
-
-Must be unique within the account/region.
-
----
-
-##### `ruleset`<sup>Required</sup> <a name="ruleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.ruleset"></a>
-
-```typescript
-public readonly ruleset: string;
-```
-
-- *Type:* string
-
-The DQDL ruleset string (e.g. 'Rules = [ Completeness "col" = 1.0 ]').
-
----
-
-##### `tableName`<sup>Required</sup> <a name="tableName" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.tableName"></a>
-
-```typescript
-public readonly tableName: string;
-```
-
-- *Type:* string
-
-The target table name.
-
----
-
-##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.description"></a>
-
-```typescript
-public readonly description: string;
-```
-
-- *Type:* string
-- *Default:* no description
-
-Human-readable description of the ruleset.
-
----
-
-##### `tags`<sup>Optional</sup> <a name="tags" id="@tonesingleton/cdk-sagemaker-unified-studio.DqdlRulesetProps.property.tags"></a>
-
-```typescript
-public readonly tags: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: string}
-- *Default:* no tags
-
-Tags to apply to the ruleset.
 
 ---
 
@@ -11947,6 +12086,8 @@ The parameter value.
 
 Properties for an Environment construct.
 
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environment.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environment.html)
+
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.Initializer"></a>
 
 ```typescript
@@ -12123,6 +12264,8 @@ The filter type (INCLUDE or EXCLUDE).
 ### GitConnectionProps <a name="GitConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.GitConnectionProps"></a>
 
 Properties for the GitConnection construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-codeconnections-connection.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-codeconnections-connection.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.GitConnectionProps.Initializer"></a>
 
@@ -12304,6 +12447,8 @@ The ARN of the Secrets Manager secret containing credentials.
 ### GlueConnectionProps <a name="GlueConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps"></a>
 
 Properties for a GlueConnection construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionProps.Initializer"></a>
 
@@ -12710,6 +12855,8 @@ The subnet ID list for the connection.
 
 Properties for the Host construct.
 
+> [https://docs.aws.amazon.com/codeconnections/latest/APIReference/API_CreateHost.html](https://docs.aws.amazon.com/codeconnections/latest/APIReference/API_CreateHost.html)
+
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.HostProps.Initializer"></a>
 
 ```typescript
@@ -12874,6 +13021,8 @@ The PEM-encoded TLS certificate for the Git provider endpoint.
 
 Properties for a HyperPodConnection construct.
 
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html)
+
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnectionProps.Initializer"></a>
 
 ```typescript
@@ -13029,6 +13178,8 @@ The HyperPod cluster name.
 ### IamConnectionProps <a name="IamConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps"></a>
 
 Properties for an IamConnection construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnectionProps.Initializer"></a>
 
@@ -13338,6 +13489,8 @@ The ARN of the project execution role.
 
 Properties for a ProjectDatabase construct.
 
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-glue-database.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-glue-database.html)
+
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.Initializer"></a>
 
 ```typescript
@@ -13443,6 +13596,8 @@ The project profile ID.
 
 Properties for a ProjectProfile construct.
 
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-projectprofile.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-projectprofile.html)
+
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.Initializer"></a>
 
 ```typescript
@@ -13543,6 +13698,8 @@ Whether the project profile is enabled.
 ### ProjectProps <a name="ProjectProps" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps"></a>
 
 Properties for a Project construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-project.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-project.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.Initializer"></a>
 
@@ -13749,6 +13906,8 @@ The name of the Redshift cluster.
 ### RedshiftConnectionProps <a name="RedshiftConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps"></a>
 
 Properties for a RedshiftConnection construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnectionProps.Initializer"></a>
 
@@ -14389,6 +14548,8 @@ The tag value.
 
 Properties for an S3Connection construct.
 
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html)
+
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.S3ConnectionProps.Initializer"></a>
 
 ```typescript
@@ -14573,6 +14734,8 @@ The S3 Access Grant location ID.
 
 Properties for a SparkEmrConnection construct.
 
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html)
+
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnectionProps.Initializer"></a>
 
 ```typescript
@@ -14728,6 +14891,8 @@ The ARN of the EMR Serverless application or EMR cluster.
 ### SparkGlueConnectionProps <a name="SparkGlueConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps"></a>
 
 Properties for a SparkGlueConnection construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html)
 
 #### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnectionProps.Initializer"></a>
 
@@ -15801,6 +15966,33 @@ public readonly tableName: string;
 - *Type:* string
 
 The table name.
+
+---
+
+### IDataQualityRuleset <a name="IDataQualityRuleset" id="@tonesingleton/cdk-sagemaker-unified-studio.IDataQualityRuleset"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset">DataQualityRuleset</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataQualityRuleset">IDataQualityRuleset</a>
+
+Read-only contract for a Data Quality Ruleset.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataQualityRuleset.property.name">name</a></code> | <code>string</code> | The ruleset name. |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.IDataQualityRuleset.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The ruleset name.
 
 ---
 
