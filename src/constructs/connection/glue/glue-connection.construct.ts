@@ -14,6 +14,13 @@ const ALL_COMPUTE_ENVIRONMENTS = [
  * Supports connection types such as Oracle, Snowflake, PostgreSQL, MySQL, and more.
  * The connection name must be lowercase.
  *
+ * @remarks For common database connections, prefer the specialized constructs which provide
+ * focused interfaces with built-in defaults and validations:
+ * OracleConnection, MySqlConnection, PostgreSqlConnection, SqlServerConnection,
+ * SnowflakeConnection, DocumentDbConnection, DynamoDbConnection, BigQueryConnection,
+ * AzureSqlConnection. Use GlueConnection directly only for connection types without
+ * a dedicated construct or when you need full control over all properties.
+ *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/data-connections-iam-based-domains.html
  */
 export class GlueConnection extends datazone.CfnConnection {

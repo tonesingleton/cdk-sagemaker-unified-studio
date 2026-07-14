@@ -327,6 +327,80 @@ new GitConnection(stack, 'Git', {
 
 After deployment, the connection must be authorized manually in the AWS Console.
 
+## Connections
+
+Connection constructs correspond to the tiles available in the SageMaker Unified Studio "Add Connection" interface. Each provides a focused, validated interface tailored to its data source.
+
+### Databases & Data Warehouses
+
+| Construct | Target | Key Props |
+| --- | --- | --- |
+| `OracleConnection` | Oracle (RDS / on-prem) | host, port (1521), VPC, Spark only |
+| `MySqlConnection` | MySQL / Aurora MySQL | host, port (3306), VPC, Spark + Athena |
+| `PostgreSqlConnection` | PostgreSQL / Aurora PostgreSQL | host, port (5432), VPC, Spark + Athena |
+| `SqlServerConnection` | Microsoft SQL Server | host, port (1433), VPC, Spark + Athena |
+| `SnowflakeConnection` | Snowflake | accountUrl, warehouse, no VPC, Spark + Athena |
+| `DocumentDbConnection` | Amazon DocumentDB | connectionUrl (MongoDB protocol), VPC |
+| `DynamoDbConnection` | Amazon DynamoDB | tableArn, no VPC, no credentials |
+| `BigQueryConnection` | Google BigQuery | projectId, OAuth2, no VPC |
+| `AzureSqlConnection` | Azure SQL Database | host, port (1433), Basic/OAuth2, no VPC |
+| `RedshiftConnection` | Amazon Redshift | host, port (5439), credentials, storage |
+| `GlueConnection` | Generic (any Glue type) | Full control — use when no dedicated construct exists |
+
+### Storage
+
+| Construct | Target |
+| --- | --- |
+| `S3Connection` | Amazon S3 |
+
+### Compute
+
+| Construct | Target |
+| --- | --- |
+| `SparkGlueConnection` | AWS Glue Interactive Sessions |
+| `SparkEmrConnection` | EMR Serverless |
+| `MwaaConnection` | MWAA (Managed Apache Airflow) |
+| `AthenaConnection` | Amazon Athena |
+
+### Example: Oracle database connection
+
+```ts
+import { OracleConnection, ConnectionScope } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+new OracleConnection(stack, 'OracleDataStore', {
+  name: 'datastore-oracle',
+  domainIdentifier: domain.domainId,
+  projectIdentifier: project.id,
+  environmentIdentifier: 'env-abc123',
+  connectionScope: ConnectionScope.PROJECT,
+  host: 'oracle.internal.example.com',
+  port: 1521,
+  databaseName: 'ORCL',
+  roleArn: 'arn:aws:iam::123456789012:role/GlueOracleRole',
+  subnetId: 'subnet-abc123',
+  securityGroupIds: ['sg-111111'],
+  availabilityZone: 'eu-central-1a',
+  secretArn: 'arn:aws:secretsmanager:eu-central-1:123456789012:secret:oracle-creds',
+});
+```
+
+### Example: Snowflake connection (no VPC)
+
+```ts
+import { SnowflakeConnection } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+new SnowflakeConnection(stack, 'Snowflake', {
+  name: 'analytics-warehouse',
+  domainIdentifier: domain.domainId,
+  environmentIdentifier: 'env-abc123',
+  accountUrl: 'https://myorg.snowflakecomputing.com',
+  databaseName: 'ANALYTICS',
+  warehouse: 'COMPUTE_WH',
+  roleArn: 'arn:aws:iam::123456789012:role/GlueSnowflakeRole',
+  secretArn: 'arn:aws:secretsmanager:eu-central-1:123456789012:secret:snowflake-creds',
+});
+```
+
 ## Workflow
 
 A `Workflow` creates a managed Airflow workflow (MWAA Serverless).
