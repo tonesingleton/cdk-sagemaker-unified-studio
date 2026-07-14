@@ -33,6 +33,7 @@ export class Blueprint extends Construct {
       manageAccessRoleArn: props.manageAccessRoleArn,
       provisioningRoleArn: props.provisioningRoleArn,
       regionalParameters: props.regionalParameters ? [...props.regionalParameters] : undefined,
+      globalParameters: props.globalParameters,
     });
 
     this.environmentBlueprintId = this.configuration.attrEnvironmentBlueprintId;

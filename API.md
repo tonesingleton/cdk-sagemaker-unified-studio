@@ -21659,6 +21659,7 @@ const blueprintProps: BlueprintProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BlueprintProps.property.manageAccessRoleArn">manageAccessRoleArn</a></code> | <code>string</code> | ARN of the domain-specific manage access role. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BlueprintProps.property.provisioningRoleArn">provisioningRoleArn</a></code> | <code>string</code> | ARN of the account-level provisioning role. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BlueprintProps.property.enabledRegions">enabledRegions</a></code> | <code>string[]</code> | AWS regions where this blueprint is available. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BlueprintProps.property.globalParameters">globalParameters</a></code> | <code>{[ key: string ]: string}</code> | Region-agnostic parameters passed to the blueprint configuration. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BlueprintProps.property.regionalParameters">regionalParameters</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RegionalParameter">RegionalParameter</a>[]</code> | Per-region parameters (e.g. S3Location, VpcId, Subnets for the Tooling blueprint). |
 
 ---
@@ -21731,6 +21732,22 @@ public readonly enabledRegions: string[];
 - *Default:* [Stack.of(this).region]
 
 AWS regions where this blueprint is available.
+
+---
+
+##### `globalParameters`<sup>Optional</sup> <a name="globalParameters" id="@tonesingleton/cdk-sagemaker-unified-studio.BlueprintProps.property.globalParameters"></a>
+
+```typescript
+public readonly globalParameters: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* no global parameters
+
+Region-agnostic parameters passed to the blueprint configuration.
+
+Used by blueprints that require account-wide settings (e.g. QuickSight
+needs `{ QuickSightVpcManagerRoleArn: 'arn:...' }`).
 
 ---
 

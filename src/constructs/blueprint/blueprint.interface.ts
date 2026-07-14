@@ -201,4 +201,13 @@ export interface BlueprintProps {
    * @default - no regional parameters
    */
   readonly regionalParameters?: Array<RegionalParameter>;
+  /**
+   * Region-agnostic parameters passed to the blueprint configuration.
+   *
+   * Used by blueprints that require account-wide settings (e.g. QuickSight
+   * needs `{ QuickSightVpcManagerRoleArn: 'arn:...' }`).
+   *
+   * @default - no global parameters
+   */
+  readonly globalParameters?: { [key: string]: string };
 }

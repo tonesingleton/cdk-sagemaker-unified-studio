@@ -76,4 +76,24 @@ describe('Blueprint', () => {
     });
     expect(bp.environmentBlueprintId).toBeDefined();
   });
+
+  test('creates with globalParameters for QuickSight VPC manager role', () => {
+    const stack = createStack();
+    new Blueprint(stack, 'Blueprint', {
+      identifier: ManagedBlueprintIdentifier.QUICKSIGHT,
+      domainId: 'dzd-test',
+      enabledRegions: ['eu-central-1'],
+      manageAccessRoleArn: 'arn:aws:iam::123456789012:role/manage-access',
+      provisioningRoleArn: 'arn:aws:iam::123456789012:role/provisioning',
+      globalParameters: {
+        QuickSightVpcManagerRoleArn: 'arn:aws:iam::123456789012:role/AmazonSageMakerQuickSightVPC',
+      },
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::EnvironmentBlueprintConfiguration', {
+      EnvironmentBlueprintIdentifier: 'QuickSight',
+      GlobalParameters: {
+        QuickSightVpcManagerRoleArn: 'arn:aws:iam::123456789012:role/AmazonSageMakerQuickSightVPC',
+      },
+    });
+  });
 });

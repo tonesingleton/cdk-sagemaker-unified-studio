@@ -293,6 +293,53 @@ const blueprint = new Blueprint(stack, 'RedshiftBP', {
 
 See `ManagedBlueprintIdentifier` for the full list.
 
+### QuickSight
+
+Enable the QuickSight blueprint to allow data visualization directly from the SageMaker Catalog. Requires IAM Identity Center integration and a QuickSight account in the same AWS account.
+
+```ts
+import { Blueprint, ManagedBlueprintIdentifier } from '@tonesingleton/cdk-sagemaker-unified-studio';
+
+new Blueprint(stack, 'QuickSight', {
+  identifier: ManagedBlueprintIdentifier.QUICKSIGHT,
+  domainId: domain.domainId,
+  manageAccessRoleArn: domain.manageAccessRole.roleArn,
+  provisioningRoleArn: roles.provisioningRole.roleArn,
+  globalParameters: {
+    QuickSightVpcManagerRoleArn: 'arn:aws:iam::123456789012:role/AmazonSageMakerQuickSightVPC',
+  },
+});
+```
+
+Or add it to the Domain's `additionalBlueprintIdentifiers` for automatic activation (note: `globalParameters` can only be set via standalone `Blueprint`).
+
+### Partner Apps
+
+Partner AI apps (Domino, Dataiku, etc.) run as EKS-based application stacks within SageMaker. Enable the blueprint:
+
+```ts
+new Blueprint(stack, 'PartnerApps', {
+  identifier: ManagedBlueprintIdentifier.PARTNER_APPS,
+  domainId: domain.domainId,
+  manageAccessRoleArn: domain.manageAccessRole.roleArn,
+  provisioningRoleArn: roles.provisioningRole.roleArn,
+});
+```
+
+After activation, subscribe to specific partner apps through the SageMaker console.
+
+### Power BI (Server & Cloud)
+
+Power BI connects to SageMaker Unified Studio via the **Athena JDBC driver** — no AWS infrastructure to provision. Users download the driver, paste the JDBC connection string from the SMUS portal, and authenticate via SSO.
+
+This means Power BI integration requires:
+
+1. A project with data assets (subscribed or owned)
+2. The Athena JDBC driver installed on the Power BI Server/Desktop
+3. IAM Identity Center SSO configured on the domain
+
+No CDK construct is needed. The JDBC connection string is available in the project's "Connect" menu in SageMaker Unified Studio.
+
 ## Data Source
 
 A `DataSource` connects a project to existing data in Glue or Redshift for cataloging and access management.
