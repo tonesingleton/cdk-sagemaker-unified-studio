@@ -217,7 +217,7 @@ describe('DataCatalogTable', () => {
     });
   });
 
-  test('addDqdlRuleset creates a ruleset targeting the table with project tag', () => {
+  test('addDataQualityRuleset creates a ruleset targeting the table with project tag', () => {
     const stack = createStack();
     const table = new DataCatalogTable(stack, 'Table', {
       tableName: 'dos',
@@ -226,12 +226,12 @@ describe('DataCatalogTable', () => {
       location: 's3://my-bucket/data/dos',
       columns: [{ name: 'id', type: 'string' }],
     });
-    table.addDqdlRuleset('Quality', 'dos-quality', 'Rules = [ Completeness "id" = 1.0 ]');
+    table.addDataQualityRuleset('Quality', 'dos-quality', 'Rules = [ Completeness "id" = 1.0 ]');
     Template.fromStack(stack).hasResourceProperties('AWS::Glue::DataQualityRuleset', {
       Name: 'dos-quality',
       Ruleset: 'Rules = [ Completeness "id" = 1.0 ]',
       TargetTable: { DatabaseName: 'guidewire', TableName: 'dos' },
-      Tags: { AmazonDataZoneProject: 'proj123' },
+      Tags: [{ Key: 'AmazonDataZoneProject', Value: 'proj123' }],
     });
   });
 });

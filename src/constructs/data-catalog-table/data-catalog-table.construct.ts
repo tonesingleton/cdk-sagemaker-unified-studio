@@ -2,7 +2,7 @@ import { Stack, aws_glue as glue } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { DataCatalogTableProps, IDataCatalogTable } from './data-catalog-table.interface';
 import { DataFormat, TableType } from './data-catalog-table.interface';
-import { DqdlRuleset } from '../dqdl-ruleset/dqdl-ruleset.construct';
+import { DataQualityRuleset } from '../data-quality-ruleset/data-quality-ruleset.construct';
 
 const FORMAT_CONFIG: Record<DataFormat, { inputFormat: string; outputFormat: string; serializationLibrary: string }> = {
   [DataFormat.PARQUET]: {
@@ -87,7 +87,7 @@ export class DataCatalogTable extends Construct implements IDataCatalogTable {
   }
 
   /**
-   * Attaches a DQDL ruleset to this table.
+   * Attaches a Data Quality ruleset to this table.
    *
    * @param id Construct ID for the ruleset.
    * @param name Unique name for the ruleset.
@@ -95,26 +95,28 @@ export class DataCatalogTable extends Construct implements IDataCatalogTable {
    * @param description Optional description.
    * @param tags Optional tags to apply to the ruleset.
    */
-  public addDqdlRuleset(
+  public addDataQualityRuleset(
     id: string,
     name: string,
     ruleset: string,
     description?: string,
     tags?: Record<string, string>,
-  ): DqdlRuleset {
+  ): DataQualityRuleset {
     const mergedTags = {
       AmazonDataZoneProject: this.projectId,
       ...tags,
     };
-    const dqdl = new DqdlRuleset(this, id, {
+    const dqr = new DataQualityRuleset(this, id, {
       name,
       ruleset,
-      databaseName: this.databaseName,
-      tableName: this.tableName,
+      targetTable: {
+        databaseName: this.databaseName,
+        tableName: this.tableName,
+      },
       description,
       tags: mergedTags,
     });
-    dqdl.node.addDependency(this);
-    return dqdl;
+    dqr.node.addDependency(this);
+    return dqr;
   }
 }
