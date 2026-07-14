@@ -417,7 +417,7 @@ new FormType(stack, 'Classification', {
   model: {
     smithy: [
       '$version: "2"',
-      'namespace com.example',
+      'namespace dzd_com.example',
       'structure DataClassification {',
       '  sensitivity: String',
       '  retentionDays: Integer',
