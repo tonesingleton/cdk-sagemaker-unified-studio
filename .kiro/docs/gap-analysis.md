@@ -26,6 +26,8 @@
 | Form Types | `FormType` | ✓ (Phase 1) |
 | Subscription Targets | `SubscriptionTarget` | ✓ (Phase 1) |
 | Business Glossary | `Glossary`, `GlossaryTerm` (AwsCustomResource) | ✓ (Phase 1) |
+| Group Profiles | `GroupProfile` | ✓ (Phase 3) |
+| User Profiles | `UserProfile` | ✓ (Phase 3) |
 | QuickSight | via `Blueprint` + `ManagedBlueprintIdentifier.QUICKSIGHT` + `globalParameters` | ✓ |
 | Partner Apps | via `Blueprint` + `ManagedBlueprintIdentifier.PARTNER_APPS` | ✓ |
 | Power BI (Server & Cloud) | No construct needed — client-side Athena JDBC driver + SSO | N/A |
@@ -44,8 +46,8 @@ These have `AWS::` CloudFormation resource types and are clear L2 construct cand
 | ~~SubscriptionTarget~~ | `AWS::DataZone::SubscriptionTarget` | Defines how subscribed data is fulfilled (Glue table grants, Redshift data shares). | HIGH | ✓ Done |
 | ~~FormType~~ | `AWS::DataZone::FormType` | Defines custom metadata form schemas (structured fields attached to assets). | HIGH | ✓ Done |
 | ~~ProjectMembership~~ | `AWS::DataZone::ProjectMembership` | Adds a member (user/group) to a project with a designation. Currently baked into `ProjectProps.membershipAssignments` but not independently manageable. | MEDIUM | ✓ Done |
-| **GroupProfile** | `AWS::DataZone::GroupProfile` | Maps an IAM/SSO group to a DataZone group for access control. | MEDIUM | |
-| **UserProfile** | `AWS::DataZone::UserProfile` | Maps an IAM/SSO user to a DataZone user profile. | MEDIUM | |
+| **GroupProfile** | `AWS::DataZone::GroupProfile` | Maps an IAM/SSO group to a DataZone group for access control. | MEDIUM | ✓ Done |
+| **UserProfile** | `AWS::DataZone::UserProfile` | Maps an IAM/SSO user to a DataZone user profile. | MEDIUM | ✓ Done |
 | **EnvironmentProfile** | `AWS::DataZone::EnvironmentProfile` | Reusable environment configuration template (different from ProjectProfile). | LOW | |
 | **EnvironmentActions** | `AWS::DataZone::EnvironmentActions` | Custom actions (URLs/parameters) associated with environments. | LOW | |
 
@@ -108,7 +110,7 @@ These are runtime/interactive features and cannot be modeled as CDK constructs:
 
 ### Phase 3 — Identity & ML
 
-8. `GroupProfile` / `UserProfile` — identity mapping
+8. ~~`GroupProfile` / `UserProfile`~~ — identity mapping ✓
 9. `ProjectMembership` — standalone membership management
 10. `FeatureGroup` — feature store for ML projects
 

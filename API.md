@@ -7988,6 +7988,218 @@ The CloudFormation resource type name for this resource class.
 
 ---
 
+### GroupProfile <a name="GroupProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGroupProfile">IGroupProfile</a>
+
+Maps an IAM Identity Center (SSO) group or IAM role session group to a DataZone group profile for access control within a domain.
+
+Once a group profile exists, the group can be referenced in project
+memberships and policy grants.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-groupprofile.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-groupprofile.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.Initializer"></a>
+
+```typescript
+import { GroupProfile } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new GroupProfile(scope: Construct, id: string, props: GroupProfileProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps">GroupProfileProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps">GroupProfileProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.fromAttributes">fromAttributes</a></code> | Import an existing group profile from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.isConstruct"></a>
+
+```typescript
+import { GroupProfile } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+GroupProfile.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.fromAttributes"></a>
+
+```typescript
+import { GroupProfile } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+GroupProfile.fromAttributes(scope: Construct, id: string, attrs: GroupProfileAttributes)
+```
+
+Import an existing group profile from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileAttributes">GroupProfileAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.property.domainId">domainId</a></code> | <code>string</code> | The ID of the domain this group profile belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.property.groupName">groupName</a></code> | <code>string</code> | The name of the group. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.property.groupProfileId">groupProfileId</a></code> | <code>string</code> | The ID of the group profile. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The ID of the domain this group profile belongs to.
+
+---
+
+##### `groupName`<sup>Required</sup> <a name="groupName" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.property.groupName"></a>
+
+```typescript
+public readonly groupName: string;
+```
+
+- *Type:* string
+
+The name of the group.
+
+---
+
+##### `groupProfileId`<sup>Required</sup> <a name="groupProfileId" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile.property.groupProfileId"></a>
+
+```typescript
+public readonly groupProfileId: string;
+```
+
+- *Type:* string
+
+The ID of the group profile.
+
+---
+
+
 ### Host <a name="Host" id="@tonesingleton/cdk-sagemaker-unified-studio.Host"></a>
 
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IHost">IHost</a>
@@ -20798,6 +21010,218 @@ The subscription target ID assigned by DataZone.
 ---
 
 
+### UserProfile <a name="UserProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IUserProfile">IUserProfile</a>
+
+Maps an IAM user, IAM role, IAM role session, or IAM Identity Center (SSO) user to a DataZone user profile for identity management within a domain.
+
+Once a user profile exists, the user can be referenced in project
+memberships and policy grants.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-userprofile.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-userprofile.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.Initializer"></a>
+
+```typescript
+import { UserProfile } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new UserProfile(scope: Construct, id: string, props: UserProfileProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps">UserProfileProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps">UserProfileProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.fromAttributes">fromAttributes</a></code> | Import an existing user profile from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.isConstruct"></a>
+
+```typescript
+import { UserProfile } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+UserProfile.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.fromAttributes"></a>
+
+```typescript
+import { UserProfile } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+UserProfile.fromAttributes(scope: Construct, id: string, attrs: UserProfileAttributes)
+```
+
+Import an existing user profile from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileAttributes">UserProfileAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.property.domainId">domainId</a></code> | <code>string</code> | The ID of the domain this user profile belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.property.userProfileId">userProfileId</a></code> | <code>string</code> | The ID of the user profile. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.property.userProfileType">userProfileType</a></code> | <code>string</code> | The type of the user profile. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The ID of the domain this user profile belongs to.
+
+---
+
+##### `userProfileId`<sup>Required</sup> <a name="userProfileId" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.property.userProfileId"></a>
+
+```typescript
+public readonly userProfileId: string;
+```
+
+- *Type:* string
+
+The ID of the user profile.
+
+---
+
+##### `userProfileType`<sup>Required</sup> <a name="userProfileType" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile.property.userProfileType"></a>
+
+```typescript
+public readonly userProfileType: string;
+```
+
+- *Type:* string
+
+The type of the user profile.
+
+---
+
+
 ### Workflow <a name="Workflow" id="@tonesingleton/cdk-sagemaker-unified-studio.Workflow"></a>
 
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IWorkflow">IWorkflow</a>
@@ -25361,6 +25785,158 @@ public readonly groupIdentifier: string;
 - *Type:* string
 
 The IAM/SSO group identifier.
+
+---
+
+### GroupProfileAttributes <a name="GroupProfileAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileAttributes"></a>
+
+Attributes required to import an existing GroupProfile.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileAttributes.Initializer"></a>
+
+```typescript
+import { GroupProfileAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const groupProfileAttributes: GroupProfileAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileAttributes.property.domainId">domainId</a></code> | <code>string</code> | The ID of the domain. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileAttributes.property.groupName">groupName</a></code> | <code>string</code> | The name of the group. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileAttributes.property.groupProfileId">groupProfileId</a></code> | <code>string</code> | The ID of the group profile. |
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileAttributes.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The ID of the domain.
+
+---
+
+##### `groupName`<sup>Required</sup> <a name="groupName" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileAttributes.property.groupName"></a>
+
+```typescript
+public readonly groupName: string;
+```
+
+- *Type:* string
+
+The name of the group.
+
+---
+
+##### `groupProfileId`<sup>Required</sup> <a name="groupProfileId" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileAttributes.property.groupProfileId"></a>
+
+```typescript
+public readonly groupProfileId: string;
+```
+
+- *Type:* string
+
+The ID of the group profile.
+
+---
+
+### GroupProfileProps <a name="GroupProfileProps" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps"></a>
+
+Properties for a GroupProfile construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-groupprofile.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-groupprofile.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps.Initializer"></a>
+
+```typescript
+import { GroupProfileProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const groupProfileProps: GroupProfileProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps.property.groupIdentifier">groupIdentifier</a></code> | <code>string</code> | The identifier of the group (SSO group ID or IAM role session group name). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps.property.groupType">groupType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupType">GroupType</a></code> | The type of the group. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps.property.rolePrincipalArn">rolePrincipalArn</a></code> | <code>string</code> | The ARN of the IAM role principal associated with this group profile. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileStatus">GroupProfileStatus</a></code> | The status of the group profile. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd_abc123`).
+
+---
+
+##### `groupIdentifier`<sup>Optional</sup> <a name="groupIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps.property.groupIdentifier"></a>
+
+```typescript
+public readonly groupIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* not specified (use rolePrincipalArn for IAM_ROLE_SESSION_GROUP)
+
+The identifier of the group (SSO group ID or IAM role session group name).
+
+Required for SSO groups. For IAM role session groups, provide `rolePrincipalArn` instead.
+
+---
+
+##### `groupType`<sup>Optional</sup> <a name="groupType" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps.property.groupType"></a>
+
+```typescript
+public readonly groupType: GroupType;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupType">GroupType</a>
+- *Default:* GroupType.DATAZONE_SSO_GROUP
+
+The type of the group.
+
+---
+
+##### `rolePrincipalArn`<sup>Optional</sup> <a name="rolePrincipalArn" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps.property.rolePrincipalArn"></a>
+
+```typescript
+public readonly rolePrincipalArn: string;
+```
+
+- *Type:* string
+- *Default:* not specified (use groupIdentifier for DATAZONE_SSO_GROUP)
+
+The ARN of the IAM role principal associated with this group profile.
+
+Required for IAM_ROLE_SESSION_GROUP type.
+
+---
+
+##### `status`<sup>Optional</sup> <a name="status" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileProps.property.status"></a>
+
+```typescript
+public readonly status: GroupProfileStatus;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileStatus">GroupProfileStatus</a>
+- *Default:* GroupProfileStatus.ASSIGNED
+
+The status of the group profile.
 
 ---
 
@@ -30155,6 +30731,155 @@ The IAM/SSO user identifier.
 
 ---
 
+### UserProfileAttributes <a name="UserProfileAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileAttributes"></a>
+
+Attributes required to import an existing UserProfile.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileAttributes.Initializer"></a>
+
+```typescript
+import { UserProfileAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const userProfileAttributes: UserProfileAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileAttributes.property.domainId">domainId</a></code> | <code>string</code> | The ID of the domain. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileAttributes.property.userProfileId">userProfileId</a></code> | <code>string</code> | The ID of the user profile. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileAttributes.property.userProfileType">userProfileType</a></code> | <code>string</code> | The type of the user profile. |
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileAttributes.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The ID of the domain.
+
+---
+
+##### `userProfileId`<sup>Required</sup> <a name="userProfileId" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileAttributes.property.userProfileId"></a>
+
+```typescript
+public readonly userProfileId: string;
+```
+
+- *Type:* string
+
+The ID of the user profile.
+
+---
+
+##### `userProfileType`<sup>Required</sup> <a name="userProfileType" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileAttributes.property.userProfileType"></a>
+
+```typescript
+public readonly userProfileType: string;
+```
+
+- *Type:* string
+
+The type of the user profile.
+
+---
+
+### UserProfileProps <a name="UserProfileProps" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps"></a>
+
+Properties for a UserProfile construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-userprofile.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-userprofile.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps.Initializer"></a>
+
+```typescript
+import { UserProfileProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const userProfileProps: UserProfileProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps.property.userIdentifier">userIdentifier</a></code> | <code>string</code> | The identifier of the user (SSO user ID, IAM user/role ARN, or IAM role session name). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps.property.sessionName">sessionName</a></code> | <code>string</code> | The session name for IAM role sessions. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileStatus">UserProfileStatus</a></code> | The status of the user profile. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps.property.userType">userType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserType">UserType</a></code> | The type of the user. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd_abc123`).
+
+---
+
+##### `userIdentifier`<sup>Required</sup> <a name="userIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps.property.userIdentifier"></a>
+
+```typescript
+public readonly userIdentifier: string;
+```
+
+- *Type:* string
+
+The identifier of the user (SSO user ID, IAM user/role ARN, or IAM role session name).
+
+---
+
+##### `sessionName`<sup>Optional</sup> <a name="sessionName" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps.property.sessionName"></a>
+
+```typescript
+public readonly sessionName: string;
+```
+
+- *Type:* string
+- *Default:* no session name
+
+The session name for IAM role sessions.
+
+Must be 2–64 characters. Only applicable when `userType` is `IAM_ROLE_SESSION`.
+
+---
+
+##### `status`<sup>Optional</sup> <a name="status" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps.property.status"></a>
+
+```typescript
+public readonly status: UserProfileStatus;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileStatus">UserProfileStatus</a>
+- *Default:* UserProfileStatus.ASSIGNED
+
+The status of the user profile.
+
+---
+
+##### `userType`<sup>Optional</sup> <a name="userType" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileProps.property.userType"></a>
+
+```typescript
+public readonly userType: UserType;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserType">UserType</a>
+- *Default:* UserType.SSO_USER
+
+The type of the user.
+
+---
+
 ### WorkflowAttributes <a name="WorkflowAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowAttributes"></a>
 
 Attributes required to import an existing Workflow.
@@ -31379,6 +32104,59 @@ The glossary term ID assigned by DataZone.
 
 ---
 
+### IGroupProfile <a name="IGroupProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.IGroupProfile"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfile">GroupProfile</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGroupProfile">IGroupProfile</a>
+
+Read-only contract for a GroupProfile.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGroupProfile.property.domainId">domainId</a></code> | <code>string</code> | The ID of the domain this group profile belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGroupProfile.property.groupName">groupName</a></code> | <code>string</code> | The name of the group. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IGroupProfile.property.groupProfileId">groupProfileId</a></code> | <code>string</code> | The ID of the group profile. |
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.IGroupProfile.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The ID of the domain this group profile belongs to.
+
+---
+
+##### `groupName`<sup>Required</sup> <a name="groupName" id="@tonesingleton/cdk-sagemaker-unified-studio.IGroupProfile.property.groupName"></a>
+
+```typescript
+public readonly groupName: string;
+```
+
+- *Type:* string
+
+The name of the group.
+
+---
+
+##### `groupProfileId`<sup>Required</sup> <a name="groupProfileId" id="@tonesingleton/cdk-sagemaker-unified-studio.IGroupProfile.property.groupProfileId"></a>
+
+```typescript
+public readonly groupProfileId: string;
+```
+
+- *Type:* string
+
+The ID of the group profile.
+
+---
+
 ### IHost <a name="IHost" id="@tonesingleton/cdk-sagemaker-unified-studio.IHost"></a>
 
 - *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Host">Host</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IHost">IHost</a>
@@ -31616,6 +32394,59 @@ public readonly subscriptionTargetId: string;
 - *Type:* string
 
 The subscription target ID assigned by DataZone.
+
+---
+
+### IUserProfile <a name="IUserProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.IUserProfile"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfile">UserProfile</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IUserProfile">IUserProfile</a>
+
+Read-only contract for a UserProfile.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IUserProfile.property.domainId">domainId</a></code> | <code>string</code> | The ID of the domain this user profile belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IUserProfile.property.userProfileId">userProfileId</a></code> | <code>string</code> | The ID of the user profile. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IUserProfile.property.userProfileType">userProfileType</a></code> | <code>string</code> | The type of the user profile (e.g. IAM, SSO). |
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.IUserProfile.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The ID of the domain this user profile belongs to.
+
+---
+
+##### `userProfileId`<sup>Required</sup> <a name="userProfileId" id="@tonesingleton/cdk-sagemaker-unified-studio.IUserProfile.property.userProfileId"></a>
+
+```typescript
+public readonly userProfileId: string;
+```
+
+- *Type:* string
+
+The ID of the user profile.
+
+---
+
+##### `userProfileType`<sup>Required</sup> <a name="userProfileType" id="@tonesingleton/cdk-sagemaker-unified-studio.IUserProfile.property.userProfileType"></a>
+
+```typescript
+public readonly userProfileType: string;
+```
+
+- *Type:* string
+
+The type of the user profile (e.g. IAM, SSO).
 
 ---
 
@@ -32339,6 +33170,60 @@ Network connection within a VPC.
 ---
 
 
+### GroupProfileStatus <a name="GroupProfileStatus" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileStatus"></a>
+
+Status of the group profile.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileStatus.ASSIGNED">ASSIGNED</a></code> | The group profile is assigned and active. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileStatus.NOT_ASSIGNED">NOT_ASSIGNED</a></code> | The group profile is not assigned. |
+
+---
+
+##### `ASSIGNED` <a name="ASSIGNED" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileStatus.ASSIGNED"></a>
+
+The group profile is assigned and active.
+
+---
+
+
+##### `NOT_ASSIGNED` <a name="NOT_ASSIGNED" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupProfileStatus.NOT_ASSIGNED"></a>
+
+The group profile is not assigned.
+
+---
+
+
+### GroupType <a name="GroupType" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupType"></a>
+
+The type of group being mapped.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupType.DATAZONE_SSO_GROUP">DATAZONE_SSO_GROUP</a></code> | An IAM Identity Center (SSO) group. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GroupType.IAM_ROLE_SESSION_GROUP">IAM_ROLE_SESSION_GROUP</a></code> | An IAM role session group. |
+
+---
+
+##### `DATAZONE_SSO_GROUP` <a name="DATAZONE_SSO_GROUP" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupType.DATAZONE_SSO_GROUP"></a>
+
+An IAM Identity Center (SSO) group.
+
+---
+
+
+##### `IAM_ROLE_SESSION_GROUP` <a name="IAM_ROLE_SESSION_GROUP" id="@tonesingleton/cdk-sagemaker-unified-studio.GroupType.IAM_ROLE_SESSION_GROUP"></a>
+
+An IAM role session group.
+
+---
+
+
 ### PolicyGrantEntityType <a name="PolicyGrantEntityType" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType"></a>
 
 The type of entity (resource) to which the grant is added.
@@ -32609,6 +33494,92 @@ Workflow can only be run on-demand.
 ##### `DISABLED` <a name="DISABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.TriggerMode.DISABLED"></a>
 
 Workflow cannot be run on schedule or on-demand.
+
+---
+
+
+### UserProfileStatus <a name="UserProfileStatus" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileStatus"></a>
+
+Status of the user profile.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileStatus.ASSIGNED">ASSIGNED</a></code> | The user profile is assigned and active. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileStatus.NOT_ASSIGNED">NOT_ASSIGNED</a></code> | The user profile is not assigned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileStatus.ACTIVATED">ACTIVATED</a></code> | The user profile is activated. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserProfileStatus.DEACTIVATED">DEACTIVATED</a></code> | The user profile is deactivated. |
+
+---
+
+##### `ASSIGNED` <a name="ASSIGNED" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileStatus.ASSIGNED"></a>
+
+The user profile is assigned and active.
+
+---
+
+
+##### `NOT_ASSIGNED` <a name="NOT_ASSIGNED" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileStatus.NOT_ASSIGNED"></a>
+
+The user profile is not assigned.
+
+---
+
+
+##### `ACTIVATED` <a name="ACTIVATED" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileStatus.ACTIVATED"></a>
+
+The user profile is activated.
+
+---
+
+
+##### `DEACTIVATED` <a name="DEACTIVATED" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfileStatus.DEACTIVATED"></a>
+
+The user profile is deactivated.
+
+---
+
+
+### UserType <a name="UserType" id="@tonesingleton/cdk-sagemaker-unified-studio.UserType"></a>
+
+The type of user being mapped.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserType.IAM_USER">IAM_USER</a></code> | An IAM user. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserType.IAM_ROLE">IAM_ROLE</a></code> | An IAM role. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserType.SSO_USER">SSO_USER</a></code> | An IAM Identity Center (SSO) user. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.UserType.IAM_ROLE_SESSION">IAM_ROLE_SESSION</a></code> | An IAM role session. |
+
+---
+
+##### `IAM_USER` <a name="IAM_USER" id="@tonesingleton/cdk-sagemaker-unified-studio.UserType.IAM_USER"></a>
+
+An IAM user.
+
+---
+
+
+##### `IAM_ROLE` <a name="IAM_ROLE" id="@tonesingleton/cdk-sagemaker-unified-studio.UserType.IAM_ROLE"></a>
+
+An IAM role.
+
+---
+
+
+##### `SSO_USER` <a name="SSO_USER" id="@tonesingleton/cdk-sagemaker-unified-studio.UserType.SSO_USER"></a>
+
+An IAM Identity Center (SSO) user.
+
+---
+
+
+##### `IAM_ROLE_SESSION` <a name="IAM_ROLE_SESSION" id="@tonesingleton/cdk-sagemaker-unified-studio.UserType.IAM_ROLE_SESSION"></a>
+
+An IAM role session.
 
 ---
 

@@ -85,3 +85,5 @@ export * from './form-type';
 export * from './subscription-target';
 export * from './glossary';
 export * from './project-membership';
+export * from './group-profile';
+export * from './user-profile';
