@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Prefer Codebase Memory over grep",
+      "trigger": "PreToolUse",
+      "matcher": "grep_search",
+      "action": {
+        "type": "agent",
+        "prompt": "Before using grep_search, consider whether codebase memory MCP tools (search_graph, search_code, query_graph, trace_path) would give better results. Use codebase memory for: finding definitions, implementations, relationships, callers, usage patterns, and architectural questions. Only fall back to grep_search for literal string matches in non-code files, or when codebase memory is not indexed for the target project."
+      }
+    }
+  ]
+}
