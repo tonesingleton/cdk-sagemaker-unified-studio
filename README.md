@@ -615,6 +615,27 @@ aws datazone delete-project --domain-identifier <domain-id> \
   --identifier <project-id> --skip-deletion-check
 ```
 
+## Out of Scope: Amazon Bedrock Resources
+
+This library does **not** wrap `AWS::Bedrock::Agent`, `AWS::Bedrock::KnowledgeBase`, or `AWS::Bedrock::Guardrail`. Here's why:
+
+**Inclusion criteria for this library:** A construct belongs here when SMUS imposes a specific infrastructure-level convention on a non-DataZone resource that wouldn't be discoverable or functional without it. For example:
+
+- **`GitConnection`** wraps `AWS::CodeConnections::Connection` (not a DataZone resource) because SMUS requires a specific tag (`for-use-with-all-datazone-projects: true`) for the connection to appear in the Unified Studio portal. Without that tag, a vanilla CodeConnection is invisible to SMUS.
+- **Data connections** (Oracle, Snowflake, etc.) wrap `AWS::DataZone::Connection` — a DataZone-native resource type that no other library provides.
+
+**Why Bedrock is different:** SMUS integrates with Bedrock through **Blueprint activation** (e.g. `ManagedBlueprintIdentifier.AMAZON_BEDROCK_CHAT_AGENT`), which this library already covers via the `Blueprint` construct. The actual Agent, Knowledge Base, and Guardrail resources:
+
+1. Have no SMUS-specific tags, naming conventions, or CFN wiring
+2. Are created **at runtime by project users** through the SMUS UI — not provisioned via CloudFormation at domain setup time
+3. Already have first-party L2 constructs in [`@aws-cdk/aws-bedrock-alpha`](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-bedrock-alpha-readme.html)
+
+**To use Bedrock with SMUS:**
+
+1. Enable the Bedrock blueprints on your domain (via `Blueprint` or `Domain.additionalBlueprintIdentifiers`)
+2. Configure model access roles (via the SMUS console or the guided setup)
+3. Users create agents/KBs/guardrails through the Unified Studio UI, or use `@aws-cdk/aws-bedrock-alpha` for IaC
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.

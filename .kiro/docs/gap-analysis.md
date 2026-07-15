@@ -30,6 +30,7 @@
 | User Profiles | `UserProfile` | ✓ (Phase 3) |
 | QuickSight | via `Blueprint` + `ManagedBlueprintIdentifier.QUICKSIGHT` + `globalParameters` | ✓ |
 | Partner Apps | via `Blueprint` + `ManagedBlueprintIdentifier.PARTNER_APPS` | ✓ |
+| Generative AI (Bedrock) | via `Blueprint` + `ManagedBlueprintIdentifier.AMAZON_BEDROCK_*`; runtime resources use `@aws-cdk/aws-bedrock-alpha` | ✓ (out of scope for dedicated constructs) |
 | Power BI (Server & Cloud) | No construct needed — client-side Athena JDBC driver + SSO | N/A |
 
 ---
@@ -51,13 +52,15 @@ These have `AWS::` CloudFormation resource types and are clear L2 construct cand
 | **EnvironmentProfile** | `AWS::DataZone::EnvironmentProfile` | Reusable environment configuration template (different from ProjectProfile). | LOW | |
 | **EnvironmentActions** | `AWS::DataZone::EnvironmentActions` | Custom actions (URLs/parameters) associated with environments. | LOW | |
 
-### Generative AI
+### ~~Generative AI~~ — OUT OF SCOPE
 
-| Gap | CFN Resource | What it does | Priority |
-|---|---|---|---|
-| **BedrockAgent** | `AWS::Bedrock::Agent` | Gen AI agent with tools, knowledge bases, guardrails. Core SMUS gen AI tile. | HIGH |
-| **KnowledgeBase** | `AWS::Bedrock::KnowledgeBase` | RAG over documents (S3 + vector store). Core SMUS gen AI tile. | HIGH |
-| **Guardrail** | `AWS::Bedrock::Guardrail` | Content/topic/PII filters for model responses. Responsible AI. | HIGH |
+| Gap | CFN Resource | What it does | Priority | Status |
+|---|---|---|---|---|
+| ~~BedrockAgent~~ | `AWS::Bedrock::Agent` | Gen AI agent with tools, knowledge bases, guardrails. | ~~HIGH~~ | Out of scope |
+| ~~KnowledgeBase~~ | `AWS::Bedrock::KnowledgeBase` | RAG over documents (S3 + vector store). | ~~HIGH~~ | Out of scope |
+| ~~Guardrail~~ | `AWS::Bedrock::Guardrail` | Content/topic/PII filters for model responses. | ~~HIGH~~ | Out of scope |
+
+**Rationale:** Unlike DataZone Connections (`AWS::DataZone::Connection`) or Git connections (`AWS::CodeConnections::Connection` + SMUS-specific `for-use-with-all-datazone-projects` tag), Bedrock resources have **no SMUS-specific infrastructure-level convention**. In SMUS, Bedrock is enabled via Blueprint activation (already covered by `Blueprint` + `ManagedBlueprintIdentifier.AMAZON_BEDROCK_*`), and actual Agent/KB/Guardrail resources are created at runtime by project users through the UI — not provisioned via CloudFormation at domain setup time. First-party L2 constructs for Bedrock resources exist in `@aws-cdk/aws-bedrock-alpha`.
 
 ### Machine Learning
 
@@ -102,11 +105,13 @@ These are runtime/interactive features and cannot be modeled as CDK constructs:
 3. ~~`SubscriptionTarget`~~ — enables the publish/subscribe pattern ✓
 4. ~~`Glossary` + `GlossaryTerm`~~ — via AwsCustomResource (no CFN type exists) ✓
 
-### Phase 2 — Generative AI
+### ~~Phase 2 — Generative AI~~ — OUT OF SCOPE
 
-5. `BedrockAgent` — wraps `AWS::Bedrock::Agent` with SMUS-friendly defaults
-6. `KnowledgeBase` — wraps `AWS::Bedrock::KnowledgeBase`
-7. `Guardrail` — wraps `AWS::Bedrock::Guardrail`
+~~5. `BedrockAgent` — wraps `AWS::Bedrock::Agent` with SMUS-friendly defaults~~
+~~6. `KnowledgeBase` — wraps `AWS::Bedrock::KnowledgeBase`~~
+~~7. `Guardrail` — wraps `AWS::Bedrock::Guardrail`~~
+
+Bedrock in SMUS is enabled via Blueprint activation (`ManagedBlueprintIdentifier.AMAZON_BEDROCK_*`). The actual Agent/KB/Guardrail resources are created at runtime by users — no SMUS-specific infrastructure convention exists. Use `@aws-cdk/aws-bedrock-alpha` for standalone Bedrock L2 constructs.
 
 ### Phase 3 — Identity & ML
 
@@ -123,7 +128,7 @@ These are runtime/interactive features and cannot be modeled as CDK constructs:
 
 ## Design Considerations
 
-- **Bedrock constructs** are usable independently of SMUS. Consider whether they belong in this library or a separate `cdk-bedrock` package. If kept here, scope them to SMUS-project-aware patterns (e.g. auto-tagging with `AmazonDataZoneProject`, wiring to project execution roles).
+- **Bedrock constructs — out of scope.** Research (July 2025) confirmed that SMUS does not impose any SMUS-specific infrastructure convention on `AWS::Bedrock::*` resources (no special tags, no DataZone-specific CFN types). The integration path is Blueprint activation (`ManagedBlueprintIdentifier.AMAZON_BEDROCK_*`) — already covered. Actual Agent/KB/Guardrail resources are created at runtime by project users through the SMUS UI, not provisioned via CFN at domain setup. For standalone Bedrock L2 constructs, use `@aws-cdk/aws-bedrock-alpha`. This contrasts with `GitConnection`, where an SMUS-specific `for-use-with-all-datazone-projects` tag must be applied to `AWS::CodeConnections::Connection` for the resource to appear in the SMUS portal — justifying an L2 wrapper in this library.
 - **Glossary** requires AwsCustomResource because AWS hasn't published a CFN type. The construct handles the full lifecycle (create/update/delete) with idempotent API calls. IAM permissions are scoped to the specific DataZone domain ARN.
 - **PolicyGrant** is exposed as a standalone public construct. The Domain construct still uses `CfnPolicyGrant` internally for blueprint grants (changing that would be a breaking API change to `blueprintPolicyGrants`).
 - **FormType Smithy model** must contain only the `structure` block — no `$version` or `namespace` directives. DataZone infers the namespace from the domain ID (e.g. `dzd_abc123`) automatically. Including a namespace causes a "does not match request" deployment error.
