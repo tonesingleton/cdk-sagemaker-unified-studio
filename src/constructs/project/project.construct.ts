@@ -1,20 +1,8 @@
 import { Stack, Validations, aws_iam as iam } from 'aws-cdk-lib';
 import { CfnProject } from 'aws-cdk-lib/aws-datazone';
 import { Construct } from 'constructs';
+import { EXECUTION_ROLE_TRUST_PRINCIPALS } from '../common';
 import type { IProject, ProjectAttributes, ProjectProps } from './project.interface';
-
-const EXECUTION_ROLE_TRUST_PRINCIPALS = [
-  'datazone.amazonaws.com',
-  'scheduler.amazonaws.com',
-  'bedrock.amazonaws.com',
-  'lakeformation.amazonaws.com',
-  'glue.amazonaws.com',
-  'sagemaker.amazonaws.com',
-  'redshift.amazonaws.com',
-  'emr-serverless.amazonaws.com',
-  'athena.amazonaws.com',
-  'airflow-serverless.amazonaws.com',
-];
 
 /**
  * A SageMaker Unified Studio project within a domain.

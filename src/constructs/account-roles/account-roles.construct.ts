@@ -1,20 +1,8 @@
 import { Stack, Validations, aws_iam as iam } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { AccountRolesProps, IAccountRoles } from './account-roles.interface';
+import { EXECUTION_ROLE_TRUST_PRINCIPALS } from '../common';
 import { LakeFormationAdminSync } from './constructs';
-
-const EXECUTION_ROLE_TRUST_PRINCIPALS = [
-  'datazone.amazonaws.com',
-  'sagemaker.amazonaws.com',
-  'glue.amazonaws.com',
-  'bedrock.amazonaws.com',
-  'scheduler.amazonaws.com',
-  'lakeformation.amazonaws.com',
-  'airflow-serverless.amazonaws.com',
-  'athena.amazonaws.com',
-  'redshift.amazonaws.com',
-  'emr-serverless.amazonaws.com',
-];
 
 /**
  * Account-level IAM roles shared across all SageMaker Unified Studio domains.
