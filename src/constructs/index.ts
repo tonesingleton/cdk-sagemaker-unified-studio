@@ -84,3 +84,4 @@ export * from './policy-grant';
 export * from './form-type';
 export * from './subscription-target';
 export * from './glossary';
+export * from './project-membership';

@@ -14528,6 +14528,149 @@ The name of the Glue database.
 ---
 
 
+### ProjectMembership <a name="ProjectMembership" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership"></a>
+
+Adds a member to a DataZone project independently of the project resource.
+
+Unlike `ProjectProps.membershipAssignments` (which requires project replacement
+to modify), this construct manages membership as a separate CloudFormation
+resource that can be added or removed without affecting the project itself.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-projectmembership.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-projectmembership.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.Initializer"></a>
+
+```typescript
+import { ProjectMembership } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new ProjectMembership(scope: Construct, id: string, props: ProjectMembershipProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps">ProjectMembershipProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps">ProjectMembershipProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.isConstruct"></a>
+
+```typescript
+import { ProjectMembership } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+ProjectMembership.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembership.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### ProjectProfile <a name="ProjectProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile"></a>
 
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile">IProjectProfile</a>
@@ -27426,6 +27569,129 @@ Filter by domain unit.
 
 ---
 
+### ProjectMember <a name="ProjectMember" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember"></a>
+
+The member to add to a project.
+
+Exactly one of `userIdentifier` or
+`groupIdentifier` must be specified.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.Initializer"></a>
+
+```typescript
+import { ProjectMember } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const projectMember: ProjectMember = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.groupIdentifier">groupIdentifier</a></code> | <code>string</code> | The IAM/SSO group identifier. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.userIdentifier">userIdentifier</a></code> | <code>string</code> | The user identifier (IAM role ARN or SSO user ID). |
+
+---
+
+##### `groupIdentifier`<sup>Optional</sup> <a name="groupIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.groupIdentifier"></a>
+
+```typescript
+public readonly groupIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* not a group member
+
+The IAM/SSO group identifier.
+
+---
+
+##### `userIdentifier`<sup>Optional</sup> <a name="userIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember.property.userIdentifier"></a>
+
+```typescript
+public readonly userIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* not a user member
+
+The user identifier (IAM role ARN or SSO user ID).
+
+---
+
+### ProjectMembershipProps <a name="ProjectMembershipProps" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps"></a>
+
+Properties for a ProjectMembership construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-projectmembership.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-projectmembership.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps.Initializer"></a>
+
+```typescript
+import { ProjectMembershipProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const projectMembershipProps: ProjectMembershipProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps.property.designation">designation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation">ProjectMemberDesignation</a></code> | The designation (role) of the member within the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps.property.member">member</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember">ProjectMember</a></code> | The member to add. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project to add the member to. |
+
+---
+
+##### `designation`<sup>Required</sup> <a name="designation" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps.property.designation"></a>
+
+```typescript
+public readonly designation: ProjectMemberDesignation;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation">ProjectMemberDesignation</a>
+
+The designation (role) of the member within the project.
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd_abc123`).
+
+---
+
+##### `member`<sup>Required</sup> <a name="member" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps.property.member"></a>
+
+```typescript
+public readonly member: ProjectMember;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMember">ProjectMember</a>
+
+The member to add.
+
+---
+
+##### `projectIdentifier`<sup>Required</sup> <a name="projectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMembershipProps.property.projectIdentifier"></a>
+
+```typescript
+public readonly projectIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the project to add the member to.
+
+---
+
 ### ProjectPrincipal <a name="ProjectPrincipal" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectPrincipal"></a>
 
 A project-based principal for the policy grant.
@@ -32227,6 +32493,33 @@ Create an environment from a blueprint.
 ##### `CREATE_PROJECT_FROM_PROJECT_PROFILE` <a name="CREATE_PROJECT_FROM_PROJECT_PROFILE" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyType.CREATE_PROJECT_FROM_PROJECT_PROFILE"></a>
 
 Create a project from a project profile.
+
+---
+
+
+### ProjectMemberDesignation <a name="ProjectMemberDesignation" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation"></a>
+
+Designation for a project member.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_OWNER">PROJECT_OWNER</a></code> | Full owner access to the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_CONTRIBUTOR">PROJECT_CONTRIBUTOR</a></code> | Contributor access to the project. |
+
+---
+
+##### `PROJECT_OWNER` <a name="PROJECT_OWNER" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_OWNER"></a>
+
+Full owner access to the project.
+
+---
+
+
+##### `PROJECT_CONTRIBUTOR` <a name="PROJECT_CONTRIBUTOR" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectMemberDesignation.PROJECT_CONTRIBUTOR"></a>
+
+Contributor access to the project.
 
 ---
 
