@@ -53,6 +53,20 @@ export class Glossary extends Construct implements IGlossary {
       );
     }
 
+    const policy = props.executionRoleArn
+      ? cr.AwsCustomResourcePolicy.fromStatements([
+          new iam.PolicyStatement({
+            actions: ['sts:AssumeRole'],
+            resources: [props.executionRoleArn],
+          }),
+        ])
+      : cr.AwsCustomResourcePolicy.fromStatements([
+          new iam.PolicyStatement({
+            actions: ['datazone:CreateGlossary', 'datazone:UpdateGlossary', 'datazone:DeleteGlossary'],
+            resources: ['*'],
+          }),
+        ]);
+
     const glossary = new cr.AwsCustomResource(this, 'Resource', {
       onCreate: {
         service: '@aws-sdk/client-datazone',
@@ -90,12 +104,7 @@ export class Glossary extends Construct implements IGlossary {
         ignoreErrorCodesMatching: 'ResourceNotFoundException',
         assumedRoleArn: props.executionRoleArn,
       },
-      policy: cr.AwsCustomResourcePolicy.fromStatements([
-        new iam.PolicyStatement({
-          actions: ['sts:AssumeRole'],
-          resources: [props.executionRoleArn],
-        }),
-      ]),
+      policy,
     });
 
     Validations.of(glossary).acknowledge({
