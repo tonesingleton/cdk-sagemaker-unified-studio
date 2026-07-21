@@ -9,7 +9,7 @@ export interface S3ConnectionProps extends ConnectionProps {
   /**
    * The S3 URI to connect to.
    *
-   * @pattern s3://.+
+   * @pattern s3://.+/
    */
   readonly s3Uri: string;
   /**

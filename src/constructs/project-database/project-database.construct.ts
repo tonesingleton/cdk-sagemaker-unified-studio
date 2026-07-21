@@ -35,34 +35,53 @@ export class ProjectDatabase extends Construct implements IProjectDatabase {
     });
 
     const databasePermissions = new lakeformation.CfnPrincipalPermissions(this, 'DatabasePermissions', {
-      principal: {
-        dataLakePrincipalIdentifier: props.projectExecutionRoleArn,
-      },
-      resource: {
-        database: {
-          catalogId: account,
-          name: props.databaseName,
-        },
-      },
+      principal: { dataLakePrincipalIdentifier: props.projectExecutionRoleArn },
+      resource: { database: { catalogId: account, name: props.databaseName } },
       permissions: ['ALL', 'CREATE_TABLE', 'ALTER', 'DROP', 'DESCRIBE'],
       permissionsWithGrantOption: ['ALL', 'CREATE_TABLE', 'ALTER', 'DROP', 'DESCRIBE'],
     });
     databasePermissions.addDependency(database);
 
     const tablePermissions = new lakeformation.CfnPrincipalPermissions(this, 'TablePermissions', {
-      principal: {
-        dataLakePrincipalIdentifier: props.projectExecutionRoleArn,
-      },
-      resource: {
-        table: {
-          catalogId: account,
-          databaseName: props.databaseName,
-          tableWildcard: {},
-        },
-      },
+      principal: { dataLakePrincipalIdentifier: props.projectExecutionRoleArn },
+      resource: { table: { catalogId: account, databaseName: props.databaseName, tableWildcard: {} } },
       permissions: ['ALL', 'SELECT', 'INSERT', 'DELETE', 'DESCRIBE', 'ALTER', 'DROP'],
       permissionsWithGrantOption: ['ALL', 'SELECT', 'INSERT', 'DELETE', 'DESCRIBE', 'ALTER', 'DROP'],
     });
     tablePermissions.addDependency(database);
+
+    if (props.manageAccessRoleArn) {
+      const manageAccessDbPerms = new lakeformation.CfnPrincipalPermissions(this, 'ManageAccessDatabasePermissions', {
+        principal: { dataLakePrincipalIdentifier: props.manageAccessRoleArn },
+        resource: { database: { catalogId: account, name: props.databaseName } },
+        permissions: ['DESCRIBE'],
+        permissionsWithGrantOption: ['DESCRIBE'],
+      });
+      manageAccessDbPerms.addDependency(database);
+
+      const manageAccessTablePerms = new lakeformation.CfnPrincipalPermissions(this, 'ManageAccessTablePermissions', {
+        principal: { dataLakePrincipalIdentifier: props.manageAccessRoleArn },
+        resource: { table: { catalogId: account, databaseName: props.databaseName, tableWildcard: {} } },
+        permissions: ['DESCRIBE', 'SELECT'],
+        permissionsWithGrantOption: ['DESCRIBE', 'SELECT'],
+      });
+      manageAccessTablePerms.addDependency(database);
+
+      const iamPrincipalsDbPerms = new lakeformation.CfnPrincipalPermissions(this, 'IamPrincipalsDatabasePermissions', {
+        principal: { dataLakePrincipalIdentifier: `${account}:IAMPrincipals` },
+        resource: { database: { catalogId: account, name: props.databaseName } },
+        permissions: ['CREATE_TABLE', 'DESCRIBE', 'DROP'],
+        permissionsWithGrantOption: [],
+      });
+      iamPrincipalsDbPerms.addDependency(database);
+
+      const iamPrincipalsTablePerms = new lakeformation.CfnPrincipalPermissions(this, 'IamPrincipalsTablePermissions', {
+        principal: { dataLakePrincipalIdentifier: `${account}:IAMPrincipals` },
+        resource: { table: { catalogId: account, databaseName: props.databaseName, tableWildcard: {} } },
+        permissions: ['ALTER', 'DELETE', 'DESCRIBE', 'DROP', 'INSERT', 'SELECT'],
+        permissionsWithGrantOption: [],
+      });
+      iamPrincipalsTablePerms.addDependency(database);
+    }
   }
 }

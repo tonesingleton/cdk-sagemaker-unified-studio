@@ -1,4 +1,4 @@
-import { Stack, Validations, aws_iam as iam } from 'aws-cdk-lib';
+import { Stack, aws_iam as iam, aws_lakeformation as lakeformation, Validations } from 'aws-cdk-lib';
 import { CfnProject } from 'aws-cdk-lib/aws-datazone';
 import { Construct } from 'constructs';
 import { EXECUTION_ROLE_TRUST_PRINCIPALS } from '../common';
@@ -83,6 +83,15 @@ export class Project extends Construct implements IProject {
     this.createdBy = project.attrCreatedBy;
     this.lastUpdatedAt = project.attrLastUpdatedAt;
     this.projectStatus = project.attrProjectStatus;
+
+    if (props.grantDefaultDatabaseDescribe) {
+      new lakeformation.CfnPrincipalPermissions(this, 'DefaultDatabaseDescribe', {
+        principal: { dataLakePrincipalIdentifier: this.projectExecutionRole.roleArn },
+        resource: { database: { catalogId: Stack.of(this).account, name: 'default' } },
+        permissions: ['DESCRIBE'],
+        permissionsWithGrantOption: [],
+      });
+    }
   }
 
   private createExecutionRole(): iam.Role {

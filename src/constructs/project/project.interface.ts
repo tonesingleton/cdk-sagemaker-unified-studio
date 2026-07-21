@@ -183,4 +183,13 @@ export interface ProjectProps {
    * @default - no user parameters
    */
   readonly userParameters?: Array<EnvironmentConfigurationUserParameter>;
+  /**
+   * Whether to grant the project execution role `DESCRIBE` on the Glue `default` database.
+   *
+   * Glue Interactive Sessions and Spark jobs need this permission to resolve unqualified
+   * table references. Enable this when the project uses the Lakehouse blueprint.
+   *
+   * @default false
+   */
+  readonly grantDefaultDatabaseDescribe?: boolean;
 }
