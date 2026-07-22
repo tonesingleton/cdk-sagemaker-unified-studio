@@ -33,6 +33,15 @@ export interface ProjectDatabaseProps {
    * @default - no location (tables define their own locations)
    */
   readonly locationUri?: string;
+  /**
+   * Additional IAM principal ARNs to grant `DESCRIBE` on the database and
+   * `DESCRIBE`/`SELECT` on all tables. Use this to grant read-only catalog
+   * visibility to roles such as the SMUS user role (`datazone_usr_role_*`)
+   * without granting write or IAM-passthrough permissions.
+   *
+   * @default - no additional principals
+   */
+  readonly additionalReadPrincipals?: Array<string>;
 }
 
 /**
