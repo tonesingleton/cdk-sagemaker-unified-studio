@@ -3672,14 +3672,13 @@ The ruleset name.
 
 A SageMaker Unified Studio data source that registers Glue or Redshift databases as governed assets within a domain project.
 
-NOTE: DataZone membership-gated API calls (ListConnections, StartDataSourceRun) require
-the caller to be a project member. AwsCustomResource cannot be used for these calls because
-it uses a stack-wide singleton Lambda — the `role=` prop and `policy=` prop both apply to
-that singleton, and whichever AwsCustomResource instance is synthesized first wins. Subsequent
-instances silently share the same role with no guarantee their policy statements are applied.
-`assumedRoleArn` per SDK call also fails because it requires `sts:AssumeRole` on the singleton
-role itself, which cannot be reliably attached for the same reason.
-Raw `lambda.Function` with `role=projectExecutionRole` is the only correct pattern here.
+Deploy-time DataZone calls — `ListConnections` (to resolve the connection when
+`connectionId` is omitted) and `StartDataSourceRun` (to trigger an initial run) —
+go through {@link DataZoneApiCall}, the shared construct that invokes DataZone APIs
+as a supplied enrolled role. DataZone authorizes the *calling identity* against the
+project/domain ACL, so `projectExecutionRole` must be a DataZone-enrolled principal;
+pass the same enrolled role used for the domain's other DataZone custom resources
+(typically `domain.datazoneApiRole`).
 
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/manage-data-sources.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/manage-data-sources.html)
 
@@ -3828,6 +3827,198 @@ The data source ID.
 
 ---
 
+
+### DataZoneApiCall <a name="DataZoneApiCall" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall"></a>
+
+A CloudFormation custom resource that invokes a single AWS DataZone SDK action at deploy time, running as a caller-supplied DataZone-enrolled role.
+
+This is the single, shared entry point for calling DataZone APIs from CDK. It wraps
+`AwsCustomResource`, so every action in the DataZone v3 client is available
+declaratively (no handler code), while guaranteeing the call executes as the
+provided `role` so it passes DataZone's membership-gated authorization — which
+checks the *calling identity* against the project/domain ACL, not just IAM.
+
+IDENTITY CONSTRAINT: `AwsCustomResource` backs every instance in a stack with one
+singleton Lambda whose role is fixed by whichever instance is synthesized first.
+All `DataZoneApiCall`s in a stack must therefore use the SAME enrolled role — pass
+`domain.datazoneApiRole` consistently.
+
+> [https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/datazone/](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/datazone/)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.Initializer"></a>
+
+```typescript
+import { DataZoneApiCall } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new DataZoneApiCall(scope: Construct, id: string, props: DataZoneApiCallProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps">DataZoneApiCallProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps">DataZoneApiCallProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.with">with</a></code> | Applies one or more mixins to this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.getResponseField">getResponseField</a></code> | Returns a field from the SDK call response as a CloudFormation token. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+##### `getResponseField` <a name="getResponseField" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.getResponseField"></a>
+
+```typescript
+public getResponseField(path: string): string
+```
+
+Returns a field from the SDK call response as a CloudFormation token.
+
+The path
+must be listed in the call's `outputPaths`.
+
+###### `path`<sup>Required</sup> <a name="path" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.getResponseField.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.isConstruct"></a>
+
+```typescript
+import { DataZoneApiCall } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+DataZoneApiCall.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.property.PHYSICAL_RESOURCE_ID">PHYSICAL_RESOURCE_ID</a></code> | <code>string</code> | Sentinel for a parameter that resolves, at deploy time, to this custom resource's physical ID (the ID captured by `physicalResourceIdFromResponsePath` on create). |
+
+---
+
+##### `PHYSICAL_RESOURCE_ID`<sup>Required</sup> <a name="PHYSICAL_RESOURCE_ID" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCall.property.PHYSICAL_RESOURCE_ID"></a>
+
+```typescript
+public readonly PHYSICAL_RESOURCE_ID: string;
+```
+
+- *Type:* string
+
+Sentinel for a parameter that resolves, at deploy time, to this custom resource's physical ID (the ID captured by `physicalResourceIdFromResponsePath` on create).
+
+Use it in `onUpdate`/`onDelete` parameters to target the created resource, e.g.
+`{ identifier: DataZoneApiCall.PHYSICAL_RESOURCE_ID }`. Cannot be used in `onCreate`.
+
+Mirrors `custom_resources.PhysicalResourceIdReference`.
+
+---
 
 ### DocumentDbConnection <a name="DocumentDbConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection"></a>
 
@@ -6684,9 +6875,13 @@ The status of the CodeConnections connection (e.g. PENDING, AVAILABLE).
 
 A DataZone business glossary for catalog standardization.
 
-There is no CloudFormation resource type for DataZone glossaries, so this
-construct uses a raw Lambda-backed custom resource to call the DataZone API directly
-(CreateGlossary / UpdateGlossary / DeleteGlossary).
+There is no CloudFormation resource type for DataZone glossaries, so this construct
+drives the full CreateGlossary / UpdateGlossary / DeleteGlossary lifecycle through
+{@link DataZoneApiCall}, the shared construct that runs DataZone SDK calls as a
+supplied enrolled role. The create call's returned `id` becomes the custom
+resource's physical ID, which update/delete target via
+`DataZoneApiCall.PHYSICAL_RESOURCE_ID`. `executionRoleArn` must be a DataZone-enrolled
+principal (typically `domain.datazoneApiRole`).
 
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html)
 
@@ -6871,9 +7066,12 @@ The glossary ID assigned by DataZone.
 
 A DataZone glossary term within a business glossary.
 
-There is no CloudFormation resource type for DataZone glossary terms, so this
-construct uses a raw Lambda-backed custom resource to call the DataZone API directly
-(CreateGlossaryTerm / UpdateGlossaryTerm / DeleteGlossaryTerm).
+There is no CloudFormation resource type for DataZone glossary terms, so this construct
+drives the full CreateGlossaryTerm / UpdateGlossaryTerm / DeleteGlossaryTerm lifecycle
+through {@link DataZoneApiCall}, the shared construct that runs DataZone SDK calls as a
+supplied enrolled role. The create call's returned `id` becomes the custom resource's
+physical ID, which update/delete target via `DataZoneApiCall.PHYSICAL_RESOURCE_ID`.
+`executionRoleArn` must be a DataZone-enrolled principal (typically `domain.datazoneApiRole`).
 
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html)
 
@@ -21367,6 +21565,167 @@ The CloudFormation resource type name for this resource class.
 
 ---
 
+### Subscription <a name="Subscription" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription"></a>
+
+Subscribes a consumer project to a published catalog asset — the consumer side of the DataZone subscription flow, which has no CloudFormation resource.
+
+It issues `CreateSubscriptionRequest` (and optionally `AcceptSubscriptionRequest`) through
+{@link DataZoneApiCall}, running as a DataZone-enrolled role. When that role owns or
+contributes to both the publishing and consuming projects, DataZone auto-approves the
+request and, for managed Glue/Redshift assets, auto-fulfills the grant as Lake Formation
+permissions on the consumer project's role — so the default flow is a single request.
+
+The `subscribedListingId` is dynamic (created when the producer publishes); resolve it with
+a `DataZoneApiCall` (`SearchListings`) and pass the resulting token here.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/discover-data.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/discover-data.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription.Initializer"></a>
+
+```typescript
+import { Subscription } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new Subscription(scope: Construct, id: string, props: SubscriptionProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Subscription.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Subscription.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Subscription.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps">SubscriptionProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps">SubscriptionProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Subscription.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Subscription.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Subscription.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription.isConstruct"></a>
+
+```typescript
+import { Subscription } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Subscription.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Subscription.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Subscription.property.subscriptionRequestId">subscriptionRequestId</a></code> | <code>string</code> | The ID of the created subscription request. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `subscriptionRequestId`<sup>Required</sup> <a name="subscriptionRequestId" id="@tonesingleton/cdk-sagemaker-unified-studio.Subscription.property.subscriptionRequestId"></a>
+
+```typescript
+public readonly subscriptionRequestId: string;
+```
+
+- *Type:* string
+
+The ID of the created subscription request.
+
+---
+
+
 ### SubscriptionTarget <a name="SubscriptionTarget" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTarget"></a>
 
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ISubscriptionTarget">ISubscriptionTarget</a>
@@ -23638,6 +23997,206 @@ Whether to trigger a data source run automatically on every deployment.
 When `true`, a Lambda-backed custom resource calls `StartDataSourceRun`
 after the data source is created or updated. Requires `projectExecutionRole`
 to be provided (the role must be a project member).
+
+---
+
+### DataZoneApiCallProps <a name="DataZoneApiCallProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps"></a>
+
+Properties for a DataZoneApiCall construct.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps.Initializer"></a>
+
+```typescript
+import { DataZoneApiCallProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataZoneApiCallProps: DataZoneApiCallProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The IAM role that executes the SDK call. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps.property.installLatestAwsSdk">installLatestAwsSdk</a></code> | <code>boolean</code> | Whether to install the latest AWS SDK into the custom-resource Lambda at deploy time. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps.property.onCreate">onCreate</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall">DataZoneSdkCall</a></code> | The call to run when the resource is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps.property.onDelete">onDelete</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall">DataZoneSdkCall</a></code> | The call to run when the resource is deleted. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps.property.onUpdate">onUpdate</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall">DataZoneSdkCall</a></code> | The call to run when the resource is updated. |
+
+---
+
+##### `role`<sup>Required</sup> <a name="role" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The IAM role that executes the SDK call.
+
+For DataZone membership-gated actions this must be a DataZone-enrolled principal
+(a registered user profile with an owner/member association) — not merely a role
+with `datazone:*` IAM permissions. Typically `domain.datazoneApiRole`.
+
+IMPORTANT: this is backed by `AwsCustomResource`, which uses a single stack-wide
+singleton Lambda. Every `DataZoneApiCall` (and any other `AwsCustomResource`) in a
+stack shares that Lambda and the role of whichever instance is synthesized first,
+so pass the SAME enrolled role to all of them.
+
+---
+
+##### `installLatestAwsSdk`<sup>Optional</sup> <a name="installLatestAwsSdk" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps.property.installLatestAwsSdk"></a>
+
+```typescript
+public readonly installLatestAwsSdk: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to install the latest AWS SDK into the custom-resource Lambda at deploy time.
+
+Leave `false` to use the runtime-bundled SDK (faster, no install step;
+sufficient for all generally-available DataZone actions).
+
+---
+
+##### `onCreate`<sup>Optional</sup> <a name="onCreate" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps.property.onCreate"></a>
+
+```typescript
+public readonly onCreate: DataZoneSdkCall;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall">DataZoneSdkCall</a>
+- *Default:* the onUpdate call, if provided
+
+The call to run when the resource is created.
+
+---
+
+##### `onDelete`<sup>Optional</sup> <a name="onDelete" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps.property.onDelete"></a>
+
+```typescript
+public readonly onDelete: DataZoneSdkCall;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall">DataZoneSdkCall</a>
+- *Default:* no delete call
+
+The call to run when the resource is deleted.
+
+---
+
+##### `onUpdate`<sup>Optional</sup> <a name="onUpdate" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneApiCallProps.property.onUpdate"></a>
+
+```typescript
+public readonly onUpdate: DataZoneSdkCall;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall">DataZoneSdkCall</a>
+- *Default:* the onCreate call, if provided
+
+The call to run when the resource is updated.
+
+---
+
+### DataZoneSdkCall <a name="DataZoneSdkCall" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall"></a>
+
+A single AWS DataZone SDK call bound to a custom-resource lifecycle event.
+
+The service is always DataZone; specify the action and its input using the
+AWS SDK for JavaScript v3 DataZone client shapes.
+
+> [https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/datazone/](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/datazone/)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.Initializer"></a>
+
+```typescript
+import { DataZoneSdkCall } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataZoneSdkCall: DataZoneSdkCall = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.action">action</a></code> | <code>string</code> | The DataZone API action to invoke, e.g. `ListConnections`, `StartDataSourceRun`, `CreateGlossary`. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.outputPaths">outputPaths</a></code> | <code>string[]</code> | Response fields to expose via `getResponseField`, using dot/index notation against the API response, e.g. `['items.0.connectionId']`. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.parameters">parameters</a></code> | <code>{[ key: string ]: any}</code> | The action input, matching the DataZone API request shape (camelCase keys), e.g. `{ domainIdentifier, projectIdentifier }`. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.physicalResourceId">physicalResourceId</a></code> | <code>string</code> | A stable physical resource ID for the custom resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.physicalResourceIdFromResponsePath">physicalResourceIdFromResponsePath</a></code> | <code>string</code> | Derive the physical resource ID from a field in the call's response, using dot/index notation (e.g. `'id'`). Use this for create/update calls that return a server-generated identifier, so that `onUpdate`/`onDelete` can target it via {@link DataZoneApiCall.PHYSICAL_RESOURCE_ID }. |
+
+---
+
+##### `action`<sup>Required</sup> <a name="action" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.action"></a>
+
+```typescript
+public readonly action: string;
+```
+
+- *Type:* string
+
+The DataZone API action to invoke, e.g. `ListConnections`, `StartDataSourceRun`, `CreateGlossary`.
+
+---
+
+##### `outputPaths`<sup>Optional</sup> <a name="outputPaths" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.outputPaths"></a>
+
+```typescript
+public readonly outputPaths: string[];
+```
+
+- *Type:* string[]
+- *Default:* no response fields are retained
+
+Response fields to expose via `getResponseField`, using dot/index notation against the API response, e.g. `['items.0.connectionId']`.
+
+---
+
+##### `parameters`<sup>Optional</sup> <a name="parameters" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.parameters"></a>
+
+```typescript
+public readonly parameters: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* no parameters
+
+The action input, matching the DataZone API request shape (camelCase keys), e.g. `{ domainIdentifier, projectIdentifier }`.
+
+---
+
+##### `physicalResourceId`<sup>Optional</sup> <a name="physicalResourceId" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.physicalResourceId"></a>
+
+```typescript
+public readonly physicalResourceId: string;
+```
+
+- *Type:* string
+- *Default:* the construct's path (stable across deployments)
+
+A stable physical resource ID for the custom resource.
+
+Change it to force the
+call to run again on the next deployment.
+
+Ignored when `physicalResourceIdFromResponsePath` is set.
+
+---
+
+##### `physicalResourceIdFromResponsePath`<sup>Optional</sup> <a name="physicalResourceIdFromResponsePath" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.physicalResourceIdFromResponsePath"></a>
+
+```typescript
+public readonly physicalResourceIdFromResponsePath: string;
+```
+
+- *Type:* string
+- *Default:* a static physical resource ID is used
+
+Derive the physical resource ID from a field in the call's response, using dot/index notation (e.g. `'id'`). Use this for create/update calls that return a server-generated identifier, so that `onUpdate`/`onDelete` can target it via {@link DataZoneApiCall.PHYSICAL_RESOURCE_ID }.
+
+Takes precedence over `physicalResourceId`.
 
 ---
 
@@ -31351,6 +31910,133 @@ public readonly sparkProperties: {[ key: string ]: string};
 - *Default:* no additional Spark properties
 
 Additional Spark-specific connection properties.
+
+---
+
+### SubscriptionProps <a name="SubscriptionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps"></a>
+
+Properties for a Subscription construct.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateSubscriptionRequest.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateSubscriptionRequest.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.Initializer"></a>
+
+```typescript
+import { SubscriptionProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const subscriptionProps: SubscriptionProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The SageMaker Unified Studio / DataZone domain ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The DataZone-enrolled role that creates the subscription request. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.subscribedListingId">subscribedListingId</a></code> | <code>string</code> | The catalog listing ID of the published asset to subscribe to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.subscribedProjectId">subscribedProjectId</a></code> | <code>string</code> | The consumer project that receives access to the asset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.autoApprove">autoApprove</a></code> | <code>boolean</code> | Explicitly accept the request after creating it (`AcceptSubscriptionRequest`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.decisionComment">decisionComment</a></code> | <code>string</code> | The decision comment recorded when `autoApprove` is enabled. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.requestReason">requestReason</a></code> | <code>string</code> | The justification recorded on the subscription request. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The SageMaker Unified Studio / DataZone domain ID.
+
+---
+
+##### `role`<sup>Required</sup> <a name="role" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The DataZone-enrolled role that creates the subscription request.
+
+When this role owns or contributes to BOTH the publishing project and the
+consuming project, DataZone auto-approves the request; for managed assets
+(Glue Data Catalog / Redshift tables) it also auto-fulfills the grant, so no
+explicit approval is needed. Typically `domain.datazoneApiRole`.
+
+---
+
+##### `subscribedListingId`<sup>Required</sup> <a name="subscribedListingId" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.subscribedListingId"></a>
+
+```typescript
+public readonly subscribedListingId: string;
+```
+
+- *Type:* string
+
+The catalog listing ID of the published asset to subscribe to.
+
+Resolve it at
+deploy time with a `DataZoneApiCall` (`SearchListings`) when it is not known
+statically.
+
+---
+
+##### `subscribedProjectId`<sup>Required</sup> <a name="subscribedProjectId" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.subscribedProjectId"></a>
+
+```typescript
+public readonly subscribedProjectId: string;
+```
+
+- *Type:* string
+
+The consumer project that receives access to the asset.
+
+---
+
+##### `autoApprove`<sup>Optional</sup> <a name="autoApprove" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.autoApprove"></a>
+
+```typescript
+public readonly autoApprove: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Explicitly accept the request after creating it (`AcceptSubscriptionRequest`).
+
+Leave `false` when `role` already triggers auto-approval (owner/contributor of
+both projects): accepting an already-approved request fails.
+
+---
+
+##### `decisionComment`<sup>Optional</sup> <a name="decisionComment" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.decisionComment"></a>
+
+```typescript
+public readonly decisionComment: string;
+```
+
+- *Type:* string
+- *Default:* a generic CDK-managed comment
+
+The decision comment recorded when `autoApprove` is enabled.
+
+---
+
+##### `requestReason`<sup>Optional</sup> <a name="requestReason" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.requestReason"></a>
+
+```typescript
+public readonly requestReason: string;
+```
+
+- *Type:* string
+- *Default:* a generic CDK-managed reason
+
+The justification recorded on the subscription request.
 
 ---
 

@@ -1,5 +1,5 @@
 import { App, Stack } from 'aws-cdk-lib';
-import { Template } from 'aws-cdk-lib/assertions';
+import { Match, Template } from 'aws-cdk-lib/assertions';
 import { Glossary } from './glossary.construct';
 import { GlossaryStatus } from './glossary.interface';
 
@@ -19,16 +19,24 @@ describe('Glossary', () => {
     const stack = createStack();
     new Glossary(stack, 'Glossary', validProps);
     Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 1);
-    Template.fromStack(stack).resourceCountIs('AWS::CloudFormation::CustomResource', 1);
+    Template.fromStack(stack).resourceCountIs('Custom::AWS', 1);
   });
 
   test('passes domain and project to the custom resource', () => {
     const stack = createStack();
     new Glossary(stack, 'Glossary', validProps);
-    Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
-      DomainId: 'dzd-abc123',
-      ProjectId: 'proj-abc123',
-      Name: 'BusinessTerms',
+    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+      Create: Match.serializedJson(
+        Match.objectLike({
+          service: 'DataZone',
+          action: 'CreateGlossary',
+          parameters: Match.objectLike({
+            domainIdentifier: 'dzd-abc123',
+            owningProjectIdentifier: 'proj-abc123',
+            name: 'BusinessTerms',
+          }),
+        }),
+      ),
     });
   });
 
@@ -39,9 +47,12 @@ describe('Glossary', () => {
       description: 'Central glossary',
       status: GlossaryStatus.ENABLED,
     });
-    Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
-      Description: 'Central glossary',
-      Status: 'ENABLED',
+    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+      Create: Match.serializedJson(
+        Match.objectLike({
+          parameters: Match.objectLike({ description: 'Central glossary', status: 'ENABLED' }),
+        }),
+      ),
     });
   });
 
@@ -98,7 +109,7 @@ describe('Glossary', () => {
     test('does not create any resources', () => {
       const stack = createStack();
       Glossary.fromAttributes(stack, 'Imported', { glossaryId: 'gloss-123' });
-      Template.fromStack(stack).resourceCountIs('AWS::CloudFormation::CustomResource', 0);
+      Template.fromStack(stack).resourceCountIs('Custom::AWS', 0);
       Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 0);
     });
   });

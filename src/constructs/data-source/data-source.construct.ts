@@ -1,4 +1,4 @@
-import { CustomResource, Duration, aws_datazone as datazone, aws_iam as iam, aws_lambda as lambda } from 'aws-cdk-lib';
+import { aws_datazone as datazone } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type {
   DataSourceProps,
@@ -6,46 +6,19 @@ import type {
   IDataSource,
   RedshiftDataSourceConfiguration,
 } from './data-source.interface';
-
-const CR_HANDLER = [
-  'import boto3, json, urllib.request',
-  'def handler(event, context):',
-  '  try:',
-  "    if event.get('RequestType') == 'Delete':",
-  "      send(event, context, 'SUCCESS', {})",
-  '      return',
-  "    result = run(event['ResourceProperties'])",
-  "    send(event, context, 'SUCCESS', result)",
-  '  except Exception as e:',
-  "    send(event, context, 'FAILED', {}, str(e))",
-  "def send(event, context, status, data, reason=''):",
-  "  body = json.dumps({'Status': status, 'Reason': reason, 'PhysicalResourceId': event.get('PhysicalResourceId', context.log_stream_name), 'StackId': event['StackId'], 'RequestId': event['RequestId'], 'LogicalResourceId': event['LogicalResourceId'], 'Data': data}).encode()",
-  "  req = urllib.request.Request(event['ResponseURL'], data=body, method='PUT')",
-  '  urllib.request.urlopen(req)',
-].join('\n');
-
-const LOOKUP_CONNECTION_HANDLER = CR_HANDLER.replace(
-  "result = run(event['ResourceProperties'])",
-  "p = event['ResourceProperties']\n    resp = boto3.client('datazone').list_connections(domainIdentifier=p['DomainId'], projectIdentifier=p['ProjectId'], type=p['Type'])\n    result = {'ConnectionId': resp['items'][0]['connectionId']}",
-);
-
-const TRIGGER_RUN_HANDLER = CR_HANDLER.replace(
-  "result = run(event['ResourceProperties'])",
-  "p = event['ResourceProperties']\n    boto3.client('datazone').start_data_source_run(domainIdentifier=p['DomainId'], dataSourceIdentifier=p['DataSourceId'])\n    result = {}",
-);
+import { DataZoneApiCall } from '../datazone-api-call';
 
 /**
  * A SageMaker Unified Studio data source that registers Glue or Redshift
  * databases as governed assets within a domain project.
  *
- * NOTE: DataZone membership-gated API calls (ListConnections, StartDataSourceRun) require
- * the caller to be a project member. AwsCustomResource cannot be used for these calls because
- * it uses a stack-wide singleton Lambda — the `role=` prop and `policy=` prop both apply to
- * that singleton, and whichever AwsCustomResource instance is synthesized first wins. Subsequent
- * instances silently share the same role with no guarantee their policy statements are applied.
- * `assumedRoleArn` per SDK call also fails because it requires `sts:AssumeRole` on the singleton
- * role itself, which cannot be reliably attached for the same reason.
- * Raw `lambda.Function` with `role=projectExecutionRole` is the only correct pattern here.
+ * Deploy-time DataZone calls — `ListConnections` (to resolve the connection when
+ * `connectionId` is omitted) and `StartDataSourceRun` (to trigger an initial run) —
+ * go through {@link DataZoneApiCall}, the shared construct that invokes DataZone APIs
+ * as a supplied enrolled role. DataZone authorizes the *calling identity* against the
+ * project/domain ACL, so `projectExecutionRole` must be a DataZone-enrolled principal;
+ * pass the same enrolled role used for the domain's other DataZone custom resources
+ * (typically `domain.datazoneApiRole`).
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/manage-data-sources.html
  */
@@ -73,18 +46,16 @@ export class DataSource extends Construct implements IDataSource {
         throw new Error('projectExecutionRole is required when connectionId is not provided.');
       }
       const connectionType = type === 'GLUE' ? 'LAKEHOUSE' : 'REDSHIFT';
-      const lookupFn = new lambda.Function(this, 'LookupConnectionFn', {
-        runtime: lambda.Runtime.PYTHON_3_12,
-        handler: 'index.handler',
+      const lookup = new DataZoneApiCall(this, 'LookupConnection', {
         role: props.projectExecutionRole,
-        timeout: Duration.seconds(30),
-        code: lambda.Code.fromInline(LOOKUP_CONNECTION_HANDLER),
+        onCreate: {
+          action: 'ListConnections',
+          parameters: { domainIdentifier: props.domainId, projectIdentifier: props.projectId, type: connectionType },
+          outputPaths: ['items.0.connectionId'],
+          physicalResourceId: `${props.projectId}-${connectionType}-connection`,
+        },
       });
-      const lookupCr = new CustomResource(this, 'LookupConnection', {
-        serviceToken: lookupFn.functionArn,
-        properties: { DomainId: props.domainId, ProjectId: props.projectId, Type: connectionType },
-      });
-      connectionId = lookupCr.getAttString('ConnectionId');
+      connectionId = lookup.getResponseField('items.0.connectionId');
     }
 
     const dataSource = new datazone.CfnDataSource(this, 'Resource', {
@@ -107,21 +78,17 @@ export class DataSource extends Construct implements IDataSource {
       if (!props.projectExecutionRole) {
         throw new Error('projectExecutionRole is required when shouldRunOnDeploy is true.');
       }
-      props.projectExecutionRole.addToPrincipalPolicy(
-        new iam.PolicyStatement({ actions: ['datazone:StartDataSourceRun'], resources: ['*'] }),
-      );
-      const triggerFn = new lambda.Function(this, 'TriggerRunFn', {
-        runtime: lambda.Runtime.PYTHON_3_12,
-        handler: 'index.handler',
+      // `datazone:StartDataSourceRun` is granted by DataZoneApiCall's `fromSdkCalls` policy
+      // (derived from the action), so it is not granted explicitly here.
+      const triggerRun = new DataZoneApiCall(this, 'TriggerRun', {
         role: props.projectExecutionRole,
-        timeout: Duration.seconds(30),
-        code: lambda.Code.fromInline(TRIGGER_RUN_HANDLER),
+        onCreate: {
+          action: 'StartDataSourceRun',
+          parameters: { domainIdentifier: props.domainId, dataSourceIdentifier: this.dataSourceId },
+          physicalResourceId: `${props.domainId}-${this.dataSourceId}-run`,
+        },
       });
-      const triggerCr = new CustomResource(this, 'TriggerRun', {
-        serviceToken: triggerFn.functionArn,
-        properties: { DomainId: props.domainId, DataSourceId: this.dataSourceId },
-      });
-      triggerCr.node.addDependency(dataSource);
+      triggerRun.node.addDependency(dataSource);
     }
   }
 

@@ -232,10 +232,18 @@ describe('DataSource', () => {
       });
 
       Template.fromStack(stack).hasResourceProperties('AWS::Lambda::Function', {});
-      Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
-        DomainId: 'dzd-test',
-        ProjectId: 'proj-test',
-        Type: 'LAKEHOUSE',
+      Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+        Create: Match.serializedJson(
+          Match.objectLike({
+            service: 'DataZone',
+            action: 'ListConnections',
+            parameters: Match.objectLike({
+              domainIdentifier: 'dzd-test',
+              projectIdentifier: 'proj-test',
+              type: 'LAKEHOUSE',
+            }),
+          }),
+        ),
       });
     });
 
@@ -249,8 +257,13 @@ describe('DataSource', () => {
         redshiftConfiguration: { relationalFilterConfigurations: [{ databaseName: 'dev' }] },
       });
 
-      Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
-        Type: 'REDSHIFT',
+      Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+        Create: Match.serializedJson(
+          Match.objectLike({
+            action: 'ListConnections',
+            parameters: Match.objectLike({ type: 'REDSHIFT' }),
+          }),
+        ),
       });
     });
 
@@ -279,9 +292,12 @@ describe('DataSource', () => {
         shouldRunOnDeploy: true,
       });
 
-      Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
-        DomainId: 'dzd-test',
-        DataSourceId: Match.anyValue(),
+      // dataSourceIdentifier is a token, so Create renders as an Fn::Join (literal
+      // parts + the token ref) rather than a plain JSON string.
+      Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+        Create: {
+          'Fn::Join': Match.arrayWith([Match.arrayWith([Match.stringLikeRegexp('StartDataSourceRun')])]),
+        },
       });
     });
   });
