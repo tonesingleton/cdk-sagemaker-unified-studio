@@ -1,5 +1,5 @@
 import { App, Stack } from 'aws-cdk-lib';
-import { Template } from 'aws-cdk-lib/assertions';
+import { Match, Template } from 'aws-cdk-lib/assertions';
 import { GlossaryTerm } from './glossary-term.construct';
 import { GlossaryTermStatus } from './glossary-term.interface';
 
@@ -19,16 +19,24 @@ describe('GlossaryTerm', () => {
     const stack = createStack();
     new GlossaryTerm(stack, 'Term', validProps);
     Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 1);
-    Template.fromStack(stack).resourceCountIs('AWS::CloudFormation::CustomResource', 1);
+    Template.fromStack(stack).resourceCountIs('Custom::AWS', 1);
   });
 
   test('passes domain and glossary to the custom resource', () => {
     const stack = createStack();
     new GlossaryTerm(stack, 'Term', validProps);
-    Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
-      DomainId: 'dzd-abc123',
-      GlossaryId: 'gloss-abc123',
-      Name: 'Revenue',
+    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+      Create: Match.serializedJson(
+        Match.objectLike({
+          service: 'DataZone',
+          action: 'CreateGlossaryTerm',
+          parameters: Match.objectLike({
+            domainIdentifier: 'dzd-abc123',
+            glossaryIdentifier: 'gloss-abc123',
+            name: 'Revenue',
+          }),
+        }),
+      ),
     });
   });
 
@@ -40,14 +48,20 @@ describe('GlossaryTerm', () => {
       longDescription: 'Total income from all sources before deductions',
       status: GlossaryTermStatus.ENABLED,
     });
-    Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
-      ShortDescription: 'Total income',
-      LongDescription: 'Total income from all sources before deductions',
-      Status: 'ENABLED',
+    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+      Create: Match.serializedJson(
+        Match.objectLike({
+          parameters: Match.objectLike({
+            shortDescription: 'Total income',
+            longDescription: 'Total income from all sources before deductions',
+            status: 'ENABLED',
+          }),
+        }),
+      ),
     });
   });
 
-  test('serialises term relations as JSON string', () => {
+  test('includes term relations as a nested object', () => {
     const stack = createStack();
     new GlossaryTerm(stack, 'Term', {
       ...validProps,
@@ -56,8 +70,12 @@ describe('GlossaryTerm', () => {
         { classifier: 'hasA', termId: 'term-child' },
       ],
     });
-    Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
-      TermRelations: JSON.stringify({ isA: ['term-parent'], hasA: ['term-child'] }),
+    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+      Create: Match.serializedJson(
+        Match.objectLike({
+          parameters: Match.objectLike({ termRelations: { isA: ['term-parent'], hasA: ['term-child'] } }),
+        }),
+      ),
     });
   });
 
@@ -125,7 +143,7 @@ describe('GlossaryTerm', () => {
     test('does not create any resources', () => {
       const stack = createStack();
       GlossaryTerm.fromAttributes(stack, 'Imported', { glossaryTermId: 'term-123' });
-      Template.fromStack(stack).resourceCountIs('AWS::CloudFormation::CustomResource', 0);
+      Template.fromStack(stack).resourceCountIs('Custom::AWS', 0);
       Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 0);
     });
   });

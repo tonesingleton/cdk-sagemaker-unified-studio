@@ -1,6 +1,6 @@
-import { custom_resources as cr } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { LookupEnvironmentProps } from './lookup-environment.interface';
+import { DataZoneApiCall } from '../../datazone-api-call';
 
 /**
  * Looks up the ID of an existing environment within a project by name.
@@ -29,23 +29,18 @@ export class LookupEnvironment extends Construct {
   constructor(scope: Construct, id: string, props: LookupEnvironmentProps) {
     super(scope, id);
 
-    const sdkCall: cr.AwsSdkCall = {
-      service: 'DataZone',
-      action: 'ListEnvironments',
-      parameters: {
-        domainIdentifier: props.domainId,
-        projectIdentifier: props.projectId,
-        name: props.environmentName,
-      },
-      physicalResourceId: cr.PhysicalResourceId.of(`${props.projectId}-env-${props.environmentName}`),
-      outputPaths: ['items.0.id'],
-    };
-
-    const lookup = new cr.AwsCustomResource(this, 'Resource', {
-      onCreate: sdkCall,
-      onUpdate: sdkCall,
-      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({ resources: ['*'] }),
+    const lookup = new DataZoneApiCall(this, 'Resource', {
       role: props.datazoneApiRole,
+      onCreate: {
+        action: 'ListEnvironments',
+        parameters: {
+          domainIdentifier: props.domainId,
+          projectIdentifier: props.projectId,
+          name: props.environmentName,
+        },
+        outputPaths: ['items.0.id'],
+        physicalResourceId: `${props.projectId}-env-${props.environmentName}`,
+      },
     });
 
     this.environmentId = lookup.getResponseField('items.0.id');

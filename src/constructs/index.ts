@@ -2,6 +2,8 @@ export { AccountRoles } from './account-roles/account-roles.construct';
 export { AccountRolesProps, IAccountRoles } from './account-roles/account-roles.interface';
 export { Blueprint } from './blueprint/blueprint.construct';
 export { ManagedBlueprintIdentifier, BlueprintProps, RegionalParameter } from './blueprint/blueprint.interface';
+export * from './datazone-api-call';
+export * from './subscription';
 export { DataSource } from './data-source/data-source.construct';
 export {
   DataSourceProps,
