@@ -33,7 +33,7 @@ yarn projen package-all  # Package for all languages (js, python, java, dotnet, 
 
 Each construct lives in its own directory with colocated tests:
 
-```
+```text
 src/constructs/
   <name>/
     <name>.construct.ts      # Implementation
@@ -138,3 +138,14 @@ Publishing is currently disabled (`releaseToNpm: false`, `release: false` in `.p
 ## License
 
 By contributing, you agree that your contributions will be licensed under the Apache-2.0 License.
+
+---
+
+## Contact & Support
+
+This library was designed and built by [Tone Singleton](https://tonesingleton.com).
+
+For questions about the library's design, usage, or to discuss extending it:
+
+- **Website:** [tonesingleton.com/contact](https://tonesingleton.com/contact)
+- **Book a meeting:** [tonesingleton.com/meet](https://tonesingleton.com/meet)

@@ -66,6 +66,20 @@ export class GlossaryTerm extends Construct implements IGlossaryTerm {
         }
       : undefined;
 
+    const policy = props.executionRoleArn
+      ? cr.AwsCustomResourcePolicy.fromStatements([
+          new iam.PolicyStatement({
+            actions: ['sts:AssumeRole'],
+            resources: [props.executionRoleArn],
+          }),
+        ])
+      : cr.AwsCustomResourcePolicy.fromStatements([
+          new iam.PolicyStatement({
+            actions: ['datazone:CreateGlossaryTerm', 'datazone:UpdateGlossaryTerm', 'datazone:DeleteGlossaryTerm'],
+            resources: ['*'],
+          }),
+        ]);
+
     const term = new cr.AwsCustomResource(this, 'Resource', {
       onCreate: {
         service: '@aws-sdk/client-datazone',
@@ -108,12 +122,7 @@ export class GlossaryTerm extends Construct implements IGlossaryTerm {
         ignoreErrorCodesMatching: 'ResourceNotFoundException',
         assumedRoleArn: props.executionRoleArn,
       },
-      policy: cr.AwsCustomResourcePolicy.fromStatements([
-        new iam.PolicyStatement({
-          actions: ['sts:AssumeRole'],
-          resources: [props.executionRoleArn],
-        }),
-      ]),
+      policy,
     });
 
     Validations.of(term).acknowledge({

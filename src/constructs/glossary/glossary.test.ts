@@ -105,4 +105,37 @@ describe('Glossary', () => {
       Template.fromStack(stack).resourceCountIs('Custom::AWS', 0);
     });
   });
+
+  describe('without executionRoleArn', () => {
+    const propsWithoutRole = {
+      name: 'BusinessTerms',
+      domainIdentifier: 'dzd-abc123',
+      owningProjectIdentifier: 'proj-abc123',
+    };
+
+    test('grants datazone permissions directly instead of sts:AssumeRole', () => {
+      const stack = createStack();
+      new Glossary(stack, 'Glossary', propsWithoutRole);
+      Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
+        PolicyDocument: {
+          Statement: [
+            {
+              Action: ['datazone:CreateGlossary', 'datazone:UpdateGlossary', 'datazone:DeleteGlossary'],
+              Effect: 'Allow',
+              Resource: '*',
+            },
+          ],
+        },
+      });
+    });
+
+    test('does not pass assumedRoleArn to the custom resource', () => {
+      const stack = createStack();
+      new Glossary(stack, 'Glossary', propsWithoutRole);
+      const template = Template.fromStack(stack);
+      const resources = template.findResources('Custom::AWS');
+      const cr = Object.values(resources)[0];
+      expect(cr.Properties.Create).not.toContain('assumedRoleArn');
+    });
+  });
 });
