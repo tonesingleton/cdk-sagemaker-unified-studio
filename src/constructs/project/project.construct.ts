@@ -1,8 +1,9 @@
 import { Stack, aws_iam as iam, aws_lakeformation as lakeformation, Validations } from 'aws-cdk-lib';
-import { CfnProject } from 'aws-cdk-lib/aws-datazone';
+import { CfnProject, CfnProjectMembership } from 'aws-cdk-lib/aws-datazone';
 import { Construct } from 'constructs';
 import { EXECUTION_ROLE_TRUST_PRINCIPALS } from '../common';
 import type { IProject, ProjectAttributes, ProjectProps } from './project.interface';
+import { Designation } from './project.interface';
 
 /**
  * A SageMaker Unified Studio project within a domain.
@@ -53,7 +54,7 @@ export class Project extends Construct implements IProject {
   constructor(scope: Construct, id: string, props: ProjectProps) {
     super(scope, id);
 
-    this.projectExecutionRole = props.projectExecutionRole ?? this.createExecutionRole();
+    this.projectExecutionRole = props.projectExecutionRole ?? this.createExecutionRole(props.additionalTrustPrincipals);
 
     const project = new CfnProject(this, 'Resource', {
       name: props.name,
@@ -84,6 +85,16 @@ export class Project extends Construct implements IProject {
     this.lastUpdatedAt = project.attrLastUpdatedAt;
     this.projectStatus = project.attrProjectStatus;
 
+    if (props.crRole) {
+      const membership = new CfnProjectMembership(this, 'CrRoleMembership', {
+        domainIdentifier: props.domainIdentifier,
+        projectIdentifier: project.attrId,
+        designation: Designation.PROJECT_OWNER,
+        member: { userIdentifier: props.crRole.roleArn },
+      });
+      membership.addDependency(project);
+    }
+
     if (props.grantDefaultDatabaseDescribe) {
       new lakeformation.CfnPrincipalPermissions(this, 'DefaultDatabaseDescribe', {
         principal: { dataLakePrincipalIdentifier: this.projectExecutionRole.roleArn },
@@ -94,7 +105,7 @@ export class Project extends Construct implements IProject {
     }
   }
 
-  private createExecutionRole(): iam.Role {
+  private createExecutionRole(additionalTrustPrincipals?: Array<string>): iam.Role {
     const account = Stack.of(this).account;
     const servicePrincipals = EXECUTION_ROLE_TRUST_PRINCIPALS.map((s) => new iam.ServicePrincipal(s));
 
@@ -119,6 +130,15 @@ export class Project extends Construct implements IProject {
         conditions: { StringEquals: { 'aws:SourceAccount': account } },
       }),
     );
+
+    if (additionalTrustPrincipals?.length) {
+      role.assumeRolePolicy!.addStatements(
+        new iam.PolicyStatement({
+          actions: ['sts:AssumeRole'],
+          principals: additionalTrustPrincipals.map((arn) => new iam.ArnPrincipal(arn)),
+        }),
+      );
+    }
 
     return role;
   }

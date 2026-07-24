@@ -192,4 +192,23 @@ export interface ProjectProps {
    * @default false
    */
   readonly grantDefaultDatabaseDescribe?: boolean;
+  /**
+   * Additional IAM principals (ARNs) to trust in the project execution role's trust policy.
+   *
+   * Use this to allow specific IAM roles or users to assume the execution role directly,
+   * for example a developer role for local testing or debugging.
+   *
+   * @default - no additional principals
+   */
+  readonly additionalTrustPrincipals?: Array<string>;
+  /**
+   * The domain-level DataZone API role to add as a `PROJECT_OWNER` of this project.
+   *
+   * When provided, a `CfnProjectMembership` is created automatically so the role
+   * can call project-gated DataZone APIs (e.g. `ListConnections`, `ListEnvironments`)
+   * during CDK deployments. Pass `domain.datazoneApiRole` here.
+   *
+   * @default - no datazoneApiRole membership added
+   */
+  readonly crRole?: iam.IRole;
 }

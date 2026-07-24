@@ -24,6 +24,10 @@ export {
   IEnvironment,
   EnvironmentAttributes,
 } from './environment/environment.interface';
+export { LookupEnvironment } from './environment/lookup/lookup-environment.construct';
+export { LookupEnvironmentProps } from './environment/lookup/lookup-environment.interface';
+export { LookupSmusUserRole } from './environment/lookup/lookup-smus-user-role.construct';
+export { LookupSmusUserRoleProps } from './environment/lookup/lookup-smus-user-role.interface';
 export { GitConnection } from './git-connection/git-connection.construct';
 export { GitConnectionProps, GitProviderType, IGitConnection } from './git-connection/git-connection.interface';
 export { Host } from './git-connection/host.construct';
@@ -87,3 +91,4 @@ export * from './glossary';
 export * from './project-membership';
 export * from './group-profile';
 export * from './user-profile';
+export * from './owner';

@@ -1,4 +1,4 @@
-import { Stack, Token, Validations, aws_iam as iam, aws_lambda as lambda_, custom_resources as cr } from 'aws-cdk-lib';
+import { CustomResource, Duration, Token, aws_iam as iam, aws_lambda as lambda } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { GlossaryAttributes, GlossaryProps, IGlossary } from './glossary.interface';
 
@@ -8,10 +8,42 @@ const MAX_NAME_LENGTH = 256;
 const MAX_DESCRIPTION_LENGTH = 4096;
 
 /**
+ * NOTE: DataZone membership-gated API calls cannot use AwsCustomResource because it uses a
+ * stack-wide singleton Lambda whose role and policy are shared across all instances — whichever
+ * is synthesized first wins. Raw `lambda.Function` with `role=executionRole` is the only correct
+ * pattern. See data-source.construct.ts for a detailed explanation.
+ */
+const GLOSSARY_HANDLER = [
+  'import boto3, json, urllib.request',
+  'def handler(event, context):',
+  '  try:',
+  '    p = event["ResourceProperties"]',
+  '    dz = boto3.client("datazone")',
+  '    t = event["RequestType"]',
+  '    if t == "Delete":',
+  '      dz.delete_glossary(domainIdentifier=p["DomainId"], identifier=event["PhysicalResourceId"])',
+  '      send(event, context, "SUCCESS", {})',
+  '      return',
+  '    params = {"domainIdentifier": p["DomainId"], "owningProjectIdentifier": p["ProjectId"], "name": p["Name"]}',
+  '    if p.get("Description"): params["description"] = p["Description"]',
+  '    if p.get("Status"): params["status"] = p["Status"]',
+  '    if t == "Update": params["identifier"] = event["PhysicalResourceId"]',
+  '    action = dz.update_glossary if t == "Update" else dz.create_glossary',
+  '    resp = action(**params)',
+  '    send(event, context, "SUCCESS", {"id": resp["id"]}, physical_id=resp["id"])',
+  '  except Exception as e:',
+  '    send(event, context, "FAILED", {}, str(e))',
+  'def send(event, context, status, data, reason="", physical_id=None):',
+  '  body = json.dumps({"Status": status, "Reason": reason, "PhysicalResourceId": physical_id or event.get("PhysicalResourceId", context.log_stream_name), "StackId": event["StackId"], "RequestId": event["RequestId"], "LogicalResourceId": event["LogicalResourceId"], "Data": data}).encode()',
+  '  req = urllib.request.Request(event["ResponseURL"], data=body, method="PUT")',
+  '  urllib.request.urlopen(req)',
+].join('\n');
+
+/**
  * A DataZone business glossary for catalog standardization.
  *
  * There is no CloudFormation resource type for DataZone glossaries, so this
- * construct uses `AwsCustomResource` to call the DataZone API directly
+ * construct uses a raw Lambda-backed custom resource to call the DataZone API directly
  * (CreateGlossary / UpdateGlossary / DeleteGlossary).
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html
@@ -53,74 +85,25 @@ export class Glossary extends Construct implements IGlossary {
       );
     }
 
-    const glossary = new cr.AwsCustomResource(this, 'Resource', {
-      onCreate: {
-        service: '@aws-sdk/client-datazone',
-        action: 'CreateGlossary',
-        parameters: {
-          domainIdentifier: props.domainIdentifier,
-          name: props.name,
-          owningProjectIdentifier: props.owningProjectIdentifier,
-          description: props.description,
-          status: props.status,
-        },
-        physicalResourceId: cr.PhysicalResourceId.fromResponse('id'),
-        assumedRoleArn: props.executionRoleArn,
+    const executionRole = iam.Role.fromRoleArn(this, 'ExecutionRole', props.executionRoleArn);
+    const fn = new lambda.Function(this, 'Fn', {
+      runtime: lambda.Runtime.PYTHON_3_12,
+      handler: 'index.handler',
+      role: executionRole,
+      timeout: Duration.seconds(30),
+      code: lambda.Code.fromInline(GLOSSARY_HANDLER),
+    });
+    const resource = new CustomResource(this, 'Resource', {
+      serviceToken: fn.functionArn,
+      properties: {
+        DomainId: props.domainIdentifier,
+        ProjectId: props.owningProjectIdentifier,
+        Name: props.name,
+        Description: props.description,
+        Status: props.status,
       },
-      onUpdate: {
-        service: '@aws-sdk/client-datazone',
-        action: 'UpdateGlossary',
-        parameters: {
-          domainIdentifier: props.domainIdentifier,
-          identifier: new cr.PhysicalResourceIdReference(),
-          name: props.name,
-          description: props.description,
-          status: props.status,
-        },
-        physicalResourceId: cr.PhysicalResourceId.fromResponse('id'),
-        assumedRoleArn: props.executionRoleArn,
-      },
-      onDelete: {
-        service: '@aws-sdk/client-datazone',
-        action: 'DeleteGlossary',
-        parameters: {
-          domainIdentifier: props.domainIdentifier,
-          identifier: new cr.PhysicalResourceIdReference(),
-        },
-        ignoreErrorCodesMatching: 'ResourceNotFoundException',
-        assumedRoleArn: props.executionRoleArn,
-      },
-      policy: cr.AwsCustomResourcePolicy.fromStatements([
-        new iam.PolicyStatement({
-          actions: ['sts:AssumeRole'],
-          resources: [props.executionRoleArn],
-        }),
-      ]),
     });
 
-    Validations.of(glossary).acknowledge({
-      id: 'AwsSolutions-IAM5',
-      reason: 'Glossary CRUD actions are scoped to the specific DataZone domain.',
-    });
-
-    // AwsCustomResource singleton Lambda suppressions
-    const stack = Stack.of(this);
-    for (const child of stack.node.children) {
-      if (child instanceof lambda_.Function && child.node.id.startsWith('AWS')) {
-        Validations.of(child).acknowledge(
-          {
-            id: 'AwsSolutions-L1',
-            reason: 'AwsCustomResource singleton Lambda runtime is managed by the CDK framework.',
-          },
-          {
-            id: 'AwsSolutions-IAM4',
-            reason: 'AwsCustomResource singleton Lambda requires basic execution role for CloudWatch logging.',
-          },
-        );
-        break;
-      }
-    }
-
-    this.glossaryId = glossary.getResponseField('id');
+    this.glossaryId = resource.getAttString('id');
   }
 }

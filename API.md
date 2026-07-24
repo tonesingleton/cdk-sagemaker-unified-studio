@@ -3672,6 +3672,15 @@ The ruleset name.
 
 A SageMaker Unified Studio data source that registers Glue or Redshift databases as governed assets within a domain project.
 
+NOTE: DataZone membership-gated API calls (ListConnections, StartDataSourceRun) require
+the caller to be a project member. AwsCustomResource cannot be used for these calls because
+it uses a stack-wide singleton Lambda — the `role=` prop and `policy=` prop both apply to
+that singleton, and whichever AwsCustomResource instance is synthesized first wins. Subsequent
+instances silently share the same role with no guarantee their policy statements are applied.
+`assumedRoleArn` per SDK call also fails because it requires `sts:AssumeRole` on the singleton
+role itself, which cannot be reliably attached for the same reason.
+Raw `lambda.Function` with `role=projectExecutionRole` is the only correct pattern here.
+
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/manage-data-sources.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/manage-data-sources.html)
 
 #### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.DataSource.Initializer"></a>
@@ -4959,6 +4968,7 @@ Sort domain units topologically so that parents are created before children.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.accessLogsBucket">accessLogsBucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | The S3 bucket used for access logs. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.blueprintPolicyGrants">blueprintPolicyGrants</a></code> | <code>aws-cdk-lib.aws_datazone.CfnPolicyGrant[]</code> | Policy grants that authorize blueprint usage. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.blueprints">blueprints</a></code> | <code>{[ key: string ]: <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Blueprint">Blueprint</a>}</code> | Map of blueprint identifier to its Blueprint construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | IAM role for Lambda-backed custom resources that call DataZone APIs. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.domainArn">domainArn</a></code> | <code>string</code> | The domain ARN. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.domainExecutionRole">domainExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The domain execution role. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.domainId">domainId</a></code> | <code>string</code> | The domain ID (e.g. `dzd-abc123`). |
@@ -5017,6 +5027,21 @@ public readonly blueprints: {[ key: string ]: Blueprint};
 - *Type:* {[ key: string ]: <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Blueprint">Blueprint</a>}
 
 Map of blueprint identifier to its Blueprint construct.
+
+---
+
+##### `datazoneApiRole`<sup>Required</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.Domain.property.datazoneApiRole"></a>
+
+```typescript
+public readonly datazoneApiRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+IAM role for Lambda-backed custom resources that call DataZone APIs.
+
+Trusted by `lambda.amazonaws.com`, has `datazone:*` permissions, and is
+registered as a root domain unit owner (Administrator in the SMUS portal).
 
 ---
 
@@ -6660,7 +6685,7 @@ The status of the CodeConnections connection (e.g. PENDING, AVAILABLE).
 A DataZone business glossary for catalog standardization.
 
 There is no CloudFormation resource type for DataZone glossaries, so this
-construct uses `AwsCustomResource` to call the DataZone API directly
+construct uses a raw Lambda-backed custom resource to call the DataZone API directly
 (CreateGlossary / UpdateGlossary / DeleteGlossary).
 
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html)
@@ -6847,7 +6872,7 @@ The glossary ID assigned by DataZone.
 A DataZone glossary term within a business glossary.
 
 There is no CloudFormation resource type for DataZone glossary terms, so this
-construct uses `AwsCustomResource` to call the DataZone API directly
+construct uses a raw Lambda-backed custom resource to call the DataZone API directly
 (CreateGlossaryTerm / UpdateGlossaryTerm / DeleteGlossaryTerm).
 
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html)
@@ -10278,6 +10303,383 @@ The CloudFormation resource type name for this resource class.
 
 ---
 
+### LookupEnvironment <a name="LookupEnvironment" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment"></a>
+
+Looks up the ID of an existing environment within a project by name.
+
+Environments are provisioned asynchronously by SageMaker Unified Studio and
+are not exposed as CloudFormation outputs. This construct calls
+`DataZone:ListEnvironments` at deploy time to resolve the environment ID as
+a CloudFormation token, which can then be used in downstream resources.
+
+Requires `domain.datazoneApiRole` — the role must be a project owner so it
+can call the project-scoped `ListEnvironments` API.
+
+*Example*
+
+```typescript
+const lookup = new LookupEnvironment(this, 'LookupTooling', {
+  domainId: domain.domainId,
+  projectId: project.id,
+  environmentName: 'Tooling',
+  datazoneApiRole: domain.datazoneApiRole,
+});
+const environmentId = lookup.environmentId;
+```
+
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.Initializer"></a>
+
+```typescript
+import { LookupEnvironment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new LookupEnvironment(scope: Construct, id: string, props: LookupEnvironmentProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps">LookupEnvironmentProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps">LookupEnvironmentProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.isConstruct"></a>
+
+```typescript
+import { LookupEnvironment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+LookupEnvironment.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.property.environmentId">environmentId</a></code> | <code>string</code> | The resolved environment ID (CloudFormation token). |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `environmentId`<sup>Required</sup> <a name="environmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+The resolved environment ID (CloudFormation token).
+
+---
+
+
+### LookupSmusUserRole <a name="LookupSmusUserRole" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole"></a>
+
+Resolves the ARN of the SMUS user role (`datazone_usr_role`) provisioned by the Tooling blueprint for a given project.
+
+## Background
+
+When the Tooling blueprint provisions an environment for a project, it creates
+an IAM role named `datazone_usr_role_<projectId>_<environmentId>`. This role
+is the execution identity assumed by **JupyterLab notebook users** when they
+run code inside the project's Tooling environment — for example, running Spark
+cells via Glue Interactive Sessions, querying data with Athena, or accessing S3.
+
+Because all project members share this single role (IAM-based domains have no
+per-user attribution), it is also the role you attach additional IAM policies
+to when you need notebook users to access resources outside the default
+permissions granted by the Tooling blueprint — for example, reading from a
+specific S3 bucket or calling a Glue connection.
+
+## Why a construct is needed
+
+The role name follows a deterministic SMUS-specific convention that encodes
+both the project ID and the Tooling environment ID. The environment ID is only
+known after the Tooling blueprint has finished provisioning (it is not a
+CloudFormation output), so it must be looked up at deploy time via
+`DataZone:ListEnvironments`. This construct wraps that lookup and exposes the
+fully-resolved role ARN as a CloudFormation token.
+
+*Example*
+
+```typescript
+const userRole = new LookupSmusUserRole(this, 'SmusUserRole', {
+  domainId: domain.domainId,
+  projectId: project.id,
+  datazoneApiRole: domain.datazoneApiRole,
+});
+
+// Attach an additional policy so notebook users can read from a custom bucket
+new iam.Policy(this, 'NotebookS3Access', {
+  roles: [iam.Role.fromRoleArn(this, 'UserRole', userRole.roleArn, { mutable: false })],
+  statements: [
+    new iam.PolicyStatement({
+      actions: ['s3:GetObject', 's3:ListBucket'],
+      resources: ['arn:aws:s3:::my-bucket', 'arn:aws:s3:::my-bucket/*'],
+    }),
+  ],
+});
+```
+
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.Initializer"></a>
+
+```typescript
+import { LookupSmusUserRole } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new LookupSmusUserRole(scope: Construct, id: string, props: LookupSmusUserRoleProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRoleProps">LookupSmusUserRoleProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRoleProps">LookupSmusUserRoleProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.isConstruct"></a>
+
+```typescript
+import { LookupSmusUserRole } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+LookupSmusUserRole.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.property.environmentId">environmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.property.roleArn">roleArn</a></code> | <code>string</code> | The ARN of the `datazone_usr_role` IAM role created by the Tooling blueprint for this project (CloudFormation token). |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `environmentId`<sup>Required</sup> <a name="environmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `roleArn`<sup>Required</sup> <a name="roleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRole.property.roleArn"></a>
+
+```typescript
+public readonly roleArn: string;
+```
+
+- *Type:* string
+
+The ARN of the `datazone_usr_role` IAM role created by the Tooling blueprint for this project (CloudFormation token).
+
+---
+
+
 ### MwaaConnection <a name="MwaaConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection"></a>
 
 A SageMaker Unified Studio MWAA environment connection.
@@ -13160,6 +13562,148 @@ public readonly CFN_RESOURCE_TYPE_NAME: string;
 The CloudFormation resource type name for this resource class.
 
 ---
+
+### Owner <a name="Owner" id="@tonesingleton/cdk-sagemaker-unified-studio.Owner"></a>
+
+Assigns an IAM role or group as the owner of a DataZone entity (domain unit).
+
+Owning the root domain unit is what the SageMaker Unified Studio portal
+surfaces as the "Administrator" designation for a user or role.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-owner.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-owner.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.Owner.Initializer"></a>
+
+```typescript
+import { Owner } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new Owner(scope: Construct, id: string, props: OwnerProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Owner.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Owner.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Owner.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps">OwnerProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Owner.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Owner.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.Owner.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps">OwnerProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Owner.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Owner.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.Owner.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.Owner.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.Owner.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Owner.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.Owner.isConstruct"></a>
+
+```typescript
+import { Owner } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Owner.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.Owner.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Owner.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.Owner.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
 
 ### PolicyGrant <a name="PolicyGrant" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrant"></a>
 
@@ -22927,27 +23471,17 @@ const dataSourceProps: DataSourceProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.connectionId">connectionId</a></code> | <code>string</code> | The connection ID for the data source connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.domainId">domainId</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.name">name</a></code> | <code>string</code> | Display name of the data source. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.projectId">projectId</a></code> | <code>string</code> | The project ID that owns this data source. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.connectionId">connectionId</a></code> | <code>string</code> | The connection ID for the data source connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.enabled">enabled</a></code> | <code>boolean</code> | Whether the data source is enabled. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.glueConfiguration">glueConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueDataSourceConfiguration">GlueDataSourceConfiguration</a></code> | The Glue data source configuration. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.projectExecutionRole">projectExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The project execution role used to call `ListConnections` when `connectionId` is not provided. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.publishOnImport">publishOnImport</a></code> | <code>boolean</code> | Whether to automatically publish imported assets. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.redshiftConfiguration">redshiftConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftDataSourceConfiguration">RedshiftDataSourceConfiguration</a></code> | The Redshift data source configuration. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.schedule">schedule</a></code> | <code>string</code> | A cron expression for the data source run schedule. |
-
----
-
-##### `connectionId`<sup>Required</sup> <a name="connectionId" id="@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.connectionId"></a>
-
-```typescript
-public readonly connectionId: string;
-```
-
-- *Type:* string
-
-The connection ID for the data source connection.
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.shouldRunOnDeploy">shouldRunOnDeploy</a></code> | <code>boolean</code> | Whether to trigger a data source run automatically on every deployment. |
 
 ---
 
@@ -22987,6 +23521,23 @@ The project ID that owns this data source.
 
 ---
 
+##### `connectionId`<sup>Optional</sup> <a name="connectionId" id="@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.connectionId"></a>
+
+```typescript
+public readonly connectionId: string;
+```
+
+- *Type:* string
+- *Default:* resolved automatically via ListConnections
+
+The connection ID for the data source connection.
+
+When omitted, the connection ID is resolved automatically at deploy time by
+calling `ListConnections` with the appropriate type (`LAKEHOUSE` for Glue,
+`REDSHIFT` for Redshift). Requires `projectExecutionRole` to be provided.
+
+---
+
 ##### `enabled`<sup>Optional</sup> <a name="enabled" id="@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.enabled"></a>
 
 ```typescript
@@ -23012,6 +23563,23 @@ public readonly glueConfiguration: GlueDataSourceConfiguration;
 The Glue data source configuration.
 
 Mutually exclusive with `redshiftConfiguration`.
+
+---
+
+##### `projectExecutionRole`<sup>Optional</sup> <a name="projectExecutionRole" id="@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.projectExecutionRole"></a>
+
+```typescript
+public readonly projectExecutionRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+- *Default:* not required when connectionId is provided
+
+The project execution role used to call `ListConnections` when `connectionId` is not provided.
+
+Must be a project member with DataZone application-level access.
+
+Required when `connectionId` is omitted.
 
 ---
 
@@ -23053,6 +23621,23 @@ public readonly schedule: string;
 - *Default:* no schedule (manual runs only)
 
 A cron expression for the data source run schedule.
+
+---
+
+##### `shouldRunOnDeploy`<sup>Optional</sup> <a name="shouldRunOnDeploy" id="@tonesingleton/cdk-sagemaker-unified-studio.DataSourceProps.property.shouldRunOnDeploy"></a>
+
+```typescript
+public readonly shouldRunOnDeploy: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to trigger a data source run automatically on every deployment.
+
+When `true`, a Lambda-backed custom resource calls `StartDataSourceRun`
+after the data source is created or updated. Requires `projectExecutionRole`
+to be provided (the role must be a project member).
 
 ---
 
@@ -23355,6 +23940,7 @@ const domainAttributes: DomainAttributes = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.domainArn">domainArn</a></code> | <code>string</code> | The domain ARN. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.domainId">domainId</a></code> | <code>string</code> | The domain ID (e.g. `dzd-abc123`). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.rootDomainUnitId">rootDomainUnitId</a></code> | <code>string</code> | The root domain unit ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.datazoneApiRoleArn">datazoneApiRoleArn</a></code> | <code>string</code> | The ARN of the DataZone API role. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.domainExecutionRoleArn">domainExecutionRoleArn</a></code> | <code>string</code> | The ARN of the domain execution role. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.manageAccessRoleArn">manageAccessRoleArn</a></code> | <code>string</code> | The ARN of the manage access role. |
 
@@ -23393,6 +23979,19 @@ public readonly rootDomainUnitId: string;
 - *Type:* string
 
 The root domain unit ID.
+
+---
+
+##### `datazoneApiRoleArn`<sup>Optional</sup> <a name="datazoneApiRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainAttributes.property.datazoneApiRoleArn"></a>
+
+```typescript
+public readonly datazoneApiRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no datazoneApiRole imported
+
+The ARN of the DataZone API role.
 
 ---
 
@@ -26423,6 +27022,144 @@ Whether Glue lineage sync is enabled for this connection.
 
 ---
 
+### LookupEnvironmentProps <a name="LookupEnvironmentProps" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps"></a>
+
+Properties for the LookupEnvironment construct.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps.Initializer"></a>
+
+```typescript
+import { LookupEnvironmentProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const lookupEnvironmentProps: LookupEnvironmentProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The DataZone API role to use for the custom resource Lambda. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps.property.domainId">domainId</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps.property.environmentName">environmentName</a></code> | <code>string</code> | The name of the environment to look up (e.g. `'Tooling'`, `'ToolingLite'`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps.property.projectId">projectId</a></code> | <code>string</code> | The project ID to look up the environment in. |
+
+---
+
+##### `datazoneApiRole`<sup>Required</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps.property.datazoneApiRole"></a>
+
+```typescript
+public readonly datazoneApiRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The DataZone API role to use for the custom resource Lambda.
+
+Must be a project owner so it can call the project-scoped `ListEnvironments` API.
+Pass `domain.datazoneApiRole` here.
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The SageMaker Unified Studio domain ID.
+
+---
+
+##### `environmentName`<sup>Required</sup> <a name="environmentName" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps.property.environmentName"></a>
+
+```typescript
+public readonly environmentName: string;
+```
+
+- *Type:* string
+
+The name of the environment to look up (e.g. `'Tooling'`, `'ToolingLite'`).
+
+Must match exactly one environment in the project. If multiple environments
+share the same name, the first result is returned.
+
+---
+
+##### `projectId`<sup>Required</sup> <a name="projectId" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps.property.projectId"></a>
+
+```typescript
+public readonly projectId: string;
+```
+
+- *Type:* string
+
+The project ID to look up the environment in.
+
+---
+
+### LookupSmusUserRoleProps <a name="LookupSmusUserRoleProps" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRoleProps"></a>
+
+Properties for the LookupSmusUserRole construct.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRoleProps.Initializer"></a>
+
+```typescript
+import { LookupSmusUserRoleProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const lookupSmusUserRoleProps: LookupSmusUserRoleProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRoleProps.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The DataZone API role to use for the environment lookup custom resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRoleProps.property.domainId">domainId</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRoleProps.property.projectId">projectId</a></code> | <code>string</code> | The project ID whose Tooling environment user role to look up. |
+
+---
+
+##### `datazoneApiRole`<sup>Required</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRoleProps.property.datazoneApiRole"></a>
+
+```typescript
+public readonly datazoneApiRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The DataZone API role to use for the environment lookup custom resource.
+
+Must be a project owner so it can call the project-scoped `ListEnvironments` API.
+Pass `domain.datazoneApiRole` here.
+
+---
+
+##### `domainId`<sup>Required</sup> <a name="domainId" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRoleProps.property.domainId"></a>
+
+```typescript
+public readonly domainId: string;
+```
+
+- *Type:* string
+
+The SageMaker Unified Studio domain ID.
+
+---
+
+##### `projectId`<sup>Required</sup> <a name="projectId" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupSmusUserRoleProps.property.projectId"></a>
+
+```typescript
+public readonly projectId: string;
+```
+
+- *Type:* string
+
+The project ID whose Tooling environment user role to look up.
+
+---
+
 ### Member <a name="Member" id="@tonesingleton/cdk-sagemaker-unified-studio.Member"></a>
 
 A member of a project (either a user or a group).
@@ -27264,6 +28001,98 @@ Additional Spark-specific connection properties.
 
 ---
 
+### OwnerProps <a name="OwnerProps" id="@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps"></a>
+
+Properties for an Owner construct.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-owner.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-owner.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps.Initializer"></a>
+
+```typescript
+import { OwnerProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const ownerProps: OwnerProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps.property.entityIdentifier">entityIdentifier</a></code> | <code>string</code> | The ID of the entity (e.g. domain unit ID) to which the owner is added. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps.property.entityType">entityType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OwnerEntityType">OwnerEntityType</a></code> | The type of entity. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps.property.groupIdentifier">groupIdentifier</a></code> | <code>string</code> | The group identifier to designate as owner. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps.property.userIdentifier">userIdentifier</a></code> | <code>string</code> | The IAM role ARN of the user to designate as owner. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain.
+
+---
+
+##### `entityIdentifier`<sup>Required</sup> <a name="entityIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps.property.entityIdentifier"></a>
+
+```typescript
+public readonly entityIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the entity (e.g. domain unit ID) to which the owner is added.
+
+---
+
+##### `entityType`<sup>Required</sup> <a name="entityType" id="@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps.property.entityType"></a>
+
+```typescript
+public readonly entityType: OwnerEntityType;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.OwnerEntityType">OwnerEntityType</a>
+
+The type of entity.
+
+Currently only DOMAIN_UNIT is supported.
+
+---
+
+##### `groupIdentifier`<sup>Optional</sup> <a name="groupIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps.property.groupIdentifier"></a>
+
+```typescript
+public readonly groupIdentifier: string;
+```
+
+- *Type:* string
+
+The group identifier to designate as owner.
+
+Exactly one of `userIdentifier` or `groupIdentifier` must be provided.
+
+---
+
+##### `userIdentifier`<sup>Optional</sup> <a name="userIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.OwnerProps.property.userIdentifier"></a>
+
+```typescript
+public readonly userIdentifier: string;
+```
+
+- *Type:* string
+
+The IAM role ARN of the user to designate as owner.
+
+Exactly one of `userIdentifier` or `groupIdentifier` must be provided.
+
+---
+
 ### PolicyGrantAttributes <a name="PolicyGrantAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantAttributes"></a>
 
 Attributes required to import an existing PolicyGrant.
@@ -28058,8 +28887,10 @@ const projectDatabaseProps: ProjectDatabaseProps = { ... }
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.databaseName">databaseName</a></code> | <code>string</code> | The name of the Glue database to create. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.projectExecutionRoleArn">projectExecutionRoleArn</a></code> | <code>string</code> | The ARN of the project execution role that will be granted Lake Formation permissions on the database. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.additionalReadPrincipals">additionalReadPrincipals</a></code> | <code>string[]</code> | Additional IAM principal ARNs to grant `DESCRIBE` on the database and `DESCRIBE`/`SELECT` on all tables. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the database. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.locationUri">locationUri</a></code> | <code>string</code> | The S3 location URI for the database. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.manageAccessRoleArn">manageAccessRoleArn</a></code> | <code>string</code> | The ARN of the SageMaker Unified Studio manage access role. |
 
 ---
 
@@ -28087,6 +28918,23 @@ The ARN of the project execution role that will be granted Lake Formation permis
 
 ---
 
+##### `additionalReadPrincipals`<sup>Optional</sup> <a name="additionalReadPrincipals" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.additionalReadPrincipals"></a>
+
+```typescript
+public readonly additionalReadPrincipals: string[];
+```
+
+- *Type:* string[]
+- *Default:* no additional principals
+
+Additional IAM principal ARNs to grant `DESCRIBE` on the database and `DESCRIBE`/`SELECT` on all tables.
+
+Use this to grant read-only catalog
+visibility to roles such as the SMUS user role (`datazone_usr_role_*`)
+without granting write or IAM-passthrough permissions.
+
+---
+
 ##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.description"></a>
 
 ```typescript
@@ -28110,6 +28958,25 @@ public readonly locationUri: string;
 - *Default:* no location (tables define their own locations)
 
 The S3 location URI for the database.
+
+---
+
+##### `manageAccessRoleArn`<sup>Optional</sup> <a name="manageAccessRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectDatabaseProps.property.manageAccessRoleArn"></a>
+
+```typescript
+public readonly manageAccessRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no manage access role grants
+
+The ARN of the SageMaker Unified Studio manage access role.
+
+When provided, grants `DESCRIBE` (with grant option) on the database and
+`DESCRIBE`/`SELECT` (with grant options) on tables — required for SMUS to
+manage subscriptions and display the database in the UI.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/lake-formation-permissions-for-amazon-sagemaker-unified-studio.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/lake-formation-permissions-for-amazon-sagemaker-unified-studio.html)
 
 ---
 
@@ -28483,9 +29350,12 @@ const projectProps: ProjectProps = { ... }
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID this project belongs to. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.name">name</a></code> | <code>string</code> | Display name of the project (1–64 characters, `[\w -]+`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.additionalTrustPrincipals">additionalTrustPrincipals</a></code> | <code>string[]</code> | Additional IAM principals (ARNs) to trust in the project execution role's trust policy. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.crRole">crRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The domain-level DataZone API role to add as a `PROJECT_OWNER` of this project. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the project's purpose. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainUnitId">domainUnitId</a></code> | <code>string</code> | The domain unit ID to place this project in. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms that can be used in this project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.grantDefaultDatabaseDescribe">grantDefaultDatabaseDescribe</a></code> | <code>boolean</code> | Whether to grant the project execution role `DESCRIBE` on the Glue `default` database. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.membershipAssignments">membershipAssignments</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MembershipAssignment">MembershipAssignment</a>[]</code> | Membership assignments for the project. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.projectCategory">projectCategory</a></code> | <code>string</code> | The category of the project. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.projectExecutionRole">projectExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | An existing IAM role to use as the project execution role. |
@@ -28516,6 +29386,39 @@ public readonly name: string;
 - *Type:* string
 
 Display name of the project (1–64 characters, `[\w -]+`).
+
+---
+
+##### `additionalTrustPrincipals`<sup>Optional</sup> <a name="additionalTrustPrincipals" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.additionalTrustPrincipals"></a>
+
+```typescript
+public readonly additionalTrustPrincipals: string[];
+```
+
+- *Type:* string[]
+- *Default:* no additional principals
+
+Additional IAM principals (ARNs) to trust in the project execution role's trust policy.
+
+Use this to allow specific IAM roles or users to assume the execution role directly,
+for example a developer role for local testing or debugging.
+
+---
+
+##### `crRole`<sup>Optional</sup> <a name="crRole" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.crRole"></a>
+
+```typescript
+public readonly crRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+- *Default:* no datazoneApiRole membership added
+
+The domain-level DataZone API role to add as a `PROJECT_OWNER` of this project.
+
+When provided, a `CfnProjectMembership` is created automatically so the role
+can call project-gated DataZone APIs (e.g. `ListConnections`, `ListEnvironments`)
+during CDK deployments. Pass `domain.datazoneApiRole` here.
 
 ---
 
@@ -28555,6 +29458,22 @@ public readonly glossaryTerms: string[];
 - *Default:* no glossary terms
 
 Glossary terms that can be used in this project.
+
+---
+
+##### `grantDefaultDatabaseDescribe`<sup>Optional</sup> <a name="grantDefaultDatabaseDescribe" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.grantDefaultDatabaseDescribe"></a>
+
+```typescript
+public readonly grantDefaultDatabaseDescribe: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to grant the project execution role `DESCRIBE` on the Glue `default` database.
+
+Glue Interactive Sessions and Spark jobs need this permission to resolve unqualified
+table references. Enable this when the project uses the Lakehouse blueprint.
 
 ---
 
@@ -30538,7 +31457,7 @@ const subscriptionTargetProps: SubscriptionTargetProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment in which the subscription target is created. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.name">name</a></code> | <code>string</code> | The name of the subscription target (1–256 characters). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.subscriptionTargetConfig">subscriptionTargetConfig</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetForm">SubscriptionTargetForm</a>[]</code> | The subscription target configuration forms. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.type">type</a></code> | <code>string</code> | The type of the subscription target (e.g. data asset type identifier). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.type">type</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType">SubscriptionTargetType</a></code> | The type of the subscription target. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.manageAccessRole">manageAccessRole</a></code> | <code>string</code> | The IAM role used to manage access when fulfilling subscriptions. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.provider">provider</a></code> | <code>string</code> | The provider of this subscription target. |
 
@@ -30619,12 +31538,12 @@ The subscription target configuration forms.
 ##### `type`<sup>Required</sup> <a name="type" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetProps.property.type"></a>
 
 ```typescript
-public readonly type: string;
+public readonly type: SubscriptionTargetType;
 ```
 
-- *Type:* string
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType">SubscriptionTargetType</a>
 
-The type of the subscription target (e.g. data asset type identifier).
+The type of the subscription target.
 
 ---
 
@@ -31828,6 +32747,7 @@ Exposed attributes of the Domain construct.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain.property.accessLogsBucket">accessLogsBucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain.property.blueprintPolicyGrants">blueprintPolicyGrants</a></code> | <code>aws-cdk-lib.aws_datazone.CfnPolicyGrant[]</code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain.property.blueprints">blueprints</a></code> | <code>{[ key: string ]: <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Blueprint">Blueprint</a>}</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | IAM role for Lambda-backed custom resources that call DataZone APIs. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain.property.domainArn">domainArn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain.property.domainExecutionRole">domainExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain.property.domainId">domainId</a></code> | <code>string</code> | *No description.* |
@@ -31865,6 +32785,22 @@ public readonly blueprints: {[ key: string ]: Blueprint};
 ```
 
 - *Type:* {[ key: string ]: <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Blueprint">Blueprint</a>}
+
+---
+
+##### `datazoneApiRole`<sup>Required</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.IDomain.property.datazoneApiRole"></a>
+
+```typescript
+public readonly datazoneApiRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+IAM role for Lambda-backed custom resources that call DataZone APIs.
+
+This role is trusted by `lambda.amazonaws.com`, has `datazone:*` permissions,
+and is registered as a root domain unit owner (Administrator in the SMUS portal).
+Pass it as `role` to any `AwsCustomResource` that calls membership-gated DataZone APIs.
 
 ---
 
@@ -33224,6 +34160,25 @@ An IAM role session group.
 ---
 
 
+### OwnerEntityType <a name="OwnerEntityType" id="@tonesingleton/cdk-sagemaker-unified-studio.OwnerEntityType"></a>
+
+The type of entity to which an owner is being assigned.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OwnerEntityType.DOMAIN_UNIT">DOMAIN_UNIT</a></code> | A domain unit. |
+
+---
+
+##### `DOMAIN_UNIT` <a name="DOMAIN_UNIT" id="@tonesingleton/cdk-sagemaker-unified-studio.OwnerEntityType.DOMAIN_UNIT"></a>
+
+A domain unit.
+
+---
+
+
 ### PolicyGrantEntityType <a name="PolicyGrantEntityType" id="@tonesingleton/cdk-sagemaker-unified-studio.PolicyGrantEntityType"></a>
 
 The type of entity (resource) to which the grant is added.
@@ -33432,6 +34387,55 @@ The project profile is active and can be used to create projects.
 ##### `DISABLED` <a name="DISABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus.DISABLED"></a>
 
 The project profile is disabled and cannot be used.
+
+---
+
+
+### SubscriptionTargetType <a name="SubscriptionTargetType" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType"></a>
+
+The accepted subscription target types in Amazon DataZone.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateSubscriptionTarget.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateSubscriptionTarget.html)
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.BEDROCK_MODEL">BEDROCK_MODEL</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.GLUE">GLUE</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.QUICKSIGHT">QUICKSIGHT</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.REDLAKE">REDLAKE</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.REDSHIFT">REDSHIFT</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.REDSHIFT_SERVERLESS">REDSHIFT_SERVERLESS</a></code> | *No description.* |
+
+---
+
+##### `BEDROCK_MODEL` <a name="BEDROCK_MODEL" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.BEDROCK_MODEL"></a>
+
+---
+
+
+##### `GLUE` <a name="GLUE" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.GLUE"></a>
+
+---
+
+
+##### `QUICKSIGHT` <a name="QUICKSIGHT" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.QUICKSIGHT"></a>
+
+---
+
+
+##### `REDLAKE` <a name="REDLAKE" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.REDLAKE"></a>
+
+---
+
+
+##### `REDSHIFT` <a name="REDSHIFT" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.REDSHIFT"></a>
+
+---
+
+
+##### `REDSHIFT_SERVERLESS` <a name="REDSHIFT_SERVERLESS" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionTargetType.REDSHIFT_SERVERLESS"></a>
 
 ---
 

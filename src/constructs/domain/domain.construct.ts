@@ -14,6 +14,8 @@ import type { DomainAttributes, DomainProps, DomainUnitConfig, IDomain } from '.
 import { Blueprint } from '../blueprint/blueprint.construct';
 import type { BlueprintProps } from '../blueprint/blueprint.interface';
 import { ManagedBlueprintIdentifier } from '../blueprint/blueprint.interface';
+import { Owner, OwnerEntityType } from '../owner';
+import { UserProfile, UserType } from '../user-profile';
 
 /**
  * An AWS SageMaker Unified Studio domain with its associated IAM roles,
@@ -49,6 +51,9 @@ export class Domain extends Construct implements IDomain {
         : (undefined as unknown as iam.IRole);
       public readonly manageAccessRole = attrs.manageAccessRoleArn
         ? iam.Role.fromRoleArn(this, 'ManageAccessRole', attrs.manageAccessRoleArn)
+        : (undefined as unknown as iam.IRole);
+      public readonly datazoneApiRole = attrs.datazoneApiRoleArn
+        ? iam.Role.fromRoleArn(this, 'DatazoneApiRole', attrs.datazoneApiRoleArn)
         : (undefined as unknown as iam.IRole);
       public readonly domainUnits = {};
       public readonly blueprints = {};
@@ -114,6 +119,13 @@ export class Domain extends Construct implements IDomain {
   public readonly domainExecutionRole: iam.IRole;
   /** The manage access role. */
   public readonly manageAccessRole: iam.IRole;
+  /**
+   * IAM role for Lambda-backed custom resources that call DataZone APIs.
+   *
+   * Trusted by `lambda.amazonaws.com`, has `datazone:*` permissions, and is
+   * registered as a root domain unit owner (Administrator in the SMUS portal).
+   */
+  public readonly datazoneApiRole: iam.IRole;
   /** Map of domain unit name to its CloudFormation resource. */
   public readonly domainUnits: Record<string, datazone.CfnDomainUnit>;
   /** Map of blueprint identifier to its Blueprint construct. */
@@ -382,6 +394,41 @@ export class Domain extends Construct implements IDomain {
       bucketArn: projectsBucket.bucketArn,
     });
 
+    // DataZone API role: Lambda execution role with datazone:* permissions,
+    // registered as a root domain unit owner so it can call membership-gated
+    // DataZone APIs (ListEnvironments, ListConnections, etc.) during deployments.
+    const datazoneApiRole = new iam.Role(this, 'DatazoneApiRole', {
+      assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+      managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole')],
+      inlinePolicies: {
+        DataZone: new iam.PolicyDocument({
+          statements: [new iam.PolicyStatement({ actions: ['datazone:*'], resources: ['*'] })],
+        }),
+      },
+    });
+
+    Validations.of(datazoneApiRole).acknowledge(
+      {
+        id: 'AwsSolutions-IAM4',
+        reason: 'AWSLambdaBasicExecutionRole is required for Lambda custom resource logging.',
+      },
+      { id: 'AwsSolutions-IAM5', reason: 'datazone:* on * is required for domain-admin custom resource operations.' },
+    );
+
+    const datazoneApiUserProfile = new UserProfile(this, 'DatazoneApiUserProfile', {
+      domainIdentifier: domain.attrId,
+      userIdentifier: datazoneApiRole.roleArn,
+      userType: UserType.IAM_ROLE,
+    });
+
+    const datazoneApiOwner = new Owner(this, 'DatazoneApiOwner', {
+      domainIdentifier: domain.attrId,
+      entityIdentifier: domain.attrRootDomainUnitId,
+      entityType: OwnerEntityType.DOMAIN_UNIT,
+      userIdentifier: datazoneApiRole.roleArn,
+    });
+    datazoneApiOwner.node.addDependency(datazoneApiUserProfile);
+
     // NOTE: The admin project profile (Tooling + LakehouseAdmin) must be created
     // manually from the SageMaker Unified Studio UI. CDK-based creation is not
     // currently working due to service-side limitations with the LakehouseAdmin
@@ -392,6 +439,7 @@ export class Domain extends Construct implements IDomain {
     this.rootDomainUnitId = domain.attrRootDomainUnitId;
     this.domainExecutionRole = domainExecutionRole;
     this.manageAccessRole = manageAccessRole;
+    this.datazoneApiRole = datazoneApiRole;
     this.domainUnits = units;
     this.blueprints = blueprints;
     this.blueprintPolicyGrants = policyGrants;

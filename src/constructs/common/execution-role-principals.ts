@@ -18,5 +18,5 @@ export const EXECUTION_ROLE_TRUST_PRINCIPALS: ReadonlyArray<string> = [
   'athena.amazonaws.com',
   'redshift.amazonaws.com',
   'emr-serverless.amazonaws.com',
-  'lambda.amazonaws.com', // This was added in attempt to use execution role for custome resource sdk call.
+  'lambda.amazonaws.com',
 ];

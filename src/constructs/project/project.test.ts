@@ -116,7 +116,7 @@ describe('Project', () => {
     });
   });
 
-  test('creates inline membership assignments', () => {
+  test('creates membership assignments as separate CfnProjectMembership resources', () => {
     const stack = createStack();
     new Project(stack, 'Project', {
       name: 'TestProject',
@@ -133,16 +133,16 @@ describe('Project', () => {
       ],
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::Project', {
-      MembershipAssignments: [
-        {
-          Designation: 'PROJECT_OWNER',
-          Member: { UserIdentifier: 'arn:aws:iam::123456789012:role/owner' },
-        },
-        {
-          Designation: 'PROJECT_CONTRIBUTOR',
-          Member: { UserIdentifier: 'arn:aws:iam::123456789012:role/contributor' },
-        },
-      ],
+      MembershipAssignments: Match.absent(),
+    });
+    Template.fromStack(stack).resourceCountIs('AWS::DataZone::ProjectMembership', 2);
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::ProjectMembership', {
+      Designation: 'PROJECT_OWNER',
+      Member: { UserIdentifier: 'arn:aws:iam::123456789012:role/owner' },
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::ProjectMembership', {
+      Designation: 'PROJECT_CONTRIBUTOR',
+      Member: { UserIdentifier: 'arn:aws:iam::123456789012:role/contributor' },
     });
   });
 
@@ -251,6 +251,31 @@ describe('Project', () => {
       domainIdentifier: 'dzd-test',
     });
     Template.fromStack(stack).resourceCountIs('AWS::LakeFormation::PrincipalPermissions', 0);
+  });
+
+  test('adds cr role as PROJECT_OWNER membership when crRole provided', () => {
+    const stack = createStack();
+    const crRole = new iam.Role(stack, 'CrRole', {
+      assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+    });
+    new Project(stack, 'Project', {
+      name: 'TestProject',
+      domainIdentifier: 'dzd-test',
+      crRole,
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::DataZone::ProjectMembership', {
+      Designation: 'PROJECT_OWNER',
+      Member: { UserIdentifier: { 'Fn::GetAtt': [Match.stringLikeRegexp('CrRole'), 'Arn'] } },
+    });
+  });
+
+  test('does not create any memberships when neither crRole nor membershipAssignments provided', () => {
+    const stack = createStack();
+    new Project(stack, 'Project', {
+      name: 'TestProject',
+      domainIdentifier: 'dzd-test',
+    });
+    Template.fromStack(stack).resourceCountIs('AWS::DataZone::ProjectMembership', 0);
   });
 
   test('grants DESCRIBE on default Glue database when grantDefaultDatabaseDescribe is true', () => {

@@ -1,5 +1,5 @@
 import { App, Stack } from 'aws-cdk-lib';
-import { Match, Template } from 'aws-cdk-lib/assertions';
+import { Template } from 'aws-cdk-lib/assertions';
 import { Glossary } from './glossary.construct';
 import { GlossaryStatus } from './glossary.interface';
 
@@ -15,17 +15,20 @@ const validProps = {
 };
 
 describe('Glossary', () => {
-  test('creates a custom resource for the glossary', () => {
+  test('creates a Lambda and custom resource for the glossary', () => {
     const stack = createStack();
     new Glossary(stack, 'Glossary', validProps);
-    Template.fromStack(stack).resourceCountIs('Custom::AWS', 1);
+    Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 1);
+    Template.fromStack(stack).resourceCountIs('AWS::CloudFormation::CustomResource', 1);
   });
 
-  test('passes assumedRoleArn to the custom resource', () => {
+  test('passes domain and project to the custom resource', () => {
     const stack = createStack();
     new Glossary(stack, 'Glossary', validProps);
-    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: Match.stringLikeRegexp('assumedRoleArn.*DomainExecutionRole'),
+    Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
+      DomainId: 'dzd-abc123',
+      ProjectId: 'proj-abc123',
+      Name: 'BusinessTerms',
     });
   });
 
@@ -36,24 +39,17 @@ describe('Glossary', () => {
       description: 'Central glossary',
       status: GlossaryStatus.ENABLED,
     });
-    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: Match.stringLikeRegexp('"description":"Central glossary"'),
+    Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
+      Description: 'Central glossary',
+      Status: 'ENABLED',
     });
   });
 
-  test('grants sts:AssumeRole scoped to the execution role', () => {
+  test('Lambda uses the provided execution role', () => {
     const stack = createStack();
     new Glossary(stack, 'Glossary', validProps);
-    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
-      PolicyDocument: {
-        Statement: [
-          {
-            Action: 'sts:AssumeRole',
-            Effect: 'Allow',
-            Resource: 'arn:aws:iam::123456789012:role/DomainExecutionRole',
-          },
-        ],
-      },
+    Template.fromStack(stack).hasResourceProperties('AWS::Lambda::Function', {
+      Role: 'arn:aws:iam::123456789012:role/DomainExecutionRole',
     });
   });
 
@@ -99,10 +95,11 @@ describe('Glossary', () => {
       expect(imported.glossaryId).toBe('gloss-123');
     });
 
-    test('does not create any custom resources', () => {
+    test('does not create any resources', () => {
       const stack = createStack();
       Glossary.fromAttributes(stack, 'Imported', { glossaryId: 'gloss-123' });
-      Template.fromStack(stack).resourceCountIs('Custom::AWS', 0);
+      Template.fromStack(stack).resourceCountIs('AWS::CloudFormation::CustomResource', 0);
+      Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 0);
     });
   });
 });

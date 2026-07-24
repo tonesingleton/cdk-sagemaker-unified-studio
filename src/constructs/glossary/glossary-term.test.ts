@@ -1,5 +1,5 @@
 import { App, Stack } from 'aws-cdk-lib';
-import { Match, Template } from 'aws-cdk-lib/assertions';
+import { Template } from 'aws-cdk-lib/assertions';
 import { GlossaryTerm } from './glossary-term.construct';
 import { GlossaryTermStatus } from './glossary-term.interface';
 
@@ -15,17 +15,20 @@ const validProps = {
 };
 
 describe('GlossaryTerm', () => {
-  test('creates a custom resource for the glossary term', () => {
+  test('creates a Lambda and custom resource for the glossary term', () => {
     const stack = createStack();
     new GlossaryTerm(stack, 'Term', validProps);
-    Template.fromStack(stack).resourceCountIs('Custom::AWS', 1);
+    Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 1);
+    Template.fromStack(stack).resourceCountIs('AWS::CloudFormation::CustomResource', 1);
   });
 
-  test('passes assumedRoleArn to the custom resource', () => {
+  test('passes domain and glossary to the custom resource', () => {
     const stack = createStack();
     new GlossaryTerm(stack, 'Term', validProps);
-    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: Match.stringLikeRegexp('assumedRoleArn.*DomainExecutionRole'),
+    Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
+      DomainId: 'dzd-abc123',
+      GlossaryId: 'gloss-abc123',
+      Name: 'Revenue',
     });
   });
 
@@ -37,12 +40,14 @@ describe('GlossaryTerm', () => {
       longDescription: 'Total income from all sources before deductions',
       status: GlossaryTermStatus.ENABLED,
     });
-    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: Match.stringLikeRegexp('"shortDescription":"Total income"'),
+    Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
+      ShortDescription: 'Total income',
+      LongDescription: 'Total income from all sources before deductions',
+      Status: 'ENABLED',
     });
   });
 
-  test('creates with term relations', () => {
+  test('serialises term relations as JSON string', () => {
     const stack = createStack();
     new GlossaryTerm(stack, 'Term', {
       ...validProps,
@@ -51,24 +56,16 @@ describe('GlossaryTerm', () => {
         { classifier: 'hasA', termId: 'term-child' },
       ],
     });
-    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: Match.stringLikeRegexp('"termRelations"'),
+    Template.fromStack(stack).hasResourceProperties('AWS::CloudFormation::CustomResource', {
+      TermRelations: JSON.stringify({ isA: ['term-parent'], hasA: ['term-child'] }),
     });
   });
 
-  test('grants sts:AssumeRole scoped to the execution role', () => {
+  test('Lambda uses the provided execution role', () => {
     const stack = createStack();
     new GlossaryTerm(stack, 'Term', validProps);
-    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
-      PolicyDocument: {
-        Statement: [
-          {
-            Action: 'sts:AssumeRole',
-            Effect: 'Allow',
-            Resource: 'arn:aws:iam::123456789012:role/DomainExecutionRole',
-          },
-        ],
-      },
+    Template.fromStack(stack).hasResourceProperties('AWS::Lambda::Function', {
+      Role: 'arn:aws:iam::123456789012:role/DomainExecutionRole',
     });
   });
 
@@ -125,10 +122,11 @@ describe('GlossaryTerm', () => {
       expect(imported.glossaryTermId).toBe('term-123');
     });
 
-    test('does not create any custom resources', () => {
+    test('does not create any resources', () => {
       const stack = createStack();
       GlossaryTerm.fromAttributes(stack, 'Imported', { glossaryTermId: 'term-123' });
-      Template.fromStack(stack).resourceCountIs('Custom::AWS', 0);
+      Template.fromStack(stack).resourceCountIs('AWS::CloudFormation::CustomResource', 0);
+      Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 0);
     });
   });
 });
