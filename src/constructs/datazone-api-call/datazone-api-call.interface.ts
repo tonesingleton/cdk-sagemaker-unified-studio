@@ -48,6 +48,15 @@ export interface DataZoneSdkCall {
    * @default - a static physical resource ID is used
    */
   readonly physicalResourceIdFromResponsePath?: string;
+  /**
+   * Regex pattern matched against the error code or message. When the SDK call throws
+   * and the error matches, the custom resource reports SUCCESS instead of FAILED.
+   *
+   * Multiple patterns can be combined with `|`, e.g. `'already exists|ConflictException'`.
+   *
+   * @default - errors are never ignored
+   */
+  readonly ignoreErrorCodesMatching?: string;
 }
 
 /**

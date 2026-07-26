@@ -24,6 +24,10 @@ export class Subscription extends Construct {
   constructor(scope: Construct, id: string, props: SubscriptionProps) {
     super(scope, id);
 
+    const ignoreErrors = props.ignoreErrorCodesMatching ?? 'already exists';
+    if (ignoreErrors && props.autoApprove) {
+      throw new Error('Subscription: autoApprove cannot be used together with ignoreErrorCodesMatching.');
+    }
     const request = new DataZoneApiCall(this, 'Request', {
       role: props.role,
       onCreate: {
@@ -31,14 +35,16 @@ export class Subscription extends Construct {
         parameters: {
           domainIdentifier: props.domainIdentifier,
           requestReason: props.requestReason ?? 'Subscription created via CDK.',
-          subscribedListings: [{ id: props.subscribedListingId }],
+          subscribedListings: [{ identifier: props.subscribedListingId }],
           subscribedPrincipals: [{ project: { identifier: props.subscribedProjectId } }],
         },
-        outputPaths: ['id'],
-        physicalResourceIdFromResponsePath: 'id',
+        outputPaths: ignoreErrors ? undefined : ['id'],
+        physicalResourceIdFromResponsePath: ignoreErrors ? undefined : 'id',
+        physicalResourceId: ignoreErrors ? `${props.subscribedProjectId}-sub-${props.subscribedListingId}` : undefined,
+        ignoreErrorCodesMatching: ignoreErrors,
       },
     });
-    this.subscriptionRequestId = request.getResponseField('id');
+    this.subscriptionRequestId = ignoreErrors ? '' : request.getResponseField('id');
 
     if (props.autoApprove) {
       const accept = new DataZoneApiCall(this, 'Accept', {
