@@ -57,6 +57,7 @@ export class DataZoneApiCall extends Construct {
       parameters: call.parameters,
       outputPaths: call.outputPaths,
       physicalResourceId: physicalId(call, forceDefault),
+      ignoreErrorCodesMatching: call.ignoreErrorCodesMatching,
     });
 
     // A lookup should re-resolve on stack updates, so default each of create/update

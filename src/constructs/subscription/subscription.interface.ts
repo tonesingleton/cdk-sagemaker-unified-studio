@@ -46,4 +46,14 @@ export interface SubscriptionProps {
    * @default - a generic CDK-managed comment
    */
   readonly decisionComment?: string;
+  /**
+   * Regex pattern matched against the error code or message on `CreateSubscriptionRequest`.
+   * When matched the custom resource reports SUCCESS instead of FAILED — useful when the
+   * subscription may have been created manually via the SMUS UI.
+   *
+   * Multiple patterns can be combined with `|`, e.g. `'already exists|ConflictException'`.
+   *
+   * @default 'already exists'
+   */
+  readonly ignoreErrorCodesMatching?: string;
 }
