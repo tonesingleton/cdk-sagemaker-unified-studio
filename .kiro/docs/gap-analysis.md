@@ -1,7 +1,7 @@
 # Gap Analysis: SMUS Capabilities vs L2 Library Coverage
 
 > Generated: 2026-07-14
-> Last updated: 2026-07-14
+> Last updated: 2026-07-15
 > Purpose: Identify missing atomic constructs needed to cover the full SageMaker Unified Studio feature set.
 
 ## Current Coverage
@@ -15,19 +15,32 @@
 | Environments | `Environment` | ✓ |
 | Blueprints | `Blueprint` (with `globalParameters` for QuickSight etc.) | ✓ |
 | Account-level IAM roles | `AccountRoles` | ✓ |
-| Connections (all 15 SMUS tiles) | `OracleConnection`, `MySqlConnection`, `PostgreSqlConnection`, `SqlServerConnection`, `SnowflakeConnection`, `DocumentDbConnection`, `DynamoDbConnection`, `BigQueryConnection`, `AzureSqlConnection`, `RedshiftConnection`, `S3Connection`, `SparkGlueConnection`, `SparkEmrConnection`, `MwaaConnection`, `AthenaConnection` | ✓ |
+| Connections (all SMUS tiles) | `OracleConnection`, `MySqlConnection`, `PostgreSqlConnection`, `SqlServerConnection`, `SnowflakeConnection`, `DocumentDbConnection`, `DynamoDbConnection`, `BigQueryConnection`, `AzureSqlConnection`, `RedshiftConnection`, `S3Connection`, `SparkGlueConnection`, `SparkEmrConnection`, `MwaaConnection`, `AthenaConnection`, `HyperpodConnection`, `IamConnection`, `GlueConnection` | ✓ |
 | Data Sources (Glue/Redshift) | `DataSource` | ✓ |
 | Data Catalog Tables | `DataCatalogTable` | ✓ |
 | Data Quality Rulesets | `DataQualityRuleset` | ✓ |
 | Glue Databases | `ProjectDatabase` | ✓ |
 | Workflows (MWAA Serverless) | `Workflow` | ✓ |
 | Git source control | `GitConnection`, `Host` | ✓ |
-| Policy Grants | `PolicyGrant` | ✓ (Phase 1) |
-| Form Types | `FormType` | ✓ (Phase 1) |
-| Subscription Targets | `SubscriptionTarget` | ✓ (Phase 1) |
-| Business Glossary | `Glossary`, `GlossaryTerm` (AwsCustomResource) | ✓ (Phase 1) |
-| Group Profiles | `GroupProfile` | ✓ (Phase 3) |
-| User Profiles | `UserProfile` | ✓ (Phase 3) |
+| Policy Grants | `PolicyGrant` | ✓ |
+| Form Types | `FormType` | ✓ |
+| Subscription Targets | `SubscriptionTarget` | ✓ |
+| Subscriptions | `Subscription` | ✓ |
+| Business Glossary | `Glossary`, `GlossaryTerm` (AwsCustomResource) | ✓ |
+| Group Profiles | `GroupProfile` | ✓ |
+| User Profiles | `UserProfile` | ✓ |
+| Project Membership | `ProjectMembership` | ✓ |
+| Asset Types | `AssetType` | ✓ |
+| Assets | `Asset` | ✓ |
+| Asset Revisions | `AssetRevision` | ✓ |
+| Asset Filters | `AssetFilter` | ✓ |
+| Data Products | `DataProduct` | ✓ |
+| Rules | `Rule` | ✓ |
+| Resource Owners | `Owner` | ✓ |
+| Account Pool | `AccountPool` | ✓ |
+| Data Export Configuration | `DataExportConfiguration` | ✓ |
+| Environment lookup | `LookupEnvironment`, `LookupSmusUserRole` | ✓ |
+| DataZone API calls | `DatazoneApiCall` | ✓ |
 | QuickSight | via `Blueprint` + `ManagedBlueprintIdentifier.QUICKSIGHT` + `globalParameters` | ✓ |
 | Partner Apps | via `Blueprint` + `ManagedBlueprintIdentifier.PARTNER_APPS` | ✓ |
 | Generative AI (Bedrock) | via `Blueprint` + `ManagedBlueprintIdentifier.AMAZON_BEDROCK_*`; runtime resources use `@aws-cdk/aws-bedrock-alpha` | ✓ (out of scope for dedicated constructs) |
@@ -35,7 +48,7 @@
 
 ---
 
-## Tier 1 — Missing, CFN-addressable, atomic leaves (build now)
+## Tier 1 — Missing, CFN-addressable, atomic leaves
 
 These have `AWS::` CloudFormation resource types and are clear L2 construct candidates.
 
@@ -43,12 +56,6 @@ These have `AWS::` CloudFormation resource types and are clear L2 construct cand
 
 | Gap | CFN Resource | What it does | Priority | Status |
 |---|---|---|---|---|
-| ~~PolicyGrant~~ | `AWS::DataZone::PolicyGrant` | Grants fine-grained permissions (USE_BLUEPRINT, CREATE_PROJECT, etc.) to domain units/projects. | HIGH | ✓ Done |
-| ~~SubscriptionTarget~~ | `AWS::DataZone::SubscriptionTarget` | Defines how subscribed data is fulfilled (Glue table grants, Redshift data shares). | HIGH | ✓ Done |
-| ~~FormType~~ | `AWS::DataZone::FormType` | Defines custom metadata form schemas (structured fields attached to assets). | HIGH | ✓ Done |
-| ~~ProjectMembership~~ | `AWS::DataZone::ProjectMembership` | Adds a member (user/group) to a project with a designation. Currently baked into `ProjectProps.membershipAssignments` but not independently manageable. | MEDIUM | ✓ Done |
-| **GroupProfile** | `AWS::DataZone::GroupProfile` | Maps an IAM/SSO group to a DataZone group for access control. | MEDIUM | ✓ Done |
-| **UserProfile** | `AWS::DataZone::UserProfile` | Maps an IAM/SSO user to a DataZone user profile. | MEDIUM | ✓ Done |
 | **EnvironmentProfile** | `AWS::DataZone::EnvironmentProfile` | Reusable environment configuration template (different from ProjectProfile). | LOW | |
 | **EnvironmentActions** | `AWS::DataZone::EnvironmentActions` | Custom actions (URLs/parameters) associated with environments. | LOW | |
 
@@ -76,7 +83,7 @@ These have `AWS::` CloudFormation resource types and are clear L2 construct cand
 |---|---|---|---|
 | ~~Business Glossary~~ | No `AWS::DataZone::Glossary` CFN resource. Created via DataZone API (`CreateGlossary`, `CreateGlossaryTerm`). | Wrapped in AwsCustomResource with full lifecycle (create/update/delete). | ✓ Done |
 | **MLflow Tracking Server** | `AWS::SageMaker::MlflowTrackingServer` exists but SMUS integration is via blueprint config. | The `ML_EXPERIMENTS` blueprint handles this. May not need a dedicated construct. | |
-| **Custom Asset Types** | Created via `CreateAssetType` API + `FormType` CFN resource. Two-step process. | FormType L2 is done. Asset type registration still needs a custom resource. | |
+| ~~Custom Asset Types~~ | Created via `CreateAssetType` API + `FormType` CFN resource. Two-step process. | `AssetType` construct done. | ✓ Done |
 | **Scheduled Queries** | Created through SMUS UI -> EventBridge Scheduler. No dedicated CFN resource for "SMUS scheduled query". | Could model as EventBridge Schedule + Athena query, but that's outside DataZone's domain. | |
 
 ---
@@ -113,16 +120,24 @@ These are runtime/interactive features and cannot be modeled as CDK constructs:
 
 Bedrock in SMUS is enabled via Blueprint activation (`ManagedBlueprintIdentifier.AMAZON_BEDROCK_*`). The actual Agent/KB/Guardrail resources are created at runtime by users — no SMUS-specific infrastructure convention exists. Use `@aws-cdk/aws-bedrock-alpha` for standalone Bedrock L2 constructs.
 
-### Phase 3 — Identity & ML
+### Phase 3 — Identity, catalog & data mesh ✓ COMPLETE
 
 8. ~~`GroupProfile` / `UserProfile`~~ — identity mapping ✓
-9. `ProjectMembership` — standalone membership management
-10. `FeatureGroup` — feature store for ML projects
+9. ~~`ProjectMembership`~~ — standalone membership management ✓
+10. ~~`AssetType`~~ — custom asset type registration ✓
+11. ~~`Asset` / `AssetRevision` / `AssetFilter`~~ — catalog asset lifecycle ✓
+12. ~~`DataProduct`~~ — data product publishing ✓
+13. ~~`Subscription`~~ — subscription management ✓
+14. ~~`Rule`~~ — governance rules ✓
+15. ~~`Owner`~~ — resource ownership ✓
+16. ~~`AccountPool`~~ — multi-account provisioning ✓
+17. ~~`DataExportConfiguration`~~ — data export settings ✓
 
 ### Phase 4 — Low priority
 
-11. `EnvironmentProfile`
-12. `EnvironmentActions`
+18. `EnvironmentProfile`
+19. `EnvironmentActions`
+20. `FeatureGroup`
 
 ---
 
@@ -135,6 +150,9 @@ Bedrock in SMUS is enabled via Blueprint activation (`ManagedBlueprintIdentifier
 - **Token-aware validation** — all constructs skip regex validation when prop values are unresolved CDK Tokens (standard CDK pattern using `Token.isUnresolved()`). This enables cross-stack references where IDs aren't known at synth time.
 - **Blueprint globalParameters** — added to support QuickSight (needs `QuickSightVpcManagerRoleArn`) and future blueprints that need account-wide config. Power BI and Tableau connect via the Athena JDBC driver with SSO — no infrastructure construct needed.
 - **FeatureGroup** already has a CDK L1 (`CfnFeatureGroup`). The L2 value is: default S3 offline store path conventions matching SMUS project bucket, auto-wiring to the project execution role, and Glue Data Catalog integration for discoverability.
+- **AssetType** uses a two-step process: `AWS::DataZone::FormType` (CFN) for the metadata schema, then `CreateAssetType` API (custom resource) for registration. The `AssetType` construct encapsulates both.
+- **AccountPool** enables multi-account data mesh topologies by managing a pool of AWS accounts that can be associated with a SMUS domain. Uses `AwsCustomResource` for account association APIs not yet backed by CFN.
+- **DataExportConfiguration** configures domain-level data export settings (encryption, S3 destination) for compliance and audit requirements.
 
 ---
 
