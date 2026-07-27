@@ -31,7 +31,7 @@ describe('Subscription', () => {
           action: 'CreateSubscriptionRequest',
           parameters: Match.objectLike({
             domainIdentifier: 'dzd-abc',
-            subscribedListings: [{ id: 'listing-123' }],
+            subscribedListings: [{ identifier: 'listing-123' }],
             subscribedPrincipals: [{ project: { identifier: 'dzp-consumer' } }],
           }),
         }),
@@ -60,6 +60,21 @@ describe('Subscription', () => {
       autoApprove: true,
     });
     expect(hasAction(stack, 'AcceptSubscriptionRequest')).toBe(true);
+  });
+
+  test('throws when autoApprove is combined with ignoreErrorCodesMatching', () => {
+    const stack = createStack();
+    expect(
+      () =>
+        new Subscription(stack, 'Sub', {
+          role: createRole(stack),
+          domainIdentifier: 'dzd-abc',
+          subscribedListingId: 'l',
+          subscribedProjectId: 'p',
+          autoApprove: true,
+          ignoreErrorCodesMatching: 'ConflictException',
+        }),
+    ).toThrow(/autoApprove cannot be used together with ignoreErrorCodesMatching/);
   });
 
   test('exposes subscriptionRequestId', () => {
