@@ -6,10 +6,19 @@ import type {
   IDataSource,
   RedshiftDataSourceConfiguration,
 } from './data-source.interface';
+import { DataZoneApiCall } from '../datazone-api-call';
 
 /**
  * A SageMaker Unified Studio data source that registers Glue or Redshift
  * databases as governed assets within a domain project.
+ *
+ * Deploy-time DataZone calls — `ListConnections` (to resolve the connection when
+ * `connectionId` is omitted) and `StartDataSourceRun` (to trigger an initial run) —
+ * go through {@link DataZoneApiCall}, the shared construct that invokes DataZone APIs
+ * as a supplied enrolled role. DataZone authorizes the *calling identity* against the
+ * project/domain ACL, so `projectExecutionRole` must be a DataZone-enrolled principal;
+ * pass the same enrolled role used for the domain's other DataZone custom resources
+ * (typically `domain.datazoneApiRole`).
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/manage-data-sources.html
  */
@@ -29,10 +38,30 @@ export class DataSource extends Construct implements IDataSource {
 
     const type = props.redshiftConfiguration ? 'REDSHIFT' : 'GLUE';
 
+    let connectionId: string;
+    if (props.connectionId) {
+      connectionId = props.connectionId;
+    } else {
+      if (!props.projectExecutionRole) {
+        throw new Error('projectExecutionRole is required when connectionId is not provided.');
+      }
+      const connectionType = type === 'GLUE' ? 'LAKEHOUSE' : 'REDSHIFT';
+      const lookup = new DataZoneApiCall(this, 'LookupConnection', {
+        role: props.projectExecutionRole,
+        onCreate: {
+          action: 'ListConnections',
+          parameters: { domainIdentifier: props.domainId, projectIdentifier: props.projectId, type: connectionType },
+          outputPaths: ['items.0.connectionId'],
+          physicalResourceId: `${props.projectId}-${connectionType}-connection`,
+        },
+      });
+      connectionId = lookup.getResponseField('items.0.connectionId');
+    }
+
     const dataSource = new datazone.CfnDataSource(this, 'Resource', {
       domainIdentifier: props.domainId,
       projectIdentifier: props.projectId,
-      connectionIdentifier: props.connectionId,
+      connectionIdentifier: connectionId,
       name: props.name,
       type,
       enableSetting: (props.enabled ?? true) ? 'ENABLED' : 'DISABLED',
@@ -44,6 +73,23 @@ export class DataSource extends Construct implements IDataSource {
     });
 
     this.dataSourceId = dataSource.attrId;
+
+    if (props.shouldRunOnDeploy) {
+      if (!props.projectExecutionRole) {
+        throw new Error('projectExecutionRole is required when shouldRunOnDeploy is true.');
+      }
+      // `datazone:StartDataSourceRun` is granted by DataZoneApiCall's `fromSdkCalls` policy
+      // (derived from the action), so it is not granted explicitly here.
+      const triggerRun = new DataZoneApiCall(this, 'TriggerRun', {
+        role: props.projectExecutionRole,
+        onCreate: {
+          action: 'StartDataSourceRun',
+          parameters: { domainIdentifier: props.domainId, dataSourceIdentifier: this.dataSourceId },
+          physicalResourceId: `${props.domainId}-${this.dataSourceId}-run`,
+        },
+      });
+      triggerRun.node.addDependency(dataSource);
+    }
   }
 
   private buildGlueConfiguration(

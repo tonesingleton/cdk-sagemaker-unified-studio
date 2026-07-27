@@ -721,6 +721,26 @@ Account creation via `AWS::Organizations::Account` is asynchronous and can take 
 - **`AWS::Organizations::Account` cannot be deleted** via CloudFormation (the resource is retained on stack deletion). Account vending is therefore a one-way operation from CDK's perspective.
 - **jsii multi-language compatibility** must be maintained throughout — no TypeScript-only constructs or `any` types.
 
+## Troubleshooting
+
+### `SELF_SIGNED_CERT_IN_CHAIN` when running `yarn install` or `yarn projen build`
+
+AXA's corporate SSL proxy (`AXA-Proxy-ROOT-CA`) intercepts outbound HTTPS traffic and re-signs it with a corporate CA. Node.js ships with its own CA bundle and does not use the Windows certificate store, so it rejects the intercepted certificate.
+
+This is a one-time setup. Run the following in PowerShell, then open a new terminal:
+
+```powershell
+# Export AXA-Proxy-ROOT-CA from the Windows cert store
+$cert = Get-ChildItem Cert:\LocalMachine\Root\72E503572930D0786EACFB69A5693D105BBDA93E
+"-----BEGIN CERTIFICATE-----`n" + [Convert]::ToBase64String($cert.RawData, 'InsertLineBreaks') + "`n-----END CERTIFICATE-----" |
+  Out-File "$env:USERPROFILE\corporate-ca.pem" -Encoding ascii
+
+# Set permanently for your user account
+[System.Environment]::SetEnvironmentVariable("NODE_EXTRA_CA_CERTS", "$env:USERPROFILE\corporate-ca.pem", "User")
+```
+
+All Node.js tools (yarn, npm, cdk, npx) will trust the AXA proxy certificate in every subsequent terminal without further configuration.
+
 ## Contact & Support
 
 This library was designed and built by [Tone Singleton](https://tonesingleton.com).

@@ -1,3 +1,5 @@
+import type { IRole } from 'aws-cdk-lib/aws-iam';
+
 /**
  * A filter expression for a data source.
  */
@@ -134,8 +136,25 @@ export interface DataSourceProps {
   readonly domainId: string;
   /** The project ID that owns this data source. */
   readonly projectId: string;
-  /** The connection ID for the data source connection. */
-  readonly connectionId: string;
+  /**
+   * The connection ID for the data source connection.
+   *
+   * When omitted, the connection ID is resolved automatically at deploy time by
+   * calling `ListConnections` with the appropriate type (`LAKEHOUSE` for Glue,
+   * `REDSHIFT` for Redshift). Requires `projectExecutionRole` to be provided.
+   *
+   * @default - resolved automatically via ListConnections
+   */
+  readonly connectionId?: string;
+  /**
+   * The project execution role used to call `ListConnections` when `connectionId`
+   * is not provided. Must be a project member with DataZone application-level access.
+   *
+   * Required when `connectionId` is omitted.
+   *
+   * @default - not required when connectionId is provided
+   */
+  readonly projectExecutionRole?: IRole;
   /**
    * The Glue data source configuration.
    *
@@ -170,4 +189,14 @@ export interface DataSourceProps {
    * @default - no schedule (manual runs only)
    */
   readonly schedule?: string;
+  /**
+   * Whether to trigger a data source run automatically on every deployment.
+   *
+   * When `true`, a Lambda-backed custom resource calls `StartDataSourceRun`
+   * after the data source is created or updated. Requires `projectExecutionRole`
+   * to be provided (the role must be a project member).
+   *
+   * @default false
+   */
+  readonly shouldRunOnDeploy?: boolean;
 }

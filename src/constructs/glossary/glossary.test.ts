@@ -15,17 +15,28 @@ const validProps = {
 };
 
 describe('Glossary', () => {
-  test('creates a custom resource for the glossary', () => {
+  test('creates a Lambda and custom resource for the glossary', () => {
     const stack = createStack();
     new Glossary(stack, 'Glossary', validProps);
+    Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 1);
     Template.fromStack(stack).resourceCountIs('Custom::AWS', 1);
   });
 
-  test('passes assumedRoleArn to the custom resource', () => {
+  test('passes domain and project to the custom resource', () => {
     const stack = createStack();
     new Glossary(stack, 'Glossary', validProps);
     Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: Match.stringLikeRegexp('assumedRoleArn.*DomainExecutionRole'),
+      Create: Match.serializedJson(
+        Match.objectLike({
+          service: 'DataZone',
+          action: 'CreateGlossary',
+          parameters: Match.objectLike({
+            domainIdentifier: 'dzd-abc123',
+            owningProjectIdentifier: 'proj-abc123',
+            name: 'BusinessTerms',
+          }),
+        }),
+      ),
     });
   });
 
@@ -37,23 +48,19 @@ describe('Glossary', () => {
       status: GlossaryStatus.ENABLED,
     });
     Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
-      Create: Match.stringLikeRegexp('"description":"Central glossary"'),
+      Create: Match.serializedJson(
+        Match.objectLike({
+          parameters: Match.objectLike({ description: 'Central glossary', status: 'ENABLED' }),
+        }),
+      ),
     });
   });
 
-  test('grants sts:AssumeRole scoped to the execution role', () => {
+  test('Lambda uses the provided execution role', () => {
     const stack = createStack();
     new Glossary(stack, 'Glossary', validProps);
-    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
-      PolicyDocument: {
-        Statement: [
-          {
-            Action: 'sts:AssumeRole',
-            Effect: 'Allow',
-            Resource: 'arn:aws:iam::123456789012:role/DomainExecutionRole',
-          },
-        ],
-      },
+    Template.fromStack(stack).hasResourceProperties('AWS::Lambda::Function', {
+      Role: 'arn:aws:iam::123456789012:role/DomainExecutionRole',
     });
   });
 
@@ -99,43 +106,11 @@ describe('Glossary', () => {
       expect(imported.glossaryId).toBe('gloss-123');
     });
 
-    test('does not create any custom resources', () => {
+    test('does not create any resources', () => {
       const stack = createStack();
       Glossary.fromAttributes(stack, 'Imported', { glossaryId: 'gloss-123' });
       Template.fromStack(stack).resourceCountIs('Custom::AWS', 0);
-    });
-  });
-
-  describe('without executionRoleArn', () => {
-    const propsWithoutRole = {
-      name: 'BusinessTerms',
-      domainIdentifier: 'dzd-abc123',
-      owningProjectIdentifier: 'proj-abc123',
-    };
-
-    test('grants datazone permissions directly instead of sts:AssumeRole', () => {
-      const stack = createStack();
-      new Glossary(stack, 'Glossary', propsWithoutRole);
-      Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
-        PolicyDocument: {
-          Statement: [
-            {
-              Action: ['datazone:CreateGlossary', 'datazone:UpdateGlossary', 'datazone:DeleteGlossary'],
-              Effect: 'Allow',
-              Resource: '*',
-            },
-          ],
-        },
-      });
-    });
-
-    test('does not pass assumedRoleArn to the custom resource', () => {
-      const stack = createStack();
-      new Glossary(stack, 'Glossary', propsWithoutRole);
-      const template = Template.fromStack(stack);
-      const resources = template.findResources('Custom::AWS');
-      const cr = Object.values(resources)[0];
-      expect(cr.Properties.Create).not.toContain('assumedRoleArn');
+      Template.fromStack(stack).resourceCountIs('AWS::Lambda::Function', 0);
     });
   });
 });
