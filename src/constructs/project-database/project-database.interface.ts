@@ -18,11 +18,30 @@ export interface ProjectDatabaseProps {
    */
   readonly projectExecutionRoleArn: string;
   /**
+   * The ARN of the SageMaker Unified Studio manage access role.
+   * When provided, grants `DESCRIBE` (with grant option) on the database and
+   * `DESCRIBE`/`SELECT` (with grant options) on tables — required for SMUS to
+   * manage subscriptions and display the database in the UI.
+   *
+   * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/lake-formation-permissions-for-amazon-sagemaker-unified-studio.html
+   * @default - no manage access role grants
+   */
+  readonly manageAccessRoleArn?: string;
+  /**
    * The S3 location URI for the database.
    *
    * @default - no location (tables define their own locations)
    */
   readonly locationUri?: string;
+  /**
+   * Additional IAM principal ARNs to grant `DESCRIBE` on the database and
+   * `DESCRIBE`/`SELECT` on all tables. Use this to grant read-only catalog
+   * visibility to roles such as the SMUS user role (`datazone_usr_role_*`)
+   * without granting write or IAM-passthrough permissions.
+   *
+   * @default - no additional principals
+   */
+  readonly additionalReadPrincipals?: Array<string>;
 }
 
 /**

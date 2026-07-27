@@ -244,6 +244,30 @@ describe('Project', () => {
     });
   });
 
+  test('does not create default database DESCRIBE grant by default', () => {
+    const stack = createStack();
+    new Project(stack, 'Project', {
+      name: 'TestProject',
+      domainIdentifier: 'dzd-test',
+    });
+    Template.fromStack(stack).resourceCountIs('AWS::LakeFormation::PrincipalPermissions', 0);
+  });
+
+  test('grants DESCRIBE on default Glue database when grantDefaultDatabaseDescribe is true', () => {
+    const stack = createStack();
+    new Project(stack, 'Project', {
+      name: 'TestProject',
+      domainIdentifier: 'dzd-test',
+      grantDefaultDatabaseDescribe: true,
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::LakeFormation::PrincipalPermissions', {
+      Principal: { DataLakePrincipalIdentifier: { 'Fn::GetAtt': Match.anyValue() } },
+      Resource: { Database: { CatalogId: '123456789012', Name: 'default' } },
+      Permissions: ['DESCRIBE'],
+      PermissionsWithGrantOption: [],
+    });
+  });
+
   test('exposes all CFN attributes', () => {
     const stack = createStack();
     const project = new Project(stack, 'Project', {
