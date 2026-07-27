@@ -21,6 +21,20 @@ export interface SubscriptionTargetForm {
 }
 
 /**
+ * The accepted subscription target types in Amazon DataZone.
+ *
+ * @see https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateSubscriptionTarget.html
+ */
+export enum SubscriptionTargetType {
+  BEDROCK_MODEL = 'BedrockModelSubscriptionTargetType',
+  GLUE = 'GlueSubscriptionTargetType',
+  QUICKSIGHT = 'QuickSightSubscriptionTargetType',
+  REDLAKE = 'RedlakeSubscriptionTargetType',
+  REDSHIFT = 'RedshiftSubscriptionTargetType',
+  REDSHIFT_SERVERLESS = 'RedshiftServerlessSubscriptionTargetType',
+}
+
+/**
  * Properties for a SubscriptionTarget construct.
  *
  * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-subscriptiontarget.html
@@ -32,8 +46,8 @@ export interface SubscriptionTargetProps {
   readonly domainIdentifier: string;
   /** The ID of the environment in which the subscription target is created. */
   readonly environmentIdentifier: string;
-  /** The type of the subscription target (e.g. data asset type identifier). */
-  readonly type: string;
+  /** The type of the subscription target. */
+  readonly type: SubscriptionTargetType;
   /** The asset types that can be fulfilled by this subscription target (1–256 characters each). */
   readonly applicableAssetTypes: Array<string>;
   /** The principals authorized to use this subscription target (max 10). */

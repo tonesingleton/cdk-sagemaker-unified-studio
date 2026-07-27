@@ -4,4 +4,5 @@ export {
   ISubscriptionTarget,
   SubscriptionTargetAttributes,
   SubscriptionTargetForm,
+  SubscriptionTargetType,
 } from './subscription-target.interface';

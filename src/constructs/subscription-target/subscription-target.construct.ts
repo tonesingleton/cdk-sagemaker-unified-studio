@@ -53,10 +53,6 @@ export class SubscriptionTarget extends Construct implements ISubscriptionTarget
       );
     }
 
-    if (!props.type) {
-      throw new Error('SubscriptionTarget type must not be empty.');
-    }
-
     if (!props.applicableAssetTypes.length) {
       throw new Error('SubscriptionTarget applicableAssetTypes must contain at least one entry.');
     }

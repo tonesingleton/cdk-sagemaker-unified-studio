@@ -122,6 +122,14 @@ export interface IDomain {
   readonly rootDomainUnitId: string;
   readonly domainExecutionRole: iam.IRole;
   readonly manageAccessRole: iam.IRole;
+  /**
+   * IAM role for Lambda-backed custom resources that call DataZone APIs.
+   *
+   * This role is trusted by `lambda.amazonaws.com`, has `datazone:*` permissions,
+   * and is registered as a root domain unit owner (Administrator in the SMUS portal).
+   * Pass it as `role` to any `AwsCustomResource` that calls membership-gated DataZone APIs.
+   */
+  readonly datazoneApiRole: iam.IRole;
   readonly domainUnits: Record<string, datazone.CfnDomainUnit>;
   readonly blueprints: Record<string, Blueprint>;
   readonly blueprintPolicyGrants: Array<datazone.CfnPolicyGrant>;
@@ -151,4 +159,10 @@ export interface DomainAttributes {
    * @default - no manage access role imported
    */
   readonly manageAccessRoleArn?: string;
+  /**
+   * The ARN of the DataZone API role.
+   *
+   * @default - no datazoneApiRole imported
+   */
+  readonly datazoneApiRoleArn?: string;
 }

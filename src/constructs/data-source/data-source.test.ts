@@ -1,4 +1,4 @@
-import { App, Stack } from 'aws-cdk-lib';
+import { App, Stack, aws_iam as iam } from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import { DataSource } from './data-source.construct';
 
@@ -32,6 +32,17 @@ describe('DataSource', () => {
           connectionId: 'conn-test',
         });
       }).toThrow(/Must specify either/);
+    });
+
+    it('throws when connectionId is omitted without projectExecutionRole', () => {
+      expect(() => {
+        new DataSource(stack, 'DS', {
+          name: 'ds',
+          domainId: 'dzd-test',
+          projectId: 'proj-test',
+          glueConfiguration: { relationalFilterConfigurations: [{ databaseName: 'db' }] },
+        });
+      }).toThrow(/projectExecutionRole is required/);
     });
   });
 
@@ -204,6 +215,88 @@ describe('DataSource', () => {
           RedshiftRunConfiguration: {
             RedshiftStorage: { RedshiftClusterSource: { ClusterName: 'my-cluster' } },
           },
+        },
+      });
+    });
+  });
+
+  describe('auto-lookup', () => {
+    it('creates a Lambda and CustomResource for Glue when connectionId is omitted', () => {
+      const role = iam.Role.fromRoleArn(stack, 'Role', 'arn:aws:iam::123456789012:role/ExecRole');
+      new DataSource(stack, 'DS', {
+        name: 'ds',
+        domainId: 'dzd-test',
+        projectId: 'proj-test',
+        projectExecutionRole: role,
+        glueConfiguration: { relationalFilterConfigurations: [{ databaseName: 'db' }] },
+      });
+
+      Template.fromStack(stack).hasResourceProperties('AWS::Lambda::Function', {});
+      Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+        Create: Match.serializedJson(
+          Match.objectLike({
+            service: 'DataZone',
+            action: 'ListConnections',
+            parameters: Match.objectLike({
+              domainIdentifier: 'dzd-test',
+              projectIdentifier: 'proj-test',
+              type: 'LAKEHOUSE',
+            }),
+          }),
+        ),
+      });
+    });
+
+    it('uses REDSHIFT type for Redshift when connectionId is omitted', () => {
+      const role = iam.Role.fromRoleArn(stack, 'Role', 'arn:aws:iam::123456789012:role/ExecRole');
+      new DataSource(stack, 'DS', {
+        name: 'ds',
+        domainId: 'dzd-test',
+        projectId: 'proj-test',
+        projectExecutionRole: role,
+        redshiftConfiguration: { relationalFilterConfigurations: [{ databaseName: 'dev' }] },
+      });
+
+      Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+        Create: Match.serializedJson(
+          Match.objectLike({
+            action: 'ListConnections',
+            parameters: Match.objectLike({ type: 'REDSHIFT' }),
+          }),
+        ),
+      });
+    });
+
+    it('throws when shouldRunOnDeploy is true without projectExecutionRole', () => {
+      expect(() => {
+        new DataSource(stack, 'DS', {
+          name: 'ds',
+          domainId: 'dzd-test',
+          projectId: 'proj-test',
+          connectionId: 'conn-test',
+          glueConfiguration: { relationalFilterConfigurations: [{ databaseName: 'db' }] },
+          shouldRunOnDeploy: true,
+        });
+      }).toThrow(/projectExecutionRole is required when shouldRunOnDeploy/);
+    });
+
+    it('creates TriggerRun CustomResource when shouldRunOnDeploy is true', () => {
+      const role = iam.Role.fromRoleArn(stack, 'Role', 'arn:aws:iam::123456789012:role/ExecRole');
+      new DataSource(stack, 'DS', {
+        name: 'ds',
+        domainId: 'dzd-test',
+        projectId: 'proj-test',
+        connectionId: 'conn-test',
+        projectExecutionRole: role,
+        glueConfiguration: { relationalFilterConfigurations: [{ databaseName: 'db' }] },
+        shouldRunOnDeploy: true,
+      });
+
+      // dataSourceIdentifier is a token, so Create renders as an Fn::Join (literal
+      // parts + the token ref) rather than a plain JSON string.
+      Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+        Create: {
+          'Fn::Join': Match.arrayWith([Match.arrayWith([Match.stringLikeRegexp('StartDataSourceRun')])]),
         },
       });
     });

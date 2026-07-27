@@ -1,6 +1,7 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { SubscriptionTarget } from './subscription-target.construct';
+import { SubscriptionTargetType } from './subscription-target.interface';
 
 function createStack(): Stack {
   return new Stack(new App(), 'TestStack', { env: { account: '123456789012', region: 'us-east-1' } });
@@ -10,10 +11,10 @@ const validProps = {
   name: 'GlueTableGrant',
   domainIdentifier: 'dzd-abc123',
   environmentIdentifier: 'env-abc123',
-  type: 'amazon.datazone.GlueTableGrantType',
+  type: SubscriptionTargetType.GLUE,
   applicableAssetTypes: ['amazon.datazone.GlueTableAssetType'],
   authorizedPrincipals: ['arn:aws:iam::123456789012:role/DataZoneAdmin'],
-  subscriptionTargetConfig: [{ content: '{}', formName: 'GlueTableForm' }],
+  subscriptionTargetConfig: [{ content: '{}', formName: 'GlueSubscriptionTargetConfigForm' }],
 };
 
 describe('SubscriptionTarget', () => {
@@ -24,10 +25,10 @@ describe('SubscriptionTarget', () => {
       Name: 'GlueTableGrant',
       DomainIdentifier: 'dzd-abc123',
       EnvironmentIdentifier: 'env-abc123',
-      Type: 'amazon.datazone.GlueTableGrantType',
+      Type: SubscriptionTargetType.GLUE,
       ApplicableAssetTypes: ['amazon.datazone.GlueTableAssetType'],
       AuthorizedPrincipals: ['arn:aws:iam::123456789012:role/DataZoneAdmin'],
-      SubscriptionTargetConfig: [{ Content: '{}', FormName: 'GlueTableForm' }],
+      SubscriptionTargetConfig: [{ Content: '{}', FormName: 'GlueSubscriptionTargetConfigForm' }],
     });
   });
 
@@ -73,11 +74,6 @@ describe('SubscriptionTarget', () => {
       expect(() => new SubscriptionTarget(stack, 'T', { ...validProps, environmentIdentifier: 'has spaces!' })).toThrow(
         /environmentIdentifier/,
       );
-    });
-
-    test('throws on empty type', () => {
-      const stack = createStack();
-      expect(() => new SubscriptionTarget(stack, 'T', { ...validProps, type: '' })).toThrow(/type/);
     });
 
     test('throws on empty applicableAssetTypes', () => {

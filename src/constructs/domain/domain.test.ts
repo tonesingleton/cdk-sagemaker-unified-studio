@@ -109,6 +109,36 @@ describe('Domain', () => {
     Template.fromStack(stack).resourceCountIs('AWS::S3::Bucket', 2);
   });
 
+  test('creates cr role with datazone:* and lambda trust', () => {
+    const stack = createStack();
+    createDomain(stack);
+    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Role', {
+      AssumeRolePolicyDocument: Match.objectLike({
+        Statement: Match.arrayWith([Match.objectLike({ Principal: { Service: 'lambda.amazonaws.com' } })]),
+      }),
+      Policies: Match.arrayWith([
+        Match.objectLike({
+          PolicyDocument: Match.objectLike({
+            Statement: Match.arrayWith([Match.objectLike({ Action: 'datazone:*', Resource: '*' })]),
+          }),
+        }),
+      ]),
+    });
+  });
+
+  test('registers cr role as domain user and root domain unit owner', () => {
+    const stack = createStack();
+    createDomain(stack);
+    Template.fromStack(stack).resourceCountIs('AWS::DataZone::UserProfile', 1);
+    Template.fromStack(stack).resourceCountIs('AWS::DataZone::Owner', 1);
+  });
+
+  test('exposes datazoneApiRole property', () => {
+    const stack = createStack();
+    const domain = createDomain(stack);
+    expect(domain.datazoneApiRole).toBeDefined();
+  });
+
   test('creates nested domain units with parent reference', () => {
     const stack = createStack();
     createDomain(stack, {
