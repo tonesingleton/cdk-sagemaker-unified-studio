@@ -24,10 +24,12 @@ export class Subscription extends Construct {
   constructor(scope: Construct, id: string, props: SubscriptionProps) {
     super(scope, id);
 
-    const ignoreErrors = props.ignoreErrorCodesMatching ?? 'already exists';
-    if (ignoreErrors && props.autoApprove) {
+    if (props.autoApprove && props.ignoreErrorCodesMatching) {
       throw new Error('Subscription: autoApprove cannot be used together with ignoreErrorCodesMatching.');
     }
+    // autoApprove needs the created request's `id`, which the ignore-errors path suppresses,
+    // so it disables error-ignoring; otherwise default to tolerating "already exists".
+    const ignoreErrors = props.autoApprove ? undefined : (props.ignoreErrorCodesMatching ?? 'already exists');
     const request = new DataZoneApiCall(this, 'Request', {
       role: props.role,
       onCreate: {

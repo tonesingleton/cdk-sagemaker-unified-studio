@@ -66,10 +66,6 @@ export class Project extends Construct implements IProject {
       projectProfileVersion: props.userParameters?.length ? 'latest' : undefined,
       projectCategory: props.projectCategory,
       projectExecutionRole: this.projectExecutionRole.roleArn,
-      membershipAssignments: props.membershipAssignments?.map((m) => ({
-        designation: m.designation,
-        member: { userIdentifier: m.member.userIdentifier, groupIdentifier: m.member.groupIdentifier },
-      })),
       resourceTags: props.resourceTags?.map((t) => ({ key: t.key, value: t.value })),
       userParameters: props.userParameters?.map((up) => ({
         environmentConfigurationName: up.environmentConfigurationName,
@@ -84,6 +80,16 @@ export class Project extends Construct implements IProject {
     this.createdBy = project.attrCreatedBy;
     this.lastUpdatedAt = project.attrLastUpdatedAt;
     this.projectStatus = project.attrProjectStatus;
+
+    props.membershipAssignments?.forEach((m, index) => {
+      const membership = new CfnProjectMembership(this, `Membership${index}`, {
+        domainIdentifier: props.domainIdentifier,
+        projectIdentifier: project.attrId,
+        designation: m.designation,
+        member: { userIdentifier: m.member.userIdentifier, groupIdentifier: m.member.groupIdentifier },
+      });
+      membership.addDependency(project);
+    });
 
     if (props.crRole) {
       const membership = new CfnProjectMembership(this, 'CrRoleMembership', {

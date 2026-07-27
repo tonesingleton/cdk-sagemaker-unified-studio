@@ -278,6 +278,25 @@ describe('Project', () => {
     Template.fromStack(stack).resourceCountIs('AWS::DataZone::ProjectMembership', 0);
   });
 
+  test('adds additionalTrustPrincipals to the auto-created execution role trust policy', () => {
+    const stack = createStack();
+    new Project(stack, 'Project', {
+      name: 'TestProject',
+      domainIdentifier: 'dzd-test',
+      additionalTrustPrincipals: ['arn:aws:iam::123456789012:role/dev'],
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::IAM::Role', {
+      AssumeRolePolicyDocument: {
+        Statement: Match.arrayWith([
+          Match.objectLike({
+            Action: 'sts:AssumeRole',
+            Principal: { AWS: 'arn:aws:iam::123456789012:role/dev' },
+          }),
+        ]),
+      },
+    });
+  });
+
   test('grants DESCRIBE on default Glue database when grantDefaultDatabaseDescribe is true', () => {
     const stack = createStack();
     new Project(stack, 'Project', {
