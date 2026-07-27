@@ -1,4 +1,4 @@
-import { App, Stack } from 'aws-cdk-lib';
+import { App, Stack, aws_iam as iam } from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import { Glossary } from './glossary.construct';
 import { GlossaryStatus } from './glossary.interface';
@@ -7,23 +7,30 @@ function createStack(): Stack {
   return new Stack(new App(), 'TestStack', { env: { account: '123456789012', region: 'us-east-1' } });
 }
 
-const validProps = {
-  name: 'BusinessTerms',
-  domainIdentifier: 'dzd-abc123',
-  owningProjectIdentifier: 'proj-abc123',
-  executionRoleArn: 'arn:aws:iam::123456789012:role/DomainExecutionRole',
-};
+function makeRole(stack: Stack): iam.IRole {
+  return iam.Role.fromRoleArn(stack, 'ApiRole', 'arn:aws:iam::123456789012:role/DomainExecutionRole');
+}
 
 describe('Glossary', () => {
   test('creates a custom resource for the glossary', () => {
     const stack = createStack();
-    new Glossary(stack, 'Glossary', validProps);
+    new Glossary(stack, 'Glossary', {
+      name: 'BusinessTerms',
+      domainIdentifier: 'dzd-abc123',
+      owningProjectIdentifier: 'proj-abc123',
+      datazoneApiRole: makeRole(stack),
+    });
     Template.fromStack(stack).resourceCountIs('Custom::AWS', 1);
   });
 
   test('passes domain and project to the custom resource', () => {
     const stack = createStack();
-    new Glossary(stack, 'Glossary', validProps);
+    new Glossary(stack, 'Glossary', {
+      name: 'BusinessTerms',
+      domainIdentifier: 'dzd-abc123',
+      owningProjectIdentifier: 'proj-abc123',
+      datazoneApiRole: makeRole(stack),
+    });
     Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
       Create: Match.stringLikeRegexp('CreateGlossary'),
     });
@@ -35,7 +42,10 @@ describe('Glossary', () => {
   test('creates with description and status', () => {
     const stack = createStack();
     new Glossary(stack, 'Glossary', {
-      ...validProps,
+      name: 'BusinessTerms',
+      domainIdentifier: 'dzd-abc123',
+      owningProjectIdentifier: 'proj-abc123',
+      datazoneApiRole: makeRole(stack),
       description: 'Central glossary',
       status: GlossaryStatus.ENABLED,
     });
@@ -46,36 +56,94 @@ describe('Glossary', () => {
 
   test('exposes glossaryId', () => {
     const stack = createStack();
-    const glossary = new Glossary(stack, 'Glossary', validProps);
+    const glossary = new Glossary(stack, 'Glossary', {
+      name: 'BusinessTerms',
+      domainIdentifier: 'dzd-abc123',
+      owningProjectIdentifier: 'proj-abc123',
+      datazoneApiRole: makeRole(stack),
+    });
     expect(glossary.glossaryId).toBeDefined();
+  });
+
+  test('runs as the provided datazoneApiRole (role prop on Lambda)', () => {
+    const stack = createStack();
+    new Glossary(stack, 'Glossary', {
+      name: 'BusinessTerms',
+      domainIdentifier: 'dzd-abc123',
+      owningProjectIdentifier: 'proj-abc123',
+      datazoneApiRole: makeRole(stack),
+    });
+    // DataZoneApiCall sets the Lambda execution role directly — no sts:AssumeRole needed
+    Template.fromStack(stack).hasResourceProperties('Custom::AWS', {
+      Create: Match.not(Match.stringLikeRegexp('assumedRoleArn')),
+    });
   });
 
   describe('validation', () => {
     test('throws on empty name', () => {
       const stack = createStack();
-      expect(() => new Glossary(stack, 'G', { ...validProps, name: '' })).toThrow(/name/);
+      expect(
+        () =>
+          new Glossary(stack, 'G', {
+            name: '',
+            domainIdentifier: 'dzd-abc123',
+            owningProjectIdentifier: 'proj-abc123',
+            datazoneApiRole: makeRole(stack),
+          }),
+      ).toThrow(/name/);
     });
 
     test('throws on name exceeding 256 characters', () => {
       const stack = createStack();
-      expect(() => new Glossary(stack, 'G', { ...validProps, name: 'x'.repeat(257) })).toThrow(/name/);
+      expect(
+        () =>
+          new Glossary(stack, 'G', {
+            name: 'x'.repeat(257),
+            domainIdentifier: 'dzd-abc123',
+            owningProjectIdentifier: 'proj-abc123',
+            datazoneApiRole: makeRole(stack),
+          }),
+      ).toThrow(/name/);
     });
 
     test('throws on invalid domainIdentifier', () => {
       const stack = createStack();
-      expect(() => new Glossary(stack, 'G', { ...validProps, domainIdentifier: 'bad' })).toThrow(/domainIdentifier/);
+      expect(
+        () =>
+          new Glossary(stack, 'G', {
+            name: 'BusinessTerms',
+            domainIdentifier: 'bad',
+            owningProjectIdentifier: 'proj-abc123',
+            datazoneApiRole: makeRole(stack),
+          }),
+      ).toThrow(/domainIdentifier/);
     });
 
     test('throws on invalid owningProjectIdentifier', () => {
       const stack = createStack();
-      expect(() => new Glossary(stack, 'G', { ...validProps, owningProjectIdentifier: 'has spaces!' })).toThrow(
-        /owningProjectIdentifier/,
-      );
+      expect(
+        () =>
+          new Glossary(stack, 'G', {
+            name: 'BusinessTerms',
+            domainIdentifier: 'dzd-abc123',
+            owningProjectIdentifier: 'has spaces!',
+            datazoneApiRole: makeRole(stack),
+          }),
+      ).toThrow(/owningProjectIdentifier/);
     });
 
     test('throws on description exceeding 4096 characters', () => {
       const stack = createStack();
-      expect(() => new Glossary(stack, 'G', { ...validProps, description: 'x'.repeat(4097) })).toThrow(/description/);
+      expect(
+        () =>
+          new Glossary(stack, 'G', {
+            name: 'BusinessTerms',
+            domainIdentifier: 'dzd-abc123',
+            owningProjectIdentifier: 'proj-abc123',
+            datazoneApiRole: makeRole(stack),
+            description: 'x'.repeat(4097),
+          }),
+      ).toThrow(/description/);
     });
   });
 
@@ -89,40 +157,7 @@ describe('Glossary', () => {
     test('does not create any resources', () => {
       const stack = createStack();
       Glossary.fromAttributes(stack, 'Imported', { glossaryId: 'gloss-123' });
-      expect(stack.node.children.length).toBe(1); // only the imported construct, no CFN resources
-    });
-  });
-
-  describe('without executionRoleArn', () => {
-    const propsWithoutRole = {
-      name: 'BusinessTerms',
-      domainIdentifier: 'dzd-abc123',
-      owningProjectIdentifier: 'proj-abc123',
-    };
-
-    test('grants datazone permissions directly instead of sts:AssumeRole', () => {
-      const stack = createStack();
-      new Glossary(stack, 'Glossary', propsWithoutRole);
-      Template.fromStack(stack).hasResourceProperties('AWS::IAM::Policy', {
-        PolicyDocument: {
-          Statement: [
-            {
-              Action: ['datazone:CreateGlossary', 'datazone:UpdateGlossary', 'datazone:DeleteGlossary'],
-              Effect: 'Allow',
-              Resource: '*',
-            },
-          ],
-        },
-      });
-    });
-
-    test('does not pass assumedRoleArn to the custom resource', () => {
-      const stack = createStack();
-      new Glossary(stack, 'Glossary', propsWithoutRole);
-      const template = Template.fromStack(stack);
-      const resources = template.findResources('Custom::AWS');
-      const cr = Object.values(resources)[0];
-      expect(cr.Properties.Create).not.toContain('assumedRoleArn');
+      expect(stack.node.children.length).toBe(1);
     });
   });
 });

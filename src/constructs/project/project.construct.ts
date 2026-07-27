@@ -67,7 +67,6 @@ export class Project extends Construct implements IProject {
       projectCategory: props.projectCategory,
       projectExecutionRole: this.projectExecutionRole.roleArn,
       resourceTags: props.resourceTags?.map((t) => ({ key: t.key, value: t.value })),
-      membershipAssignments: undefined,
       userParameters: props.userParameters?.map((up) => ({
         environmentConfigurationName: up.environmentConfigurationName,
         environmentId: up.environmentId,
@@ -94,12 +93,12 @@ export class Project extends Construct implements IProject {
       membership.addResourceDependency(project);
     });
 
-    if (props.crRole) {
-      const membership = new CfnProjectMembership(this, 'CrRoleMembership', {
+    if (props.datazoneApiRole) {
+      const membership = new CfnProjectMembership(this, 'DatazoneApiRoleMembership', {
         domainIdentifier: props.domainIdentifier,
         projectIdentifier: project.attrId,
         designation: Designation.PROJECT_OWNER,
-        member: { userIdentifier: props.crRole.roleArn },
+        member: { userIdentifier: props.datazoneApiRole.roleArn },
       });
       membership.addResourceDependency(project);
     }

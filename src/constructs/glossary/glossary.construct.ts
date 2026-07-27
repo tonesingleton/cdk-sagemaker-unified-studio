@@ -1,5 +1,6 @@
-import { Token, Validations, aws_iam as iam, custom_resources as cr } from 'aws-cdk-lib';
+import { Token } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import { DataZoneApiCall } from '../datazone-api-call';
 import type { GlossaryAttributes, GlossaryProps, IGlossary } from './glossary.interface';
 
 const DOMAIN_ID_PATTERN = /^dzd[-_][a-zA-Z0-9_-]{1,36}$/;
@@ -53,20 +54,6 @@ export class Glossary extends Construct implements IGlossary {
       );
     }
 
-    const policy = props.executionRoleArn
-      ? cr.AwsCustomResourcePolicy.fromStatements([
-          new iam.PolicyStatement({
-            actions: ['sts:AssumeRole'],
-            resources: [props.executionRoleArn],
-          }),
-        ])
-      : cr.AwsCustomResourcePolicy.fromStatements([
-          new iam.PolicyStatement({
-            actions: ['datazone:CreateGlossary', 'datazone:UpdateGlossary', 'datazone:DeleteGlossary'],
-            resources: ['*'],
-          }),
-        ]);
-
     const sharedParams = {
       domainIdentifier: props.domainIdentifier,
       owningProjectIdentifier: props.owningProjectIdentifier,
@@ -75,51 +62,30 @@ export class Glossary extends Construct implements IGlossary {
       status: props.status,
     };
 
-    const glossary = new cr.AwsCustomResource(this, 'Resource', {
+    const glossary = new DataZoneApiCall(this, 'Resource', {
+      role: props.datazoneApiRole,
       onCreate: {
-        service: '@aws-sdk/client-datazone',
         action: 'CreateGlossary',
         parameters: sharedParams,
-        physicalResourceId: cr.PhysicalResourceId.fromResponse('id'),
-        assumedRoleArn: props.executionRoleArn,
+        physicalResourceIdFromResponsePath: 'id',
       },
       onUpdate: {
-        service: '@aws-sdk/client-datazone',
         action: 'UpdateGlossary',
         parameters: {
           ...sharedParams,
-          identifier: new cr.PhysicalResourceIdReference(),
+          identifier: DataZoneApiCall.PHYSICAL_RESOURCE_ID,
         },
-        physicalResourceId: cr.PhysicalResourceId.fromResponse('id'),
-        assumedRoleArn: props.executionRoleArn,
+        physicalResourceIdFromResponsePath: 'id',
       },
       onDelete: {
-        service: '@aws-sdk/client-datazone',
         action: 'DeleteGlossary',
         parameters: {
           domainIdentifier: props.domainIdentifier,
-          identifier: new cr.PhysicalResourceIdReference(),
+          identifier: DataZoneApiCall.PHYSICAL_RESOURCE_ID,
         },
         ignoreErrorCodesMatching: 'ResourceNotFoundException',
-        assumedRoleArn: props.executionRoleArn,
       },
-      policy,
     });
-
-    Validations.of(glossary).acknowledge(
-      {
-        id: 'AwsSolutions-IAM5',
-        reason: 'Glossary CRUD actions are scoped to the specific DataZone domain.',
-      },
-      {
-        id: 'AwsSolutions-L1',
-        reason: 'AwsCustomResource singleton Lambda runtime is managed by the CDK framework.',
-      },
-      {
-        id: 'AwsSolutions-IAM4',
-        reason: 'AwsCustomResource singleton Lambda requires basic execution role for CloudWatch logging.',
-      },
-    );
 
     this.glossaryId = glossary.getResponseField('id');
   }

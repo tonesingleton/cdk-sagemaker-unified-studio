@@ -255,13 +255,13 @@ describe('Project', () => {
 
   test('adds cr role as PROJECT_OWNER membership when crRole provided', () => {
     const stack = createStack();
-    const crRole = new iam.Role(stack, 'CrRole', {
+    const datazoneApiRole = new iam.Role(stack, 'DataZoneApiRole', {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
     });
     new Project(stack, 'Project', {
       name: 'TestProject',
       domainIdentifier: 'dzd-test',
-      crRole,
+      datazoneApiRole,
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::ProjectMembership', {
       Designation: 'PROJECT_OWNER',

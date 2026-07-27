@@ -30353,12 +30353,27 @@ const glossaryProps: GlossaryProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | A DataZone-enrolled IAM role used to call the DataZone API. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.name">name</a></code> | <code>string</code> | The name of the glossary (1–256 characters). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.owningProjectIdentifier">owningProjectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this glossary. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the glossary. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for glossary operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryStatus">GlossaryStatus</a></code> | Status of the glossary. |
+
+---
+
+##### `datazoneApiRole`<sup>Required</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.datazoneApiRole"></a>
+
+```typescript
+public readonly datazoneApiRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+A DataZone-enrolled IAM role used to call the DataZone API.
+
+Must be a project owner or domain admin so DataZone's membership-gated
+authorization accepts the call. Pass `domain.datazoneApiRole`.
 
 ---
 
@@ -30408,19 +30423,6 @@ public readonly description: string;
 - *Default:* no description
 
 Human-readable description of the glossary.
-
----
-
-##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.executionRoleArn"></a>
-
-```typescript
-public readonly executionRoleArn: string;
-```
-
-- *Type:* string
-- *Default:* no role assumption; Lambda calls DataZone directly
-
-ARN of a role that DataZone trusts for glossary operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
 
 ---
 
@@ -30525,14 +30527,29 @@ const glossaryTermProps: GlossaryTermProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | A DataZone-enrolled IAM role used to call the DataZone API. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.glossaryIdentifier">glossaryIdentifier</a></code> | <code>string</code> | The ID of the glossary that owns this term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.name">name</a></code> | <code>string</code> | The name of the glossary term (1–256 characters). |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for glossary term operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.longDescription">longDescription</a></code> | <code>string</code> | Human-readable long description of the term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.shortDescription">shortDescription</a></code> | <code>string</code> | Human-readable short description of the term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermStatus">GlossaryTermStatus</a></code> | Status of the glossary term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.termRelations">termRelations</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TermRelation">TermRelation</a>[]</code> | Relations to other glossary terms. |
+
+---
+
+##### `datazoneApiRole`<sup>Required</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.datazoneApiRole"></a>
+
+```typescript
+public readonly datazoneApiRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+A DataZone-enrolled IAM role used to call the DataZone API.
+
+Must be a project owner or domain admin so DataZone's membership-gated
+authorization accepts the call. Pass `domain.datazoneApiRole`.
 
 ---
 
@@ -30569,19 +30586,6 @@ public readonly name: string;
 - *Type:* string
 
 The name of the glossary term (1–256 characters).
-
----
-
-##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.executionRoleArn"></a>
-
-```typescript
-public readonly executionRoleArn: string;
-```
-
-- *Type:* string
-- *Default:* no role assumption; Lambda calls DataZone directly
-
-ARN of a role that DataZone trusts for glossary term operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
 
 ---
 
@@ -34258,7 +34262,7 @@ const projectProps: ProjectProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID this project belongs to. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.name">name</a></code> | <code>string</code> | Display name of the project (1–64 characters, `[\w -]+`). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.additionalTrustPrincipals">additionalTrustPrincipals</a></code> | <code>string[]</code> | Additional IAM principals (ARNs) to trust in the project execution role's trust policy. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.crRole">crRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The domain-level DataZone API role to add as a `PROJECT_OWNER` of this project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The domain-level DataZone API role to add as a `PROJECT_OWNER` of this project. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the project's purpose. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainUnitId">domainUnitId</a></code> | <code>string</code> | The domain unit ID to place this project in. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms that can be used in this project. |
@@ -34312,10 +34316,10 @@ for example a developer role for local testing or debugging.
 
 ---
 
-##### `crRole`<sup>Optional</sup> <a name="crRole" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.crRole"></a>
+##### `datazoneApiRole`<sup>Optional</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.datazoneApiRole"></a>
 
 ```typescript
-public readonly crRole: IRole;
+public readonly datazoneApiRole: IRole;
 ```
 
 - *Type:* aws-cdk-lib.aws_iam.IRole
