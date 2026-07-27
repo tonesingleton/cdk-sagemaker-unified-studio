@@ -6,7 +6,7 @@
 [![NuGet](https://img.shields.io/nuget/v/ToneSingleton.CdkSageMakerUnifiedStudio)](https://www.nuget.org/packages/ToneSingleton.CdkSageMakerUnifiedStudio)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-> **Status: Developer Preview** — APIs may change between minor versions.
+> **Status: Developer Preview** - APIs may change between minor versions.
 
 Higher-level (L2) CDK constructs for [AWS SageMaker Unified Studio](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/what-is-sagemaker-unified-studio.html) (formerly Amazon DataZone V2). These constructs simplify the provisioning of domains, projects, blueprints, and IAM roles required to operate a data mesh on AWS.
 
@@ -50,6 +50,8 @@ go get github.com/tonesingleton/cdk-sagemaker-unified-studio-go
 AWS SageMaker Unified Studio provides a unified experience for data engineering, analytics, and machine learning. Setting it up via CloudFormation requires orchestrating many resources with specific dependency ordering, IAM roles, blueprint configurations, and policy grants.
 
 This library provides opinionated L2 constructs that handle all of this automatically.
+
+For a practical introduction to building a data mesh on AWS with SageMaker Unified Studio, see the [Tone Singleton blog post](https://tonesingleton.com/blog/data-mesh-on-aws-sagemaker-unified-studio).
 
 ## Account Roles
 
@@ -330,7 +332,7 @@ After activation, subscribe to specific partner apps through the SageMaker conso
 
 ### Power BI (Server & Cloud)
 
-Power BI connects to SageMaker Unified Studio via the **Athena JDBC driver** — no AWS infrastructure to provision. Users download the driver, paste the JDBC connection string from the SMUS portal, and authenticate via SSO.
+Power BI connects to SageMaker Unified Studio via the **Athena JDBC driver** - no AWS infrastructure to provision. Users download the driver, paste the JDBC connection string from the SMUS portal, and authenticate via SSO.
 
 This means Power BI integration requires:
 
@@ -407,7 +409,7 @@ new PolicyGrant(stack, 'AllowCreateProject', {
 
 A `FormType` defines a custom metadata schema (Smithy model) that can be attached to assets for structured classification.
 
-> **Important:** The Smithy model must contain only the `structure` block. Do not include `$version` or `namespace` — DataZone infers the namespace from the domain ID automatically.
+> **Important:** The Smithy model must contain only the `structure` block. Do not include `$version` or `namespace` - DataZone infers the namespace from the domain ID automatically.
 
 ```ts
 import { FormType, FormTypeStatus } from '@tonesingleton/cdk-sagemaker-unified-studio';
@@ -492,7 +494,7 @@ Connection constructs correspond to the tiles available in the SageMaker Unified
 | `BigQueryConnection` | Google BigQuery | projectId, OAuth2, no VPC |
 | `AzureSqlConnection` | Azure SQL Database | host, port (1433), Basic/OAuth2, no VPC |
 | `RedshiftConnection` | Amazon Redshift | host, port (5439), credentials, storage |
-| `GlueConnection` | Generic (any Glue type) | Full control — use when no dedicated construct exists |
+| `GlueConnection` | Generic (any Glue type) | Full control - use when no dedicated construct exists |
 
 ### Storage
 
@@ -622,7 +624,7 @@ This library does **not** wrap `AWS::Bedrock::Agent`, `AWS::Bedrock::KnowledgeBa
 **Inclusion criteria for this library:** A construct belongs here when SMUS imposes a specific infrastructure-level convention on a non-DataZone resource that wouldn't be discoverable or functional without it. For example:
 
 - **`GitConnection`** wraps `AWS::CodeConnections::Connection` (not a DataZone resource) because SMUS requires a specific tag (`for-use-with-all-datazone-projects: true`) for the connection to appear in the Unified Studio portal. Without that tag, a vanilla CodeConnection is invisible to SMUS.
-- **Data connections** (Oracle, Snowflake, etc.) wrap `AWS::DataZone::Connection` — a DataZone-native resource type that no other library provides.
+- **Data connections** (Oracle, Snowflake, etc.) wrap `AWS::DataZone::Connection` - a DataZone-native resource type that no other library provides.
 
 **Why Bedrock is different:** SMUS integrates with Bedrock through **Blueprint activation** (e.g. `ManagedBlueprintIdentifier.AMAZON_BEDROCK_CHAT_AGENT`), which this library already covers via the `Blueprint` construct. The actual Agent, Knowledge Base, and Guardrail resources:
 
@@ -639,6 +641,85 @@ This library does **not** wrap `AWS::Bedrock::Agent`, `AWS::Bedrock::KnowledgeBa
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
+
+## Roadmap
+
+### L3 Data Mesh Constructs: opinionated multi-account topology
+
+The current library provides L2 constructs: each one maps closely to a single AWS resource or a small cluster of tightly related resources (a domain, a project, a blueprint). The next level of abstraction would be **L3 constructs** that encode the full [AWS Well-Architected Analytics Lens data mesh reference architecture](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/data-mesh-reference-architecture.html) as a single, opinionated unit.
+
+The AWS reference architecture for a SageMaker Unified Studio data mesh is built around three account roles:
+
+- **Governance account** - owns the SMUS domain, the catalog, IAM Identity Center, and Lake Formation policies.
+- **Producer account(s)** - host source data and have blueprint resources provisioned into them by the domain via [account association](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/associated-accounts.html) (backed by AWS RAM).
+- **Consumer account(s)** - host analytics workloads and applications that subscribe to published data assets.
+
+The proposed L3 constructs would sit on top of the existing L2 layer and wire all of this together declaratively.
+
+#### `DataMeshGovernance`
+
+A top-level construct that creates the governance account's resources in one call:
+
+```ts
+new DataMeshGovernance(app, 'Governance', {
+  domain: { name: 'Analytics', vpc, provisioningRoleArn },
+  identityCenter: { instanceArn: '...' },
+  domainUnits: [
+    { name: 'Finance', description: 'Finance business unit' },
+    { name: 'Marketing', description: 'Marketing business unit' },
+  ],
+  associatedAccounts: [
+    { accountId: '111122223333', role: DataMeshAccountRole.PRODUCER },
+    { accountId: '444455556666', role: DataMeshAccountRole.CONSUMER },
+  ],
+});
+```
+
+Internally this composes `AccountRoles`, `Domain`, domain units, blueprint activations, and the account association requests (via `AwsCustomResource` calling `datazone:CreateDomainUnit` and the RAM share APIs - no native CloudFormation resource exists for account association yet).
+
+#### `DataMeshProducer` / `DataMeshConsumer`
+
+Cross-stack constructs deployed into the associated accounts that accept the RAM share, enable the relevant blueprints, and wire up Lake Formation cross-account grants:
+
+```ts
+// Deployed into the producer account's stack
+new DataMeshProducer(producerStack, 'Finance', {
+  domainId: governance.domain.domainId,
+  domainArn: governance.domain.domainArn,
+  blueprints: [ManagedBlueprintIdentifier.LAKEHOUSE_DATABASE],
+});
+
+// Deployed into the consumer account's stack
+new DataMeshConsumer(consumerStack, 'Marketing', {
+  domainId: governance.domain.domainId,
+  domainArn: governance.domain.domainArn,
+  blueprints: [ManagedBlueprintIdentifier.LAKEHOUSE_DATABASE],
+});
+```
+
+#### `DataMeshAccountFactory` (stretch goal)
+
+An optional factory construct that provisions the AWS accounts themselves before wiring them into the domain. `AWS::Organizations::Account` is a supported CloudFormation resource type, and `organizations:CreateAccount` is a standard API call, so this is technically feasible via CDK:
+
+```ts
+new DataMeshAccountFactory(app, 'Factory', {
+  organization: { managementAccountId: '000011112222' },
+  accounts: [
+    { name: 'analytics-governance', email: 'aws+governance@example.com', role: DataMeshAccountRole.GOVERNANCE },
+    { name: 'analytics-finance', email: 'aws+finance@example.com', role: DataMeshAccountRole.PRODUCER },
+    { name: 'analytics-marketing', email: 'aws+marketing@example.com', role: DataMeshAccountRole.CONSUMER },
+  ],
+});
+```
+
+Account creation via `AWS::Organizations::Account` is asynchronous and can take several minutes; the factory would need to poll `organizations:DescribeCreateAccountStatus` via a custom resource before proceeding with downstream wiring.
+
+#### Known constraints to design around
+
+- **Account association has no native CloudFormation resource.** The `datazone:AssociateDomain` / RAM share request must go through `AwsCustomResource`. The acceptance step in the associated account also has no CFN resource - it requires a second `AwsCustomResource` deployed into that account's stack.
+- **Blueprint enablement in associated accounts** must be performed from within the associated account's stack, not from the governance account. This means `DataMeshProducer` / `DataMeshConsumer` must be deployed as separate CDK stacks targeting the respective accounts.
+- **`AWS::Organizations::Account` cannot be deleted** via CloudFormation (the resource is retained on stack deletion). Account vending is therefore a one-way operation from CDK's perspective.
+- **jsii multi-language compatibility** must be maintained throughout — no TypeScript-only constructs or `any` types.
 
 ## Troubleshooting
 
@@ -659,6 +740,15 @@ $cert = Get-ChildItem Cert:\LocalMachine\Root\72E503572930D0786EACFB69A5693D105B
 ```
 
 All Node.js tools (yarn, npm, cdk, npx) will trust the AXA proxy certificate in every subsequent terminal without further configuration.
+
+## Contact & Support
+
+This library was designed and built by [Tone Singleton](https://tonesingleton.com).
+
+For questions about the library's design, usage in the context of Yuzzu's data mesh, or to discuss extending it:
+
+- **Website:** [tonesingleton.com/contact](https://tonesingleton.com/contact)
+- **Book a meeting:** [tonesingleton.com/meet](https://tonesingleton.com/meet)
 
 ## License
 
