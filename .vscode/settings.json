@@ -28,6 +28,7 @@
     "projen",
     "projenrc",
     "pypi",
+    "smus",
     "stdlib",
     "tonesingleton",
     "unpushed"
