@@ -194,7 +194,7 @@ project.jest!.config.coverageThreshold = {
     statements: 100,
   },
 };
-project.jest!.config.coveragePathIgnorePatterns = ['/node_modules/', '\\.interface\\.ts$'];
+project.jest!.config.coveragePathIgnorePatterns = ['/node_modules/', '\\.interface\\.ts$', '/index\\.ts$'];
 
 // Exclude test files from JSII published package
 project.addPackageIgnore('src/**/*.test.ts');

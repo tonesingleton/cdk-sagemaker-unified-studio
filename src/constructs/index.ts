@@ -103,7 +103,14 @@ export {
   DataProductFormInput,
 } from './data-product/data-product.interface';
 export { Asset } from './asset/asset.construct';
-export { AssetProps, IAsset, AssetAttributes, AssetFormInput, PredictionConfiguration } from './asset/asset.interface';
+export {
+  AssetProps,
+  IAsset,
+  AssetAttributes,
+  AssetFormInput,
+  PredictionConfiguration,
+  BusinessNameGenerationConfiguration,
+} from './asset/asset.interface';
 export { AssetType } from './asset-type/asset-type.construct';
 export { AssetTypeProps, IAssetType, AssetTypeAttributes, FormEntryInput } from './asset-type/asset-type.interface';
 export { AssetRevision } from './asset-revision/asset-revision.construct';
@@ -118,4 +125,40 @@ export {
   RowFilterConfiguration,
   RowFilter,
   RowFilterExpression,
+  ColumnValuePair,
+  ColumnValuesPair,
+  ColumnReference,
 } from './asset-filter/asset-filter.interface';
+export { Rule } from './rule/rule.construct';
+export {
+  RuleProps,
+  IRule,
+  RuleAttributes,
+  RuleAction,
+  RuleSelectionMode,
+  RuleScope,
+  RuleTarget,
+  RuleDetail,
+  DomainUnitTarget,
+  AssetTypesForRule,
+  ProjectsForRule,
+  MetadataFormReference,
+  MetadataFormEnforcementDetail,
+  GlossaryTermEnforcementDetail,
+} from './rule/rule.interface';
+export { AccountPool } from './account-pool/account-pool.construct';
+export {
+  AccountPoolProps,
+  IAccountPool,
+  AccountPoolAttributes,
+  ResolutionStrategy,
+  AccountSource,
+  AccountInfo,
+  CustomAccountPoolHandler,
+} from './account-pool/account-pool.interface';
+export { DataExportConfiguration } from './data-export-configuration/data-export-configuration.construct';
+export {
+  DataExportConfigurationProps,
+  ExportEncryptionConfiguration,
+  SseAlgorithm,
+} from './data-export-configuration/data-export-configuration.interface';

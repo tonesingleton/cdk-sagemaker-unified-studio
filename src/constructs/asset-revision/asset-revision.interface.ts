@@ -1,3 +1,7 @@
+import type { AssetFormInput, PredictionConfiguration } from '../asset/asset.interface';
+
+export type { AssetFormInput, PredictionConfiguration };
+
 /**
  * Read-only contract for an AssetRevision.
  */
@@ -51,12 +55,7 @@ export interface AssetRevisionProps {
    *
    * @default - no forms
    */
-  readonly formsInput?: Array<{
-    readonly formName: string;
-    readonly content?: string;
-    readonly typeIdentifier?: string;
-    readonly typeRevision?: string;
-  }>;
+  readonly formsInput?: Array<AssetFormInput>;
   /**
    * Glossary terms to attach as part of this revision.
    *
@@ -68,7 +67,5 @@ export interface AssetRevisionProps {
    *
    * @default - no prediction configuration
    */
-  readonly predictionConfiguration?: {
-    readonly businessNameGeneration?: { readonly enabled: boolean };
-  };
+  readonly predictionConfiguration?: PredictionConfiguration;
 }

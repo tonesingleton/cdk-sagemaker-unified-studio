@@ -67,10 +67,7 @@ export class Project extends Construct implements IProject {
       projectCategory: props.projectCategory,
       projectExecutionRole: this.projectExecutionRole.roleArn,
       resourceTags: props.resourceTags?.map((t) => ({ key: t.key, value: t.value })),
-      membershipAssignments: props.membershipAssignments?.map((m) => ({
-        designation: m.designation,
-        member: { userIdentifier: m.member.userIdentifier, groupIdentifier: m.member.groupIdentifier },
-      })),
+      membershipAssignments: undefined,
       userParameters: props.userParameters?.map((up) => ({
         environmentConfigurationName: up.environmentConfigurationName,
         environmentId: up.environmentId,
@@ -85,17 +82,17 @@ export class Project extends Construct implements IProject {
     this.lastUpdatedAt = project.attrLastUpdatedAt;
     this.projectStatus = project.attrProjectStatus;
 
-    // TODO: Replace membershipAssignments in CfnProject above with CfnProjectMembership once
-    // a safe migration path exists for existing projects (currently causes destructive replacement).
-    // props.membershipAssignments?.forEach((m, index) => {
-    //   const membership = new CfnProjectMembership(this, `Membership${index}`, {
-    //     domainIdentifier: props.domainIdentifier,
-    //     projectIdentifier: project.attrId,
-    //     designation: m.designation,
-    //     member: { userIdentifier: m.member.userIdentifier, groupIdentifier: m.member.groupIdentifier },
-    //   });
-    //   membership.addDependency(project);
-    // });
+    // Create memberships as separate CfnProjectMembership resources so they can be
+    // updated independently without replacing the project.
+    props.membershipAssignments?.forEach((m, index) => {
+      const membership = new CfnProjectMembership(this, `Membership${index}`, {
+        domainIdentifier: props.domainIdentifier,
+        projectIdentifier: project.attrId,
+        designation: m.designation,
+        member: { userIdentifier: m.member.userIdentifier, groupIdentifier: m.member.groupIdentifier },
+      });
+      membership.addResourceDependency(project);
+    });
 
     if (props.crRole) {
       const membership = new CfnProjectMembership(this, 'CrRoleMembership', {
@@ -104,7 +101,7 @@ export class Project extends Construct implements IProject {
         designation: Designation.PROJECT_OWNER,
         member: { userIdentifier: props.crRole.roleArn },
       });
-      membership.addDependency(project);
+      membership.addResourceDependency(project);
     }
 
     if (props.grantDefaultDatabaseDescribe) {

@@ -1,7 +1,6 @@
 import { App, Lazy, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import { UserProfile } from './user-profile.construct';
-import { UserProfileStatus, UserType } from './user-profile.interface';
+import { UserProfile, UserProfileStatus, UserType } from '.';
 
 function createStack(): Stack {
   return new Stack(new App(), 'TestStack', { env: { account: '123456789012', region: 'us-east-1' } });

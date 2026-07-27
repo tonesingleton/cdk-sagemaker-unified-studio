@@ -19,22 +19,50 @@ export interface ColumnFilterConfiguration {
 }
 
 /**
+ * A column-value pair used in comparison expressions.
+ */
+export interface ColumnValuePair {
+  /** The column name to compare. */
+  readonly columnName: string;
+  /** The value to compare against. */
+  readonly value: string;
+}
+
+/**
+ * A column-values pair used in set membership expressions.
+ */
+export interface ColumnValuesPair {
+  /** The column name to compare. */
+  readonly columnName: string;
+  /** The set of values to compare against. */
+  readonly values: Array<string>;
+}
+
+/**
+ * A single-column reference used in null-check expressions.
+ */
+export interface ColumnReference {
+  /** The column name to check. */
+  readonly columnName: string;
+}
+
+/**
  * A leaf expression in a row filter.
  * Exactly one property must be set (union type).
  */
 export interface RowFilterExpression {
-  readonly equalTo?: { readonly columnName: string; readonly value: string };
-  readonly notEqualTo?: { readonly columnName: string; readonly value: string };
-  readonly greaterThan?: { readonly columnName: string; readonly value: string };
-  readonly greaterThanOrEqualTo?: { readonly columnName: string; readonly value: string };
-  readonly lessThan?: { readonly columnName: string; readonly value: string };
-  readonly lessThanOrEqualTo?: { readonly columnName: string; readonly value: string };
-  readonly isNull?: { readonly columnName: string };
-  readonly isNotNull?: { readonly columnName: string };
-  readonly in?: { readonly columnName: string; readonly values: Array<string> };
-  readonly notIn?: { readonly columnName: string; readonly values: Array<string> };
-  readonly like?: { readonly columnName: string; readonly value: string };
-  readonly notLike?: { readonly columnName: string; readonly value: string };
+  readonly equalTo?: ColumnValuePair;
+  readonly notEqualTo?: ColumnValuePair;
+  readonly greaterThan?: ColumnValuePair;
+  readonly greaterThanOrEqualTo?: ColumnValuePair;
+  readonly lessThan?: ColumnValuePair;
+  readonly lessThanOrEqualTo?: ColumnValuePair;
+  readonly isNull?: ColumnReference;
+  readonly isNotNull?: ColumnReference;
+  readonly in?: ColumnValuesPair;
+  readonly notIn?: ColumnValuesPair;
+  readonly like?: ColumnValuePair;
+  readonly notLike?: ColumnValuePair;
 }
 
 /**

@@ -23,14 +23,19 @@ export interface AssetFormInput {
 }
 
 /**
+ * Business name generation settings within a prediction configuration.
+ */
+export interface BusinessNameGenerationConfiguration {
+  /** Whether business name generation is enabled. */
+  readonly enabled: boolean;
+}
+
+/**
  * Configuration for automatically generated business-friendly metadata.
  */
 export interface PredictionConfiguration {
   /** Business name generation settings. */
-  readonly businessNameGeneration?: {
-    /** Whether business name generation is enabled. */
-    readonly enabled: boolean;
-  };
+  readonly businessNameGeneration?: BusinessNameGenerationConfiguration;
 }
 
 /**

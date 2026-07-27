@@ -45,8 +45,10 @@ export interface GlossaryTermProps {
    * ARN of a role that DataZone trusts for glossary term operations (e.g. the
    * domain execution role). The custom resource Lambda assumes this role
    * to satisfy DataZone's internal authorization checks.
+   *
+   * @default - no role assumption; Lambda calls DataZone directly
    */
-  readonly executionRoleArn: string;
+  readonly executionRoleArn?: string;
   /**
    * Human-readable short description of the term.
    *

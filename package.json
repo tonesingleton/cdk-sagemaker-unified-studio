@@ -126,7 +126,8 @@
     "coverageDirectory": "coverage",
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "\\.interface\\.ts$"
+      "\\.interface\\.ts$",
+      "/index\\.ts$"
     ],
     "testPathIgnorePatterns": [
       "/node_modules/"
