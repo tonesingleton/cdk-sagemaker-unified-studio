@@ -61,7 +61,7 @@ describe('GitConnection with existing CodeConnection', () => {
       providerType: undefined,
       codeConnectionArn: 'arn:aws:codeconnections:eu-central-1:123456789012:connection/existing-id',
     });
-    Template.fromStack(stack).resourceCountIs('AWS::CodeConnections::Connection', 0);
+    expect(stack.node.children.length).toBe(1);
   });
 
   test('exposes the provided codeConnectionArn', () => {

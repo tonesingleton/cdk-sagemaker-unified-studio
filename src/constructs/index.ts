@@ -94,3 +94,11 @@ export * from './project-membership';
 export * from './group-profile';
 export * from './user-profile';
 export * from './owner';
+export { DataProduct } from './data-product/data-product.construct';
+export {
+  DataProductProps,
+  IDataProduct,
+  DataProductAttributes,
+  DataProductItem,
+  DataProductFormInput,
+} from './data-product/data-product.interface';

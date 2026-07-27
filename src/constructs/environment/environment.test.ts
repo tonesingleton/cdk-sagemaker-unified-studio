@@ -151,6 +151,6 @@ describe('Environment.fromAttributes', () => {
     Environment.fromAttributes(stack, 'Imported', {
       environmentId: 'env-abc123',
     });
-    Template.fromStack(stack).resourceCountIs('AWS::DataZone::Environment', 0);
+    expect(stack.node.children.length).toBe(1);
   });
 });

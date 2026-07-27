@@ -6,7 +6,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorUrl: 'https://tonesingleton.com',
   authorAddress: 'https://tonesingleton.com',
   authorOrganization: true,
-  cdkVersion: '2.261.0',
+  cdkVersion: '2.262.0',
   defaultReleaseBranch: 'main',
   description: 'L2 CDK constructs for AWS SageMaker Unified Studio',
   jsiiVersion: '~6.0.5',
@@ -207,6 +207,12 @@ project.addTask('prepare', {
 
 new TextFile(project, '.husky/pre-commit', {
   lines: ['npx prettier --write src/ .projenrc.ts', 'npx projen eslint', 'git add -A'],
+});
+
+// Prepend markdownlint disable comment to generated API.md (inline HTML anchors are intentional)
+project.addTask('postsynth', {
+  description: 'Add markdownlint disable comment to generated API.md',
+  exec: "node -e \"const fs=require('fs');const f='API.md';if(fs.existsSync(f)){const c=fs.readFileSync(f,'utf8');if(!c.startsWith('<!-- markdownlint-disable'))fs.writeFileSync(f,'<!-- markdownlint-disable MD013 MD033 -->\\n'+c);}\"",
 });
 
 project.synth();

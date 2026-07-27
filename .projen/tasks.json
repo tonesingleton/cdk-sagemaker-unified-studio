@@ -263,6 +263,15 @@
         }
       ]
     },
+    "postsynth": {
+      "name": "postsynth",
+      "description": "Add markdownlint disable comment to generated API.md",
+      "steps": [
+        {
+          "exec": "node -e \"const fs=require('fs');const f='API.md';if(fs.existsSync(f)){const c=fs.readFileSync(f,'utf8');if(!c.startsWith('<!-- markdownlint-disable'))fs.writeFileSync(f,'<!-- markdownlint-disable MD013 MD033 -->\\n'+c);}\""
+        }
+      ]
+    },
     "pre-compile": {
       "name": "pre-compile",
       "description": "Prepare the project for compilation"

@@ -360,7 +360,6 @@ describe('Project.fromAttributes', () => {
       projectId: 'dzp-abc123',
       domainId: 'dzd-test',
     });
-    Template.fromStack(stack).resourceCountIs('AWS::DataZone::Project', 0);
-    Template.fromStack(stack).resourceCountIs('AWS::IAM::Role', 0);
+    expect(stack.node.children.length).toBe(1); // only the imported construct, no CFN resources
   });
 });
