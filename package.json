@@ -22,6 +22,7 @@
     "package:js": "projen package:js",
     "package:python": "projen package:python",
     "post-compile": "projen post-compile",
+    "postsynth": "projen postsynth",
     "pre-compile": "projen pre-compile",
     "prepare": "projen prepare",
     "test": "projen test",

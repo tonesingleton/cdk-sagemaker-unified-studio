@@ -14,16 +14,23 @@
     "azuresql",
     "cdksagemakerunifiedstudio",
     "codeconnections",
+    "compatignore",
     "datazone",
     "dqdl",
     "jsii",
     "kiro",
     "lakehouse",
     "mergify",
+    "mlflow",
     "mwaa",
+    "pacmak",
+    "postsynth",
     "projen",
     "projenrc",
     "pypi",
-    "stdlib"
-  ]
+    "stdlib",
+    "tonesingleton",
+    "unpushed"
+  ],
+  "cSpell.ignoreWords": ["myattribute"]
 }

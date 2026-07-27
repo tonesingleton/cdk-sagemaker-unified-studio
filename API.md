@@ -267,20 +267,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -345,7 +346,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -353,10 +354,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -369,6 +371,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependsOn.parameter.target"></a>
 
@@ -519,6 +528,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -635,23 +671,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -663,6 +692,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -1228,20 +1274,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -1306,7 +1353,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -1314,10 +1361,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -1330,6 +1378,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependsOn.parameter.target"></a>
 
@@ -1480,6 +1535,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -1596,23 +1678,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -1624,6 +1699,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -2190,20 +2282,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -2268,7 +2361,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -2276,10 +2369,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -2292,6 +2386,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependsOn.parameter.target"></a>
 
@@ -2442,6 +2543,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -2558,23 +2686,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -2586,6 +2707,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -4275,20 +4413,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -4353,7 +4492,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -4361,10 +4500,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -4377,6 +4517,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependsOn.parameter.target"></a>
 
@@ -4527,6 +4674,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -4643,23 +4817,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -4671,6 +4838,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -5600,20 +5784,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -5678,7 +5863,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -5686,10 +5871,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -5702,6 +5888,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependsOn.parameter.target"></a>
 
@@ -5852,6 +6045,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -5968,23 +6188,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -5996,6 +6209,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -7505,20 +7735,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -7583,7 +7814,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -7591,10 +7822,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -7607,6 +7839,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependsOn.parameter.target"></a>
 
@@ -7757,6 +7996,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -7873,23 +8139,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -7901,6 +8160,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -8837,20 +9113,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -8915,7 +9192,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -8923,10 +9200,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -8939,6 +9217,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependsOn.parameter.target"></a>
 
@@ -9089,6 +9374,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -9205,23 +9517,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -9233,6 +9538,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -9795,20 +10117,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -9873,7 +10196,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -9881,10 +10204,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -9897,6 +10221,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependsOn.parameter.target"></a>
 
@@ -10047,6 +10378,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -10163,23 +10521,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -10191,6 +10542,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -11133,20 +11501,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -11211,7 +11580,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -11219,10 +11588,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -11235,6 +11605,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependsOn.parameter.target"></a>
 
@@ -11385,6 +11762,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -11501,23 +11905,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -11529,6 +11926,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -12094,20 +12508,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -12172,7 +12587,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -12180,10 +12595,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -12196,6 +12612,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependsOn.parameter.target"></a>
 
@@ -12346,6 +12769,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -12462,23 +12912,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -12490,6 +12933,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -13055,20 +13515,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -13133,7 +13594,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -13141,10 +13602,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -13157,6 +13619,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependsOn.parameter.target"></a>
 
@@ -13307,6 +13776,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -13423,23 +13919,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -13451,6 +13940,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -14344,20 +14850,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -14422,7 +14929,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -14430,10 +14937,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -14446,6 +14954,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependsOn.parameter.target"></a>
 
@@ -14596,6 +15111,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -14712,23 +15254,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -14740,6 +15275,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -16063,20 +16615,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -16141,7 +16694,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -16149,10 +16702,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -16165,6 +16719,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependsOn.parameter.target"></a>
 
@@ -16315,6 +16876,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -16431,23 +17019,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -16459,6 +17040,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -17021,20 +17619,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -17099,7 +17698,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -17107,10 +17706,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -17123,6 +17723,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependsOn.parameter.target"></a>
 
@@ -17273,6 +17880,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -17389,23 +18023,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -17417,6 +18044,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -17982,20 +18626,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -18060,7 +18705,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -18068,10 +18713,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -18084,6 +18730,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependsOn.parameter.target"></a>
 
@@ -18234,6 +18887,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -18350,23 +19030,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -18378,6 +19051,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -18940,20 +19630,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -19018,7 +19709,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -19026,10 +19717,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -19042,6 +19734,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependsOn.parameter.target"></a>
 
@@ -19192,6 +19891,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -19308,23 +20034,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -19336,6 +20055,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -19898,20 +20634,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -19976,7 +20713,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -19984,10 +20721,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -20000,6 +20738,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependsOn.parameter.target"></a>
 
@@ -20150,6 +20895,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -20266,23 +21038,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -20294,6 +21059,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -20859,20 +21641,21 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources and stacks this resource depends on. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -20937,7 +21720,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -20945,10 +21728,11 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -20961,6 +21745,13 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependsOn.parameter.target"></a>
 
@@ -21111,6 +21902,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -21227,23 +22045,16 @@ node metadata ends up in the Cloud Assembly.)
 ##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.obtainDependencies"></a>
 
 ```typescript
-public obtainDependencies(): (CfnResource | Stack)[]
+public obtainDependencies(): (Stack | CfnResource)[]
 ```
 
-Retrieves an array of resources this resource depends on.
+Retrieves an array of resources and stacks this resource depends on.
 
-This assembles dependencies on resources across stacks (including nested stacks)
-automatically.
+For resources depended on directly, returns the `CfnResource` object. For
+dependencies on other stacks, returns the `Stack` object. The order of the
+array is not guaranteed.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -21255,6 +22066,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
