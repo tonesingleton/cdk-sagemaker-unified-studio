@@ -102,3 +102,20 @@ export {
   DataProductItem,
   DataProductFormInput,
 } from './data-product/data-product.interface';
+export { Asset } from './asset/asset.construct';
+export { AssetProps, IAsset, AssetAttributes, AssetFormInput, PredictionConfiguration } from './asset/asset.interface';
+export { AssetType } from './asset-type/asset-type.construct';
+export { AssetTypeProps, IAssetType, AssetTypeAttributes, FormEntryInput } from './asset-type/asset-type.interface';
+export { AssetRevision } from './asset-revision/asset-revision.construct';
+export { AssetRevisionProps, IAssetRevision } from './asset-revision/asset-revision.interface';
+export { AssetFilter } from './asset-filter/asset-filter.construct';
+export {
+  AssetFilterProps,
+  IAssetFilter,
+  AssetFilterAttributes,
+  AssetFilterConfiguration,
+  ColumnFilterConfiguration,
+  RowFilterConfiguration,
+  RowFilter,
+  RowFilterExpression,
+} from './asset-filter/asset-filter.interface';
