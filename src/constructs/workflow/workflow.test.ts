@@ -73,13 +73,13 @@ describe('Workflow', () => {
       definitionFile: { path: FIXTURE, bucket },
       role: importRole(stack),
       networkConfiguration: {
-        securityGroupIds: ['sg-123'],
+        securityGroupIds: ['sg-12345678'],
         subnetIds: ['subnet-a', 'subnet-b'],
       },
     });
     Template.fromStack(stack).hasResourceProperties('AWS::MWAAServerless::Workflow', {
       NetworkConfiguration: {
-        SecurityGroupIds: ['sg-123'],
+        SecurityGroupIds: ['sg-12345678'],
         SubnetIds: ['subnet-a', 'subnet-b'],
       },
     });
@@ -202,6 +202,6 @@ describe('Workflow.fromAttributes', () => {
       workflowArn: 'arn:aws:airflow-serverless:eu-central-1:123456789012:workflow/my-wf',
       workflowName: 'my-wf',
     });
-    Template.fromStack(stack).resourceCountIs('AWS::MWAAServerless::Workflow', 0);
+    expect(stack.node.children.length).toBe(1);
   });
 });

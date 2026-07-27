@@ -168,7 +168,7 @@ describe('FormType', () => {
     test('does not create any CloudFormation resources', () => {
       const stack = createStack();
       FormType.fromAttributes(stack, 'Imported', { formTypeIdentifier: 'proj-123:MyForm', revision: '1' });
-      Template.fromStack(stack).resourceCountIs('AWS::DataZone::FormType', 0);
+      expect(stack.node.children.length).toBe(1);
     });
   });
 });

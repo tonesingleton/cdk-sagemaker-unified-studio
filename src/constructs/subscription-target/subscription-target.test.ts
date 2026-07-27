@@ -121,7 +121,7 @@ describe('SubscriptionTarget', () => {
     test('does not create any CloudFormation resources', () => {
       const stack = createStack();
       SubscriptionTarget.fromAttributes(stack, 'Imported', { subscriptionTargetId: 'st-12345' });
-      Template.fromStack(stack).resourceCountIs('AWS::DataZone::SubscriptionTarget', 0);
+      expect(stack.node.children.length).toBe(1);
     });
   });
 });

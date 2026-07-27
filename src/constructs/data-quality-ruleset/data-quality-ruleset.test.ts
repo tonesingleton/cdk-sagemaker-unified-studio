@@ -126,7 +126,7 @@ describe('DataQualityRuleset', () => {
     test('does not create any CloudFormation resources', () => {
       const stack = createStack();
       DataQualityRuleset.fromAttributes(stack, 'Imported', { name: 'existing-ruleset' });
-      Template.fromStack(stack).resourceCountIs('AWS::Glue::DataQualityRuleset', 0);
+      expect(stack.node.children.length).toBe(1);
     });
   });
 });

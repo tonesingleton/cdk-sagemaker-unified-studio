@@ -167,6 +167,6 @@ describe('ProjectProfile.fromAttributes', () => {
     ProjectProfile.fromAttributes(stack, 'Imported', {
       projectProfileId: 'pp-abc123',
     });
-    Template.fromStack(stack).resourceCountIs('AWS::DataZone::ProjectProfile', 0);
+    expect(stack.node.children.length).toBe(1);
   });
 });

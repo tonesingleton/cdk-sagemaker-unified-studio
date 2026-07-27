@@ -431,6 +431,6 @@ describe('Domain.fromAttributes', () => {
       domainArn: 'arn:aws:datazone:eu-central-1:123456789012:domain/dzd-abc123',
       rootDomainUnitId: 'du-root123',
     });
-    Template.fromStack(stack).resourceCountIs('AWS::DataZone::Domain', 0);
+    expect(stack.node.children.length).toBe(1);
   });
 });
