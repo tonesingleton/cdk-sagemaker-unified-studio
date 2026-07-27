@@ -40,7 +40,7 @@ export class ProjectDatabase extends Construct implements IProjectDatabase {
       permissions: ['ALL', 'CREATE_TABLE', 'ALTER', 'DROP', 'DESCRIBE'],
       permissionsWithGrantOption: ['ALL', 'CREATE_TABLE', 'ALTER', 'DROP', 'DESCRIBE'],
     });
-    databasePermissions.addDependency(database);
+    databasePermissions.addResourceDependency(database);
 
     const tablePermissions = new lakeformation.CfnPrincipalPermissions(this, 'TablePermissions', {
       principal: { dataLakePrincipalIdentifier: props.projectExecutionRoleArn },
@@ -48,7 +48,7 @@ export class ProjectDatabase extends Construct implements IProjectDatabase {
       permissions: ['ALL', 'SELECT', 'INSERT', 'DELETE', 'DESCRIBE', 'ALTER', 'DROP'],
       permissionsWithGrantOption: ['ALL', 'SELECT', 'INSERT', 'DELETE', 'DESCRIBE', 'ALTER', 'DROP'],
     });
-    tablePermissions.addDependency(database);
+    tablePermissions.addResourceDependency(database);
 
     for (const [i, principalArn] of (props.additionalReadPrincipals ?? []).entries()) {
       const dbPerms = new lakeformation.CfnPrincipalPermissions(this, `AdditionalReadDatabasePermissions${i}`, {
@@ -57,7 +57,7 @@ export class ProjectDatabase extends Construct implements IProjectDatabase {
         permissions: ['DESCRIBE'],
         permissionsWithGrantOption: [],
       });
-      dbPerms.addDependency(database);
+      dbPerms.addResourceDependency(database);
 
       const tablePerms = new lakeformation.CfnPrincipalPermissions(this, `AdditionalReadTablePermissions${i}`, {
         principal: { dataLakePrincipalIdentifier: principalArn },
@@ -65,7 +65,7 @@ export class ProjectDatabase extends Construct implements IProjectDatabase {
         permissions: ['DESCRIBE', 'SELECT'],
         permissionsWithGrantOption: [],
       });
-      tablePerms.addDependency(database);
+      tablePerms.addResourceDependency(database);
     }
 
     if (props.manageAccessRoleArn) {
@@ -75,7 +75,7 @@ export class ProjectDatabase extends Construct implements IProjectDatabase {
         permissions: ['DESCRIBE'],
         permissionsWithGrantOption: ['DESCRIBE'],
       });
-      manageAccessDbPerms.addDependency(database);
+      manageAccessDbPerms.addResourceDependency(database);
 
       const manageAccessTablePerms = new lakeformation.CfnPrincipalPermissions(this, 'ManageAccessTablePermissions', {
         principal: { dataLakePrincipalIdentifier: props.manageAccessRoleArn },
@@ -83,7 +83,7 @@ export class ProjectDatabase extends Construct implements IProjectDatabase {
         permissions: ['DESCRIBE', 'SELECT'],
         permissionsWithGrantOption: ['DESCRIBE', 'SELECT'],
       });
-      manageAccessTablePerms.addDependency(database);
+      manageAccessTablePerms.addResourceDependency(database);
     }
   }
 }
