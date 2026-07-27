@@ -267,7 +267,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -345,7 +345,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -356,7 +356,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -1228,7 +1228,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -1306,7 +1306,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -1317,7 +1317,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -2190,7 +2190,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -2268,7 +2268,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -2279,7 +2279,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -3480,6 +3480,206 @@ The table name.
 ---
 
 
+### DataProduct <a name="DataProduct" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct">IDataProduct</a>
+
+A DataZone data product — a curated package of data assets with metadata, documentation, and access controls.
+
+There is no CloudFormation resource type for DataZone data products, so this
+construct uses `AwsCustomResource` to call the DataZone API directly
+(CreateDataProduct / DeleteDataProduct).
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateDataProduct.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateDataProduct.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer"></a>
+
+```typescript
+import { DataProduct } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new DataProduct(scope: Construct, id: string, props: DataProductProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps">DataProductProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps">DataProductProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.fromAttributes">fromAttributes</a></code> | Import an existing data product from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.isConstruct"></a>
+
+```typescript
+import { DataProduct } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+DataProduct.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.fromAttributes"></a>
+
+```typescript
+import { DataProduct } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+DataProduct.fromAttributes(scope: Construct, id: string, attrs: DataProductAttributes)
+```
+
+Import an existing data product from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes">DataProductAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.dataProductId">dataProductId</a></code> | <code>string</code> | The ID of the data product assigned by DataZone. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.revision">revision</a></code> | <code>string</code> | The revision of the data product. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `dataProductId`<sup>Required</sup> <a name="dataProductId" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.dataProductId"></a>
+
+```typescript
+public readonly dataProductId: string;
+```
+
+- *Type:* string
+
+The ID of the data product assigned by DataZone.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the data product.
+
+---
+
+
 ### DataQualityRuleset <a name="DataQualityRuleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset"></a>
 
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataQualityRuleset">IDataQualityRuleset</a>
@@ -4075,7 +4275,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -4153,7 +4353,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -4164,7 +4364,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -5400,7 +5600,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -5478,7 +5678,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -5489,7 +5689,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -7305,7 +7505,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -7383,7 +7583,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -7394,7 +7594,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -8637,7 +8837,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -8715,7 +8915,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -8726,7 +8926,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -9595,7 +9795,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -9673,7 +9873,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -9684,7 +9884,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -10933,7 +11133,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -11011,7 +11211,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -11022,7 +11222,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -11894,7 +12094,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -11972,7 +12172,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -11983,7 +12183,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -12855,7 +13055,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -12933,7 +13133,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -12944,7 +13144,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -14144,7 +14344,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -14222,7 +14422,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -14233,7 +14433,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -15863,7 +16063,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -15941,7 +16141,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -15952,7 +16152,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -16821,7 +17021,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -16899,7 +17099,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -16910,7 +17110,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -17782,7 +17982,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -17860,7 +18060,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -17871,7 +18071,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -18740,7 +18940,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -18818,7 +19018,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -18829,7 +19029,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -19698,7 +19898,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -19776,7 +19976,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -19787,7 +19987,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -20659,7 +20859,7 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
@@ -20737,7 +20937,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -20748,7 +20948,7 @@ Indicates that this resource depends on another resource and cannot be provision
 This can be used for resources across stacks (or nested stack) boundaries
 and the dependency will automatically be transferred to the relevant scope.
 
-###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -23618,6 +23818,328 @@ The table type.
 
 ---
 
+### DataProductAttributes <a name="DataProductAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes"></a>
+
+Attributes required to import an existing DataProduct.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes.Initializer"></a>
+
+```typescript
+import { DataProductAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataProductAttributes: DataProductAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes.property.dataProductId">dataProductId</a></code> | <code>string</code> | The data product ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes.property.revision">revision</a></code> | <code>string</code> | The revision of the data product. |
+
+---
+
+##### `dataProductId`<sup>Required</sup> <a name="dataProductId" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes.property.dataProductId"></a>
+
+```typescript
+public readonly dataProductId: string;
+```
+
+- *Type:* string
+
+The data product ID.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the data product.
+
+---
+
+### DataProductFormInput <a name="DataProductFormInput" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput"></a>
+
+A metadata form attached to the data product.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.Initializer"></a>
+
+```typescript
+import { DataProductFormInput } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataProductFormInput: DataProductFormInput = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.formName">formName</a></code> | <code>string</code> | The name of the form. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.content">content</a></code> | <code>string</code> | The serialized form content. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.typeIdentifier">typeIdentifier</a></code> | <code>string</code> | The identifier of the form type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.typeRevision">typeRevision</a></code> | <code>string</code> | The revision of the form type. |
+
+---
+
+##### `formName`<sup>Required</sup> <a name="formName" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.formName"></a>
+
+```typescript
+public readonly formName: string;
+```
+
+- *Type:* string
+
+The name of the form.
+
+---
+
+##### `content`<sup>Optional</sup> <a name="content" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.content"></a>
+
+```typescript
+public readonly content: string;
+```
+
+- *Type:* string
+
+The serialized form content.
+
+---
+
+##### `typeIdentifier`<sup>Optional</sup> <a name="typeIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.typeIdentifier"></a>
+
+```typescript
+public readonly typeIdentifier: string;
+```
+
+- *Type:* string
+
+The identifier of the form type.
+
+---
+
+##### `typeRevision`<sup>Optional</sup> <a name="typeRevision" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.typeRevision"></a>
+
+```typescript
+public readonly typeRevision: string;
+```
+
+- *Type:* string
+
+The revision of the form type.
+
+---
+
+### DataProductItem <a name="DataProductItem" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem"></a>
+
+A single data asset item included in the data product.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.Initializer"></a>
+
+```typescript
+import { DataProductItem } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataProductItem: DataProductItem = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.identifier">identifier</a></code> | <code>string</code> | The identifier of the data asset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.itemType">itemType</a></code> | <code>string</code> | The type of the item (e.g. `ASSET`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms associated with this item. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.revision">revision</a></code> | <code>string</code> | The revision of the item. |
+
+---
+
+##### `identifier`<sup>Required</sup> <a name="identifier" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.identifier"></a>
+
+```typescript
+public readonly identifier: string;
+```
+
+- *Type:* string
+
+The identifier of the data asset.
+
+---
+
+##### `itemType`<sup>Required</sup> <a name="itemType" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.itemType"></a>
+
+```typescript
+public readonly itemType: string;
+```
+
+- *Type:* string
+
+The type of the item (e.g. `ASSET`).
+
+---
+
+##### `glossaryTerms`<sup>Optional</sup> <a name="glossaryTerms" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.glossaryTerms"></a>
+
+```typescript
+public readonly glossaryTerms: string[];
+```
+
+- *Type:* string[]
+
+Glossary terms associated with this item.
+
+---
+
+##### `revision`<sup>Optional</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the item.
+
+---
+
+### DataProductProps <a name="DataProductProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps"></a>
+
+Properties for a DataProduct construct.
+
+There is no CloudFormation resource for DataZone data products.
+This construct uses AwsCustomResource to call the DataZone API directly.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateDataProduct.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateDataProduct.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.Initializer"></a>
+
+```typescript
+import { DataProductProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataProductProps: DataProductProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain where the data product is created (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.name">name</a></code> | <code>string</code> | The name of the data product (1–64 characters). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.owningProjectIdentifier">owningProjectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this data product. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the data product. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for data product operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.formsInput">formsInput</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput">DataProductFormInput</a>[]</code> | Metadata forms attached to the data product. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms associated with the data product. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.items">items</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem">DataProductItem</a>[]</code> | Data assets included in the data product. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain where the data product is created (e.g. `dzd_abc123`).
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the data product (1–64 characters).
+
+---
+
+##### `owningProjectIdentifier`<sup>Required</sup> <a name="owningProjectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.owningProjectIdentifier"></a>
+
+```typescript
+public readonly owningProjectIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the project that owns this data product.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the data product.
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role assumption; Lambda calls DataZone directly
+
+ARN of a role that DataZone trusts for data product operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
+
+When omitted, the Lambda calls DataZone directly without role assumption.
+
+---
+
+##### `formsInput`<sup>Optional</sup> <a name="formsInput" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.formsInput"></a>
+
+```typescript
+public readonly formsInput: DataProductFormInput[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput">DataProductFormInput</a>[]
+- *Default:* no forms
+
+Metadata forms attached to the data product.
+
+---
+
+##### `glossaryTerms`<sup>Optional</sup> <a name="glossaryTerms" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.glossaryTerms"></a>
+
+```typescript
+public readonly glossaryTerms: string[];
+```
+
+- *Type:* string[]
+- *Default:* no glossary terms
+
+Glossary terms associated with the data product.
+
+---
+
+##### `items`<sup>Optional</sup> <a name="items" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.items"></a>
+
+```typescript
+public readonly items: DataProductItem[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem">DataProductItem</a>[]
+- *Default:* no items
+
+Data assets included in the data product.
+
+---
+
 ### DataQualityRulesetAttributes <a name="DataQualityRulesetAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRulesetAttributes"></a>
 
 Attributes required to import an existing Data Quality Ruleset.
@@ -26157,10 +26679,10 @@ const glossaryProps: GlossaryProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for glossary operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.name">name</a></code> | <code>string</code> | The name of the glossary (1–256 characters). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.owningProjectIdentifier">owningProjectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this glossary. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the glossary. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for glossary operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryStatus">GlossaryStatus</a></code> | Status of the glossary. |
 
 ---
@@ -26174,18 +26696,6 @@ public readonly domainIdentifier: string;
 - *Type:* string
 
 The ID of the domain (e.g. `dzd_abc123`).
-
----
-
-##### `executionRoleArn`<sup>Required</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.executionRoleArn"></a>
-
-```typescript
-public readonly executionRoleArn: string;
-```
-
-- *Type:* string
-
-ARN of a role that DataZone trusts for glossary operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
 
 ---
 
@@ -26223,6 +26733,23 @@ public readonly description: string;
 - *Default:* no description
 
 Human-readable description of the glossary.
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role assumption; Lambda calls DataZone directly
+
+ARN of a role that DataZone trusts for glossary operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
+
+When omitted, the Lambda calls DataZone directly without role assumption.
+The Lambda's execution role must then have `datazone:*Glossary*` permissions
+and be authorized within DataZone (e.g. as a domain administrator).
 
 ---
 
@@ -26293,9 +26820,9 @@ const glossaryTermProps: GlossaryTermProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for glossary term operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.glossaryIdentifier">glossaryIdentifier</a></code> | <code>string</code> | The ID of the glossary that owns this term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.name">name</a></code> | <code>string</code> | The name of the glossary term (1–256 characters). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for glossary term operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.longDescription">longDescription</a></code> | <code>string</code> | Human-readable long description of the term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.shortDescription">shortDescription</a></code> | <code>string</code> | Human-readable short description of the term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermStatus">GlossaryTermStatus</a></code> | Status of the glossary term. |
@@ -26312,18 +26839,6 @@ public readonly domainIdentifier: string;
 - *Type:* string
 
 The ID of the domain (e.g. `dzd_abc123`).
-
----
-
-##### `executionRoleArn`<sup>Required</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.executionRoleArn"></a>
-
-```typescript
-public readonly executionRoleArn: string;
-```
-
-- *Type:* string
-
-ARN of a role that DataZone trusts for glossary term operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
 
 ---
 
@@ -26348,6 +26863,21 @@ public readonly name: string;
 - *Type:* string
 
 The name of the glossary term (1–256 characters).
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role assumption; Lambda calls DataZone directly
+
+ARN of a role that DataZone trusts for glossary term operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
+
+When omitted, the Lambda calls DataZone directly without role assumption.
 
 ---
 
@@ -33362,6 +33892,46 @@ public readonly tableName: string;
 - *Type:* string
 
 The table name.
+
+---
+
+### IDataProduct <a name="IDataProduct" id="@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct">DataProduct</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct">IDataProduct</a>
+
+Read-only contract for a DataProduct.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct.property.dataProductId">dataProductId</a></code> | <code>string</code> | The ID of the data product assigned by DataZone. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct.property.revision">revision</a></code> | <code>string</code> | The revision of the data product. |
+
+---
+
+##### `dataProductId`<sup>Required</sup> <a name="dataProductId" id="@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct.property.dataProductId"></a>
+
+```typescript
+public readonly dataProductId: string;
+```
+
+- *Type:* string
+
+The ID of the data product assigned by DataZone.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the data product.
 
 ---
 
