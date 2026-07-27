@@ -642,26 +642,6 @@ This library does **not** wrap `AWS::Bedrock::Agent`, `AWS::Bedrock::KnowledgeBa
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
 
-## Troubleshooting
-
-### `SELF_SIGNED_CERT_IN_CHAIN` when running `yarn install` or `yarn projen build`
-
-AXA's corporate SSL proxy (`AXA-Proxy-ROOT-CA`) intercepts outbound HTTPS traffic and re-signs it with a corporate CA. Node.js ships with its own CA bundle and does not use the Windows certificate store, so it rejects the intercepted certificate.
-
-This is a one-time setup. Run the following in PowerShell, then open a new terminal:
-
-```powershell
-# Export AXA-Proxy-ROOT-CA from the Windows cert store
-$cert = Get-ChildItem Cert:\LocalMachine\Root\72E503572930D0786EACFB69A5693D105BBDA93E
-"-----BEGIN CERTIFICATE-----`n" + [Convert]::ToBase64String($cert.RawData, 'InsertLineBreaks') + "`n-----END CERTIFICATE-----" |
-  Out-File "$env:USERPROFILE\corporate-ca.pem" -Encoding ascii
-
-# Set permanently for your user account
-[System.Environment]::SetEnvironmentVariable("NODE_EXTRA_CA_CERTS", "$env:USERPROFILE\corporate-ca.pem", "User")
-```
-
-All Node.js tools (yarn, npm, cdk, npx) will trust the AXA proxy certificate in every subsequent terminal without further configuration.
-
 ## Roadmap
 
 ### L3 Data Mesh Constructs: opinionated multi-account topology
