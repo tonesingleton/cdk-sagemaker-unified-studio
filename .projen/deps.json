@@ -1,6 +1,22 @@
 {
   "dependencies": [
     {
+      "name": "@aws-sdk/client-datazone",
+      "type": "build"
+    },
+    {
+      "name": "@aws-sdk/client-glue",
+      "type": "build"
+    },
+    {
+      "name": "@aws-sdk/client-lakeformation",
+      "type": "build"
+    },
+    {
+      "name": "@types/aws-lambda",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "version": "^30",
       "type": "build"
@@ -18,6 +34,10 @@
     {
       "name": "@typescript-eslint/parser",
       "version": "^8",
+      "type": "build"
+    },
+    {
+      "name": "esbuild",
       "type": "build"
     },
     {
