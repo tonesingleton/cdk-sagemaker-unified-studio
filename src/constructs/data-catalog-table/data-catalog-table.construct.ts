@@ -1,4 +1,4 @@
-import { Stack, aws_glue as glue } from 'aws-cdk-lib';
+import { Stack, Validations, aws_glue as glue } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { DataCatalogTableProps, IDataCatalogTable } from './data-catalog-table.interface';
 import { DataFormat, TableType } from './data-catalog-table.interface';
@@ -36,6 +36,7 @@ export class DataCatalogTable extends Construct implements IDataCatalogTable {
   public readonly tableName: string;
   public readonly databaseName: string;
   private readonly projectId: string;
+  private readonly cfnTable: glue.CfnTable;
 
   constructor(scope: Construct, id: string, props: DataCatalogTableProps) {
     super(scope, id);
@@ -49,7 +50,7 @@ export class DataCatalogTable extends Construct implements IDataCatalogTable {
     const tableType = props.tableType ?? TableType.EXTERNAL;
     const isExternal = tableType === TableType.EXTERNAL;
 
-    new glue.CfnTable(this, 'Resource', {
+    this.cfnTable = new glue.CfnTable(this, 'Resource', {
       catalogId: Stack.of(this).account,
       databaseName: props.databaseName,
       tableInput: {
@@ -84,6 +85,14 @@ export class DataCatalogTable extends Construct implements IDataCatalogTable {
         },
       },
     });
+
+    if (tableType === TableType.GOVERNED) {
+      Validations.of(this.cfnTable).acknowledge({
+        id: 'CloudFormation-Validate::W3030',
+        reason:
+          'GOVERNED is a valid Lake Formation table type used for governed tables; the CFN schema enum is incomplete.',
+      });
+    }
   }
 
   /**
@@ -116,7 +125,7 @@ export class DataCatalogTable extends Construct implements IDataCatalogTable {
       description,
       tags: mergedTags,
     });
-    dqr.node.addDependency(this);
+    (dqr.node.defaultChild as glue.CfnDataQualityRuleset).addResourceDependency(this.cfnTable);
     return dqr;
   }
 }
