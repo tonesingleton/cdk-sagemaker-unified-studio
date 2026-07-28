@@ -265,7 +265,7 @@ describe('Project', () => {
     });
     Template.fromStack(stack).hasResourceProperties('AWS::DataZone::ProjectMembership', {
       Designation: 'PROJECT_OWNER',
-      Member: { UserIdentifier: { 'Fn::GetAtt': [Match.stringLikeRegexp('CrRole'), 'Arn'] } },
+      Member: { UserIdentifier: { 'Fn::GetAtt': [Match.stringLikeRegexp('DataZoneApiRole'), 'Arn'] } },
     });
   });
 

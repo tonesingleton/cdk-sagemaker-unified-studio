@@ -62,29 +62,18 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // Dependencies
   deps: ['cdk-nag'],
   bundledDeps: ['cdk-nag'],
-  devDeps: [
-    'husky',
-    'npm-check-updates',
-    '@types/node@^26',
-    '@types/jest@^30',
-    'esbuild',
-    '@types/aws-lambda',
-    '@aws-sdk/client-lakeformation',
-    '@aws-sdk/client-datazone',
-    '@aws-sdk/client-glue',
-  ],
+  devDeps: ['husky', 'npm-check-updates', '@types/node@^26', '@types/jest@^30'],
 
   jestOptions: {
     jestVersion: '^30',
   },
 
   // ts-jest requires isolatedModules + outDir when module is node16
-  // rootDir is '..' so test files can import handler files from assets/
   tsconfigDev: {
     compilerOptions: {
       isolatedModules: true,
       outDir: './lib',
-      rootDir: '..',
+      rootDir: '.',
     },
   },
 
@@ -206,7 +195,6 @@ project.jest!.config.coverageThreshold = {
   },
 };
 project.jest!.config.coveragePathIgnorePatterns = ['/node_modules/', '\\.interface\\.ts$', '/index\\.ts$'];
-project.jest!.config.collectCoverageFrom = ['src/**/*.ts', 'assets/**/*.ts', '!**/*.d.ts'];
 
 // Exclude test files from JSII published package
 project.addPackageIgnore('src/**/*.test.ts');

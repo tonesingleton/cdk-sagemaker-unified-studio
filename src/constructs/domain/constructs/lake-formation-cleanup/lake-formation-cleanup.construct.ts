@@ -1,4 +1,3 @@
-import * as path from 'path';
 import {
   CustomResource,
   Duration,
@@ -9,6 +8,7 @@ import {
   custom_resources as cr,
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import { CLEANUP_HANDLER_CODE } from './lake-formation-cleanup.handler';
 
 /**
  * Properties for the LakeFormationCleanup construct.
@@ -38,35 +38,11 @@ export class LakeFormationCleanup extends Construct {
     const region = Stack.of(this).region;
     const account = Stack.of(this).account;
 
-    const assetDir = path.join(__dirname, '..', '..', '..', '..', '..', 'assets', 'lake-formation-cleanup');
-
     const handler = new lambda_.Function(this, 'Handler', {
       runtime: lambda_.Runtime.NODEJS_24_X,
-      architecture: lambda_.Architecture.ARM_64,
       handler: 'index.handler',
       timeout: Duration.minutes(1),
-      code: lambda_.Code.fromAsset(assetDir, {
-        bundling: {
-          image: lambda_.Runtime.NODEJS_24_X.bundlingImage,
-          local: {
-            tryBundle: (outputDir: string): boolean => {
-              // eslint-disable-next-line @typescript-eslint/no-require-imports
-              const { execSync } = require('child_process');
-              try {
-                const entrypoint = path.join(assetDir, 'index.ts');
-                const outfile = path.join(outputDir, 'index.js');
-                execSync(`esbuild ${entrypoint} --bundle --platform=node --target=node22 --outfile=${outfile}`, {
-                  stdio: 'inherit',
-                });
-                return true;
-              } catch {
-                /* istanbul ignore next */
-                return false;
-              }
-            },
-          },
-        },
-      }),
+      code: lambda_.Code.fromInline(CLEANUP_HANDLER_CODE),
     });
 
     handler.addToRolePolicy(

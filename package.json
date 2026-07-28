@@ -36,17 +36,12 @@
     "organization": true
   },
   "devDependencies": {
-    "@aws-sdk/client-datazone": "^3.1095.0",
-    "@aws-sdk/client-glue": "^3.1095.0",
-    "@aws-sdk/client-lakeformation": "^3.1095.0",
-    "@types/aws-lambda": "^8.10.162",
     "@types/jest": "^30",
     "@types/node": "^26",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
     "aws-cdk-lib": "2.262.0",
     "constructs": "10.5.1",
-    "esbuild": "^0.28.1",
     "eslint": "^9",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.5",
@@ -164,12 +159,7 @@
         "lines": 100,
         "statements": 100
       }
-    },
-    "collectCoverageFrom": [
-      "src/**/*.ts",
-      "assets/**/*.ts",
-      "!**/*.d.ts"
-    ]
+    }
   },
   "types": "lib/index.d.ts",
   "jsii": {
