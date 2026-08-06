@@ -42,10 +42,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws/cloudformation-validate@npm:1.5.0-beta":
-  version: 1.5.0-beta
-  resolution: "@aws/cloudformation-validate@npm:1.5.0-beta"
-  checksum: 10c0/3a7c118f3f5f4111ff262d8cba92aca8e19fdad62bc84529744a13602059e3fe949a923739531e4c06d27feb5a2a10344948e1443f73ea34005e8b4f28a57595
+"@aws/cloudformation-validate@npm:1.6.0-beta":
+  version: 1.6.0-beta
+  resolution: "@aws/cloudformation-validate@npm:1.6.0-beta"
+  checksum: 10c0/73444c7f69ac93943cab27e3d1f92d2eb655fe8165ec14e785e27fcb44ecc7d61a52a82b3e60b7858fe301cb36518881331cfd00d0e18deb141d020f6497d761
   languageName: node
   linkType: hard
 
@@ -977,7 +977,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:1.138.0, @jsii/check-node@npm:^1.138.0":
+"@jsii/check-node@npm:1.138.0":
   version: 1.138.0
   resolution: "@jsii/check-node@npm:1.138.0"
   dependencies:
@@ -987,7 +987,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/check-node@npm:1.139.0":
+"@jsii/check-node@npm:1.139.0, @jsii/check-node@npm:^1.139.0":
   version: 1.139.0
   resolution: "@jsii/check-node@npm:1.139.0"
   dependencies:
@@ -1011,7 +1011,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsii/spec@npm:1.139.0":
+"@jsii/spec@npm:1.139.0, @jsii/spec@npm:^1.139.0":
   version: 1.139.0
   resolution: "@jsii/spec@npm:1.139.0"
   checksum: 10c0/6b8ac762a3f0220381bfab51f170baa6e611393f18d4482da09538ee589b11d2b145da107ea3b265a7cc66bd265b156fb2510acd0e74601e6ef431b68786d4a1
@@ -1148,9 +1148,9 @@ __metadata:
     "@types/node": "npm:^26"
     "@typescript-eslint/eslint-plugin": "npm:^8"
     "@typescript-eslint/parser": "npm:^8"
-    aws-cdk-lib: "npm:2.262.0"
-    cdk-nag: "npm:^3.0.1"
-    constructs: "npm:10.5.1"
+    aws-cdk-lib: "npm:2.263.0"
+    cdk-nag: "npm:3.0.1"
+    constructs: "npm:10.8.0"
     eslint: "npm:^9"
     eslint-config-prettier: "npm:^10.1.8"
     eslint-import-resolver-typescript: "npm:^4.4.5"
@@ -1159,20 +1159,21 @@ __metadata:
     husky: "npm:^9.1.7"
     jest: "npm:^30"
     jest-junit: "npm:^17"
-    jsii: "npm:~6.0.5"
+    jsii: "npm:~6.0.7"
     jsii-diff: "npm:^1.139.0"
     jsii-docgen: "npm:^10.5.0"
     jsii-pacmak: "npm:^1.139.0"
-    jsii-rosetta: "npm:~6.0.5"
-    npm-check-updates: "npm:^22.2.9"
+    jsii-rosetta: "npm:~6.0.7"
+    npm-check-updates: "npm:^23.0.0"
     prettier: "npm:^3.9.6"
-    projen: "npm:^0.101.20"
+    projen: "npm:^0.101.23"
     ts-jest: "npm:^29"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^6.0.3"
   peerDependencies:
-    aws-cdk-lib: ^2.262.0
-    constructs: ^10.5.1
+    aws-cdk-lib: ^2.263.0
+    cdk-nag: ^3.0.1
+    constructs: ^10.8.0
   languageName: unknown
   linkType: soft
 
@@ -1884,15 +1885,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-cdk-lib@npm:2.262.0":
-  version: 2.262.0
-  resolution: "aws-cdk-lib@npm:2.262.0"
+"aws-cdk-lib@npm:2.263.0":
+  version: 2.263.0
+  resolution: "aws-cdk-lib@npm:2.263.0"
   dependencies:
     "@aws-cdk/asset-awscli-v1": "npm:2.2.282"
     "@aws-cdk/asset-node-proxy-agent-v6": "npm:^2.1.2"
     "@aws-cdk/cloud-assembly-api": "npm:^2.2.6"
     "@aws-cdk/cloud-assembly-schema": "npm:^54.11.0"
-    "@aws/cloudformation-validate": "npm:1.5.0-beta"
+    "@aws/cloudformation-validate": "npm:1.6.0-beta"
     "@balena/dockerignore": "npm:^1.0.2"
     case: "npm:1.6.3"
     fs-extra: "npm:^11.3.6"
@@ -1905,7 +1906,7 @@ __metadata:
     yaml: "npm:1.10.3"
   peerDependencies:
     constructs: ^10.5.0
-  checksum: 10c0/ff2c65607e743d279b5b1a8e6733081d9703d9e45bb513551a2ca378435f940ce6c1fafaa29bb49ca12e9d10247067acacf1140d260532fdf67510dc0a72fcc4
+  checksum: 10c0/9411cde753dc0d8929d043fef0332c2c18d1d66efb5f9f252d69f25d3672b3c611b52c349fdaf6fe02a947634d20d80cac64a123d80d89128f7f668b3d2dc2ba
   languageName: node
   linkType: hard
 
@@ -2152,7 +2153,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cdk-nag@npm:^3.0.1":
+"cdk-nag@npm:3.0.1":
   version: 3.0.1
   resolution: "cdk-nag@npm:3.0.1"
   peerDependencies:
@@ -2303,10 +2304,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"constructs@npm:10.5.1":
-  version: 10.5.1
-  resolution: "constructs@npm:10.5.1"
-  checksum: 10c0/06767f8a026f6951fd1b1073e9980ab1c006b8ca4b691362ba72e6044756f6bd661defc95f7c307d08b955fd23f3e79adda6096c1339dbb814e1f07831dacac6
+"constructs@npm:10.8.0":
+  version: 10.8.0
+  resolution: "constructs@npm:10.8.0"
+  checksum: 10c0/443fef28746ec9901efadf047564298d7d7d7e66fad1a9c7bd0b271bbb270a3144bb9e16ab757cc2812fbd78374db17b820b5d4887407b23e30191af42109b0c
   languageName: node
   linkType: hard
 
@@ -4578,12 +4579,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsii-rosetta@npm:~6.0.5":
-  version: 6.0.6
-  resolution: "jsii-rosetta@npm:6.0.6"
+"jsii-rosetta@npm:~6.0.7":
+  version: 6.0.7
+  resolution: "jsii-rosetta@npm:6.0.7"
   dependencies:
-    "@jsii/check-node": "npm:^1.138.0"
-    "@jsii/spec": "npm:^1.138.0"
+    "@jsii/check-node": "npm:^1.139.0"
+    "@jsii/spec": "npm:^1.139.0"
     "@xmldom/xmldom": "npm:^0.9.10"
     chalk: "npm:^4"
     commonmark: "npm:^0.31.2"
@@ -4597,7 +4598,7 @@ __metadata:
     yargs: "npm:^17.7.3"
   bin:
     jsii-rosetta: bin/jsii-rosetta
-  checksum: 10c0/d1b5749be0c9c94eff15ab540b11d22cd4f066564244a2475a43d35fcb831f958099f5acafe962e8b6b75d366a54730e192d6e8db0cc21616332ec06f252cfb6
+  checksum: 10c0/371a07efeb9c9783f69d4ba9b374583903fef8fd345f505fc67e876ccf13914754492edcf7cc0db1c53eec3bfbbab92c88ebb2a9858604af6a314d5f9a2e9fcb
   languageName: node
   linkType: hard
 
@@ -4623,12 +4624,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsii@npm:~6.0.5":
-  version: 6.0.5
-  resolution: "jsii@npm:6.0.5"
+"jsii@npm:~6.0.7":
+  version: 6.0.7
+  resolution: "jsii@npm:6.0.7"
   dependencies:
-    "@jsii/check-node": "npm:1.138.0"
-    "@jsii/spec": "npm:1.138.0"
+    "@jsii/check-node": "npm:1.139.0"
+    "@jsii/spec": "npm:1.139.0"
     case: "npm:^1.6.3"
     chalk: "npm:^4"
     fast-deep-equal: "npm:^3.1.3"
@@ -4636,12 +4637,12 @@ __metadata:
     semver: "npm:^7.8.5"
     semver-intersect: "npm:^1.5.0"
     sort-json: "npm:^2.0.1"
-    spdx-license-list: "npm:^6.11.0"
+    spdx-license-list: "npm:^6.12.0"
     typescript: "npm:~6.0"
     yargs: "npm:^17.7.3"
   bin:
     jsii: bin/jsii
-  checksum: 10c0/39603dcc3e0d6cb6122261b534f82edd4b392ddd281e911b43c5b3fdc43c9422614f748c06c72052758f12e302f9fcb688082cb2bfbbd30694dde8f37ae4d753
+  checksum: 10c0/7f4e7d1711cd3ddf369bab8560e1a845198be75ae67552bde5b67374bbae08e28dedaa84239fbb9122b406e1f296b80251b173ef25279e155630330c261e8075
   languageName: node
   linkType: hard
 
@@ -5093,13 +5094,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^22.2.9":
-  version: 22.2.9
-  resolution: "npm-check-updates@npm:22.2.9"
+"npm-check-updates@npm:^23.0.0":
+  version: 23.0.0
+  resolution: "npm-check-updates@npm:23.0.0"
   bin:
     ncu: build/cli.js
     npm-check-updates: build/cli.js
-  checksum: 10c0/eab83aa114680c512b981bb70251d0d751d9cd49155438a060644d3361b7f64cecac585a033aa1844fef8c20a8a182d4f777adc9d081da30b2c6affd2a2c8670
+  checksum: 10c0/e1d5b1e3654f0a4c13dfb767d05afe26946e5f9734dfa42ce99d4178f3a6287926efda9273f2a1de3185473d33aa503f90b997cc2403c2c819f55e97106941bd
   languageName: node
   linkType: hard
 
@@ -5452,9 +5453,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"projen@npm:^0.101.20":
-  version: 0.101.20
-  resolution: "projen@npm:0.101.20"
+"projen@npm:^0.101.23":
+  version: 0.101.23
+  resolution: "projen@npm:0.101.23"
   dependencies:
     "@iarna/toml": "npm:^2.2.5"
     case: "npm:^1.6.3"
@@ -5475,7 +5476,7 @@ __metadata:
     constructs: ^10.5.0
   bin:
     projen: bin/projen
-  checksum: 10c0/b54fb6931e2c8e60b247385b3b0615a5e57c0ae81119af3da9a8385c3199ef3f830e183dac5782ca6f79a44911e07507de934863994b5eeafd9c860c7d00972c
+  checksum: 10c0/3bc942b662866ec5d9d60067bb969bc36b3f29a7ecbd528e6e27ec8a7a13ba81b707693ef416c2a6c738a90df478930cef241dcb324d7810cdb93f7d059b0487
   languageName: node
   linkType: hard
 
@@ -5860,6 +5861,13 @@ __metadata:
   version: 6.11.0
   resolution: "spdx-license-list@npm:6.11.0"
   checksum: 10c0/2fcf0d162088aa5a827f8ccab9c6f8694c2f8da1eef39d999fb5502ededc985971281c80b8b01dbe6ecae10216f7697a11dc6084bdf993f14b094658674df066
+  languageName: node
+  linkType: hard
+
+"spdx-license-list@npm:^6.12.0":
+  version: 6.12.0
+  resolution: "spdx-license-list@npm:6.12.0"
+  checksum: 10c0/e65657a6e4324ab00722dd9bf624a06d498014dee1a1ebdc89bbdd7c9816eee5a401839ef0f8b257f5a8bcb6976cad36937f434fd15ed11cee5f06ead8508926
   languageName: node
   linkType: hard
 

@@ -122,13 +122,16 @@ export class Project extends Construct implements IProject {
         'Project-scoped execution role for SageMaker Unified Studio. ' +
         'Defines which AWS services and data can be accessed within this project.',
       assumedBy: new iam.CompositePrincipal(...servicePrincipals),
-      managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioUserIAMDefaultExecutionPolicy')],
+      managedPolicies: [
+        iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioUserIAMDefaultExecutionPolicy'),
+        iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioProjectUserRolePolicy'),
+      ],
     });
 
     Validations.of(role).acknowledge({
       id: 'AwsSolutions-IAM4',
       reason:
-        'SageMakerStudioUserIAMDefaultExecutionPolicy is the AWS-recommended managed policy for SageMaker Unified Studio project execution roles.',
+        'SageMakerStudioUserIAMDefaultExecutionPolicy and SageMakerStudioProjectUserRolePolicy are the AWS-recommended managed policies for SageMaker Unified Studio project execution roles.',
     });
 
     role.assumeRolePolicy!.addStatements(

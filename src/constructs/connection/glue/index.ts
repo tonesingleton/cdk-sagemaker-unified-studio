@@ -16,3 +16,5 @@ export { OracleConnection, OracleConnectionProps } from './oracle';
 export { PostgreSqlConnection, PostgreSqlConnectionProps } from './postgresql';
 export { SnowflakeConnection, SnowflakeConnectionProps } from './snowflake';
 export { SqlServerConnection, SqlServerConnectionProps } from './sqlserver';
+export { OpenSearchConnection, OpenSearchConnectionProps } from './opensearch';
+export { TeradataConnection, TeradataConnectionProps } from './teradata';

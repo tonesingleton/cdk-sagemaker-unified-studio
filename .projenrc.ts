@@ -6,15 +6,16 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorUrl: 'https://tonesingleton.com',
   authorAddress: 'https://tonesingleton.com',
   authorOrganization: true,
-  cdkVersion: '2.262.0',
+  cdkVersion: '2.263.0',
+  constructsVersion: '10.8.0',
   defaultReleaseBranch: 'main',
   description: 'L2 CDK constructs for AWS SageMaker Unified Studio',
-  jsiiVersion: '~6.0.5',
+  jsiiVersion: '~6.0.7',
   license: 'Apache-2.0',
   name: '@tonesingleton/cdk-sagemaker-unified-studio',
   packageManager: javascript.NodePackageManager.YARN_BERRY,
   yarnBerryOptions: {
-    version: '4.17.1',
+    version: '4.18.0',
     yarnRcOptions: {
       nodeLinker: javascript.YarnNodeLinker.NODE_MODULES,
     },
@@ -60,9 +61,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Dependencies
-  deps: ['cdk-nag'],
-  bundledDeps: ['cdk-nag'],
-  devDeps: ['husky', 'npm-check-updates', '@types/node@^26', '@types/jest@^30'],
+  peerDeps: ['cdk-nag'],
+  devDeps: ['cdk-nag', 'husky', 'npm-check-updates', '@types/node', '@types/jest'],
 
   jestOptions: {
     jestVersion: '^30',

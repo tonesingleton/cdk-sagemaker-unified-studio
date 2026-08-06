@@ -1,4 +1,4 @@
-import { Stack, Validations, aws_glue as glue } from 'aws-cdk-lib';
+import { Stack, Validations, aws_glue as glue, aws_lakeformation as lakeformation } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { DataCatalogTableProps, IDataCatalogTable } from './data-catalog-table.interface';
 import { DataFormat, TableType } from './data-catalog-table.interface';
@@ -92,6 +92,30 @@ export class DataCatalogTable extends Construct implements IDataCatalogTable {
         reason:
           'GOVERNED is a valid Lake Formation table type used for governed tables; the CFN schema enum is incomplete.',
       });
+    }
+
+    if (props.additionalReadPrincipals?.length) {
+      const account = Stack.of(this).account;
+      for (const [i, principalArn] of props.additionalReadPrincipals.entries()) {
+        const tablePerms = new lakeformation.CfnPrincipalPermissions(this, `AdditionalReadTablePermissions${i}`, {
+          principal: { dataLakePrincipalIdentifier: principalArn },
+          resource: { table: { catalogId: account, databaseName: props.databaseName, name: props.tableName } },
+          permissions: ['DESCRIBE', 'SELECT'],
+          permissionsWithGrantOption: [],
+        });
+        tablePerms.addResourceDependency(this.cfnTable);
+      }
+    }
+
+    if (props.manageAccessRoleArn) {
+      const account = Stack.of(this).account;
+      const manageAccessPerms = new lakeformation.CfnPrincipalPermissions(this, 'ManageAccessTablePermissions', {
+        principal: { dataLakePrincipalIdentifier: props.manageAccessRoleArn },
+        resource: { table: { catalogId: account, databaseName: props.databaseName, name: props.tableName } },
+        permissions: ['DESCRIBE', 'SELECT'],
+        permissionsWithGrantOption: ['DESCRIBE', 'SELECT'],
+      });
+      manageAccessPerms.addResourceDependency(this.cfnTable);
     }
   }
 

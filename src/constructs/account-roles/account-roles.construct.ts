@@ -119,7 +119,10 @@ export class AccountRoles extends Construct implements IAccountRoles {
         'and AI/ML assets project members can access. Amazon SageMaker Unified Studio assumes this role to ' +
         'make service calls on behalf of users within projects.',
       assumedBy: new iam.CompositePrincipal(...executionRolePrincipals),
-      managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioAdminIAMPermissiveExecutionPolicy')],
+      managedPolicies: [
+        iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioAdminIAMPermissiveExecutionPolicy'),
+        iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioProjectUserRolePolicy'),
+      ],
     });
 
     executionRole.assumeRolePolicy!.addStatements(
@@ -152,7 +155,7 @@ export class AccountRoles extends Construct implements IAccountRoles {
     Validations.of(executionRole).acknowledge({
       id: 'AwsSolutions-IAM4',
       reason:
-        'Required by SageMaker Unified Studio. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/setup-iam-based-domains.html',
+        'SageMakerStudioAdminIAMPermissiveExecutionPolicy is required by SageMaker Unified Studio for the account-level execution role. See https://docs.aws.amazon.com/sagemaker-unified-studio/latest/adminguide/setup-iam-based-domains.html',
     });
 
     // Bedrock Model Management Role

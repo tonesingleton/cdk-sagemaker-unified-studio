@@ -11,6 +11,7 @@
   "npm.enableRunFromFolder": true,
   "cSpell.words": [
     "amazonq",
+    "awscdk",
     "azuresql",
     "cdksagemakerunifiedstudio",
     "codeconnections",

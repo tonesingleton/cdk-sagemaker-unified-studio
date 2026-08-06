@@ -217,6 +217,45 @@ describe('DataCatalogTable', () => {
     });
   });
 
+  test('creates Lake Formation permissions for additionalReadPrincipals without grant option', () => {
+    const stack = createStack();
+    new DataCatalogTable(stack, 'Table', {
+      tableName: 'dos',
+      databaseName: 'guidewire',
+      projectId: 'proj123',
+      location: 's3://my-bucket/data/dos',
+      columns: [{ name: 'id', type: 'string' }],
+      additionalReadPrincipals: [
+        'arn:aws:iam::123456789012:role/ReaderRole',
+        'arn:aws:iam::123456789012:role/AnotherRole',
+      ],
+    });
+    Template.fromStack(stack).resourceCountIs('AWS::LakeFormation::PrincipalPermissions', 2);
+    Template.fromStack(stack).hasResourceProperties('AWS::LakeFormation::PrincipalPermissions', {
+      Principal: { DataLakePrincipalIdentifier: 'arn:aws:iam::123456789012:role/ReaderRole' },
+      Permissions: ['DESCRIBE', 'SELECT'],
+      PermissionsWithGrantOption: [],
+    });
+  });
+
+  test('creates Lake Formation permissions for manageAccessRoleArn with grant option', () => {
+    const stack = createStack();
+    new DataCatalogTable(stack, 'Table', {
+      tableName: 'dos',
+      databaseName: 'guidewire',
+      projectId: 'proj123',
+      location: 's3://my-bucket/data/dos',
+      columns: [{ name: 'id', type: 'string' }],
+      manageAccessRoleArn: 'arn:aws:iam::123456789012:role/ManageAccessRole',
+    });
+    Template.fromStack(stack).resourceCountIs('AWS::LakeFormation::PrincipalPermissions', 1);
+    Template.fromStack(stack).hasResourceProperties('AWS::LakeFormation::PrincipalPermissions', {
+      Principal: { DataLakePrincipalIdentifier: 'arn:aws:iam::123456789012:role/ManageAccessRole' },
+      Permissions: ['DESCRIBE', 'SELECT'],
+      PermissionsWithGrantOption: ['DESCRIBE', 'SELECT'],
+    });
+  });
+
   test('addDataQualityRuleset creates a ruleset targeting the table with project tag', () => {
     const stack = createStack();
     const table = new DataCatalogTable(stack, 'Table', {
