@@ -30,8 +30,12 @@ export interface EnvironmentAttributes {
  * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environment.html
  */
 export interface EnvironmentProps {
-  /** Display name of the environment. */
-  readonly name: string;
+  /**
+   * Display name of the environment.
+   *
+   * @default - auto-generated
+   */
+  readonly name?: string;
   /**
    * Human-readable description of the environment's purpose.
    *
@@ -61,6 +65,29 @@ export interface EnvironmentProps {
    * @default - no user parameters
    */
   readonly userParameters?: Array<EnvironmentParameter>;
+  /**
+   * The name of the Glue database that the LakehouseDatabase blueprint will create.
+   *
+   * When set, the construct injects a `glueDbName` user parameter and grants the
+   * project execution role Lake Formation `CREATE_TABLE`, `ALTER`, `DROP`, and
+   * `DESCRIBE` permissions on the database and a table wildcard, so that CDK can
+   * create `AWS::Glue::Table` resources in that database after the environment is
+   * provisioned.
+   *
+   * Requires `projectExecutionRoleArn` to be set.
+   *
+   * @default - no Glue database name; user parameters are passed as-is
+   */
+  readonly glueDbName?: string;
+  /**
+   * ARN of the project execution role.
+   *
+   * Required when `glueDbName` is set — used to grant Lake Formation permissions
+   * on the blueprint-provisioned Glue database.
+   *
+   * @default - not required when glueDbName is not set
+   */
+  readonly projectExecutionRoleArn?: string;
   /**
    * Glossary terms to tag the environment with.
    * Each term must match `^[a-zA-Z0-9_-]{1,36}$`.

@@ -12122,6 +12122,196 @@ The CloudFormation resource type name for this resource class.
 
 ---
 
+### LakeHouseDatabaseEnvironment <a name="LakeHouseDatabaseEnvironment" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment"></a>
+
+A SageMaker Unified Studio LakehouseDatabase environment.
+
+Opinionated wrapper around `Environment` for the LakeHouseDatabase blueprint.
+Provisions a Glue database and Athena workgroup within a project.
+
+- The environment name defaults to `"LakeHouseDatabase"`.
+- The blueprint ID is derived from `domain.blueprints`.
+- When `glueDbName` is set, the project execution role is derived from
+  `project.projectExecutionRole` and Lake Formation permissions are granted
+  automatically so CDK can create Glue tables in the provisioned database.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/lakehouse-database-blueprint.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/lakehouse-database-blueprint.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer"></a>
+
+```typescript
+import { LakeHouseDatabaseEnvironment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new LakeHouseDatabaseEnvironment(scope: Construct, id: string, props: LakeHouseDatabaseEnvironmentProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps">LakeHouseDatabaseEnvironmentProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps">LakeHouseDatabaseEnvironmentProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.fromAttributes">fromAttributes</a></code> | Import an existing LakehouseDatabase environment from its ID. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.isConstruct"></a>
+
+```typescript
+import { LakeHouseDatabaseEnvironment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+LakeHouseDatabaseEnvironment.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.fromAttributes"></a>
+
+```typescript
+import { LakeHouseDatabaseEnvironment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+LakeHouseDatabaseEnvironment.fromAttributes(scope: Construct, id: string, attrs: EnvironmentAttributes)
+```
+
+Import an existing LakehouseDatabase environment from its ID.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentAttributes">EnvironmentAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.property.environmentId">environmentId</a></code> | <code>string</code> | The environment ID. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `environmentId`<sup>Required</sup> <a name="environmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+The environment ID.
+
+---
+
+
 ### LookupEnvironment <a name="LookupEnvironment" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment"></a>
 
 Looks up the ID of an existing environment within a project by name.
@@ -18575,6 +18765,7 @@ Import an existing project profile from its attributes.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.property.environmentConfigurationIds">environmentConfigurationIds</a></code> | <code>{[ key: string ]: string}</code> | Map of environment configuration name → ID, resolved at deploy time via GetProjectProfile. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.property.projectProfileId">projectProfileId</a></code> | <code>string</code> | The project profile ID. |
 
 ---
@@ -18588,6 +18779,18 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `environmentConfigurationIds`<sup>Required</sup> <a name="environmentConfigurationIds" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.property.environmentConfigurationIds"></a>
+
+```typescript
+public readonly environmentConfigurationIds: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+Map of environment configuration name → ID, resolved at deploy time via GetProjectProfile.
 
 ---
 
@@ -31560,12 +31763,14 @@ const environmentProps: EnvironmentProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.domainId">domainId</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID this environment belongs to. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.name">name</a></code> | <code>string</code> | Display name of the environment. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.projectId">projectId</a></code> | <code>string</code> | The project ID this environment is associated with. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the environment's purpose. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.environmentBlueprintId">environmentBlueprintId</a></code> | <code>string</code> | The environment blueprint identifier to provision. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.environmentConfigurationId">environmentConfigurationId</a></code> | <code>string</code> | The environment configuration ID from the project profile. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms to tag the environment with. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.glueDbName">glueDbName</a></code> | <code>string</code> | The name of the Glue database that the LakehouseDatabase blueprint will create. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.name">name</a></code> | <code>string</code> | Display name of the environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.projectExecutionRoleArn">projectExecutionRoleArn</a></code> | <code>string</code> | ARN of the project execution role. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.userParameters">userParameters</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentParameter">EnvironmentParameter</a>[]</code> | User parameters for the environment (key-value pairs passed to the blueprint). |
 
 ---
@@ -31579,18 +31784,6 @@ public readonly domainId: string;
 - *Type:* string
 
 The SageMaker Unified Studio domain ID this environment belongs to.
-
----
-
-##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.name"></a>
-
-```typescript
-public readonly name: string;
-```
-
-- *Type:* string
-
-Display name of the environment.
 
 ---
 
@@ -31659,6 +31852,56 @@ public readonly glossaryTerms: string[];
 Glossary terms to tag the environment with.
 
 Each term must match `^[a-zA-Z0-9_-]{1,36}$`.
+
+---
+
+##### `glueDbName`<sup>Optional</sup> <a name="glueDbName" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.glueDbName"></a>
+
+```typescript
+public readonly glueDbName: string;
+```
+
+- *Type:* string
+- *Default:* no Glue database name; user parameters are passed as-is
+
+The name of the Glue database that the LakehouseDatabase blueprint will create.
+
+When set, the construct injects a `glueDbName` user parameter and grants the
+project execution role Lake Formation `CREATE_TABLE`, `ALTER`, `DROP`, and
+`DESCRIBE` permissions on the database and a table wildcard, so that CDK can
+create `AWS::Glue::Table` resources in that database after the environment is
+provisioned.
+
+Requires `projectExecutionRoleArn` to be set.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+- *Default:* auto-generated
+
+Display name of the environment.
+
+---
+
+##### `projectExecutionRoleArn`<sup>Optional</sup> <a name="projectExecutionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.projectExecutionRoleArn"></a>
+
+```typescript
+public readonly projectExecutionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* not required when glueDbName is not set
+
+ARN of the project execution role.
+
+Required when `glueDbName` is set — used to grant Lake Formation permissions
+on the blueprint-provisioned Glue database.
 
 ---
 
@@ -33791,6 +34034,141 @@ public readonly glueLineageSyncEnabled: boolean;
 - *Default:* false
 
 Whether Glue lineage sync is enabled for this connection.
+
+---
+
+### LakeHouseDatabaseEnvironmentProps <a name="LakeHouseDatabaseEnvironmentProps" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps"></a>
+
+Properties for a LakeHouseDatabaseEnvironment construct.
+
+Opinionated environment for the LakehouseDatabase blueprint. Provisions a
+Glue database and Athena workgroup within a project.
+
+The blueprint ID and project execution role are derived automatically from
+`domain` and `project`. The environment name defaults to `"LakeHouseDatabase"`.
+
+When `glueDbName` is set, the construct injects it as a user parameter and
+grants the project execution role Lake Formation `CREATE_TABLE`, `ALTER`,
+`DROP`, and `DESCRIBE` on the database and a table wildcard, so CDK can
+create `AWS::Glue::Table` resources in the blueprint-provisioned database.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environment.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environment.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.Initializer"></a>
+
+```typescript
+import { LakeHouseDatabaseEnvironmentProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const lakeHouseDatabaseEnvironmentProps: LakeHouseDatabaseEnvironmentProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.domain">domain</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain">IDomain</a></code> | The domain this environment belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.project">project</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject">IProject</a></code> | The project this environment belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.projectProfile">projectProfile</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile">IProjectProfile</a></code> | The project profile used to create the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the environment's purpose. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary term IDs to tag the environment with. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.glueDbName">glueDbName</a></code> | <code>string</code> | The name of the Glue database that the LakehouseDatabase blueprint will create. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.name">name</a></code> | <code>string</code> | Display name of the environment. |
+
+---
+
+##### `domain`<sup>Required</sup> <a name="domain" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.domain"></a>
+
+```typescript
+public readonly domain: IDomain;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain">IDomain</a>
+
+The domain this environment belongs to.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.project"></a>
+
+```typescript
+public readonly project: IProject;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject">IProject</a>
+
+The project this environment belongs to.
+
+---
+
+##### `projectProfile`<sup>Required</sup> <a name="projectProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.projectProfile"></a>
+
+```typescript
+public readonly projectProfile: IProjectProfile;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile">IProjectProfile</a>
+
+The project profile used to create the project.
+
+Used to resolve the DataLake environment configuration ID.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the environment's purpose.
+
+---
+
+##### `glossaryTerms`<sup>Optional</sup> <a name="glossaryTerms" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.glossaryTerms"></a>
+
+```typescript
+public readonly glossaryTerms: string[];
+```
+
+- *Type:* string[]
+- *Default:* no glossary terms
+
+Glossary term IDs to tag the environment with.
+
+Each term must match `^[a-zA-Z0-9_-]{1,36}$`.
+
+---
+
+##### `glueDbName`<sup>Optional</sup> <a name="glueDbName" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.glueDbName"></a>
+
+```typescript
+public readonly glueDbName: string;
+```
+
+- *Type:* string
+- *Default:* no Glue database name
+
+The name of the Glue database that the LakehouseDatabase blueprint will create.
+
+When set, the construct injects a `glueDbName` user parameter and grants the
+project execution role Lake Formation permissions on the database and a table
+wildcard, so that CDK can create `AWS::Glue::Table` resources in that database.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+- *Default:* "LakeHouseDatabase"
+
+Display name of the environment.
 
 ---
 
@@ -36412,6 +36790,7 @@ const projectProfileProps: ProjectProfileProps = { ... }
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.domainId">domainId</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID this profile belongs to. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.name">name</a></code> | <code>string</code> | Display name of the project profile. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | IAM role used to call `GetProjectProfile` at deploy time to resolve environment configuration IDs. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the project profile. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.domainUnitId">domainUnitId</a></code> | <code>string</code> | The domain unit ID this profile is scoped to. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.environmentConfigurations">environmentConfigurations</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration">EnvironmentConfiguration</a>[]</code> | Environment configurations that define which blueprints are provisioned when a project is created from this profile. |
@@ -36440,6 +36819,21 @@ public readonly name: string;
 - *Type:* string
 
 Display name of the project profile.
+
+---
+
+##### `datazoneApiRole`<sup>Optional</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.datazoneApiRole"></a>
+
+```typescript
+public readonly datazoneApiRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+- *Default:* environmentConfigurationIds will be empty
+
+IAM role used to call `GetProjectProfile` at deploy time to resolve environment configuration IDs.
+
+Required to populate `environmentConfigurationIds`.
 
 ---
 
@@ -41320,7 +41714,7 @@ public readonly rootDomainUnitId: string;
 
 ### IEnvironment <a name="IEnvironment" id="@tonesingleton/cdk-sagemaker-unified-studio.IEnvironment"></a>
 
-- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Environment">Environment</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IEnvironment">IEnvironment</a>
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Environment">Environment</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment">LakeHouseDatabaseEnvironment</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IEnvironment">IEnvironment</a>
 
 Exposed attributes of the Environment construct.
 
@@ -41734,7 +42128,22 @@ Exposed attributes of the ProjectProfile construct.
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile.property.environmentConfigurationIds">environmentConfigurationIds</a></code> | <code>{[ key: string ]: string}</code> | Map of environment configuration name → configuration ID, resolved at deploy time. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile.property.projectProfileId">projectProfileId</a></code> | <code>string</code> | The project profile ID. |
+
+---
+
+##### `environmentConfigurationIds`<sup>Required</sup> <a name="environmentConfigurationIds" id="@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile.property.environmentConfigurationIds"></a>
+
+```typescript
+public readonly environmentConfigurationIds: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+Map of environment configuration name → configuration ID, resolved at deploy time.
+
+Only populated when `datazoneApiRole` is provided in props.
 
 ---
 

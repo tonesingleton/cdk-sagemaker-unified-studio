@@ -1,5 +1,6 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template, Match } from 'aws-cdk-lib/assertions';
+import { Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { ProjectProfile } from './project-profile.construct';
 
 function createStack(): Stack {
@@ -153,6 +154,34 @@ describe('ProjectProfile validation', () => {
   });
 });
 
+describe('ProjectProfile environmentConfigurationIds', () => {
+  test('populates environmentConfigurationIds when datazoneApiRole is provided', () => {
+    const stack = createStack();
+    const role = new Role(stack, 'ApiRole', { assumedBy: new ServicePrincipal('lambda.amazonaws.com') });
+    const profile = new ProjectProfile(stack, 'Profile', {
+      name: 'TestProfile',
+      domainId: 'dzd-test',
+      datazoneApiRole: role,
+      environmentConfigurations: [
+        { name: 'Tooling', environmentBlueprintId: 'bp-1' },
+        { name: 'DataLake', environmentBlueprintId: 'bp-2' },
+      ],
+    });
+    expect(profile.environmentConfigurationIds.Tooling).toBeDefined();
+    expect(profile.environmentConfigurationIds.DataLake).toBeDefined();
+  });
+
+  test('environmentConfigurationIds is empty when datazoneApiRole is not provided', () => {
+    const stack = createStack();
+    const profile = new ProjectProfile(stack, 'Profile', {
+      name: 'TestProfile',
+      domainId: 'dzd-test',
+      environmentConfigurations: [{ name: 'Tooling', environmentBlueprintId: 'bp-1' }],
+    });
+    expect(profile.environmentConfigurationIds).toEqual({});
+  });
+});
+
 describe('ProjectProfile.fromAttributes', () => {
   test('imports project profile with projectProfileId', () => {
     const stack = createStack();
@@ -160,6 +189,14 @@ describe('ProjectProfile.fromAttributes', () => {
       projectProfileId: 'pp-abc123',
     });
     expect(imported.projectProfileId).toBe('pp-abc123');
+  });
+
+  test('environmentConfigurationIds is empty on imported profile', () => {
+    const stack = createStack();
+    const imported = ProjectProfile.fromAttributes(stack, 'Imported', {
+      projectProfileId: 'pp-abc123',
+    });
+    expect(imported.environmentConfigurationIds).toEqual({});
   });
 
   test('does not create any CloudFormation resources', () => {
