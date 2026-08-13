@@ -28,6 +28,8 @@ export {
 } from './environment/environment.interface';
 export { LakeHouseDatabaseEnvironment } from './environment/lakehouse-database/lakehouse-database-environment.construct';
 export { LakeHouseDatabaseEnvironmentProps } from './environment/lakehouse-database/lakehouse-database-environment.interface';
+export { WorkflowsEnvironment } from './environment/workflows/workflows-environment.construct';
+export { WorkflowsEnvironmentProps } from './environment/workflows/workflows-environment.interface';
 export { LookupEnvironment } from './environment/lookup/lookup-environment.construct';
 export { LookupEnvironmentProps } from './environment/lookup/lookup-environment.interface';
 export { LookupSmusUserRole } from './environment/lookup/lookup-smus-user-role.construct';

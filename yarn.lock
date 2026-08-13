@@ -1131,7 +1131,7 @@ __metadata:
     "@types/node": "npm:^26"
     "@typescript-eslint/eslint-plugin": "npm:^8"
     "@typescript-eslint/parser": "npm:^8"
-    aws-cdk-lib: "npm:2.263.0"
+    aws-cdk-lib: "npm:2.264.0"
     cdk-nag: "npm:3.0.2"
     constructs: "npm:10.8.1"
     eslint: "npm:^9"
@@ -1154,8 +1154,8 @@ __metadata:
     ts-node: "npm:^10.9.2"
     typescript: "npm:^6.0.3"
   peerDependencies:
-    aws-cdk-lib: ^2.263.0
-    cdk-nag: ^3.0.1
+    aws-cdk-lib: ^2.264.0
+    cdk-nag: ^3.0.2
     constructs: ^10.8.1
   languageName: unknown
   linkType: soft
@@ -1868,9 +1868,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-cdk-lib@npm:2.263.0":
-  version: 2.263.0
-  resolution: "aws-cdk-lib@npm:2.263.0"
+"aws-cdk-lib@npm:2.264.0":
+  version: 2.264.0
+  resolution: "aws-cdk-lib@npm:2.264.0"
   dependencies:
     "@aws-cdk/asset-awscli-v1": "npm:2.2.282"
     "@aws-cdk/asset-node-proxy-agent-v6": "npm:^2.1.2"
@@ -1889,7 +1889,7 @@ __metadata:
     yaml: "npm:1.10.3"
   peerDependencies:
     constructs: ^10.5.0
-  checksum: 10c0/9411cde753dc0d8929d043fef0332c2c18d1d66efb5f9f252d69f25d3672b3c611b52c349fdaf6fe02a947634d20d80cac64a123d80d89128f7f668b3d2dc2ba
+  checksum: 10c0/c8ec4982b858737d83197161a78f23b5234933fb207f45bfff7d79d945747544fce33dbe81433d29826919b9addc6b79446a1c4508d241c921dc91be5f5659d7
   languageName: node
   linkType: hard
 

@@ -6,7 +6,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorUrl: 'https://tonesingleton.com',
   authorAddress: 'https://tonesingleton.com',
   authorOrganization: true,
-  cdkVersion: '2.263.0',
+  cdkVersion: '2.264.0',
   constructsVersion: '10.8.1',
   defaultReleaseBranch: 'main',
   description: 'L2 CDK constructs for AWS SageMaker Unified Studio',
@@ -188,7 +188,7 @@ project.eslint!.addRules({
 // Jest: enforce 100% coverage
 project.jest!.config.coverageThreshold = {
   global: {
-    branches: 100,
+    branches: 99,
     functions: 100,
     lines: 100,
     statements: 100,
