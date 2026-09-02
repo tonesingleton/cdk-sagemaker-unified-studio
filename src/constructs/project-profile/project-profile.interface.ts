@@ -1,3 +1,5 @@
+import type { aws_iam as iam } from 'aws-cdk-lib';
+
 /**
  * Status of a project profile.
  */
@@ -75,6 +77,11 @@ export interface EnvironmentConfiguration {
 export interface IProjectProfile {
   /** The project profile ID. */
   readonly projectProfileId: string;
+  /**
+   * Map of environment configuration name → configuration ID, resolved at deploy time.
+   * Only populated when `datazoneApiRole` is provided in props.
+   */
+  readonly environmentConfigurationIds: Record<string, string>;
 }
 
 /**
@@ -120,4 +127,11 @@ export interface ProjectProfileProps {
    * @default ProjectProfileStatus.ENABLED
    */
   readonly status?: ProjectProfileStatus;
+  /**
+   * IAM role used to call `GetProjectProfile` at deploy time to resolve
+   * environment configuration IDs. Required to populate `environmentConfigurationIds`.
+   *
+   * @default - environmentConfigurationIds will be empty
+   */
+  readonly datazoneApiRole?: iam.IRole;
 }

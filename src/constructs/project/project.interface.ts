@@ -210,5 +210,5 @@ export interface ProjectProps {
    *
    * @default - no datazoneApiRole membership added
    */
-  readonly crRole?: iam.IRole;
+  readonly datazoneApiRole?: iam.IRole;
 }

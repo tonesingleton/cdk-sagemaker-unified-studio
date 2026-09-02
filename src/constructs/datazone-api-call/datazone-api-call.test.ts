@@ -1,6 +1,6 @@
 import { App, Stack, aws_iam as iam } from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
-import { DataZoneApiCall } from './datazone-api-call.construct';
+import { DataZoneApiCall } from '.';
 
 function createStack(): Stack {
   return new Stack(new App(), 'TestStack', { env: { account: '123456789012', region: 'eu-central-1' } });

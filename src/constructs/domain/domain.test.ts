@@ -424,6 +424,17 @@ describe('Domain.fromAttributes', () => {
     expect(imported.blueprintPolicyGrants).toEqual([]);
   });
 
+  test('imports domain with datazoneApiRoleArn', () => {
+    const stack = createStack();
+    const imported = Domain.fromAttributes(stack, 'Imported', {
+      domainId: 'dzd-abc123',
+      domainArn: 'arn:aws:datazone:eu-central-1:123456789012:domain/dzd-abc123',
+      rootDomainUnitId: 'du-root123',
+      datazoneApiRoleArn: 'arn:aws:iam::123456789012:role/DatazoneApi',
+    });
+    expect(imported.datazoneApiRole).toBeDefined();
+  });
+
   test('does not create any CloudFormation resources', () => {
     const stack = createStack();
     Domain.fromAttributes(stack, 'Imported', {
@@ -431,6 +442,6 @@ describe('Domain.fromAttributes', () => {
       domainArn: 'arn:aws:datazone:eu-central-1:123456789012:domain/dzd-abc123',
       rootDomainUnitId: 'du-root123',
     });
-    Template.fromStack(stack).resourceCountIs('AWS::DataZone::Domain', 0);
+    expect(stack.node.children.length).toBe(1);
   });
 });

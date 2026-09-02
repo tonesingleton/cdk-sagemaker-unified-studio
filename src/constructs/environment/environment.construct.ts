@@ -1,4 +1,4 @@
-import { aws_datazone as datazone } from 'aws-cdk-lib';
+import { aws_datazone as datazone, aws_lakeformation as lakeformation, Stack } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { EnvironmentAttributes, EnvironmentProps, IEnvironment } from './environment.interface';
 
@@ -29,23 +29,54 @@ export class Environment extends Construct implements IEnvironment {
   constructor(scope: Construct, id: string, props: EnvironmentProps) {
     super(scope, id);
 
+    if (props.glueDbName && !props.projectExecutionRoleArn) {
+      throw new Error('projectExecutionRoleArn is required when glueDbName is set.');
+    }
+
     for (const term of props.glossaryTerms ?? []) {
       if (!GLOSSARY_TERM_PATTERN.test(term)) {
         throw new Error(`Invalid glossary term '${term}'. Must match ${GLOSSARY_TERM_PATTERN}.`);
       }
     }
 
+    const allUserParameters = [
+      ...(props.userParameters ?? []),
+      ...(props.glueDbName ? [{ name: 'glueDbName', value: props.glueDbName }] : []),
+    ];
+
+    const stack = Stack.of(this);
     const environment = new datazone.CfnEnvironment(this, 'Resource', {
       domainIdentifier: props.domainId,
       projectIdentifier: props.projectId,
-      name: props.name,
+      name: props.name ?? '',
       description: props.description,
       environmentBlueprintIdentifier: props.environmentBlueprintId,
+      environmentAccountIdentifier: props.environmentBlueprintId ? stack.account : undefined,
+      environmentAccountRegion: props.environmentBlueprintId ? stack.region : undefined,
       environmentConfigurationId: props.environmentConfigurationId,
-      userParameters: props.userParameters?.map((p) => ({ name: p.name, value: p.value })),
+      userParameters:
+        allUserParameters.length > 0 ? allUserParameters.map((p) => ({ name: p.name, value: p.value })) : undefined,
       glossaryTerms: props.glossaryTerms && props.glossaryTerms.length > 0 ? [...props.glossaryTerms] : undefined,
     });
 
     this.environmentId = environment.attrId;
+
+    if (props.glueDbName && props.projectExecutionRoleArn) {
+      const dbPerms = new lakeformation.CfnPrincipalPermissions(this, 'GlueDbPermissions', {
+        principal: { dataLakePrincipalIdentifier: props.projectExecutionRoleArn },
+        resource: { database: { catalogId: stack.account, name: props.glueDbName } },
+        permissions: ['ALL', 'CREATE_TABLE', 'ALTER', 'DROP', 'DESCRIBE'],
+        permissionsWithGrantOption: ['ALL', 'CREATE_TABLE', 'ALTER', 'DROP', 'DESCRIBE'],
+      });
+      dbPerms.addResourceDependency(environment);
+
+      const tablePerms = new lakeformation.CfnPrincipalPermissions(this, 'GlueTablePermissions', {
+        principal: { dataLakePrincipalIdentifier: props.projectExecutionRoleArn },
+        resource: { table: { catalogId: stack.account, databaseName: props.glueDbName, tableWildcard: {} } },
+        permissions: ['ALL', 'SELECT', 'INSERT', 'DELETE', 'DESCRIBE', 'ALTER', 'DROP'],
+        permissionsWithGrantOption: ['ALL', 'SELECT', 'INSERT', 'DELETE', 'DESCRIBE', 'ALTER', 'DROP'],
+      });
+      tablePerms.addResourceDependency(environment);
+    }
   }
 }

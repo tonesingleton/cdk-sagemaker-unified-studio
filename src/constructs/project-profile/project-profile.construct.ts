@@ -8,6 +8,7 @@ import type {
 } from './project-profile.interface';
 import { DeploymentMode, ProjectProfileStatus } from './project-profile.interface';
 import { ManagedBlueprintIdentifier } from '../blueprint/blueprint.interface';
+import { DataZoneApiCall } from '../datazone-api-call';
 
 /**
  * A project profile that defines the default set of environment blueprints
@@ -25,12 +26,16 @@ export class ProjectProfile extends Construct implements IProjectProfile {
   public static fromAttributes(scope: Construct, id: string, attrs: ProjectProfileAttributes): IProjectProfile {
     class ImportedProjectProfile extends Construct implements IProjectProfile {
       public readonly projectProfileId = attrs.projectProfileId;
+      public readonly environmentConfigurationIds: Record<string, string> = {};
     }
     return new ImportedProjectProfile(scope, id);
   }
 
   /** The project profile ID. */
   public readonly projectProfileId: string;
+
+  /** Map of environment configuration name → ID, resolved at deploy time via GetProjectProfile. */
+  public readonly environmentConfigurationIds: Record<string, string>;
 
   constructor(scope: Construct, id: string, props: ProjectProfileProps) {
     super(scope, id);
@@ -79,5 +84,22 @@ export class ProjectProfile extends Construct implements IProjectProfile {
     });
 
     this.projectProfileId = profile.attrId;
+
+    this.environmentConfigurationIds = {};
+    if (props.datazoneApiRole && props.environmentConfigurations?.length) {
+      const lookup = new DataZoneApiCall(this, 'LookupEnvConfigIds', {
+        role: props.datazoneApiRole,
+        onCreate: {
+          action: 'GetProjectProfile',
+          parameters: { domainIdentifier: props.domainId, identifier: profile.attrId },
+          outputPaths: props.environmentConfigurations.map((_, i) => `environmentConfigurations.${i}.id`),
+          physicalResourceId: `${props.domainId}-profile-env-config-ids`,
+        },
+      });
+      lookup.node.addDependency(profile);
+      for (const [i, config] of props.environmentConfigurations.entries()) {
+        this.environmentConfigurationIds[config.name] = lookup.getResponseField(`environmentConfigurations.${i}.id`);
+      }
+    }
   }
 }

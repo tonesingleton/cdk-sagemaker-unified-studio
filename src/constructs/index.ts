@@ -26,6 +26,10 @@ export {
   IEnvironment,
   EnvironmentAttributes,
 } from './environment/environment.interface';
+export { LakeHouseDatabaseEnvironment } from './environment/lakehouse-database/lakehouse-database-environment.construct';
+export { LakeHouseDatabaseEnvironmentProps } from './environment/lakehouse-database/lakehouse-database-environment.interface';
+export { WorkflowsEnvironment } from './environment/workflows/workflows-environment.construct';
+export { WorkflowsEnvironmentProps } from './environment/workflows/workflows-environment.interface';
 export { LookupEnvironment } from './environment/lookup/lookup-environment.construct';
 export { LookupEnvironmentProps } from './environment/lookup/lookup-environment.interface';
 export { LookupSmusUserRole } from './environment/lookup/lookup-smus-user-role.construct';
@@ -94,3 +98,71 @@ export * from './project-membership';
 export * from './group-profile';
 export * from './user-profile';
 export * from './owner';
+export { DataProduct } from './data-product/data-product.construct';
+export {
+  DataProductProps,
+  IDataProduct,
+  DataProductAttributes,
+  DataProductItem,
+  DataProductFormInput,
+} from './data-product/data-product.interface';
+export { Asset } from './asset/asset.construct';
+export {
+  AssetProps,
+  IAsset,
+  AssetAttributes,
+  AssetFormInput,
+  PredictionConfiguration,
+  BusinessNameGenerationConfiguration,
+} from './asset/asset.interface';
+export { AssetType } from './asset-type/asset-type.construct';
+export { AssetTypeProps, IAssetType, AssetTypeAttributes, FormEntryInput } from './asset-type/asset-type.interface';
+export { AssetRevision } from './asset-revision/asset-revision.construct';
+export { AssetRevisionProps, IAssetRevision } from './asset-revision/asset-revision.interface';
+export { AssetFilter } from './asset-filter/asset-filter.construct';
+export {
+  AssetFilterProps,
+  IAssetFilter,
+  AssetFilterAttributes,
+  AssetFilterConfiguration,
+  ColumnFilterConfiguration,
+  RowFilterConfiguration,
+  RowFilter,
+  RowFilterExpression,
+  ColumnValuePair,
+  ColumnValuesPair,
+  ColumnReference,
+} from './asset-filter/asset-filter.interface';
+export { Rule } from './rule/rule.construct';
+export {
+  RuleProps,
+  IRule,
+  RuleAttributes,
+  RuleAction,
+  RuleSelectionMode,
+  RuleScope,
+  RuleTarget,
+  RuleDetail,
+  DomainUnitTarget,
+  AssetTypesForRule,
+  ProjectsForRule,
+  MetadataFormReference,
+  MetadataFormEnforcementDetail,
+  GlossaryTermEnforcementDetail,
+} from './rule/rule.interface';
+export { AccountPool } from './account-pool/account-pool.construct';
+export {
+  AccountPoolProps,
+  IAccountPool,
+  AccountPoolAttributes,
+  ResolutionStrategy,
+  AccountSource,
+  AccountInfo,
+  CustomAccountPoolHandler,
+} from './account-pool/account-pool.interface';
+export { DataExportConfiguration } from './data-export-configuration/data-export-configuration.construct';
+export {
+  DataExportConfigurationProps,
+  ExportEncryptionConfiguration,
+  SseAlgorithm,
+} from './data-export-configuration/data-export-configuration.interface';

@@ -1,7 +1,7 @@
-import { Token, aws_iam as iam } from 'aws-cdk-lib';
+import { Token } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import type { GlossaryAttributes, GlossaryProps, IGlossary } from './glossary.interface';
 import { DataZoneApiCall } from '../datazone-api-call';
+import type { GlossaryAttributes, GlossaryProps, IGlossary } from './glossary.interface';
 
 const DOMAIN_ID_PATTERN = /^dzd[-_][a-zA-Z0-9_-]{1,36}$/;
 const PROJECT_ID_PATTERN = /^[a-zA-Z0-9_-]{1,36}$/;
@@ -12,12 +12,8 @@ const MAX_DESCRIPTION_LENGTH = 4096;
  * A DataZone business glossary for catalog standardization.
  *
  * There is no CloudFormation resource type for DataZone glossaries, so this construct
- * drives the full CreateGlossary / UpdateGlossary / DeleteGlossary lifecycle through
- * {@link DataZoneApiCall}, the shared construct that runs DataZone SDK calls as a
- * supplied enrolled role. The create call's returned `id` becomes the custom
- * resource's physical ID, which update/delete target via
- * `DataZoneApiCall.PHYSICAL_RESOURCE_ID`. `executionRoleArn` must be a DataZone-enrolled
- * principal (typically `domain.datazoneApiRole`).
+ * uses `AwsCustomResource` to call the DataZone API directly
+ * (CreateGlossary / UpdateGlossary / DeleteGlossary).
  *
  * @see https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html
  */
@@ -58,31 +54,28 @@ export class Glossary extends Construct implements IGlossary {
       );
     }
 
-    const call = new DataZoneApiCall(this, 'Resource', {
-      role: iam.Role.fromRoleArn(this, 'ExecutionRole', props.executionRoleArn, { mutable: false }),
+    const sharedParams = {
+      domainIdentifier: props.domainIdentifier,
+      owningProjectIdentifier: props.owningProjectIdentifier,
+      name: props.name,
+      description: props.description,
+      status: props.status,
+    };
+
+    const glossary = new DataZoneApiCall(this, 'Resource', {
+      role: props.datazoneApiRole,
       onCreate: {
         action: 'CreateGlossary',
-        parameters: {
-          domainIdentifier: props.domainIdentifier,
-          owningProjectIdentifier: props.owningProjectIdentifier,
-          name: props.name,
-          description: props.description,
-          status: props.status,
-        },
+        parameters: sharedParams,
         physicalResourceIdFromResponsePath: 'id',
-        outputPaths: ['id'],
       },
       onUpdate: {
         action: 'UpdateGlossary',
         parameters: {
-          domainIdentifier: props.domainIdentifier,
+          ...sharedParams,
           identifier: DataZoneApiCall.PHYSICAL_RESOURCE_ID,
-          name: props.name,
-          description: props.description,
-          status: props.status,
         },
         physicalResourceIdFromResponsePath: 'id',
-        outputPaths: ['id'],
       },
       onDelete: {
         action: 'DeleteGlossary',
@@ -90,9 +83,10 @@ export class Glossary extends Construct implements IGlossary {
           domainIdentifier: props.domainIdentifier,
           identifier: DataZoneApiCall.PHYSICAL_RESOURCE_ID,
         },
+        ignoreErrorCodesMatching: 'ResourceNotFoundException',
       },
     });
 
-    this.glossaryId = call.getResponseField('id');
+    this.glossaryId = glossary.getResponseField('id');
   }
 }

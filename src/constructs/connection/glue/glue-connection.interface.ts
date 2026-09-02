@@ -28,6 +28,10 @@ export enum GlueConnectionType {
   BIGQUERY = 'BIGQUERY',
   /** Azure SQL. */
   AZURESQL = 'AZURESQL',
+  /** Amazon OpenSearch Service. */
+  OPENSEARCH = 'OPENSEARCH',
+  /** Teradata Vantage. */
+  TERADATA = 'TERADATA',
   /** MongoDB document database. */
   MONGODB = 'MONGODB',
   /** Generic JDBC connection. */

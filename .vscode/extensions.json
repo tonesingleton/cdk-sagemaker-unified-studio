@@ -4,6 +4,7 @@
     "esbenp.prettier-vscode",
     "amazonwebservices.aws-toolkit-vscode",
     "ryanluker.vscode-coverage-gutters",
-    "orta.vscode-jest"
+    "orta.vscode-jest",
+    "markmcculloh.vscode-projen"
   ]
 }

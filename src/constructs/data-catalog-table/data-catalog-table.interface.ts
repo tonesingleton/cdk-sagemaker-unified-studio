@@ -150,4 +150,29 @@ export interface DataCatalogTableProps {
    * @default - no additional parameters
    */
   readonly parameters?: Record<string, string>;
+  /**
+   * Additional IAM principal ARNs to grant Lake Formation `DESCRIBE` and `SELECT`
+   * on this specific table.
+   *
+   * Required when the table's S3 location falls under a Lake Formation registered
+   * resource prefix (e.g. the SMUS projects bucket), because Lake Formation ignores
+   * database-level wildcard grants for tables under registered locations and requires
+   * explicit per-table grants instead.
+   *
+   * Typically set to the `datazone_usr_role` ARN (resolved via `LookupSmusUserRole`).
+   *
+   * @default - no additional grants
+   */
+  readonly additionalReadPrincipals?: Array<string>;
+  /**
+   * The ARN of the `AmazonSageMakerManageAccess` role to grant `DESCRIBE` and `SELECT`
+   * **with grant option** on this table.
+   *
+   * Grant option is required for SMUS to automatically fulfil subscriptions (managed asset
+   * classification). Without it, SMUS cannot re-grant access to subscribers on behalf of
+   * the manage access role, and the asset is treated as unmanaged.
+   *
+   * @default - no manage access grant
+   */
+  readonly manageAccessRoleArn?: string;
 }

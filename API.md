@@ -2,6 +2,195 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### AccountPool <a name="AccountPool" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountPool">IAccountPool</a>
+
+A DataZone account pool that groups AWS accounts for multi-account data mesh topologies.
+
+Accounts in the pool can be associated with a domain as producers or consumers.
+
+There is no CloudFormation resource type for DataZone account pools, so this construct
+uses `AwsCustomResource` to call the DataZone API directly
+(CreateAccountPool / UpdateAccountPool / DeleteAccountPool).
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAccountPool.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAccountPool.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.Initializer"></a>
+
+```typescript
+import { AccountPool } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new AccountPool(scope: Construct, id: string, props: AccountPoolProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps">AccountPoolProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps">AccountPoolProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.fromAttributes">fromAttributes</a></code> | Import an existing account pool from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.isConstruct"></a>
+
+```typescript
+import { AccountPool } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+AccountPool.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.fromAttributes"></a>
+
+```typescript
+import { AccountPool } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+AccountPool.fromAttributes(scope: Construct, id: string, attrs: AccountPoolAttributes)
+```
+
+Import an existing account pool from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolAttributes">AccountPoolAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.property.accountPoolId">accountPoolId</a></code> | <code>string</code> | The ID of the account pool. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `accountPoolId`<sup>Required</sup> <a name="accountPoolId" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPool.property.accountPoolId"></a>
+
+```typescript
+public readonly accountPoolId: string;
+```
+
+- *Type:* string
+
+The ID of the account pool.
+
+---
+
+
 ### AccountRoles <a name="AccountRoles" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles"></a>
 
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles">IAccountRoles</a>
@@ -215,6 +404,763 @@ The query execution role used by Lake Formation and Glue for Athena queries.
 ---
 
 
+### Asset <a name="Asset" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAsset">IAsset</a>
+
+A DataZone catalog asset — a discoverable data entity (table, view, S3 collection, etc.) registered in the domain catalog with metadata forms and governance attributes.
+
+There is no CloudFormation resource type for DataZone assets, so this construct uses
+`AwsCustomResource` to call the DataZone API directly (CreateAsset / DeleteAsset).
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAsset.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAsset.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.Initializer"></a>
+
+```typescript
+import { Asset } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new Asset(scope: Construct, id: string, props: AssetProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Asset.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Asset.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Asset.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps">AssetProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps">AssetProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Asset.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Asset.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Asset.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Asset.fromAttributes">fromAttributes</a></code> | Import an existing asset from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.isConstruct"></a>
+
+```typescript
+import { Asset } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Asset.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.fromAttributes"></a>
+
+```typescript
+import { Asset } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Asset.fromAttributes(scope: Construct, id: string, attrs: AssetAttributes)
+```
+
+Import an existing asset from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetAttributes">AssetAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Asset.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Asset.property.assetId">assetId</a></code> | <code>string</code> | The ID of the asset assigned by DataZone. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Asset.property.revision">revision</a></code> | <code>string</code> | The revision of the asset. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `assetId`<sup>Required</sup> <a name="assetId" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.property.assetId"></a>
+
+```typescript
+public readonly assetId: string;
+```
+
+- *Type:* string
+
+The ID of the asset assigned by DataZone.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.Asset.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the asset.
+
+---
+
+
+### AssetFilter <a name="AssetFilter" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAssetFilter">IAssetFilter</a>
+
+A DataZone asset filter that creates a controlled view of an asset by restricting visible columns or rows, enabling fine-grained access control without duplicating data.
+
+There is no CloudFormation resource type for DataZone asset filters, so this construct
+uses `AwsCustomResource` to call the DataZone API directly
+(CreateAssetFilter / UpdateAssetFilter / DeleteAssetFilter).
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetFilter.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetFilter.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.Initializer"></a>
+
+```typescript
+import { AssetFilter } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new AssetFilter(scope: Construct, id: string, props: AssetFilterProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps">AssetFilterProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps">AssetFilterProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.fromAttributes">fromAttributes</a></code> | Import an existing asset filter from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.isConstruct"></a>
+
+```typescript
+import { AssetFilter } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+AssetFilter.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.fromAttributes"></a>
+
+```typescript
+import { AssetFilter } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+AssetFilter.fromAttributes(scope: Construct, id: string, attrs: AssetFilterAttributes)
+```
+
+Import an existing asset filter from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterAttributes">AssetFilterAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.property.assetFilterId">assetFilterId</a></code> | <code>string</code> | The ID of the asset filter. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `assetFilterId`<sup>Required</sup> <a name="assetFilterId" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter.property.assetFilterId"></a>
+
+```typescript
+public readonly assetFilterId: string;
+```
+
+- *Type:* string
+
+The ID of the asset filter.
+
+---
+
+
+### AssetRevision <a name="AssetRevision" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAssetRevision">IAssetRevision</a>
+
+A new revision of an existing DataZone catalog asset, capturing changes to metadata, forms, or glossary terms while preserving the full revision history.
+
+There is no CloudFormation resource type for DataZone asset revisions, so this
+construct uses `AwsCustomResource` to call `CreateAssetRevision` at deploy time.
+Revisions are immutable — there is no update or delete operation.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetRevision.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetRevision.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.Initializer"></a>
+
+```typescript
+import { AssetRevision } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new AssetRevision(scope: Construct, id: string, props: AssetRevisionProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps">AssetRevisionProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps">AssetRevisionProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.isConstruct"></a>
+
+```typescript
+import { AssetRevision } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+AssetRevision.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.property.assetId">assetId</a></code> | <code>string</code> | The ID of the asset (same across all revisions). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.property.revision">revision</a></code> | <code>string</code> | The new revision identifier created by this operation. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `assetId`<sup>Required</sup> <a name="assetId" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.property.assetId"></a>
+
+```typescript
+public readonly assetId: string;
+```
+
+- *Type:* string
+
+The ID of the asset (same across all revisions).
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The new revision identifier created by this operation.
+
+---
+
+
+### AssetType <a name="AssetType" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAssetType">IAssetType</a>
+
+A custom DataZone asset type that defines the schema and required metadata forms for a category of catalog assets.
+
+There is no CloudFormation resource type for DataZone asset types, so this construct
+uses `AwsCustomResource` to call the DataZone API directly
+(CreateAssetType / DeleteAssetType).
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetType.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetType.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.Initializer"></a>
+
+```typescript
+import { AssetType } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new AssetType(scope: Construct, id: string, props: AssetTypeProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetType.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetType.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetType.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps">AssetTypeProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps">AssetTypeProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetType.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetType.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetType.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetType.fromAttributes">fromAttributes</a></code> | Import an existing asset type from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.isConstruct"></a>
+
+```typescript
+import { AssetType } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+AssetType.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.fromAttributes"></a>
+
+```typescript
+import { AssetType } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+AssetType.fromAttributes(scope: Construct, id: string, attrs: AssetTypeAttributes)
+```
+
+Import an existing asset type from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeAttributes">AssetTypeAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetType.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetType.property.assetTypeName">assetTypeName</a></code> | <code>string</code> | The name of the asset type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetType.property.revision">revision</a></code> | <code>string</code> | The revision of the asset type. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `assetTypeName`<sup>Required</sup> <a name="assetTypeName" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.property.assetTypeName"></a>
+
+```typescript
+public readonly assetTypeName: string;
+```
+
+- *Type:* string
+
+The name of the asset type.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetType.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the asset type.
+
+---
+
+
 ### AthenaConnection <a name="AthenaConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection"></a>
 
 A SageMaker Unified Studio Athena connection that provides access to an Amazon Athena workgroup.
@@ -273,14 +1219,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -345,7 +1292,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -353,8 +1300,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependency.parameter.target"></a>
 
@@ -369,6 +1317,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addDependsOn.parameter.target"></a>
 
@@ -519,6 +1471,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -643,15 +1622,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -663,6 +1634,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AthenaConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -1234,14 +2222,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -1306,7 +2295,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -1314,8 +2303,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependency.parameter.target"></a>
 
@@ -1330,6 +2320,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addDependsOn.parameter.target"></a>
 
@@ -1480,6 +2474,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -1604,15 +2625,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -1624,6 +2637,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.AzureSqlConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -2196,14 +3226,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -2268,7 +3299,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -2276,8 +3307,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependency.parameter.target"></a>
 
@@ -2292,6 +3324,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addDependsOn.parameter.target"></a>
 
@@ -2442,6 +3478,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -2566,15 +3629,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -2586,6 +3641,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.BigQueryConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -3480,6 +4552,352 @@ The table name.
 ---
 
 
+### DataExportConfiguration <a name="DataExportConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration"></a>
+
+Configures asset metadata export from a DataZone domain to an S3 table (under the `aws-sagemaker-catalog` S3 table bucket).
+
+Only one export configuration
+can be active per account per region.
+
+There is no CloudFormation resource type for DataZone data export configuration,
+so this construct uses `AwsCustomResource` to call the DataZone API directly
+(PutDataExportConfiguration / DeleteDataExportConfiguration).
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_PutDataExportConfiguration.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_PutDataExportConfiguration.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.Initializer"></a>
+
+```typescript
+import { DataExportConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new DataExportConfiguration(scope: Construct, id: string, props: DataExportConfigurationProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps">DataExportConfigurationProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps">DataExportConfigurationProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.isConstruct"></a>
+
+```typescript
+import { DataExportConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+DataExportConfiguration.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfiguration.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
+### DataProduct <a name="DataProduct" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct">IDataProduct</a>
+
+A DataZone data product — a curated package of data assets with metadata, documentation, and access controls.
+
+There is no CloudFormation resource type for DataZone data products, so this
+construct uses `AwsCustomResource` to call the DataZone API directly
+(CreateDataProduct / DeleteDataProduct).
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateDataProduct.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateDataProduct.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer"></a>
+
+```typescript
+import { DataProduct } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new DataProduct(scope: Construct, id: string, props: DataProductProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps">DataProductProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps">DataProductProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.fromAttributes">fromAttributes</a></code> | Import an existing data product from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.isConstruct"></a>
+
+```typescript
+import { DataProduct } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+DataProduct.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.fromAttributes"></a>
+
+```typescript
+import { DataProduct } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+DataProduct.fromAttributes(scope: Construct, id: string, attrs: DataProductAttributes)
+```
+
+Import an existing data product from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes">DataProductAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.dataProductId">dataProductId</a></code> | <code>string</code> | The ID of the data product assigned by DataZone. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.revision">revision</a></code> | <code>string</code> | The revision of the data product. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `dataProductId`<sup>Required</sup> <a name="dataProductId" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.dataProductId"></a>
+
+```typescript
+public readonly dataProductId: string;
+```
+
+- *Type:* string
+
+The ID of the data product assigned by DataZone.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProduct.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the data product.
+
+---
+
+
 ### DataQualityRuleset <a name="DataQualityRuleset" id="@tonesingleton/cdk-sagemaker-unified-studio.DataQualityRuleset"></a>
 
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataQualityRuleset">IDataQualityRuleset</a>
@@ -4081,14 +5499,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -4153,7 +5572,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -4161,8 +5580,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependency.parameter.target"></a>
 
@@ -4177,6 +5597,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addDependsOn.parameter.target"></a>
 
@@ -4327,6 +5751,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -4451,15 +5902,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -4471,6 +5914,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DocumentDbConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -5406,14 +6866,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -5478,7 +6939,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -5486,8 +6947,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependency.parameter.target"></a>
 
@@ -5502,6 +6964,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addDependsOn.parameter.target"></a>
 
@@ -5652,6 +7118,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -5776,15 +7269,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -5796,6 +7281,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -6876,12 +8378,8 @@ The status of the CodeConnections connection (e.g. PENDING, AVAILABLE).
 A DataZone business glossary for catalog standardization.
 
 There is no CloudFormation resource type for DataZone glossaries, so this construct
-drives the full CreateGlossary / UpdateGlossary / DeleteGlossary lifecycle through
-{@link DataZoneApiCall}, the shared construct that runs DataZone SDK calls as a
-supplied enrolled role. The create call's returned `id` becomes the custom
-resource's physical ID, which update/delete target via
-`DataZoneApiCall.PHYSICAL_RESOURCE_ID`. `executionRoleArn` must be a DataZone-enrolled
-principal (typically `domain.datazoneApiRole`).
+uses `AwsCustomResource` to call the DataZone API directly
+(CreateGlossary / UpdateGlossary / DeleteGlossary).
 
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html)
 
@@ -7067,11 +8565,8 @@ The glossary ID assigned by DataZone.
 A DataZone glossary term within a business glossary.
 
 There is no CloudFormation resource type for DataZone glossary terms, so this construct
-drives the full CreateGlossaryTerm / UpdateGlossaryTerm / DeleteGlossaryTerm lifecycle
-through {@link DataZoneApiCall}, the shared construct that runs DataZone SDK calls as a
-supplied enrolled role. The create call's returned `id` becomes the custom resource's
-physical ID, which update/delete target via `DataZoneApiCall.PHYSICAL_RESOURCE_ID`.
-`executionRoleArn` must be a DataZone-enrolled principal (typically `domain.datazoneApiRole`).
+uses `AwsCustomResource` to call the DataZone API directly
+(CreateGlossaryTerm / UpdateGlossaryTerm / DeleteGlossaryTerm).
 
 > [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/create-maintain-business-glossary.html)
 
@@ -7311,14 +8806,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -7383,7 +8879,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -7391,8 +8887,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependency.parameter.target"></a>
 
@@ -7407,6 +8904,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addDependsOn.parameter.target"></a>
 
@@ -7557,6 +9058,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -7681,15 +9209,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -7701,6 +9221,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -8643,14 +10180,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -8715,7 +10253,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -8723,8 +10261,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependency.parameter.target"></a>
 
@@ -8739,6 +10278,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addDependsOn.parameter.target"></a>
 
@@ -8889,6 +10432,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -9013,15 +10583,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -9033,6 +10595,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.HyperPodConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -9601,14 +11180,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -9673,7 +11253,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -9681,8 +11261,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependency.parameter.target"></a>
 
@@ -9697,6 +11278,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addDependsOn.parameter.target"></a>
 
@@ -9847,6 +11432,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -9971,15 +11583,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -9991,6 +11595,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.IamConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -10501,6 +12122,196 @@ The CloudFormation resource type name for this resource class.
 
 ---
 
+### LakeHouseDatabaseEnvironment <a name="LakeHouseDatabaseEnvironment" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment"></a>
+
+A SageMaker Unified Studio LakehouseDatabase environment.
+
+Opinionated wrapper around `Environment` for the LakeHouseDatabase blueprint.
+Provisions a Glue database and Athena workgroup within a project.
+
+- The environment name defaults to `"LakeHouseDatabase"`.
+- The blueprint ID is derived from `domain.blueprints`.
+- When `glueDbName` is set, the project execution role is derived from
+  `project.projectExecutionRole` and Lake Formation permissions are granted
+  automatically so CDK can create Glue tables in the provisioned database.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/lakehouse-database-blueprint.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/lakehouse-database-blueprint.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer"></a>
+
+```typescript
+import { LakeHouseDatabaseEnvironment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new LakeHouseDatabaseEnvironment(scope: Construct, id: string, props: LakeHouseDatabaseEnvironmentProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps">LakeHouseDatabaseEnvironmentProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps">LakeHouseDatabaseEnvironmentProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.fromAttributes">fromAttributes</a></code> | Import an existing LakehouseDatabase environment from its ID. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.isConstruct"></a>
+
+```typescript
+import { LakeHouseDatabaseEnvironment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+LakeHouseDatabaseEnvironment.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.fromAttributes"></a>
+
+```typescript
+import { LakeHouseDatabaseEnvironment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+LakeHouseDatabaseEnvironment.fromAttributes(scope: Construct, id: string, attrs: EnvironmentAttributes)
+```
+
+Import an existing LakehouseDatabase environment from its ID.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentAttributes">EnvironmentAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.property.environmentId">environmentId</a></code> | <code>string</code> | The environment ID. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `environmentId`<sup>Required</sup> <a name="environmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+The environment ID.
+
+---
+
+
 ### LookupEnvironment <a name="LookupEnvironment" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironment"></a>
 
 Looks up the ID of an existing environment within a project by name.
@@ -10939,14 +12750,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -11011,7 +12823,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -11019,8 +12831,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependency.parameter.target"></a>
 
@@ -11035,6 +12848,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addDependsOn.parameter.target"></a>
 
@@ -11185,6 +13002,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -11309,15 +13153,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -11329,6 +13165,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MwaaConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -11900,14 +13753,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -11972,7 +13826,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -11980,8 +13834,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependency.parameter.target"></a>
 
@@ -11996,6 +13851,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addDependsOn.parameter.target"></a>
 
@@ -12146,6 +14005,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -12270,15 +14156,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -12290,6 +14168,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.MySqlConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -12800,6 +14695,1010 @@ The CloudFormation resource type name for this resource class.
 
 ---
 
+### OpenSearchConnection <a name="OpenSearchConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection"></a>
+
+A SageMaker Unified Studio Amazon OpenSearch Service connection.
+
+Creates a Glue connection of type OPENSEARCH with Spark-only compute,
+targeting an Amazon OpenSearch Service domain. Supports optional VPC
+configuration for domains hosted within a VPC.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/data-connections-iam-based-domains.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/data-connections-iam-based-domains.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.Initializer"></a>
+
+```typescript
+import { OpenSearchConnection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new OpenSearchConnection(scope: Construct, id: string, props: OpenSearchConnectionProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | The scope of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps">OpenSearchConnectionProps</a></code> | Connection props. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The scope of the connection.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps">OpenSearchConnectionProps</a>
+
+Connection props.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.with">with</a></code> | Applies one or more mixins to this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+---
+
+##### `overrideLogicalId` <a name="overrideLogicalId" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.overrideLogicalId"></a>
+
+```typescript
+public overrideLogicalId(newLogicalId: string): void
+```
+
+Overrides the auto-generated logical ID with a specific ID.
+
+###### `newLogicalId`<sup>Required</sup> <a name="newLogicalId" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.overrideLogicalId.parameter.newLogicalId"></a>
+
+- *Type:* string
+
+The new logical ID to use for this stack element.
+
+---
+
+##### `addDeletionOverride` <a name="addDeletionOverride" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addDeletionOverride"></a>
+
+```typescript
+public addDeletionOverride(path: string): void
+```
+
+Syntactic sugar for `addOverride(path, undefined)`.
+
+###### `path`<sup>Required</sup> <a name="path" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addDeletionOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the value to delete.
+
+---
+
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addDependency"></a>
+
+```typescript
+public addDependency(target: CfnResource): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### ~~`addDependsOn`~~ <a name="addDependsOn" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addDependsOn"></a>
+
+```typescript
+public addDependsOn(target: CfnResource): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addDependsOn.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `addMetadata` <a name="addMetadata" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addMetadata"></a>
+
+```typescript
+public addMetadata(key: string, value: any): void
+```
+
+Add a value to the CloudFormation Resource Metadata.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.)
+
+###### `key`<sup>Required</sup> <a name="key" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addMetadata.parameter.key"></a>
+
+- *Type:* string
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addMetadata.parameter.value"></a>
+
+- *Type:* any
+
+---
+
+##### `addOverride` <a name="addOverride" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addOverride"></a>
+
+```typescript
+public addOverride(path: string, value: any): void
+```
+
+Adds an override to the synthesized CloudFormation resource.
+
+To add a
+property override, either use `addPropertyOverride` or prefix `path` with
+"Properties." (i.e. `Properties.TopicName`).
+
+If the override is nested, separate each nested level using a dot (.) in the path parameter.
+If there is an array as part of the nesting, specify the index in the path.
+
+To include a literal `.` in the property name, prefix with a `\`. In most
+programming languages you will need to write this as `"\\."` because the
+`\` itself will need to be escaped.
+
+For example,
+```typescript
+cfnResource.addOverride('Properties.GlobalSecondaryIndexes.0.Projection.NonKeyAttributes', ['myattribute']);
+cfnResource.addOverride('Properties.GlobalSecondaryIndexes.1.ProjectionType', 'INCLUDE');
+```
+would add the overrides
+```json
+"Properties": {
+  "GlobalSecondaryIndexes": [
+    {
+      "Projection": {
+        "NonKeyAttributes": [ "myattribute" ]
+        ...
+      }
+      ...
+    },
+    {
+      "ProjectionType": "INCLUDE"
+      ...
+    },
+  ]
+  ...
+}
+```
+
+The `value` argument to `addOverride` will not be processed or translated
+in any way. Pass raw JSON values in here with the correct capitalization
+for CloudFormation. If you pass CDK classes or structs, they will be
+rendered with lowercased key names, and CloudFormation will reject the
+template.
+
+###### `path`<sup>Required</sup> <a name="path" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the property, you can use dot notation to override values in complex types.
+
+Any intermediate keys
+will be created as needed.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addOverride.parameter.value"></a>
+
+- *Type:* any
+
+The value.
+
+Could be primitive or complex.
+
+---
+
+##### `addPropertyDeletionOverride` <a name="addPropertyDeletionOverride" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addPropertyDeletionOverride"></a>
+
+```typescript
+public addPropertyDeletionOverride(propertyPath: string): void
+```
+
+Adds an override that deletes the value of a property from the resource definition.
+
+###### `propertyPath`<sup>Required</sup> <a name="propertyPath" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addPropertyDeletionOverride.parameter.propertyPath"></a>
+
+- *Type:* string
+
+The path to the property.
+
+---
+
+##### `addPropertyOverride` <a name="addPropertyOverride" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addPropertyOverride"></a>
+
+```typescript
+public addPropertyOverride(propertyPath: string, value: any): void
+```
+
+Adds an override to a resource property.
+
+Syntactic sugar for `addOverride("Properties.<...>", value)`.
+
+###### `propertyPath`<sup>Required</sup> <a name="propertyPath" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addPropertyOverride.parameter.propertyPath"></a>
+
+- *Type:* string
+
+The path of the property.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addPropertyOverride.parameter.value"></a>
+
+- *Type:* any
+
+The value.
+
+---
+
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
+##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.applyCrossStackReferenceStrength"></a>
+
+```typescript
+public applyCrossStackReferenceStrength(strength: ReferenceStrength): void
+```
+
+Sets the cross-stack reference strength for this resource.
+
+When set, any cross-stack reference to this resource will use the specified
+strength instead of the global default from the consuming stack's context.
+
+###### `strength`<sup>Required</sup> <a name="strength" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.applyCrossStackReferenceStrength.parameter.strength"></a>
+
+- *Type:* aws-cdk-lib.ReferenceStrength
+
+The reference strength to use for this resource.
+
+---
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy?: RemovalPolicy, options?: RemovalPolicyOptions): void
+```
+
+Sets the deletion policy of the resource based on the removal policy specified.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`). In some
+cases, a snapshot can be taken of the resource prior to deletion
+(`RemovalPolicy.SNAPSHOT`). A list of resources that support this policy
+can be found in the following link:
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html#aws-attribute-deletionpolicy-options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html#aws-attribute-deletionpolicy-options)
+
+###### `policy`<sup>Optional</sup> <a name="policy" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.applyRemovalPolicy.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicyOptions
+
+---
+
+##### `cfnPropertyName` <a name="cfnPropertyName" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.cfnPropertyName"></a>
+
+```typescript
+public cfnPropertyName(cdkPropertyName: string): string
+```
+
+###### `cdkPropertyName`<sup>Required</sup> <a name="cdkPropertyName" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.cfnPropertyName.parameter.cdkPropertyName"></a>
+
+- *Type:* string
+
+---
+
+##### `getAtt` <a name="getAtt" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.getAtt"></a>
+
+```typescript
+public getAtt(attributeName: string, typeHint?: ResolutionTypeHint): Reference
+```
+
+Returns a token for an runtime attribute of this resource.
+
+Ideally, use generated attribute accessors (e.g. `resource.arn`), but this can be used for future compatibility
+in case there is no generated attribute.
+
+###### `attributeName`<sup>Required</sup> <a name="attributeName" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.getAtt.parameter.attributeName"></a>
+
+- *Type:* string
+
+The name of the attribute.
+
+---
+
+###### `typeHint`<sup>Optional</sup> <a name="typeHint" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.getAtt.parameter.typeHint"></a>
+
+- *Type:* aws-cdk-lib.ResolutionTypeHint
+
+---
+
+##### `getMetadata` <a name="getMetadata" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.getMetadata"></a>
+
+```typescript
+public getMetadata(key: string): any
+```
+
+Retrieve a value value from the CloudFormation Resource Metadata.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.)
+
+###### `key`<sup>Required</sup> <a name="key" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.getMetadata.parameter.key"></a>
+
+- *Type:* string
+
+---
+
+##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.obtainDependencies"></a>
+
+```typescript
+public obtainDependencies(): (CfnResource | Stack)[]
+```
+
+Retrieves an array of resources this resource depends on.
+
+This assembles dependencies on resources across stacks (including nested stacks)
+automatically.
+
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.removeDependency"></a>
+
+```typescript
+public removeDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.removeResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `replaceDependency` <a name="replaceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.replaceDependency"></a>
+
+```typescript
+public replaceDependency(target: CfnResource, newTarget: CfnResource): void
+```
+
+Replaces one dependency with another.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.replaceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+The dependency to replace.
+
+---
+
+###### `newTarget`<sup>Required</sup> <a name="newTarget" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.replaceDependency.parameter.newTarget"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+The new dependency to add.
+
+---
+
+##### `inspect` <a name="inspect" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.inspect"></a>
+
+```typescript
+public inspect(inspector: TreeInspector): void
+```
+
+Examines the CloudFormation resource and discloses attributes.
+
+###### `inspector`<sup>Required</sup> <a name="inspector" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.inspect.parameter.inspector"></a>
+
+- *Type:* aws-cdk-lib.TreeInspector
+
+tree inspector to collect and process attributes.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isCfnElement">isCfnElement</a></code> | Returns `true` if a construct is a stack element (i.e. part of the synthesized cloudformation template). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isCfnResource">isCfnResource</a></code> | Check whether the given object is a CfnResource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isCfnConnection">isCfnConnection</a></code> | Checks whether the given object is a CfnConnection. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isConstruct"></a>
+
+```typescript
+import { OpenSearchConnection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+OpenSearchConnection.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isCfnElement` <a name="isCfnElement" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isCfnElement"></a>
+
+```typescript
+import { OpenSearchConnection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+OpenSearchConnection.isCfnElement(x: any)
+```
+
+Returns `true` if a construct is a stack element (i.e. part of the synthesized cloudformation template).
+
+Uses duck-typing instead of `instanceof` to allow stack elements from different
+versions of this library to be included in the same stack.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isCfnElement.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+##### `isCfnResource` <a name="isCfnResource" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isCfnResource"></a>
+
+```typescript
+import { OpenSearchConnection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+OpenSearchConnection.isCfnResource(x: any)
+```
+
+Check whether the given object is a CfnResource.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isCfnResource.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+##### `isCfnConnection` <a name="isCfnConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isCfnConnection"></a>
+
+```typescript
+import { OpenSearchConnection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+OpenSearchConnection.isCfnConnection(x: any)
+```
+
+Checks whether the given object is a CfnConnection.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.isCfnConnection.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.creationStack">creationStack</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.logicalId">logicalId</a></code> | <code>string</code> | The logical ID for this CloudFormation stack element. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this element is defined. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.ref">ref</a></code> | <code>string</code> | Return a string that will be resolved to a CloudFormation `{ Ref }` for this element. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.cfnOptions">cfnOptions</a></code> | <code>aws-cdk-lib.ICfnResourceOptions</code> | Options for this resource, such as condition, update policy etc. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.cfnResourceType">cfnResourceType</a></code> | <code>string</code> | AWS resource type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrConnectionId">attrConnectionId</a></code> | <code>string</code> | The ID of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrDomainId">attrDomainId</a></code> | <code>string</code> | The domain ID of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrDomainUnitId">attrDomainUnitId</a></code> | <code>string</code> | The domain unit ID of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrEnvironmentId">attrEnvironmentId</a></code> | <code>string</code> | The ID of the environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrEnvironmentUserRole">attrEnvironmentUserRole</a></code> | <code>string</code> | The environment user role. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrProjectId">attrProjectId</a></code> | <code>string</code> | The ID of the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrType">attrType</a></code> | <code>string</code> | The type of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.connectionRef">connectionRef</a></code> | <code>aws-cdk-lib.interfaces.aws_datazone.ConnectionReference</code> | A reference to a Connection resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.name">name</a></code> | <code>string</code> | The name of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.awsLocation">awsLocation</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_datazone.CfnConnection.AwsLocationProperty</code> | The location where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.configurations">configurations</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.description">description</a></code> | <code>string</code> | Connection description. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean \| aws-cdk-lib.IResolvable</code> | Specifies whether the trusted identity propagation is enabled. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The identifier of the project in which the connection should be created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.props">props</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_datazone.CfnConnection.ConnectionPropertiesInputProperty</code> | Connection props. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.scope">scope</a></code> | <code>string</code> | The scope of the connection. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `creationStack`<sup>Required</sup> <a name="creationStack" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.creationStack"></a>
+
+```typescript
+public readonly creationStack: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `logicalId`<sup>Required</sup> <a name="logicalId" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.logicalId"></a>
+
+```typescript
+public readonly logicalId: string;
+```
+
+- *Type:* string
+
+The logical ID for this CloudFormation stack element.
+
+The logical ID of the element
+is calculated from the path of the resource node in the construct tree.
+
+To override this value, use `overrideLogicalId(newLogicalId)`.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this element is defined.
+
+CfnElements must be defined within a stack scope (directly or indirectly).
+
+---
+
+##### `ref`<sup>Required</sup> <a name="ref" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.ref"></a>
+
+```typescript
+public readonly ref: string;
+```
+
+- *Type:* string
+
+Return a string that will be resolved to a CloudFormation `{ Ref }` for this element.
+
+If, by any chance, the intrinsic reference of a resource is not a string, you could
+coerce it to an IResolvable through `Lazy.any({ produce: resource.ref })`.
+
+---
+
+##### `cfnOptions`<sup>Required</sup> <a name="cfnOptions" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.cfnOptions"></a>
+
+```typescript
+public readonly cfnOptions: ICfnResourceOptions;
+```
+
+- *Type:* aws-cdk-lib.ICfnResourceOptions
+
+Options for this resource, such as condition, update policy etc.
+
+---
+
+##### `cfnResourceType`<sup>Required</sup> <a name="cfnResourceType" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.cfnResourceType"></a>
+
+```typescript
+public readonly cfnResourceType: string;
+```
+
+- *Type:* string
+
+AWS resource type.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
+
+---
+
+##### `attrConnectionId`<sup>Required</sup> <a name="attrConnectionId" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrConnectionId"></a>
+
+```typescript
+public readonly attrConnectionId: string;
+```
+
+- *Type:* string
+
+The ID of the connection.
+
+---
+
+##### `attrDomainId`<sup>Required</sup> <a name="attrDomainId" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrDomainId"></a>
+
+```typescript
+public readonly attrDomainId: string;
+```
+
+- *Type:* string
+
+The domain ID of the connection.
+
+---
+
+##### `attrDomainUnitId`<sup>Required</sup> <a name="attrDomainUnitId" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrDomainUnitId"></a>
+
+```typescript
+public readonly attrDomainUnitId: string;
+```
+
+- *Type:* string
+
+The domain unit ID of the connection.
+
+---
+
+##### `attrEnvironmentId`<sup>Required</sup> <a name="attrEnvironmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrEnvironmentId"></a>
+
+```typescript
+public readonly attrEnvironmentId: string;
+```
+
+- *Type:* string
+
+The ID of the environment.
+
+---
+
+##### `attrEnvironmentUserRole`<sup>Required</sup> <a name="attrEnvironmentUserRole" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrEnvironmentUserRole"></a>
+
+```typescript
+public readonly attrEnvironmentUserRole: string;
+```
+
+- *Type:* string
+
+The environment user role.
+
+---
+
+##### `attrProjectId`<sup>Required</sup> <a name="attrProjectId" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrProjectId"></a>
+
+```typescript
+public readonly attrProjectId: string;
+```
+
+- *Type:* string
+
+The ID of the project.
+
+---
+
+##### `attrType`<sup>Required</sup> <a name="attrType" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.attrType"></a>
+
+```typescript
+public readonly attrType: string;
+```
+
+- *Type:* string
+
+The type of the connection.
+
+---
+
+##### `connectionRef`<sup>Required</sup> <a name="connectionRef" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.connectionRef"></a>
+
+```typescript
+public readonly connectionRef: ConnectionReference;
+```
+
+- *Type:* aws-cdk-lib.interfaces.aws_datazone.ConnectionReference
+
+A reference to a Connection resource.
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain where the connection is created.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the connection.
+
+---
+
+##### `awsLocation`<sup>Optional</sup> <a name="awsLocation" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.awsLocation"></a>
+
+```typescript
+public readonly awsLocation: IResolvable | AwsLocationProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_datazone.CfnConnection.AwsLocationProperty
+
+The location where the connection is created.
+
+---
+
+##### `configurations`<sup>Optional</sup> <a name="configurations" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.configurations"></a>
+
+```typescript
+public readonly configurations: IResolvable | (IResolvable | ConnectionConfigurationProperty)[];
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.IResolvable | aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]
+
+The configurations of the connection.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+Connection description.
+
+---
+
+##### `enableTrustedIdentityPropagation`<sup>Optional</sup> <a name="enableTrustedIdentityPropagation" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.enableTrustedIdentityPropagation"></a>
+
+```typescript
+public readonly enableTrustedIdentityPropagation: boolean | IResolvable;
+```
+
+- *Type:* boolean | aws-cdk-lib.IResolvable
+
+Specifies whether the trusted identity propagation is enabled.
+
+---
+
+##### `environmentIdentifier`<sup>Optional</sup> <a name="environmentIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.environmentIdentifier"></a>
+
+```typescript
+public readonly environmentIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the environment where the connection is created.
+
+---
+
+##### `projectIdentifier`<sup>Optional</sup> <a name="projectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.projectIdentifier"></a>
+
+```typescript
+public readonly projectIdentifier: string;
+```
+
+- *Type:* string
+
+The identifier of the project in which the connection should be created.
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.props"></a>
+
+```typescript
+public readonly props: IResolvable | ConnectionPropertiesInputProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_datazone.CfnConnection.ConnectionPropertiesInputProperty
+
+Connection props.
+
+---
+
+##### `scope`<sup>Optional</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.scope"></a>
+
+```typescript
+public readonly scope: string;
+```
+
+- *Type:* string
+
+The scope of the connection.
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.CFN_RESOURCE_TYPE_NAME">CFN_RESOURCE_TYPE_NAME</a></code> | <code>string</code> | The CloudFormation resource type name for this resource class. |
+
+---
+
+##### `CFN_RESOURCE_TYPE_NAME`<sup>Required</sup> <a name="CFN_RESOURCE_TYPE_NAME" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnection.property.CFN_RESOURCE_TYPE_NAME"></a>
+
+```typescript
+public readonly CFN_RESOURCE_TYPE_NAME: string;
+```
+
+- *Type:* string
+
+The CloudFormation resource type name for this resource class.
+
+---
+
 ### OracleConnection <a name="OracleConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection"></a>
 
 A SageMaker Unified Studio Oracle database connection.
@@ -12861,14 +15760,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -12933,7 +15833,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -12941,8 +15841,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependency.parameter.target"></a>
 
@@ -12957,6 +15858,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addDependsOn.parameter.target"></a>
 
@@ -13107,6 +16012,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -13231,15 +16163,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -13251,6 +16175,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.OracleConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -14150,14 +17091,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -14222,7 +17164,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -14230,8 +17172,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependency.parameter.target"></a>
 
@@ -14246,6 +17189,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addDependsOn.parameter.target"></a>
 
@@ -14396,6 +17343,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -14520,15 +17494,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -14540,6 +17506,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.PostgreSqlConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -15782,6 +18765,7 @@ Import an existing project profile from its attributes.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.property.environmentConfigurationIds">environmentConfigurationIds</a></code> | <code>{[ key: string ]: string}</code> | Map of environment configuration name → ID, resolved at deploy time via GetProjectProfile. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.property.projectProfileId">projectProfileId</a></code> | <code>string</code> | The project profile ID. |
 
 ---
@@ -15795,6 +18779,18 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `environmentConfigurationIds`<sup>Required</sup> <a name="environmentConfigurationIds" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfile.property.environmentConfigurationIds"></a>
+
+```typescript
+public readonly environmentConfigurationIds: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+Map of environment configuration name → ID, resolved at deploy time via GetProjectProfile.
 
 ---
 
@@ -15869,14 +18865,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -15941,7 +18938,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -15949,8 +18946,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependency.parameter.target"></a>
 
@@ -15965,6 +18963,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addDependsOn.parameter.target"></a>
 
@@ -16115,6 +19117,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -16239,15 +19268,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -16259,6 +19280,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RedshiftConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -16769,6 +19807,193 @@ The CloudFormation resource type name for this resource class.
 
 ---
 
+### Rule <a name="Rule" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule"></a>
+
+- *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IRule">IRule</a>
+
+A DataZone governance rule that enforces specific requirements across user workflows (publishing assets, requesting subscriptions) within a domain unit.
+
+There is no CloudFormation resource type for DataZone rules, so this construct
+uses `AwsCustomResource` to call the DataZone API directly
+(CreateRule / UpdateRule / DeleteRule).
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateRule.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateRule.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.Initializer"></a>
+
+```typescript
+import { Rule } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new Rule(scope: Construct, id: string, props: RuleProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Rule.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Rule.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Rule.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleProps">RuleProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleProps">RuleProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Rule.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Rule.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Rule.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Rule.fromAttributes">fromAttributes</a></code> | Import an existing rule from its attributes. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.isConstruct"></a>
+
+```typescript
+import { Rule } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Rule.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.fromAttributes"></a>
+
+```typescript
+import { Rule } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+Rule.fromAttributes(scope: Construct, id: string, attrs: RuleAttributes)
+```
+
+Import an existing rule from its attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleAttributes">RuleAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Rule.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Rule.property.ruleId">ruleId</a></code> | <code>string</code> | The ID of the rule. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `ruleId`<sup>Required</sup> <a name="ruleId" id="@tonesingleton/cdk-sagemaker-unified-studio.Rule.property.ruleId"></a>
+
+```typescript
+public readonly ruleId: string;
+```
+
+- *Type:* string
+
+The ID of the rule.
+
+---
+
+
 ### S3Connection <a name="S3Connection" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection"></a>
 
 A SageMaker Unified Studio S3 connection that provides access to data stored in Amazon S3 from within a project.
@@ -16827,14 +20052,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -16899,7 +20125,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -16907,8 +20133,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependency.parameter.target"></a>
 
@@ -16923,6 +20150,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addDependsOn.parameter.target"></a>
 
@@ -17073,6 +20304,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -17197,15 +20455,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -17217,6 +20467,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.S3Connection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -17788,14 +21055,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -17860,7 +21128,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -17868,8 +21136,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependency.parameter.target"></a>
 
@@ -17884,6 +21153,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addDependsOn.parameter.target"></a>
 
@@ -18034,6 +21307,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -18158,15 +21458,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -18178,6 +21470,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SnowflakeConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -18746,14 +22055,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -18818,7 +22128,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -18826,8 +22136,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependency.parameter.target"></a>
 
@@ -18842,6 +22153,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addDependsOn.parameter.target"></a>
 
@@ -18992,6 +22307,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -19116,15 +22458,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -19136,6 +22470,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkEmrConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -19704,14 +23055,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -19776,7 +23128,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -19784,8 +23136,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependency.parameter.target"></a>
 
@@ -19800,6 +23153,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addDependsOn.parameter.target"></a>
 
@@ -19950,6 +23307,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -20074,15 +23458,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -20094,6 +23470,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SparkGlueConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -20665,14 +24058,15 @@ Connection props.
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.obtainResourceDependencies">obtainResourceDependencies</a></code> | Get a shallow copy of dependencies between this resource and other resources in the same stack. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
 
@@ -20737,7 +24131,7 @@ The path of the value to delete.
 
 ---
 
-##### `addDependency` <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependency"></a>
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependency"></a>
 
 ```typescript
 public addDependency(target: CfnResource): void
@@ -20745,8 +24139,9 @@ public addDependency(target: CfnResource): void
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
 
-This can be used for resources across stacks (or nested stack) boundaries
-and the dependency will automatically be transferred to the relevant scope.
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependency.parameter.target"></a>
 
@@ -20761,6 +24156,10 @@ public addDependsOn(target: CfnResource): void
 ```
 
 Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addDependsOn.parameter.target"></a>
 
@@ -20911,6 +24310,33 @@ The value.
 
 ---
 
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
 ##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.applyCrossStackReferenceStrength"></a>
 
 ```typescript
@@ -21035,15 +24461,7 @@ Retrieves an array of resources this resource depends on.
 This assembles dependencies on resources across stacks (including nested stacks)
 automatically.
 
-##### `obtainResourceDependencies` <a name="obtainResourceDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.obtainResourceDependencies"></a>
-
-```typescript
-public obtainResourceDependencies(): CfnResource[]
-```
-
-Get a shallow copy of dependencies between this resource and other resources in the same stack.
-
-##### `removeDependency` <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeDependency"></a>
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeDependency"></a>
 
 ```typescript
 public removeDependency(target: CfnResource): void
@@ -21055,6 +24473,23 @@ This can be used for resources across stacks (including nested stacks)
 and the dependency will automatically be removed from the relevant scope.
 
 ###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.SqlServerConnection.removeResourceDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.CfnResource
 
@@ -21913,6 +25348,1010 @@ The subscription target ID assigned by DataZone.
 ---
 
 
+### TeradataConnection <a name="TeradataConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection"></a>
+
+A SageMaker Unified Studio Teradata Vantage connection.
+
+Creates a Glue connection of type TERADATA with Spark-only compute,
+targeting a Teradata Vantage database. Supports optional VPC configuration
+for instances hosted within a VPC.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/data-connections-iam-based-domains.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/data-connections-iam-based-domains.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.Initializer"></a>
+
+```typescript
+import { TeradataConnection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new TeradataConnection(scope: Construct, id: string, props: TeradataConnectionProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | The scope of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps">TeradataConnectionProps</a></code> | Connection props. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The scope of the connection.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps">TeradataConnectionProps</a>
+
+Connection props.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.with">with</a></code> | Applies one or more mixins to this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.overrideLogicalId">overrideLogicalId</a></code> | Overrides the auto-generated logical ID with a specific ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addDeletionOverride">addDeletionOverride</a></code> | Syntactic sugar for `addOverride(path, undefined)`. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addDependency">addDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addDependsOn">addDependsOn</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addMetadata">addMetadata</a></code> | Add a value to the CloudFormation Resource Metadata. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addOverride">addOverride</a></code> | Adds an override to the synthesized CloudFormation resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addPropertyDeletionOverride">addPropertyDeletionOverride</a></code> | Adds an override that deletes the value of a property from the resource definition. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addPropertyOverride">addPropertyOverride</a></code> | Adds an override to a resource property. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addResourceDependency">addResourceDependency</a></code> | Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Sets the cross-stack reference strength for this resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.applyRemovalPolicy">applyRemovalPolicy</a></code> | Sets the deletion policy of the resource based on the removal policy specified. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.cfnPropertyName">cfnPropertyName</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.getAtt">getAtt</a></code> | Returns a token for an runtime attribute of this resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.getMetadata">getMetadata</a></code> | Retrieve a value value from the CloudFormation Resource Metadata. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.obtainDependencies">obtainDependencies</a></code> | Retrieves an array of resources this resource depends on. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.removeDependency">removeDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.removeResourceDependency">removeResourceDependency</a></code> | Indicates that this resource no longer depends on another resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.replaceDependency">replaceDependency</a></code> | Replaces one dependency with another. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.inspect">inspect</a></code> | Examines the CloudFormation resource and discloses attributes. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+---
+
+##### `overrideLogicalId` <a name="overrideLogicalId" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.overrideLogicalId"></a>
+
+```typescript
+public overrideLogicalId(newLogicalId: string): void
+```
+
+Overrides the auto-generated logical ID with a specific ID.
+
+###### `newLogicalId`<sup>Required</sup> <a name="newLogicalId" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.overrideLogicalId.parameter.newLogicalId"></a>
+
+- *Type:* string
+
+The new logical ID to use for this stack element.
+
+---
+
+##### `addDeletionOverride` <a name="addDeletionOverride" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addDeletionOverride"></a>
+
+```typescript
+public addDeletionOverride(path: string): void
+```
+
+Syntactic sugar for `addOverride(path, undefined)`.
+
+###### `path`<sup>Required</sup> <a name="path" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addDeletionOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the value to delete.
+
+---
+
+##### ~~`addDependency`~~ <a name="addDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addDependency"></a>
+
+```typescript
+public addDependency(target: CfnResource): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency` to more clearly
+set it apart from `construct.node.addDependency`. See the documentation
+of that function for more details.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### ~~`addDependsOn`~~ <a name="addDependsOn" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addDependsOn"></a>
+
+```typescript
+public addDependsOn(target: CfnResource): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This method has been renamed to `addResourceDependency`, which makes it
+more clear that this method operates at a different level from the
+construct-level `construct.node.addDependency()` mechanism.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addDependsOn.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `addMetadata` <a name="addMetadata" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addMetadata"></a>
+
+```typescript
+public addMetadata(key: string, value: any): void
+```
+
+Add a value to the CloudFormation Resource Metadata.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.)
+
+###### `key`<sup>Required</sup> <a name="key" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addMetadata.parameter.key"></a>
+
+- *Type:* string
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addMetadata.parameter.value"></a>
+
+- *Type:* any
+
+---
+
+##### `addOverride` <a name="addOverride" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addOverride"></a>
+
+```typescript
+public addOverride(path: string, value: any): void
+```
+
+Adds an override to the synthesized CloudFormation resource.
+
+To add a
+property override, either use `addPropertyOverride` or prefix `path` with
+"Properties." (i.e. `Properties.TopicName`).
+
+If the override is nested, separate each nested level using a dot (.) in the path parameter.
+If there is an array as part of the nesting, specify the index in the path.
+
+To include a literal `.` in the property name, prefix with a `\`. In most
+programming languages you will need to write this as `"\\."` because the
+`\` itself will need to be escaped.
+
+For example,
+```typescript
+cfnResource.addOverride('Properties.GlobalSecondaryIndexes.0.Projection.NonKeyAttributes', ['myattribute']);
+cfnResource.addOverride('Properties.GlobalSecondaryIndexes.1.ProjectionType', 'INCLUDE');
+```
+would add the overrides
+```json
+"Properties": {
+  "GlobalSecondaryIndexes": [
+    {
+      "Projection": {
+        "NonKeyAttributes": [ "myattribute" ]
+        ...
+      }
+      ...
+    },
+    {
+      "ProjectionType": "INCLUDE"
+      ...
+    },
+  ]
+  ...
+}
+```
+
+The `value` argument to `addOverride` will not be processed or translated
+in any way. Pass raw JSON values in here with the correct capitalization
+for CloudFormation. If you pass CDK classes or structs, they will be
+rendered with lowercased key names, and CloudFormation will reject the
+template.
+
+###### `path`<sup>Required</sup> <a name="path" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addOverride.parameter.path"></a>
+
+- *Type:* string
+
+The path of the property, you can use dot notation to override values in complex types.
+
+Any intermediate keys
+will be created as needed.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addOverride.parameter.value"></a>
+
+- *Type:* any
+
+The value.
+
+Could be primitive or complex.
+
+---
+
+##### `addPropertyDeletionOverride` <a name="addPropertyDeletionOverride" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addPropertyDeletionOverride"></a>
+
+```typescript
+public addPropertyDeletionOverride(propertyPath: string): void
+```
+
+Adds an override that deletes the value of a property from the resource definition.
+
+###### `propertyPath`<sup>Required</sup> <a name="propertyPath" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addPropertyDeletionOverride.parameter.propertyPath"></a>
+
+- *Type:* string
+
+The path to the property.
+
+---
+
+##### `addPropertyOverride` <a name="addPropertyOverride" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addPropertyOverride"></a>
+
+```typescript
+public addPropertyOverride(propertyPath: string, value: any): void
+```
+
+Adds an override to a resource property.
+
+Syntactic sugar for `addOverride("Properties.<...>", value)`.
+
+###### `propertyPath`<sup>Required</sup> <a name="propertyPath" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addPropertyOverride.parameter.propertyPath"></a>
+
+- *Type:* string
+
+The path of the property.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addPropertyOverride.parameter.value"></a>
+
+- *Type:* any
+
+The value.
+
+---
+
+##### `addResourceDependency` <a name="addResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addResourceDependency"></a>
+
+```typescript
+public addResourceDependency(target: CfnResource, reason?: string): void
+```
+
+Indicates that this resource depends on another resource and cannot be provisioned unless the other resource has been successfully provisioned.
+
+This can be used for resources across stacks (or nested stack) boundaries
+and the dependency will automatically be transferred to the relevant scope.
+
+This method only adds dependencies between L1 resources. If you are
+looking for a generic construct-to-construct dependency mechanism that works
+for all constructs including L2s, use `construct.node.addDependency` instead.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.addResourceDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
+##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.applyCrossStackReferenceStrength"></a>
+
+```typescript
+public applyCrossStackReferenceStrength(strength: ReferenceStrength): void
+```
+
+Sets the cross-stack reference strength for this resource.
+
+When set, any cross-stack reference to this resource will use the specified
+strength instead of the global default from the consuming stack's context.
+
+###### `strength`<sup>Required</sup> <a name="strength" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.applyCrossStackReferenceStrength.parameter.strength"></a>
+
+- *Type:* aws-cdk-lib.ReferenceStrength
+
+The reference strength to use for this resource.
+
+---
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy?: RemovalPolicy, options?: RemovalPolicyOptions): void
+```
+
+Sets the deletion policy of the resource based on the removal policy specified.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`). In some
+cases, a snapshot can be taken of the resource prior to deletion
+(`RemovalPolicy.SNAPSHOT`). A list of resources that support this policy
+can be found in the following link:
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html#aws-attribute-deletionpolicy-options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html#aws-attribute-deletionpolicy-options)
+
+###### `policy`<sup>Optional</sup> <a name="policy" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.applyRemovalPolicy.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicyOptions
+
+---
+
+##### `cfnPropertyName` <a name="cfnPropertyName" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.cfnPropertyName"></a>
+
+```typescript
+public cfnPropertyName(cdkPropertyName: string): string
+```
+
+###### `cdkPropertyName`<sup>Required</sup> <a name="cdkPropertyName" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.cfnPropertyName.parameter.cdkPropertyName"></a>
+
+- *Type:* string
+
+---
+
+##### `getAtt` <a name="getAtt" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.getAtt"></a>
+
+```typescript
+public getAtt(attributeName: string, typeHint?: ResolutionTypeHint): Reference
+```
+
+Returns a token for an runtime attribute of this resource.
+
+Ideally, use generated attribute accessors (e.g. `resource.arn`), but this can be used for future compatibility
+in case there is no generated attribute.
+
+###### `attributeName`<sup>Required</sup> <a name="attributeName" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.getAtt.parameter.attributeName"></a>
+
+- *Type:* string
+
+The name of the attribute.
+
+---
+
+###### `typeHint`<sup>Optional</sup> <a name="typeHint" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.getAtt.parameter.typeHint"></a>
+
+- *Type:* aws-cdk-lib.ResolutionTypeHint
+
+---
+
+##### `getMetadata` <a name="getMetadata" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.getMetadata"></a>
+
+```typescript
+public getMetadata(key: string): any
+```
+
+Retrieve a value value from the CloudFormation Resource Metadata.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+
+Note that this is a different set of metadata from CDK node metadata; this
+metadata ends up in the stack template under the resource, whereas CDK
+node metadata ends up in the Cloud Assembly.)
+
+###### `key`<sup>Required</sup> <a name="key" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.getMetadata.parameter.key"></a>
+
+- *Type:* string
+
+---
+
+##### `obtainDependencies` <a name="obtainDependencies" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.obtainDependencies"></a>
+
+```typescript
+public obtainDependencies(): (CfnResource | Stack)[]
+```
+
+Retrieves an array of resources this resource depends on.
+
+This assembles dependencies on resources across stacks (including nested stacks)
+automatically.
+
+##### ~~`removeDependency`~~ <a name="removeDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.removeDependency"></a>
+
+```typescript
+public removeDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.removeDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `removeResourceDependency` <a name="removeResourceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.removeResourceDependency"></a>
+
+```typescript
+public removeResourceDependency(target: CfnResource): void
+```
+
+Indicates that this resource no longer depends on another resource.
+
+This can be used for resources across stacks (including nested stacks)
+and the dependency will automatically be removed from the relevant scope.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.removeResourceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+---
+
+##### `replaceDependency` <a name="replaceDependency" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.replaceDependency"></a>
+
+```typescript
+public replaceDependency(target: CfnResource, newTarget: CfnResource): void
+```
+
+Replaces one dependency with another.
+
+###### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.replaceDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+The dependency to replace.
+
+---
+
+###### `newTarget`<sup>Required</sup> <a name="newTarget" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.replaceDependency.parameter.newTarget"></a>
+
+- *Type:* aws-cdk-lib.CfnResource
+
+The new dependency to add.
+
+---
+
+##### `inspect` <a name="inspect" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.inspect"></a>
+
+```typescript
+public inspect(inspector: TreeInspector): void
+```
+
+Examines the CloudFormation resource and discloses attributes.
+
+###### `inspector`<sup>Required</sup> <a name="inspector" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.inspect.parameter.inspector"></a>
+
+- *Type:* aws-cdk-lib.TreeInspector
+
+tree inspector to collect and process attributes.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isCfnElement">isCfnElement</a></code> | Returns `true` if a construct is a stack element (i.e. part of the synthesized cloudformation template). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isCfnResource">isCfnResource</a></code> | Check whether the given object is a CfnResource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isCfnConnection">isCfnConnection</a></code> | Checks whether the given object is a CfnConnection. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isConstruct"></a>
+
+```typescript
+import { TeradataConnection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+TeradataConnection.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isCfnElement` <a name="isCfnElement" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isCfnElement"></a>
+
+```typescript
+import { TeradataConnection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+TeradataConnection.isCfnElement(x: any)
+```
+
+Returns `true` if a construct is a stack element (i.e. part of the synthesized cloudformation template).
+
+Uses duck-typing instead of `instanceof` to allow stack elements from different
+versions of this library to be included in the same stack.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isCfnElement.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+##### `isCfnResource` <a name="isCfnResource" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isCfnResource"></a>
+
+```typescript
+import { TeradataConnection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+TeradataConnection.isCfnResource(x: any)
+```
+
+Check whether the given object is a CfnResource.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isCfnResource.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+##### `isCfnConnection` <a name="isCfnConnection" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isCfnConnection"></a>
+
+```typescript
+import { TeradataConnection } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+TeradataConnection.isCfnConnection(x: any)
+```
+
+Checks whether the given object is a CfnConnection.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.isCfnConnection.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.creationStack">creationStack</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.logicalId">logicalId</a></code> | <code>string</code> | The logical ID for this CloudFormation stack element. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this element is defined. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.ref">ref</a></code> | <code>string</code> | Return a string that will be resolved to a CloudFormation `{ Ref }` for this element. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.cfnOptions">cfnOptions</a></code> | <code>aws-cdk-lib.ICfnResourceOptions</code> | Options for this resource, such as condition, update policy etc. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.cfnResourceType">cfnResourceType</a></code> | <code>string</code> | AWS resource type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrConnectionId">attrConnectionId</a></code> | <code>string</code> | The ID of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrDomainId">attrDomainId</a></code> | <code>string</code> | The domain ID of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrDomainUnitId">attrDomainUnitId</a></code> | <code>string</code> | The domain unit ID of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrEnvironmentId">attrEnvironmentId</a></code> | <code>string</code> | The ID of the environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrEnvironmentUserRole">attrEnvironmentUserRole</a></code> | <code>string</code> | The environment user role. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrProjectId">attrProjectId</a></code> | <code>string</code> | The ID of the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrType">attrType</a></code> | <code>string</code> | The type of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.connectionRef">connectionRef</a></code> | <code>aws-cdk-lib.interfaces.aws_datazone.ConnectionReference</code> | A reference to a Connection resource. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.name">name</a></code> | <code>string</code> | The name of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.awsLocation">awsLocation</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_datazone.CfnConnection.AwsLocationProperty</code> | The location where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.configurations">configurations</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.description">description</a></code> | <code>string</code> | Connection description. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean \| aws-cdk-lib.IResolvable</code> | Specifies whether the trusted identity propagation is enabled. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The identifier of the project in which the connection should be created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.props">props</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_datazone.CfnConnection.ConnectionPropertiesInputProperty</code> | Connection props. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.scope">scope</a></code> | <code>string</code> | The scope of the connection. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `creationStack`<sup>Required</sup> <a name="creationStack" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.creationStack"></a>
+
+```typescript
+public readonly creationStack: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `logicalId`<sup>Required</sup> <a name="logicalId" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.logicalId"></a>
+
+```typescript
+public readonly logicalId: string;
+```
+
+- *Type:* string
+
+The logical ID for this CloudFormation stack element.
+
+The logical ID of the element
+is calculated from the path of the resource node in the construct tree.
+
+To override this value, use `overrideLogicalId(newLogicalId)`.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this element is defined.
+
+CfnElements must be defined within a stack scope (directly or indirectly).
+
+---
+
+##### `ref`<sup>Required</sup> <a name="ref" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.ref"></a>
+
+```typescript
+public readonly ref: string;
+```
+
+- *Type:* string
+
+Return a string that will be resolved to a CloudFormation `{ Ref }` for this element.
+
+If, by any chance, the intrinsic reference of a resource is not a string, you could
+coerce it to an IResolvable through `Lazy.any({ produce: resource.ref })`.
+
+---
+
+##### `cfnOptions`<sup>Required</sup> <a name="cfnOptions" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.cfnOptions"></a>
+
+```typescript
+public readonly cfnOptions: ICfnResourceOptions;
+```
+
+- *Type:* aws-cdk-lib.ICfnResourceOptions
+
+Options for this resource, such as condition, update policy etc.
+
+---
+
+##### `cfnResourceType`<sup>Required</sup> <a name="cfnResourceType" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.cfnResourceType"></a>
+
+```typescript
+public readonly cfnResourceType: string;
+```
+
+- *Type:* string
+
+AWS resource type.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
+
+---
+
+##### `attrConnectionId`<sup>Required</sup> <a name="attrConnectionId" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrConnectionId"></a>
+
+```typescript
+public readonly attrConnectionId: string;
+```
+
+- *Type:* string
+
+The ID of the connection.
+
+---
+
+##### `attrDomainId`<sup>Required</sup> <a name="attrDomainId" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrDomainId"></a>
+
+```typescript
+public readonly attrDomainId: string;
+```
+
+- *Type:* string
+
+The domain ID of the connection.
+
+---
+
+##### `attrDomainUnitId`<sup>Required</sup> <a name="attrDomainUnitId" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrDomainUnitId"></a>
+
+```typescript
+public readonly attrDomainUnitId: string;
+```
+
+- *Type:* string
+
+The domain unit ID of the connection.
+
+---
+
+##### `attrEnvironmentId`<sup>Required</sup> <a name="attrEnvironmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrEnvironmentId"></a>
+
+```typescript
+public readonly attrEnvironmentId: string;
+```
+
+- *Type:* string
+
+The ID of the environment.
+
+---
+
+##### `attrEnvironmentUserRole`<sup>Required</sup> <a name="attrEnvironmentUserRole" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrEnvironmentUserRole"></a>
+
+```typescript
+public readonly attrEnvironmentUserRole: string;
+```
+
+- *Type:* string
+
+The environment user role.
+
+---
+
+##### `attrProjectId`<sup>Required</sup> <a name="attrProjectId" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrProjectId"></a>
+
+```typescript
+public readonly attrProjectId: string;
+```
+
+- *Type:* string
+
+The ID of the project.
+
+---
+
+##### `attrType`<sup>Required</sup> <a name="attrType" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.attrType"></a>
+
+```typescript
+public readonly attrType: string;
+```
+
+- *Type:* string
+
+The type of the connection.
+
+---
+
+##### `connectionRef`<sup>Required</sup> <a name="connectionRef" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.connectionRef"></a>
+
+```typescript
+public readonly connectionRef: ConnectionReference;
+```
+
+- *Type:* aws-cdk-lib.interfaces.aws_datazone.ConnectionReference
+
+A reference to a Connection resource.
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain where the connection is created.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the connection.
+
+---
+
+##### `awsLocation`<sup>Optional</sup> <a name="awsLocation" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.awsLocation"></a>
+
+```typescript
+public readonly awsLocation: IResolvable | AwsLocationProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_datazone.CfnConnection.AwsLocationProperty
+
+The location where the connection is created.
+
+---
+
+##### `configurations`<sup>Optional</sup> <a name="configurations" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.configurations"></a>
+
+```typescript
+public readonly configurations: IResolvable | (IResolvable | ConnectionConfigurationProperty)[];
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.IResolvable | aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]
+
+The configurations of the connection.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+Connection description.
+
+---
+
+##### `enableTrustedIdentityPropagation`<sup>Optional</sup> <a name="enableTrustedIdentityPropagation" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.enableTrustedIdentityPropagation"></a>
+
+```typescript
+public readonly enableTrustedIdentityPropagation: boolean | IResolvable;
+```
+
+- *Type:* boolean | aws-cdk-lib.IResolvable
+
+Specifies whether the trusted identity propagation is enabled.
+
+---
+
+##### `environmentIdentifier`<sup>Optional</sup> <a name="environmentIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.environmentIdentifier"></a>
+
+```typescript
+public readonly environmentIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the environment where the connection is created.
+
+---
+
+##### `projectIdentifier`<sup>Optional</sup> <a name="projectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.projectIdentifier"></a>
+
+```typescript
+public readonly projectIdentifier: string;
+```
+
+- *Type:* string
+
+The identifier of the project in which the connection should be created.
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.props"></a>
+
+```typescript
+public readonly props: IResolvable | ConnectionPropertiesInputProperty;
+```
+
+- *Type:* aws-cdk-lib.IResolvable | aws-cdk-lib.aws_datazone.CfnConnection.ConnectionPropertiesInputProperty
+
+Connection props.
+
+---
+
+##### `scope`<sup>Optional</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.scope"></a>
+
+```typescript
+public readonly scope: string;
+```
+
+- *Type:* string
+
+The scope of the connection.
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.CFN_RESOURCE_TYPE_NAME">CFN_RESOURCE_TYPE_NAME</a></code> | <code>string</code> | The CloudFormation resource type name for this resource class. |
+
+---
+
+##### `CFN_RESOURCE_TYPE_NAME`<sup>Required</sup> <a name="CFN_RESOURCE_TYPE_NAME" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnection.property.CFN_RESOURCE_TYPE_NAME"></a>
+
+```typescript
+public readonly CFN_RESOURCE_TYPE_NAME: string;
+```
+
+- *Type:* string
+
+The CloudFormation resource type name for this resource class.
+
+---
+
 ### UserProfile <a name="UserProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.UserProfile"></a>
 
 - *Implements:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IUserProfile">IUserProfile</a>
@@ -22325,7 +26764,396 @@ The workflow name.
 ---
 
 
+### WorkflowsEnvironment <a name="WorkflowsEnvironment" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment"></a>
+
+A SageMaker Unified Studio Workflows environment.
+
+Opinionated wrapper around `Environment` for the Workflows blueprint.
+Provisions an MWAA Serverless environment within a project, enabling
+DAG-based orchestration of Glue jobs and other AWS services.
+
+- The environment name defaults to `"Workflows"`.
+- The blueprint ID is derived from `domain.blueprints`.
+- The environment configuration ID is resolved from `projectProfile`.
+
+> [https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/workflows-blueprint.html](https://docs.aws.amazon.com/sagemaker-unified-studio/latest/userguide/workflows-blueprint.html)
+
+#### Initializers <a name="Initializers" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.Initializer"></a>
+
+```typescript
+import { WorkflowsEnvironment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+new WorkflowsEnvironment(scope: Construct, id: string, props: WorkflowsEnvironmentProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.Initializer.parameter.props">props</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps">WorkflowsEnvironmentProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps">WorkflowsEnvironmentProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.with">with</a></code> | Applies one or more mixins to this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.fromAttributes">fromAttributes</a></code> | Import an existing Workflows environment from its ID. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.isConstruct"></a>
+
+```typescript
+import { WorkflowsEnvironment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+WorkflowsEnvironment.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.fromAttributes"></a>
+
+```typescript
+import { WorkflowsEnvironment } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+WorkflowsEnvironment.fromAttributes(scope: Construct, id: string, attrs: EnvironmentAttributes)
+```
+
+Import an existing Workflows environment from its ID.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.fromAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.fromAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentAttributes">EnvironmentAttributes</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.property.environmentId">environmentId</a></code> | <code>string</code> | The environment ID. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `environmentId`<sup>Required</sup> <a name="environmentId" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment.property.environmentId"></a>
+
+```typescript
+public readonly environmentId: string;
+```
+
+- *Type:* string
+
+The environment ID.
+
+---
+
+
 ## Structs <a name="Structs" id="Structs"></a>
+
+### AccountInfo <a name="AccountInfo" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountInfo"></a>
+
+A static account entry within an account pool.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_AccountInfo.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_AccountInfo.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountInfo.Initializer"></a>
+
+```typescript
+import { AccountInfo } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const accountInfo: AccountInfo = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountInfo.property.awsAccountId">awsAccountId</a></code> | <code>string</code> | The 12-digit AWS account ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountInfo.property.supportedRegions">supportedRegions</a></code> | <code>string[]</code> | The regions supported for this account (1–3 regions). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountInfo.property.awsAccountName">awsAccountName</a></code> | <code>string</code> | A human-readable name for the account. |
+
+---
+
+##### `awsAccountId`<sup>Required</sup> <a name="awsAccountId" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountInfo.property.awsAccountId"></a>
+
+```typescript
+public readonly awsAccountId: string;
+```
+
+- *Type:* string
+
+The 12-digit AWS account ID.
+
+---
+
+##### `supportedRegions`<sup>Required</sup> <a name="supportedRegions" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountInfo.property.supportedRegions"></a>
+
+```typescript
+public readonly supportedRegions: string[];
+```
+
+- *Type:* string[]
+
+The regions supported for this account (1–3 regions).
+
+---
+
+##### `awsAccountName`<sup>Optional</sup> <a name="awsAccountName" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountInfo.property.awsAccountName"></a>
+
+```typescript
+public readonly awsAccountName: string;
+```
+
+- *Type:* string
+- *Default:* no name
+
+A human-readable name for the account.
+
+---
+
+### AccountPoolAttributes <a name="AccountPoolAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolAttributes"></a>
+
+Attributes required to import an existing AccountPool.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolAttributes.Initializer"></a>
+
+```typescript
+import { AccountPoolAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const accountPoolAttributes: AccountPoolAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolAttributes.property.accountPoolId">accountPoolId</a></code> | <code>string</code> | The account pool ID. |
+
+---
+
+##### `accountPoolId`<sup>Required</sup> <a name="accountPoolId" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolAttributes.property.accountPoolId"></a>
+
+```typescript
+public readonly accountPoolId: string;
+```
+
+- *Type:* string
+
+The account pool ID.
+
+---
+
+### AccountPoolProps <a name="AccountPoolProps" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps"></a>
+
+Properties for an AccountPool construct.
+
+There is no CloudFormation resource for DataZone account pools.
+This construct uses AwsCustomResource to call the DataZone API directly.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAccountPool.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAccountPool.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.Initializer"></a>
+
+```typescript
+import { AccountPoolProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const accountPoolProps: AccountPoolProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.accountSource">accountSource</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountSource">AccountSource</a></code> | The source of accounts for the pool. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.name">name</a></code> | <code>string</code> | The pool name (1–64 characters, pattern `[\w -]+`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the pool. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for account pool operations. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.resolutionStrategy">resolutionStrategy</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ResolutionStrategy">ResolutionStrategy</a></code> | The mechanism used to resolve account selection. |
+
+---
+
+##### `accountSource`<sup>Required</sup> <a name="accountSource" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.accountSource"></a>
+
+```typescript
+public readonly accountSource: AccountSource;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountSource">AccountSource</a>
+
+The source of accounts for the pool.
+
+Specify either `accounts` or `customAccountPoolHandler`.
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd_abc123`).
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The pool name (1–64 characters, pattern `[\w -]+`).
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the pool.
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role assumption; Lambda calls DataZone directly
+
+ARN of a role that DataZone trusts for account pool operations.
+
+---
+
+##### `resolutionStrategy`<sup>Optional</sup> <a name="resolutionStrategy" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountPoolProps.property.resolutionStrategy"></a>
+
+```typescript
+public readonly resolutionStrategy: ResolutionStrategy;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ResolutionStrategy">ResolutionStrategy</a>
+- *Default:* ResolutionStrategy.MANUAL
+
+The mechanism used to resolve account selection.
+
+---
 
 ### AccountRolesProps <a name="AccountRolesProps" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountRolesProps"></a>
 
@@ -22358,6 +27186,886 @@ public readonly kmsKeyArn: string;
 - *Type:* string
 
 The ARN of the KMS key used by the execution role for encrypting and decrypting data within SageMaker Unified Studio projects.
+
+---
+
+### AccountSource <a name="AccountSource" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountSource"></a>
+
+The source of accounts for the pool (union — specify exactly one).
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_AccountSource.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_AccountSource.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountSource.Initializer"></a>
+
+```typescript
+import { AccountSource } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const accountSource: AccountSource = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountSource.property.accounts">accounts</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountInfo">AccountInfo</a>[]</code> | A static list of accounts (1–25 items). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountSource.property.customAccountPoolHandler">customAccountPoolHandler</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.CustomAccountPoolHandler">CustomAccountPoolHandler</a></code> | A custom Lambda handler that provides accounts dynamically. |
+
+---
+
+##### `accounts`<sup>Optional</sup> <a name="accounts" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountSource.property.accounts"></a>
+
+```typescript
+public readonly accounts: AccountInfo[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountInfo">AccountInfo</a>[]
+
+A static list of accounts (1–25 items).
+
+---
+
+##### `customAccountPoolHandler`<sup>Optional</sup> <a name="customAccountPoolHandler" id="@tonesingleton/cdk-sagemaker-unified-studio.AccountSource.property.customAccountPoolHandler"></a>
+
+```typescript
+public readonly customAccountPoolHandler: CustomAccountPoolHandler;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.CustomAccountPoolHandler">CustomAccountPoolHandler</a>
+
+A custom Lambda handler that provides accounts dynamically.
+
+---
+
+### AssetAttributes <a name="AssetAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetAttributes"></a>
+
+Attributes required to import an existing Asset.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetAttributes.Initializer"></a>
+
+```typescript
+import { AssetAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const assetAttributes: AssetAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetAttributes.property.assetId">assetId</a></code> | <code>string</code> | The asset ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetAttributes.property.revision">revision</a></code> | <code>string</code> | The revision of the asset. |
+
+---
+
+##### `assetId`<sup>Required</sup> <a name="assetId" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetAttributes.property.assetId"></a>
+
+```typescript
+public readonly assetId: string;
+```
+
+- *Type:* string
+
+The asset ID.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetAttributes.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the asset.
+
+---
+
+### AssetFilterAttributes <a name="AssetFilterAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterAttributes"></a>
+
+Attributes required to import an existing AssetFilter.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterAttributes.Initializer"></a>
+
+```typescript
+import { AssetFilterAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const assetFilterAttributes: AssetFilterAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterAttributes.property.assetFilterId">assetFilterId</a></code> | <code>string</code> | The asset filter ID. |
+
+---
+
+##### `assetFilterId`<sup>Required</sup> <a name="assetFilterId" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterAttributes.property.assetFilterId"></a>
+
+```typescript
+public readonly assetFilterId: string;
+```
+
+- *Type:* string
+
+The asset filter ID.
+
+---
+
+### AssetFilterConfiguration <a name="AssetFilterConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterConfiguration"></a>
+
+The filter configuration — either column-based or row-based (union type, not both).
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterConfiguration.Initializer"></a>
+
+```typescript
+import { AssetFilterConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const assetFilterConfiguration: AssetFilterConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterConfiguration.property.columnConfiguration">columnConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnFilterConfiguration">ColumnFilterConfiguration</a></code> | Column-based filter — restricts visible columns. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterConfiguration.property.rowConfiguration">rowConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterConfiguration">RowFilterConfiguration</a></code> | Row-based filter — restricts visible rows. |
+
+---
+
+##### `columnConfiguration`<sup>Optional</sup> <a name="columnConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterConfiguration.property.columnConfiguration"></a>
+
+```typescript
+public readonly columnConfiguration: ColumnFilterConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnFilterConfiguration">ColumnFilterConfiguration</a>
+
+Column-based filter — restricts visible columns.
+
+---
+
+##### `rowConfiguration`<sup>Optional</sup> <a name="rowConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterConfiguration.property.rowConfiguration"></a>
+
+```typescript
+public readonly rowConfiguration: RowFilterConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterConfiguration">RowFilterConfiguration</a>
+
+Row-based filter — restricts visible rows.
+
+---
+
+### AssetFilterProps <a name="AssetFilterProps" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps"></a>
+
+Properties for an AssetFilter construct.
+
+There is no CloudFormation resource for DataZone asset filters.
+This construct uses AwsCustomResource to call the DataZone API directly.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetFilter.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetFilter.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.Initializer"></a>
+
+```typescript
+import { AssetFilterProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const assetFilterProps: AssetFilterProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.assetIdentifier">assetIdentifier</a></code> | <code>string</code> | The ID of the asset this filter applies to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.configuration">configuration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterConfiguration">AssetFilterConfiguration</a></code> | The filter configuration. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.name">name</a></code> | <code>string</code> | The filter name (1–64 characters, pattern `[\w -]+`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the filter. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for asset filter operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
+
+---
+
+##### `assetIdentifier`<sup>Required</sup> <a name="assetIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.assetIdentifier"></a>
+
+```typescript
+public readonly assetIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the asset this filter applies to.
+
+---
+
+##### `configuration`<sup>Required</sup> <a name="configuration" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.configuration"></a>
+
+```typescript
+public readonly configuration: AssetFilterConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterConfiguration">AssetFilterConfiguration</a>
+
+The filter configuration.
+
+Specify either `columnConfiguration` or `rowConfiguration`, not both.
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd_abc123`).
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The filter name (1–64 characters, pattern `[\w -]+`).
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the filter.
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFilterProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role assumption; Lambda calls DataZone directly
+
+ARN of a role that DataZone trusts for asset filter operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
+
+When omitted, the Lambda calls DataZone directly without role assumption.
+
+---
+
+### AssetFormInput <a name="AssetFormInput" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput"></a>
+
+A metadata form attached to the asset.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput.Initializer"></a>
+
+```typescript
+import { AssetFormInput } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const assetFormInput: AssetFormInput = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput.property.formName">formName</a></code> | <code>string</code> | The name of the form. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput.property.content">content</a></code> | <code>string</code> | The serialized form content. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput.property.typeIdentifier">typeIdentifier</a></code> | <code>string</code> | The identifier of the form type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput.property.typeRevision">typeRevision</a></code> | <code>string</code> | The revision of the form type. |
+
+---
+
+##### `formName`<sup>Required</sup> <a name="formName" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput.property.formName"></a>
+
+```typescript
+public readonly formName: string;
+```
+
+- *Type:* string
+
+The name of the form.
+
+---
+
+##### `content`<sup>Optional</sup> <a name="content" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput.property.content"></a>
+
+```typescript
+public readonly content: string;
+```
+
+- *Type:* string
+
+The serialized form content.
+
+---
+
+##### `typeIdentifier`<sup>Optional</sup> <a name="typeIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput.property.typeIdentifier"></a>
+
+```typescript
+public readonly typeIdentifier: string;
+```
+
+- *Type:* string
+
+The identifier of the form type.
+
+---
+
+##### `typeRevision`<sup>Optional</sup> <a name="typeRevision" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput.property.typeRevision"></a>
+
+```typescript
+public readonly typeRevision: string;
+```
+
+- *Type:* string
+
+The revision of the form type.
+
+---
+
+### AssetProps <a name="AssetProps" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps"></a>
+
+Properties for an Asset construct.
+
+There is no CloudFormation resource for DataZone assets.
+This construct uses AwsCustomResource to call the DataZone API directly.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAsset.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAsset.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.Initializer"></a>
+
+```typescript
+import { AssetProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const assetProps: AssetProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain where the asset is created (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.name">name</a></code> | <code>string</code> | The asset name (1–256 characters). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.owningProjectIdentifier">owningProjectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this asset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.typeIdentifier">typeIdentifier</a></code> | <code>string</code> | The unique identifier of the asset type (e.g. `amazon.datazone.GlueTableAssetType`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the asset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for asset operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.externalIdentifier">externalIdentifier</a></code> | <code>string</code> | An external identifier for the asset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.formsInput">formsInput</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput">AssetFormInput</a>[]</code> | Metadata forms attached to the asset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms attached to the asset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.predictionConfiguration">predictionConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PredictionConfiguration">PredictionConfiguration</a></code> | Configuration for automatically generated business-friendly metadata. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.typeRevision">typeRevision</a></code> | <code>string</code> | The revision of the asset type. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain where the asset is created (e.g. `dzd_abc123`).
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The asset name (1–256 characters).
+
+---
+
+##### `owningProjectIdentifier`<sup>Required</sup> <a name="owningProjectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.owningProjectIdentifier"></a>
+
+```typescript
+public readonly owningProjectIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the project that owns this asset.
+
+---
+
+##### `typeIdentifier`<sup>Required</sup> <a name="typeIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.typeIdentifier"></a>
+
+```typescript
+public readonly typeIdentifier: string;
+```
+
+- *Type:* string
+
+The unique identifier of the asset type (e.g. `amazon.datazone.GlueTableAssetType`).
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the asset.
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role assumption; Lambda calls DataZone directly
+
+ARN of a role that DataZone trusts for asset operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
+
+When omitted, the Lambda calls DataZone directly without role assumption.
+
+---
+
+##### `externalIdentifier`<sup>Optional</sup> <a name="externalIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.externalIdentifier"></a>
+
+```typescript
+public readonly externalIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* no external identifier
+
+An external identifier for the asset.
+
+Must be unique if specified.
+
+---
+
+##### `formsInput`<sup>Optional</sup> <a name="formsInput" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.formsInput"></a>
+
+```typescript
+public readonly formsInput: AssetFormInput[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput">AssetFormInput</a>[]
+- *Default:* no forms
+
+Metadata forms attached to the asset.
+
+---
+
+##### `glossaryTerms`<sup>Optional</sup> <a name="glossaryTerms" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.glossaryTerms"></a>
+
+```typescript
+public readonly glossaryTerms: string[];
+```
+
+- *Type:* string[]
+- *Default:* no glossary terms
+
+Glossary terms attached to the asset.
+
+---
+
+##### `predictionConfiguration`<sup>Optional</sup> <a name="predictionConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.predictionConfiguration"></a>
+
+```typescript
+public readonly predictionConfiguration: PredictionConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.PredictionConfiguration">PredictionConfiguration</a>
+- *Default:* no prediction configuration
+
+Configuration for automatically generated business-friendly metadata.
+
+---
+
+##### `typeRevision`<sup>Optional</sup> <a name="typeRevision" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetProps.property.typeRevision"></a>
+
+```typescript
+public readonly typeRevision: string;
+```
+
+- *Type:* string
+- *Default:* latest revision
+
+The revision of the asset type.
+
+---
+
+### AssetRevisionProps <a name="AssetRevisionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps"></a>
+
+Properties for an AssetRevision construct.
+
+There is no CloudFormation resource for DataZone asset revisions.
+This construct uses AwsCustomResource to call the DataZone API directly.
+Revisions are immutable — the custom resource only runs on create; there is
+no update or delete operation.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetRevision.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetRevision.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.Initializer"></a>
+
+```typescript
+import { AssetRevisionProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const assetRevisionProps: AssetRevisionProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.identifier">identifier</a></code> | <code>string</code> | The ID of the asset being revised. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.name">name</a></code> | <code>string</code> | The revised asset name (1–256 characters). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.description">description</a></code> | <code>string</code> | The revised description of the asset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for asset revision operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.formsInput">formsInput</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput">AssetFormInput</a>[]</code> | Metadata forms to attach as part of this revision. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms to attach as part of this revision. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.predictionConfiguration">predictionConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PredictionConfiguration">PredictionConfiguration</a></code> | Configuration for automatically generated business-friendly metadata. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.typeRevision">typeRevision</a></code> | <code>string</code> | The revision of the asset type to use for this revision. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd_abc123`).
+
+---
+
+##### `identifier`<sup>Required</sup> <a name="identifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.identifier"></a>
+
+```typescript
+public readonly identifier: string;
+```
+
+- *Type:* string
+
+The ID of the asset being revised.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The revised asset name (1–256 characters).
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+The revised description of the asset.
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role assumption; Lambda calls DataZone directly
+
+ARN of a role that DataZone trusts for asset revision operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
+
+When omitted, the Lambda calls DataZone directly without role assumption.
+
+---
+
+##### `formsInput`<sup>Optional</sup> <a name="formsInput" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.formsInput"></a>
+
+```typescript
+public readonly formsInput: AssetFormInput[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFormInput">AssetFormInput</a>[]
+- *Default:* no forms
+
+Metadata forms to attach as part of this revision.
+
+---
+
+##### `glossaryTerms`<sup>Optional</sup> <a name="glossaryTerms" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.glossaryTerms"></a>
+
+```typescript
+public readonly glossaryTerms: string[];
+```
+
+- *Type:* string[]
+- *Default:* no glossary terms
+
+Glossary terms to attach as part of this revision.
+
+---
+
+##### `predictionConfiguration`<sup>Optional</sup> <a name="predictionConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.predictionConfiguration"></a>
+
+```typescript
+public readonly predictionConfiguration: PredictionConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.PredictionConfiguration">PredictionConfiguration</a>
+- *Default:* no prediction configuration
+
+Configuration for automatically generated business-friendly metadata.
+
+---
+
+##### `typeRevision`<sup>Optional</sup> <a name="typeRevision" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetRevisionProps.property.typeRevision"></a>
+
+```typescript
+public readonly typeRevision: string;
+```
+
+- *Type:* string
+- *Default:* latest revision
+
+The revision of the asset type to use for this revision.
+
+---
+
+### AssetTypeAttributes <a name="AssetTypeAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeAttributes"></a>
+
+Attributes required to import an existing AssetType.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeAttributes.Initializer"></a>
+
+```typescript
+import { AssetTypeAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const assetTypeAttributes: AssetTypeAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeAttributes.property.assetTypeName">assetTypeName</a></code> | <code>string</code> | The asset type name. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeAttributes.property.revision">revision</a></code> | <code>string</code> | The revision of the asset type. |
+
+---
+
+##### `assetTypeName`<sup>Required</sup> <a name="assetTypeName" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeAttributes.property.assetTypeName"></a>
+
+```typescript
+public readonly assetTypeName: string;
+```
+
+- *Type:* string
+
+The asset type name.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeAttributes.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the asset type.
+
+---
+
+### AssetTypeProps <a name="AssetTypeProps" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps"></a>
+
+Properties for an AssetType construct.
+
+There is no CloudFormation resource for DataZone asset types.
+This construct uses AwsCustomResource to call the DataZone API directly.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetType.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateAssetType.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.Initializer"></a>
+
+```typescript
+import { AssetTypeProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const assetTypeProps: AssetTypeProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain where the asset type is created (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.formsInput">formsInput</a></code> | <code>{[ key: string ]: <a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormEntryInput">FormEntryInput</a>}</code> | The metadata forms attached to this asset type, keyed by form name. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.name">name</a></code> | <code>string</code> | The name of the asset type (1–256 characters, must not contain `.`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.owningProjectIdentifier">owningProjectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this asset type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the asset type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for asset type operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain where the asset type is created (e.g. `dzd_abc123`).
+
+---
+
+##### `formsInput`<sup>Required</sup> <a name="formsInput" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.formsInput"></a>
+
+```typescript
+public readonly formsInput: {[ key: string ]: FormEntryInput};
+```
+
+- *Type:* {[ key: string ]: <a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormEntryInput">FormEntryInput</a>}
+
+The metadata forms attached to this asset type, keyed by form name.
+
+Pass an empty object (`{}`) when no forms are required.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the asset type (1–256 characters, must not contain `.`).
+
+---
+
+##### `owningProjectIdentifier`<sup>Required</sup> <a name="owningProjectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.owningProjectIdentifier"></a>
+
+```typescript
+public readonly owningProjectIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the project that owns this asset type.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the asset type.
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypeProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role assumption; Lambda calls DataZone directly
+
+ARN of a role that DataZone trusts for asset type operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
+
+When omitted, the Lambda calls DataZone directly without role assumption.
+
+---
+
+### AssetTypesForRule <a name="AssetTypesForRule" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypesForRule"></a>
+
+Restricts which asset types the rule applies to.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_AssetTypesForRule.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_AssetTypesForRule.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypesForRule.Initializer"></a>
+
+```typescript
+import { AssetTypesForRule } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const assetTypesForRule: AssetTypesForRule = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypesForRule.property.selectionMode">selectionMode</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleSelectionMode">RuleSelectionMode</a></code> | Whether to apply to all asset types or only specific ones. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypesForRule.property.specificAssetTypes">specificAssetTypes</a></code> | <code>string[]</code> | The specific asset type names to include. |
+
+---
+
+##### `selectionMode`<sup>Required</sup> <a name="selectionMode" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypesForRule.property.selectionMode"></a>
+
+```typescript
+public readonly selectionMode: RuleSelectionMode;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleSelectionMode">RuleSelectionMode</a>
+
+Whether to apply to all asset types or only specific ones.
+
+---
+
+##### `specificAssetTypes`<sup>Optional</sup> <a name="specificAssetTypes" id="@tonesingleton/cdk-sagemaker-unified-studio.AssetTypesForRule.property.specificAssetTypes"></a>
+
+```typescript
+public readonly specificAssetTypes: string[];
+```
+
+- *Type:* string[]
+- *Default:* all asset types
+
+The specific asset type names to include.
+
+Required when `selectionMode` is `SPECIFIC`.
 
 ---
 
@@ -23239,6 +28947,38 @@ Per-region parameters (e.g. S3Location, VpcId, Subnets for the Tooling blueprint
 
 ---
 
+### BusinessNameGenerationConfiguration <a name="BusinessNameGenerationConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.BusinessNameGenerationConfiguration"></a>
+
+Business name generation settings within a prediction configuration.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.BusinessNameGenerationConfiguration.Initializer"></a>
+
+```typescript
+import { BusinessNameGenerationConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const businessNameGenerationConfiguration: BusinessNameGenerationConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BusinessNameGenerationConfiguration.property.enabled">enabled</a></code> | <code>boolean</code> | Whether business name generation is enabled. |
+
+---
+
+##### `enabled`<sup>Required</sup> <a name="enabled" id="@tonesingleton/cdk-sagemaker-unified-studio.BusinessNameGenerationConfiguration.property.enabled"></a>
+
+```typescript
+public readonly enabled: boolean;
+```
+
+- *Type:* boolean
+
+Whether business name generation is enabled.
+
+---
+
 ### Column <a name="Column" id="@tonesingleton/cdk-sagemaker-unified-studio.Column"></a>
 
 A column definition for a data catalog table.
@@ -23313,6 +29053,163 @@ public readonly parameters: {[ key: string ]: string};
 - *Default:* no parameters
 
 Key-value pairs defining properties associated with the column.
+
+---
+
+### ColumnFilterConfiguration <a name="ColumnFilterConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnFilterConfiguration"></a>
+
+Column-based filter configuration — restricts which columns are visible.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnFilterConfiguration.Initializer"></a>
+
+```typescript
+import { ColumnFilterConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const columnFilterConfiguration: ColumnFilterConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnFilterConfiguration.property.includedColumnNames">includedColumnNames</a></code> | <code>string[]</code> | The column names to include. |
+
+---
+
+##### `includedColumnNames`<sup>Optional</sup> <a name="includedColumnNames" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnFilterConfiguration.property.includedColumnNames"></a>
+
+```typescript
+public readonly includedColumnNames: string[];
+```
+
+- *Type:* string[]
+- *Default:* all columns included
+
+The column names to include.
+
+When omitted, all columns are included.
+
+---
+
+### ColumnReference <a name="ColumnReference" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnReference"></a>
+
+A single-column reference used in null-check expressions.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnReference.Initializer"></a>
+
+```typescript
+import { ColumnReference } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const columnReference: ColumnReference = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnReference.property.columnName">columnName</a></code> | <code>string</code> | The column name to check. |
+
+---
+
+##### `columnName`<sup>Required</sup> <a name="columnName" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnReference.property.columnName"></a>
+
+```typescript
+public readonly columnName: string;
+```
+
+- *Type:* string
+
+The column name to check.
+
+---
+
+### ColumnValuePair <a name="ColumnValuePair" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair"></a>
+
+A column-value pair used in comparison expressions.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair.Initializer"></a>
+
+```typescript
+import { ColumnValuePair } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const columnValuePair: ColumnValuePair = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair.property.columnName">columnName</a></code> | <code>string</code> | The column name to compare. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair.property.value">value</a></code> | <code>string</code> | The value to compare against. |
+
+---
+
+##### `columnName`<sup>Required</sup> <a name="columnName" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair.property.columnName"></a>
+
+```typescript
+public readonly columnName: string;
+```
+
+- *Type:* string
+
+The column name to compare.
+
+---
+
+##### `value`<sup>Required</sup> <a name="value" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair.property.value"></a>
+
+```typescript
+public readonly value: string;
+```
+
+- *Type:* string
+
+The value to compare against.
+
+---
+
+### ColumnValuesPair <a name="ColumnValuesPair" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuesPair"></a>
+
+A column-values pair used in set membership expressions.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuesPair.Initializer"></a>
+
+```typescript
+import { ColumnValuesPair } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const columnValuesPair: ColumnValuesPair = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuesPair.property.columnName">columnName</a></code> | <code>string</code> | The column name to compare. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuesPair.property.values">values</a></code> | <code>string[]</code> | The set of values to compare against. |
+
+---
+
+##### `columnName`<sup>Required</sup> <a name="columnName" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuesPair.property.columnName"></a>
+
+```typescript
+public readonly columnName: string;
+```
+
+- *Type:* string
+
+The column name to compare.
+
+---
+
+##### `values`<sup>Required</sup> <a name="values" id="@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuesPair.property.values"></a>
+
+```typescript
+public readonly values: string[];
+```
+
+- *Type:* string[]
+
+The set of values to compare against.
 
 ---
 
@@ -23459,6 +29356,54 @@ The ID of the project that owns this connection.
 
 ---
 
+### CustomAccountPoolHandler <a name="CustomAccountPoolHandler" id="@tonesingleton/cdk-sagemaker-unified-studio.CustomAccountPoolHandler"></a>
+
+A custom Lambda handler that dynamically provides accounts for the pool.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CustomAccountPoolHandler.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CustomAccountPoolHandler.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.CustomAccountPoolHandler.Initializer"></a>
+
+```typescript
+import { CustomAccountPoolHandler } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const customAccountPoolHandler: CustomAccountPoolHandler = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.CustomAccountPoolHandler.property.lambdaFunctionArn">lambdaFunctionArn</a></code> | <code>string</code> | The ARN of the Lambda function. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.CustomAccountPoolHandler.property.lambdaExecutionRoleArn">lambdaExecutionRoleArn</a></code> | <code>string</code> | The ARN of the IAM role that SageMaker Unified Studio uses to invoke the Lambda function. |
+
+---
+
+##### `lambdaFunctionArn`<sup>Required</sup> <a name="lambdaFunctionArn" id="@tonesingleton/cdk-sagemaker-unified-studio.CustomAccountPoolHandler.property.lambdaFunctionArn"></a>
+
+```typescript
+public readonly lambdaFunctionArn: string;
+```
+
+- *Type:* string
+
+The ARN of the Lambda function.
+
+---
+
+##### `lambdaExecutionRoleArn`<sup>Optional</sup> <a name="lambdaExecutionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.CustomAccountPoolHandler.property.lambdaExecutionRoleArn"></a>
+
+```typescript
+public readonly lambdaExecutionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no execution role
+
+The ARN of the IAM role that SageMaker Unified Studio uses to invoke the Lambda function.
+
+---
+
 ### DataCatalogTableProps <a name="DataCatalogTableProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps"></a>
 
 Properties for a DataCatalogTable construct.
@@ -23482,8 +29427,10 @@ const dataCatalogTableProps: DataCatalogTableProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.location">location</a></code> | <code>string</code> | The S3 location of the table data. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.projectId">projectId</a></code> | <code>string</code> | The SageMaker Unified Studio project ID. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.tableName">tableName</a></code> | <code>string</code> | The table name. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.additionalReadPrincipals">additionalReadPrincipals</a></code> | <code>string[]</code> | Additional IAM principal ARNs to grant Lake Formation `DESCRIBE` and `SELECT` on this specific table. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.dataFormat">dataFormat</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataFormat">DataFormat</a></code> | The data format of the table. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the table. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.manageAccessRoleArn">manageAccessRoleArn</a></code> | <code>string</code> | The ARN of the `AmazonSageMakerManageAccess` role to grant `DESCRIBE` and `SELECT` **with grant option** on this table. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.parameters">parameters</a></code> | <code>{[ key: string ]: string}</code> | Additional table parameters. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.partitionKeys">partitionKeys</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.Column">Column</a>[]</code> | Partition keys for Hive-style partitioning. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.tableType">tableType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TableType">TableType</a></code> | The table type. |
@@ -23553,6 +29500,26 @@ The table name.
 
 ---
 
+##### `additionalReadPrincipals`<sup>Optional</sup> <a name="additionalReadPrincipals" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.additionalReadPrincipals"></a>
+
+```typescript
+public readonly additionalReadPrincipals: string[];
+```
+
+- *Type:* string[]
+- *Default:* no additional grants
+
+Additional IAM principal ARNs to grant Lake Formation `DESCRIBE` and `SELECT` on this specific table.
+
+Required when the table's S3 location falls under a Lake Formation registered
+resource prefix (e.g. the SMUS projects bucket), because Lake Formation ignores
+database-level wildcard grants for tables under registered locations and requires
+explicit per-table grants instead.
+
+Typically set to the `datazone_usr_role` ARN (resolved via `LookupSmusUserRole`).
+
+---
+
 ##### `dataFormat`<sup>Optional</sup> <a name="dataFormat" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.dataFormat"></a>
 
 ```typescript
@@ -23576,6 +29543,23 @@ public readonly description: string;
 - *Default:* no description
 
 Human-readable description of the table.
+
+---
+
+##### `manageAccessRoleArn`<sup>Optional</sup> <a name="manageAccessRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTableProps.property.manageAccessRoleArn"></a>
+
+```typescript
+public readonly manageAccessRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no manage access grant
+
+The ARN of the `AmazonSageMakerManageAccess` role to grant `DESCRIBE` and `SELECT` **with grant option** on this table.
+
+Grant option is required for SMUS to automatically fulfil subscriptions (managed asset
+classification). Without it, SMUS cannot re-grant access to subscribers on behalf of
+the manage access role, and the asset is treated as unmanaged.
 
 ---
 
@@ -23615,6 +29599,410 @@ public readonly tableType: TableType;
 - *Default:* TableType.EXTERNAL
 
 The table type.
+
+---
+
+### DataExportConfigurationProps <a name="DataExportConfigurationProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps"></a>
+
+Properties for a DataExportConfiguration construct.
+
+There is no CloudFormation resource for DataZone data export configuration.
+This construct uses AwsCustomResource to call the DataZone API directly
+(PutDataExportConfiguration / DeleteDataExportConfiguration).
+
+Only one export configuration can be active per account per region.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_PutDataExportConfiguration.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_PutDataExportConfiguration.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps.Initializer"></a>
+
+```typescript
+import { DataExportConfigurationProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataExportConfigurationProps: DataExportConfigurationProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps.property.enableExport">enableExport</a></code> | <code>boolean</code> | Whether to enable the export. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps.property.encryptionConfiguration">encryptionConfiguration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ExportEncryptionConfiguration">ExportEncryptionConfiguration</a></code> | Encryption configuration for the exported S3 table. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for export configuration operations. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd_abc123`).
+
+---
+
+##### `enableExport`<sup>Optional</sup> <a name="enableExport" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps.property.enableExport"></a>
+
+```typescript
+public readonly enableExport: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Whether to enable the export.
+
+---
+
+##### `encryptionConfiguration`<sup>Optional</sup> <a name="encryptionConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps.property.encryptionConfiguration"></a>
+
+```typescript
+public readonly encryptionConfiguration: ExportEncryptionConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ExportEncryptionConfiguration">ExportEncryptionConfiguration</a>
+- *Default:* no encryption configuration (S3 default encryption)
+
+Encryption configuration for the exported S3 table.
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.DataExportConfigurationProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role assumption; Lambda calls DataZone directly
+
+ARN of a role that DataZone trusts for export configuration operations.
+
+---
+
+### DataProductAttributes <a name="DataProductAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes"></a>
+
+Attributes required to import an existing DataProduct.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes.Initializer"></a>
+
+```typescript
+import { DataProductAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataProductAttributes: DataProductAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes.property.dataProductId">dataProductId</a></code> | <code>string</code> | The data product ID. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes.property.revision">revision</a></code> | <code>string</code> | The revision of the data product. |
+
+---
+
+##### `dataProductId`<sup>Required</sup> <a name="dataProductId" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes.property.dataProductId"></a>
+
+```typescript
+public readonly dataProductId: string;
+```
+
+- *Type:* string
+
+The data product ID.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductAttributes.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the data product.
+
+---
+
+### DataProductFormInput <a name="DataProductFormInput" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput"></a>
+
+A metadata form attached to the data product.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.Initializer"></a>
+
+```typescript
+import { DataProductFormInput } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataProductFormInput: DataProductFormInput = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.formName">formName</a></code> | <code>string</code> | The name of the form. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.content">content</a></code> | <code>string</code> | The serialized form content. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.typeIdentifier">typeIdentifier</a></code> | <code>string</code> | The identifier of the form type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.typeRevision">typeRevision</a></code> | <code>string</code> | The revision of the form type. |
+
+---
+
+##### `formName`<sup>Required</sup> <a name="formName" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.formName"></a>
+
+```typescript
+public readonly formName: string;
+```
+
+- *Type:* string
+
+The name of the form.
+
+---
+
+##### `content`<sup>Optional</sup> <a name="content" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.content"></a>
+
+```typescript
+public readonly content: string;
+```
+
+- *Type:* string
+
+The serialized form content.
+
+---
+
+##### `typeIdentifier`<sup>Optional</sup> <a name="typeIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.typeIdentifier"></a>
+
+```typescript
+public readonly typeIdentifier: string;
+```
+
+- *Type:* string
+
+The identifier of the form type.
+
+---
+
+##### `typeRevision`<sup>Optional</sup> <a name="typeRevision" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput.property.typeRevision"></a>
+
+```typescript
+public readonly typeRevision: string;
+```
+
+- *Type:* string
+
+The revision of the form type.
+
+---
+
+### DataProductItem <a name="DataProductItem" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem"></a>
+
+A single data asset item included in the data product.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.Initializer"></a>
+
+```typescript
+import { DataProductItem } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataProductItem: DataProductItem = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.identifier">identifier</a></code> | <code>string</code> | The identifier of the data asset. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.itemType">itemType</a></code> | <code>string</code> | The type of the item (e.g. `ASSET`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms associated with this item. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.revision">revision</a></code> | <code>string</code> | The revision of the item. |
+
+---
+
+##### `identifier`<sup>Required</sup> <a name="identifier" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.identifier"></a>
+
+```typescript
+public readonly identifier: string;
+```
+
+- *Type:* string
+
+The identifier of the data asset.
+
+---
+
+##### `itemType`<sup>Required</sup> <a name="itemType" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.itemType"></a>
+
+```typescript
+public readonly itemType: string;
+```
+
+- *Type:* string
+
+The type of the item (e.g. `ASSET`).
+
+---
+
+##### `glossaryTerms`<sup>Optional</sup> <a name="glossaryTerms" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.glossaryTerms"></a>
+
+```typescript
+public readonly glossaryTerms: string[];
+```
+
+- *Type:* string[]
+
+Glossary terms associated with this item.
+
+---
+
+##### `revision`<sup>Optional</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the item.
+
+---
+
+### DataProductProps <a name="DataProductProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps"></a>
+
+Properties for a DataProduct construct.
+
+There is no CloudFormation resource for DataZone data products.
+This construct uses AwsCustomResource to call the DataZone API directly.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateDataProduct.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateDataProduct.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.Initializer"></a>
+
+```typescript
+import { DataProductProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const dataProductProps: DataProductProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain where the data product is created (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.name">name</a></code> | <code>string</code> | The name of the data product (1–64 characters). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.owningProjectIdentifier">owningProjectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this data product. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the data product. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for data product operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.formsInput">formsInput</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput">DataProductFormInput</a>[]</code> | Metadata forms attached to the data product. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms associated with the data product. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.items">items</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem">DataProductItem</a>[]</code> | Data assets included in the data product. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain where the data product is created (e.g. `dzd_abc123`).
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the data product (1–64 characters).
+
+---
+
+##### `owningProjectIdentifier`<sup>Required</sup> <a name="owningProjectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.owningProjectIdentifier"></a>
+
+```typescript
+public readonly owningProjectIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the project that owns this data product.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the data product.
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role assumption; Lambda calls DataZone directly
+
+ARN of a role that DataZone trusts for data product operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
+
+When omitted, the Lambda calls DataZone directly without role assumption.
+
+---
+
+##### `formsInput`<sup>Optional</sup> <a name="formsInput" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.formsInput"></a>
+
+```typescript
+public readonly formsInput: DataProductFormInput[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductFormInput">DataProductFormInput</a>[]
+- *Default:* no forms
+
+Metadata forms attached to the data product.
+
+---
+
+##### `glossaryTerms`<sup>Optional</sup> <a name="glossaryTerms" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.glossaryTerms"></a>
+
+```typescript
+public readonly glossaryTerms: string[];
+```
+
+- *Type:* string[]
+- *Default:* no glossary terms
+
+Glossary terms associated with the data product.
+
+---
+
+##### `items`<sup>Optional</sup> <a name="items" id="@tonesingleton/cdk-sagemaker-unified-studio.DataProductProps.property.items"></a>
+
+```typescript
+public readonly items: DataProductItem[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProductItem">DataProductItem</a>[]
+- *Default:* no items
+
+Data assets included in the data product.
 
 ---
 
@@ -24122,6 +30510,7 @@ const dataZoneSdkCall: DataZoneSdkCall = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.action">action</a></code> | <code>string</code> | The DataZone API action to invoke, e.g. `ListConnections`, `StartDataSourceRun`, `CreateGlossary`. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.ignoreErrorCodesMatching">ignoreErrorCodesMatching</a></code> | <code>string</code> | Regex pattern matched against the error code or message. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.outputPaths">outputPaths</a></code> | <code>string[]</code> | Response fields to expose via `getResponseField`, using dot/index notation against the API response, e.g. `['items.0.connectionId']`. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.parameters">parameters</a></code> | <code>{[ key: string ]: any}</code> | The action input, matching the DataZone API request shape (camelCase keys), e.g. `{ domainIdentifier, projectIdentifier }`. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.physicalResourceId">physicalResourceId</a></code> | <code>string</code> | A stable physical resource ID for the custom resource. |
@@ -24138,6 +30527,24 @@ public readonly action: string;
 - *Type:* string
 
 The DataZone API action to invoke, e.g. `ListConnections`, `StartDataSourceRun`, `CreateGlossary`.
+
+---
+
+##### `ignoreErrorCodesMatching`<sup>Optional</sup> <a name="ignoreErrorCodesMatching" id="@tonesingleton/cdk-sagemaker-unified-studio.DataZoneSdkCall.property.ignoreErrorCodesMatching"></a>
+
+```typescript
+public readonly ignoreErrorCodesMatching: string;
+```
+
+- *Type:* string
+- *Default:* errors are never ignored
+
+Regex pattern matched against the error code or message.
+
+When the SDK call throws
+and the error matches, the custom resource reports SUCCESS instead of FAILED.
+
+Multiple patterns can be combined with `|`, e.g. `'already exists|ConflictException'`.
 
 ---
 
@@ -24949,6 +31356,54 @@ A specific domain unit identifier.
 
 ---
 
+### DomainUnitTarget <a name="DomainUnitTarget" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitTarget"></a>
+
+The target domain unit for a rule.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_DomainUnitTarget.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_DomainUnitTarget.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitTarget.Initializer"></a>
+
+```typescript
+import { DomainUnitTarget } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const domainUnitTarget: DomainUnitTarget = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitTarget.property.domainUnitId">domainUnitId</a></code> | <code>string</code> | The ID of the domain unit. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitTarget.property.includeChildDomainUnits">includeChildDomainUnits</a></code> | <code>boolean</code> | Whether the rule also applies to child domain units. |
+
+---
+
+##### `domainUnitId`<sup>Required</sup> <a name="domainUnitId" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitTarget.property.domainUnitId"></a>
+
+```typescript
+public readonly domainUnitId: string;
+```
+
+- *Type:* string
+
+The ID of the domain unit.
+
+---
+
+##### `includeChildDomainUnits`<sup>Optional</sup> <a name="includeChildDomainUnits" id="@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitTarget.property.includeChildDomainUnits"></a>
+
+```typescript
+public readonly includeChildDomainUnits: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether the rule also applies to child domain units.
+
+---
+
 ### DynamoDbConnectionProps <a name="DynamoDbConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.DynamoDbConnectionProps"></a>
 
 Properties for a DynamoDbConnection construct.
@@ -25497,12 +31952,14 @@ const environmentProps: EnvironmentProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.domainId">domainId</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID this environment belongs to. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.name">name</a></code> | <code>string</code> | Display name of the environment. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.projectId">projectId</a></code> | <code>string</code> | The project ID this environment is associated with. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the environment's purpose. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.environmentBlueprintId">environmentBlueprintId</a></code> | <code>string</code> | The environment blueprint identifier to provision. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.environmentConfigurationId">environmentConfigurationId</a></code> | <code>string</code> | The environment configuration ID from the project profile. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms to tag the environment with. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.glueDbName">glueDbName</a></code> | <code>string</code> | The name of the Glue database that the LakehouseDatabase blueprint will create. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.name">name</a></code> | <code>string</code> | Display name of the environment. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.projectExecutionRoleArn">projectExecutionRoleArn</a></code> | <code>string</code> | ARN of the project execution role. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.userParameters">userParameters</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentParameter">EnvironmentParameter</a>[]</code> | User parameters for the environment (key-value pairs passed to the blueprint). |
 
 ---
@@ -25516,18 +31973,6 @@ public readonly domainId: string;
 - *Type:* string
 
 The SageMaker Unified Studio domain ID this environment belongs to.
-
----
-
-##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.name"></a>
-
-```typescript
-public readonly name: string;
-```
-
-- *Type:* string
-
-Display name of the environment.
 
 ---
 
@@ -25599,6 +32044,56 @@ Each term must match `^[a-zA-Z0-9_-]{1,36}$`.
 
 ---
 
+##### `glueDbName`<sup>Optional</sup> <a name="glueDbName" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.glueDbName"></a>
+
+```typescript
+public readonly glueDbName: string;
+```
+
+- *Type:* string
+- *Default:* no Glue database name; user parameters are passed as-is
+
+The name of the Glue database that the LakehouseDatabase blueprint will create.
+
+When set, the construct injects a `glueDbName` user parameter and grants the
+project execution role Lake Formation `CREATE_TABLE`, `ALTER`, `DROP`, and
+`DESCRIBE` permissions on the database and a table wildcard, so that CDK can
+create `AWS::Glue::Table` resources in that database after the environment is
+provisioned.
+
+Requires `projectExecutionRoleArn` to be set.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+- *Default:* auto-generated
+
+Display name of the environment.
+
+---
+
+##### `projectExecutionRoleArn`<sup>Optional</sup> <a name="projectExecutionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.projectExecutionRoleArn"></a>
+
+```typescript
+public readonly projectExecutionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* not required when glueDbName is not set
+
+ARN of the project execution role.
+
+Required when `glueDbName` is set — used to grant Lake Formation permissions
+on the blueprint-provisioned Glue database.
+
+---
+
 ##### `userParameters`<sup>Optional</sup> <a name="userParameters" id="@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentProps.property.userParameters"></a>
 
 ```typescript
@@ -25609,6 +32104,56 @@ public readonly userParameters: EnvironmentParameter[];
 - *Default:* no user parameters
 
 User parameters for the environment (key-value pairs passed to the blueprint).
+
+---
+
+### ExportEncryptionConfiguration <a name="ExportEncryptionConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.ExportEncryptionConfiguration"></a>
+
+Encryption configuration for data export.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_EncryptionConfiguration.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_EncryptionConfiguration.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ExportEncryptionConfiguration.Initializer"></a>
+
+```typescript
+import { ExportEncryptionConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const exportEncryptionConfiguration: ExportEncryptionConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ExportEncryptionConfiguration.property.sseAlgorithm">sseAlgorithm</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SseAlgorithm">SseAlgorithm</a></code> | The SSE algorithm to use. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ExportEncryptionConfiguration.property.kmsKeyArn">kmsKeyArn</a></code> | <code>string</code> | The ARN of the KMS key. |
+
+---
+
+##### `sseAlgorithm`<sup>Required</sup> <a name="sseAlgorithm" id="@tonesingleton/cdk-sagemaker-unified-studio.ExportEncryptionConfiguration.property.sseAlgorithm"></a>
+
+```typescript
+public readonly sseAlgorithm: SseAlgorithm;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.SseAlgorithm">SseAlgorithm</a>
+
+The SSE algorithm to use.
+
+---
+
+##### `kmsKeyArn`<sup>Optional</sup> <a name="kmsKeyArn" id="@tonesingleton/cdk-sagemaker-unified-studio.ExportEncryptionConfiguration.property.kmsKeyArn"></a>
+
+```typescript
+public readonly kmsKeyArn: string;
+```
+
+- *Type:* string
+- *Default:* no KMS key (AES256 only)
+
+The ARN of the KMS key.
+
+Required when `sseAlgorithm` is `aws:kms`.
 
 ---
 
@@ -25654,6 +32199,65 @@ public readonly type: string;
 - *Type:* string
 
 The filter type (INCLUDE or EXCLUDE).
+
+---
+
+### FormEntryInput <a name="FormEntryInput" id="@tonesingleton/cdk-sagemaker-unified-studio.FormEntryInput"></a>
+
+A form entry that is attached to an asset type, specifying which form types are required or optional when creating assets of this type.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.FormEntryInput.Initializer"></a>
+
+```typescript
+import { FormEntryInput } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const formEntryInput: FormEntryInput = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormEntryInput.property.typeIdentifier">typeIdentifier</a></code> | <code>string</code> | The identifier of the form type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormEntryInput.property.typeRevision">typeRevision</a></code> | <code>string</code> | The revision of the form type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.FormEntryInput.property.required">required</a></code> | <code>boolean</code> | Whether the form is required for assets of this type. |
+
+---
+
+##### `typeIdentifier`<sup>Required</sup> <a name="typeIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.FormEntryInput.property.typeIdentifier"></a>
+
+```typescript
+public readonly typeIdentifier: string;
+```
+
+- *Type:* string
+
+The identifier of the form type.
+
+---
+
+##### `typeRevision`<sup>Required</sup> <a name="typeRevision" id="@tonesingleton/cdk-sagemaker-unified-studio.FormEntryInput.property.typeRevision"></a>
+
+```typescript
+public readonly typeRevision: string;
+```
+
+- *Type:* string
+
+The revision of the form type.
+
+---
+
+##### `required`<sup>Optional</sup> <a name="required" id="@tonesingleton/cdk-sagemaker-unified-studio.FormEntryInput.property.required"></a>
+
+```typescript
+public readonly required: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether the form is required for assets of this type.
 
 ---
 
@@ -26156,12 +32760,27 @@ const glossaryProps: GlossaryProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | A DataZone-enrolled IAM role used to call the DataZone API. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for glossary operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.name">name</a></code> | <code>string</code> | The name of the glossary (1–256 characters). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.owningProjectIdentifier">owningProjectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this glossary. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the glossary. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryStatus">GlossaryStatus</a></code> | Status of the glossary. |
+
+---
+
+##### `datazoneApiRole`<sup>Required</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.datazoneApiRole"></a>
+
+```typescript
+public readonly datazoneApiRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+A DataZone-enrolled IAM role used to call the DataZone API.
+
+Must be a project owner or domain admin so DataZone's membership-gated
+authorization accepts the call. Pass `domain.datazoneApiRole`.
 
 ---
 
@@ -26174,18 +32793,6 @@ public readonly domainIdentifier: string;
 - *Type:* string
 
 The ID of the domain (e.g. `dzd_abc123`).
-
----
-
-##### `executionRoleArn`<sup>Required</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryProps.property.executionRoleArn"></a>
-
-```typescript
-public readonly executionRoleArn: string;
-```
-
-- *Type:* string
-
-ARN of a role that DataZone trusts for glossary operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
 
 ---
 
@@ -26271,6 +32878,41 @@ The glossary term ID.
 
 ---
 
+### GlossaryTermEnforcementDetail <a name="GlossaryTermEnforcementDetail" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermEnforcementDetail"></a>
+
+Enforcement detail for a glossary term rule — specifies which terms must be applied.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_GlossaryTermEnforcementDetail.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_GlossaryTermEnforcementDetail.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermEnforcementDetail.Initializer"></a>
+
+```typescript
+import { GlossaryTermEnforcementDetail } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const glossaryTermEnforcementDetail: GlossaryTermEnforcementDetail = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermEnforcementDetail.property.requiredGlossaryTermIds">requiredGlossaryTermIds</a></code> | <code>string[]</code> | The IDs of the glossary terms that must be applied (1–5 items). |
+
+---
+
+##### `requiredGlossaryTermIds`<sup>Optional</sup> <a name="requiredGlossaryTermIds" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermEnforcementDetail.property.requiredGlossaryTermIds"></a>
+
+```typescript
+public readonly requiredGlossaryTermIds: string[];
+```
+
+- *Type:* string[]
+- *Default:* no required terms
+
+The IDs of the glossary terms that must be applied (1–5 items).
+
+---
+
 ### GlossaryTermProps <a name="GlossaryTermProps" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps"></a>
 
 Properties for a GlossaryTerm construct.
@@ -26292,14 +32934,29 @@ const glossaryTermProps: GlossaryTermProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | A DataZone-enrolled IAM role used to call the DataZone API. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for glossary term operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.glossaryIdentifier">glossaryIdentifier</a></code> | <code>string</code> | The ID of the glossary that owns this term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.name">name</a></code> | <code>string</code> | The name of the glossary term (1–256 characters). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.longDescription">longDescription</a></code> | <code>string</code> | Human-readable long description of the term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.shortDescription">shortDescription</a></code> | <code>string</code> | Human-readable short description of the term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.status">status</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermStatus">GlossaryTermStatus</a></code> | Status of the glossary term. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.termRelations">termRelations</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TermRelation">TermRelation</a>[]</code> | Relations to other glossary terms. |
+
+---
+
+##### `datazoneApiRole`<sup>Required</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.datazoneApiRole"></a>
+
+```typescript
+public readonly datazoneApiRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+A DataZone-enrolled IAM role used to call the DataZone API.
+
+Must be a project owner or domain admin so DataZone's membership-gated
+authorization accepts the call. Pass `domain.datazoneApiRole`.
 
 ---
 
@@ -26312,18 +32969,6 @@ public readonly domainIdentifier: string;
 - *Type:* string
 
 The ID of the domain (e.g. `dzd_abc123`).
-
----
-
-##### `executionRoleArn`<sup>Required</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermProps.property.executionRoleArn"></a>
-
-```typescript
-public readonly executionRoleArn: string;
-```
-
-- *Type:* string
-
-ARN of a role that DataZone trusts for glossary term operations (e.g. the domain execution role). The custom resource Lambda assumes this role to satisfy DataZone's internal authorization checks.
 
 ---
 
@@ -27581,6 +34226,141 @@ Whether Glue lineage sync is enabled for this connection.
 
 ---
 
+### LakeHouseDatabaseEnvironmentProps <a name="LakeHouseDatabaseEnvironmentProps" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps"></a>
+
+Properties for a LakeHouseDatabaseEnvironment construct.
+
+Opinionated environment for the LakehouseDatabase blueprint. Provisions a
+Glue database and Athena workgroup within a project.
+
+The blueprint ID and project execution role are derived automatically from
+`domain` and `project`. The environment name defaults to `"LakeHouseDatabase"`.
+
+When `glueDbName` is set, the construct injects it as a user parameter and
+grants the project execution role Lake Formation `CREATE_TABLE`, `ALTER`,
+`DROP`, and `DESCRIBE` on the database and a table wildcard, so CDK can
+create `AWS::Glue::Table` resources in the blueprint-provisioned database.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environment.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environment.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.Initializer"></a>
+
+```typescript
+import { LakeHouseDatabaseEnvironmentProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const lakeHouseDatabaseEnvironmentProps: LakeHouseDatabaseEnvironmentProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.domain">domain</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain">IDomain</a></code> | The domain this environment belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.project">project</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject">IProject</a></code> | The project this environment belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.projectProfile">projectProfile</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile">IProjectProfile</a></code> | The project profile used to create the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the environment's purpose. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary term IDs to tag the environment with. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.glueDbName">glueDbName</a></code> | <code>string</code> | The name of the Glue database that the LakehouseDatabase blueprint will create. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.name">name</a></code> | <code>string</code> | Display name of the environment. |
+
+---
+
+##### `domain`<sup>Required</sup> <a name="domain" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.domain"></a>
+
+```typescript
+public readonly domain: IDomain;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain">IDomain</a>
+
+The domain this environment belongs to.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.project"></a>
+
+```typescript
+public readonly project: IProject;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject">IProject</a>
+
+The project this environment belongs to.
+
+---
+
+##### `projectProfile`<sup>Required</sup> <a name="projectProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.projectProfile"></a>
+
+```typescript
+public readonly projectProfile: IProjectProfile;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile">IProjectProfile</a>
+
+The project profile used to create the project.
+
+Used to resolve the DataLake environment configuration ID.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the environment's purpose.
+
+---
+
+##### `glossaryTerms`<sup>Optional</sup> <a name="glossaryTerms" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.glossaryTerms"></a>
+
+```typescript
+public readonly glossaryTerms: string[];
+```
+
+- *Type:* string[]
+- *Default:* no glossary terms
+
+Glossary term IDs to tag the environment with.
+
+Each term must match `^[a-zA-Z0-9_-]{1,36}$`.
+
+---
+
+##### `glueDbName`<sup>Optional</sup> <a name="glueDbName" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.glueDbName"></a>
+
+```typescript
+public readonly glueDbName: string;
+```
+
+- *Type:* string
+- *Default:* no Glue database name
+
+The name of the Glue database that the LakehouseDatabase blueprint will create.
+
+When set, the construct injects a `glueDbName` user parameter and grants the
+project execution role Lake Formation permissions on the database and a table
+wildcard, so that CDK can create `AWS::Glue::Table` resources in that database.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironmentProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+- *Default:* "LakeHouseDatabase"
+
+Display name of the environment.
+
+---
+
 ### LookupEnvironmentProps <a name="LookupEnvironmentProps" id="@tonesingleton/cdk-sagemaker-unified-studio.LookupEnvironmentProps"></a>
 
 Properties for the LookupEnvironment construct.
@@ -27808,6 +34588,88 @@ public readonly member: Member;
 - *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Member">Member</a>
 
 The member identifier.
+
+---
+
+### MetadataFormEnforcementDetail <a name="MetadataFormEnforcementDetail" id="@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormEnforcementDetail"></a>
+
+Enforcement detail for a metadata form rule — specifies which forms are required.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_MetadataFormEnforcementDetail.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_MetadataFormEnforcementDetail.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormEnforcementDetail.Initializer"></a>
+
+```typescript
+import { MetadataFormEnforcementDetail } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const metadataFormEnforcementDetail: MetadataFormEnforcementDetail = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormEnforcementDetail.property.requiredMetadataForms">requiredMetadataForms</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormReference">MetadataFormReference</a>[]</code> | The metadata forms that must be filled in (1–5 items). |
+
+---
+
+##### `requiredMetadataForms`<sup>Optional</sup> <a name="requiredMetadataForms" id="@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormEnforcementDetail.property.requiredMetadataForms"></a>
+
+```typescript
+public readonly requiredMetadataForms: MetadataFormReference[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormReference">MetadataFormReference</a>[]
+- *Default:* no required forms
+
+The metadata forms that must be filled in (1–5 items).
+
+---
+
+### MetadataFormReference <a name="MetadataFormReference" id="@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormReference"></a>
+
+A reference to a metadata form type that must be filled in.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_MetadataFormReference.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_MetadataFormReference.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormReference.Initializer"></a>
+
+```typescript
+import { MetadataFormReference } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const metadataFormReference: MetadataFormReference = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormReference.property.typeIdentifier">typeIdentifier</a></code> | <code>string</code> | The type identifier of the metadata form (1–385 characters, pattern `(?!\\.)[\\w\\.]*\\w`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormReference.property.typeRevision">typeRevision</a></code> | <code>string</code> | The type revision of the metadata form. |
+
+---
+
+##### `typeIdentifier`<sup>Required</sup> <a name="typeIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormReference.property.typeIdentifier"></a>
+
+```typescript
+public readonly typeIdentifier: string;
+```
+
+- *Type:* string
+
+The type identifier of the metadata form (1–385 characters, pattern `(?!\\.)[\\w\\.]*\\w`).
+
+---
+
+##### `typeRevision`<sup>Required</sup> <a name="typeRevision" id="@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormReference.property.typeRevision"></a>
+
+```typescript
+public readonly typeRevision: string;
+```
+
+- *Type:* string
+
+The type revision of the metadata form.
 
 ---
 
@@ -28269,6 +35131,285 @@ public readonly sparkProperties: {[ key: string ]: string};
 - *Default:* no additional Spark properties
 
 Additional Spark-specific connection properties.
+
+---
+
+### OpenSearchConnectionProps <a name="OpenSearchConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps"></a>
+
+Properties for an OpenSearchConnection construct.
+
+Creates a Glue connection of type OPENSEARCH targeting an Amazon OpenSearch Service domain.
+Uses BASIC authentication via a Secrets Manager secret. Supports optional VPC configuration
+for domains hosted within a VPC. Only Spark compute is supported.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.Initializer"></a>
+
+```typescript
+import { OpenSearchConnectionProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const openSearchConnectionProps: OpenSearchConnectionProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.name">name</a></code> | <code>string</code> | The name of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.awsLocation">awsLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a></code> | The AWS location where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.configurations">configurations</a></code> | <code>aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.connectionScope">connectionScope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.description">description</a></code> | <code>string</code> | Connection description. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean</code> | Whether trusted identity propagation is enabled. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.endpoint">endpoint</a></code> | <code>string</code> | The Amazon OpenSearch Service domain endpoint URL. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.secretArn">secretArn</a></code> | <code>string</code> | ARN of the Secrets Manager secret containing OpenSearch credentials (USERNAME / PASSWORD). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.availabilityZone">availabilityZone</a></code> | <code>string</code> | Availability zone of the subnet. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.kmsKeyArn">kmsKeyArn</a></code> | <code>string</code> | KMS key ARN used to encrypt the secret. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.port">port</a></code> | <code>number</code> | The port open on the OpenSearch endpoint. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.roleArn">roleArn</a></code> | <code>string</code> | The IAM role ARN used to access Secrets Manager and assign a VPC IP address. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.securityGroupIds">securityGroupIds</a></code> | <code>string[]</code> | Security group IDs. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.sparkProperties">sparkProperties</a></code> | <code>{[ key: string ]: string}</code> | Additional Spark-specific connection properties. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.subnetId">subnetId</a></code> | <code>string</code> | VPC subnet ID. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain where the connection is created.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the connection.
+
+---
+
+##### `awsLocation`<sup>Optional</sup> <a name="awsLocation" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.awsLocation"></a>
+
+```typescript
+public readonly awsLocation: AwsLocation;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a>
+- *Default:* no AWS location
+
+The AWS location where the connection is created.
+
+---
+
+##### `configurations`<sup>Optional</sup> <a name="configurations" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.configurations"></a>
+
+```typescript
+public readonly configurations: ConnectionConfigurationProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]
+- *Default:* no configurations
+
+The configurations of the connection.
+
+---
+
+##### `connectionScope`<sup>Optional</sup> <a name="connectionScope" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.connectionScope"></a>
+
+```typescript
+public readonly connectionScope: ConnectionScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
+- *Default:* no scope
+
+The scope of the connection.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Connection description.
+
+---
+
+##### `enableTrustedIdentityPropagation`<sup>Optional</sup> <a name="enableTrustedIdentityPropagation" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.enableTrustedIdentityPropagation"></a>
+
+```typescript
+public readonly enableTrustedIdentityPropagation: boolean;
+```
+
+- *Type:* boolean
+- *Default:* no trusted identity propagation
+
+Whether trusted identity propagation is enabled.
+
+---
+
+##### `environmentIdentifier`<sup>Optional</sup> <a name="environmentIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.environmentIdentifier"></a>
+
+```typescript
+public readonly environmentIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* no environment
+
+The ID of the environment where the connection is created.
+
+---
+
+##### `projectIdentifier`<sup>Optional</sup> <a name="projectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.projectIdentifier"></a>
+
+```typescript
+public readonly projectIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* derived from the environment
+
+The ID of the project that owns this connection.
+
+---
+
+##### `endpoint`<sup>Required</sup> <a name="endpoint" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.endpoint"></a>
+
+```typescript
+public readonly endpoint: string;
+```
+
+- *Type:* string
+
+The Amazon OpenSearch Service domain endpoint URL.
+
+Has the form: `https://search-<domainName>-<id>.<region>.es.amazonaws.com`
+
+---
+
+##### `secretArn`<sup>Required</sup> <a name="secretArn" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.secretArn"></a>
+
+```typescript
+public readonly secretArn: string;
+```
+
+- *Type:* string
+
+ARN of the Secrets Manager secret containing OpenSearch credentials (USERNAME / PASSWORD).
+
+---
+
+##### `availabilityZone`<sup>Optional</sup> <a name="availabilityZone" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.availabilityZone"></a>
+
+```typescript
+public readonly availabilityZone: string;
+```
+
+- *Type:* string
+- *Default:* no availability zone
+
+Availability zone of the subnet.
+
+---
+
+##### `kmsKeyArn`<sup>Optional</sup> <a name="kmsKeyArn" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.kmsKeyArn"></a>
+
+```typescript
+public readonly kmsKeyArn: string;
+```
+
+- *Type:* string
+- *Default:* AWS managed key
+
+KMS key ARN used to encrypt the secret.
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+- *Default:* 443
+
+The port open on the OpenSearch endpoint.
+
+---
+
+##### `roleArn`<sup>Optional</sup> <a name="roleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.roleArn"></a>
+
+```typescript
+public readonly roleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role ARN
+
+The IAM role ARN used to access Secrets Manager and assign a VPC IP address.
+
+---
+
+##### `securityGroupIds`<sup>Optional</sup> <a name="securityGroupIds" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.securityGroupIds"></a>
+
+```typescript
+public readonly securityGroupIds: string[];
+```
+
+- *Type:* string[]
+- *Default:* no security groups
+
+Security group IDs.
+
+Required when subnetId is provided.
+
+---
+
+##### `sparkProperties`<sup>Optional</sup> <a name="sparkProperties" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.sparkProperties"></a>
+
+```typescript
+public readonly sparkProperties: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* no additional Spark properties
+
+Additional Spark-specific connection properties.
+
+---
+
+##### `subnetId`<sup>Optional</sup> <a name="subnetId" id="@tonesingleton/cdk-sagemaker-unified-studio.OpenSearchConnectionProps.property.subnetId"></a>
+
+```typescript
+public readonly subnetId: string;
+```
+
+- *Type:* string
+- *Default:* no VPC configuration
+
+VPC subnet ID.
+
+Required when the OpenSearch domain is hosted in a VPC.
 
 ---
 
@@ -29367,6 +36508,38 @@ Additional Spark-specific connection properties.
 
 ---
 
+### PredictionConfiguration <a name="PredictionConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.PredictionConfiguration"></a>
+
+Configuration for automatically generated business-friendly metadata.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.PredictionConfiguration.Initializer"></a>
+
+```typescript
+import { PredictionConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const predictionConfiguration: PredictionConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.PredictionConfiguration.property.businessNameGeneration">businessNameGeneration</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.BusinessNameGenerationConfiguration">BusinessNameGenerationConfiguration</a></code> | Business name generation settings. |
+
+---
+
+##### `businessNameGeneration`<sup>Optional</sup> <a name="businessNameGeneration" id="@tonesingleton/cdk-sagemaker-unified-studio.PredictionConfiguration.property.businessNameGeneration"></a>
+
+```typescript
+public readonly businessNameGeneration: BusinessNameGenerationConfiguration;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.BusinessNameGenerationConfiguration">BusinessNameGenerationConfiguration</a>
+
+Business name generation settings.
+
+---
+
 ### ProjectAttributes <a name="ProjectAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectAttributes"></a>
 
 Attributes required to import an existing Project.
@@ -29806,6 +36979,7 @@ const projectProfileProps: ProjectProfileProps = { ... }
 | --- | --- | --- |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.domainId">domainId</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID this profile belongs to. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.name">name</a></code> | <code>string</code> | Display name of the project profile. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | IAM role used to call `GetProjectProfile` at deploy time to resolve environment configuration IDs. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the project profile. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.domainUnitId">domainUnitId</a></code> | <code>string</code> | The domain unit ID this profile is scoped to. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.environmentConfigurations">environmentConfigurations</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.EnvironmentConfiguration">EnvironmentConfiguration</a>[]</code> | Environment configurations that define which blueprints are provisioned when a project is created from this profile. |
@@ -29834,6 +37008,21 @@ public readonly name: string;
 - *Type:* string
 
 Display name of the project profile.
+
+---
+
+##### `datazoneApiRole`<sup>Optional</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileProps.property.datazoneApiRole"></a>
+
+```typescript
+public readonly datazoneApiRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+- *Default:* environmentConfigurationIds will be empty
+
+IAM role used to call `GetProjectProfile` at deploy time to resolve environment configuration IDs.
+
+Required to populate `environmentConfigurationIds`.
 
 ---
 
@@ -29910,7 +37099,7 @@ const projectProps: ProjectProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The SageMaker Unified Studio domain ID this project belongs to. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.name">name</a></code> | <code>string</code> | Display name of the project (1–64 characters, `[\w -]+`). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.additionalTrustPrincipals">additionalTrustPrincipals</a></code> | <code>string[]</code> | Additional IAM principals (ARNs) to trust in the project execution role's trust policy. |
-| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.crRole">crRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The domain-level DataZone API role to add as a `PROJECT_OWNER` of this project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.datazoneApiRole">datazoneApiRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The domain-level DataZone API role to add as a `PROJECT_OWNER` of this project. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the project's purpose. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.domainUnitId">domainUnitId</a></code> | <code>string</code> | The domain unit ID to place this project in. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary terms that can be used in this project. |
@@ -29964,10 +37153,10 @@ for example a developer role for local testing or debugging.
 
 ---
 
-##### `crRole`<sup>Optional</sup> <a name="crRole" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.crRole"></a>
+##### `datazoneApiRole`<sup>Optional</sup> <a name="datazoneApiRole" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProps.property.datazoneApiRole"></a>
 
 ```typescript
-public readonly crRole: IRole;
+public readonly datazoneApiRole: IRole;
 ```
 
 - *Type:* aws-cdk-lib.aws_iam.IRole
@@ -30114,6 +37303,56 @@ User parameters for environment configurations.
 
 Use this to customize
 environments provisioned by the project profile (e.g. database names).
+
+---
+
+### ProjectsForRule <a name="ProjectsForRule" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectsForRule"></a>
+
+Restricts which projects the rule applies to.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_ProjectsForRule.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_ProjectsForRule.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectsForRule.Initializer"></a>
+
+```typescript
+import { ProjectsForRule } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const projectsForRule: ProjectsForRule = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectsForRule.property.selectionMode">selectionMode</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleSelectionMode">RuleSelectionMode</a></code> | Whether to apply to all projects or only specific ones. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectsForRule.property.specificProjects">specificProjects</a></code> | <code>string[]</code> | The specific project IDs to include. |
+
+---
+
+##### `selectionMode`<sup>Required</sup> <a name="selectionMode" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectsForRule.property.selectionMode"></a>
+
+```typescript
+public readonly selectionMode: RuleSelectionMode;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleSelectionMode">RuleSelectionMode</a>
+
+Whether to apply to all projects or only specific ones.
+
+---
+
+##### `specificProjects`<sup>Optional</sup> <a name="specificProjects" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectsForRule.property.specificProjects"></a>
+
+```typescript
+public readonly specificProjects: string[];
+```
+
+- *Type:* string[]
+- *Default:* all projects
+
+The specific project IDs to include.
+
+Required when `selectionMode` is `SPECIFIC`.
 
 ---
 
@@ -30790,6 +38029,571 @@ public readonly value: string;
 - *Type:* string
 
 The tag value.
+
+---
+
+### RowFilter <a name="RowFilter" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilter"></a>
+
+A row filter node — either a leaf expression or a logical `and`/`or` of child filters.
+
+Exactly one property must be set (union type).
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilter.Initializer"></a>
+
+```typescript
+import { RowFilter } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const rowFilter: RowFilter = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilter.property.and">and</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilter">RowFilter</a>[]</code> | Logical AND of child row filters. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilter.property.expression">expression</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression">RowFilterExpression</a></code> | A leaf comparison expression. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilter.property.or">or</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilter">RowFilter</a>[]</code> | Logical OR of child row filters. |
+
+---
+
+##### `and`<sup>Optional</sup> <a name="and" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilter.property.and"></a>
+
+```typescript
+public readonly and: RowFilter[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilter">RowFilter</a>[]
+
+Logical AND of child row filters.
+
+---
+
+##### `expression`<sup>Optional</sup> <a name="expression" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilter.property.expression"></a>
+
+```typescript
+public readonly expression: RowFilterExpression;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression">RowFilterExpression</a>
+
+A leaf comparison expression.
+
+---
+
+##### `or`<sup>Optional</sup> <a name="or" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilter.property.or"></a>
+
+```typescript
+public readonly or: RowFilter[];
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilter">RowFilter</a>[]
+
+Logical OR of child row filters.
+
+---
+
+### RowFilterConfiguration <a name="RowFilterConfiguration" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterConfiguration"></a>
+
+Row-based filter configuration — restricts which rows are visible.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterConfiguration.Initializer"></a>
+
+```typescript
+import { RowFilterConfiguration } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const rowFilterConfiguration: RowFilterConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterConfiguration.property.rowFilter">rowFilter</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilter">RowFilter</a></code> | The row filter expression tree. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterConfiguration.property.sensitive">sensitive</a></code> | <code>boolean</code> | Whether the row filter is sensitive (affects how it is displayed to subscribers). |
+
+---
+
+##### `rowFilter`<sup>Required</sup> <a name="rowFilter" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterConfiguration.property.rowFilter"></a>
+
+```typescript
+public readonly rowFilter: RowFilter;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilter">RowFilter</a>
+
+The row filter expression tree.
+
+---
+
+##### `sensitive`<sup>Optional</sup> <a name="sensitive" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterConfiguration.property.sensitive"></a>
+
+```typescript
+public readonly sensitive: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether the row filter is sensitive (affects how it is displayed to subscribers).
+
+---
+
+### RowFilterExpression <a name="RowFilterExpression" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression"></a>
+
+A leaf expression in a row filter.
+
+Exactly one property must be set (union type).
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.Initializer"></a>
+
+```typescript
+import { RowFilterExpression } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const rowFilterExpression: RowFilterExpression = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.equalTo">equalTo</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.greaterThan">greaterThan</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.greaterThanOrEqualTo">greaterThanOrEqualTo</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.in">in</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuesPair">ColumnValuesPair</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.isNotNull">isNotNull</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnReference">ColumnReference</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.isNull">isNull</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnReference">ColumnReference</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.lessThan">lessThan</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.lessThanOrEqualTo">lessThanOrEqualTo</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.like">like</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.notEqualTo">notEqualTo</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.notIn">notIn</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuesPair">ColumnValuesPair</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.notLike">notLike</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a></code> | *No description.* |
+
+---
+
+##### `equalTo`<sup>Optional</sup> <a name="equalTo" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.equalTo"></a>
+
+```typescript
+public readonly equalTo: ColumnValuePair;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a>
+
+---
+
+##### `greaterThan`<sup>Optional</sup> <a name="greaterThan" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.greaterThan"></a>
+
+```typescript
+public readonly greaterThan: ColumnValuePair;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a>
+
+---
+
+##### `greaterThanOrEqualTo`<sup>Optional</sup> <a name="greaterThanOrEqualTo" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.greaterThanOrEqualTo"></a>
+
+```typescript
+public readonly greaterThanOrEqualTo: ColumnValuePair;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a>
+
+---
+
+##### `in`<sup>Optional</sup> <a name="in" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.in"></a>
+
+```typescript
+public readonly in: ColumnValuesPair;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuesPair">ColumnValuesPair</a>
+
+---
+
+##### `isNotNull`<sup>Optional</sup> <a name="isNotNull" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.isNotNull"></a>
+
+```typescript
+public readonly isNotNull: ColumnReference;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnReference">ColumnReference</a>
+
+---
+
+##### `isNull`<sup>Optional</sup> <a name="isNull" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.isNull"></a>
+
+```typescript
+public readonly isNull: ColumnReference;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnReference">ColumnReference</a>
+
+---
+
+##### `lessThan`<sup>Optional</sup> <a name="lessThan" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.lessThan"></a>
+
+```typescript
+public readonly lessThan: ColumnValuePair;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a>
+
+---
+
+##### `lessThanOrEqualTo`<sup>Optional</sup> <a name="lessThanOrEqualTo" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.lessThanOrEqualTo"></a>
+
+```typescript
+public readonly lessThanOrEqualTo: ColumnValuePair;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a>
+
+---
+
+##### `like`<sup>Optional</sup> <a name="like" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.like"></a>
+
+```typescript
+public readonly like: ColumnValuePair;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a>
+
+---
+
+##### `notEqualTo`<sup>Optional</sup> <a name="notEqualTo" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.notEqualTo"></a>
+
+```typescript
+public readonly notEqualTo: ColumnValuePair;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a>
+
+---
+
+##### `notIn`<sup>Optional</sup> <a name="notIn" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.notIn"></a>
+
+```typescript
+public readonly notIn: ColumnValuesPair;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuesPair">ColumnValuesPair</a>
+
+---
+
+##### `notLike`<sup>Optional</sup> <a name="notLike" id="@tonesingleton/cdk-sagemaker-unified-studio.RowFilterExpression.property.notLike"></a>
+
+```typescript
+public readonly notLike: ColumnValuePair;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ColumnValuePair">ColumnValuePair</a>
+
+---
+
+### RuleAttributes <a name="RuleAttributes" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleAttributes"></a>
+
+Attributes required to import an existing Rule.
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleAttributes.Initializer"></a>
+
+```typescript
+import { RuleAttributes } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const ruleAttributes: RuleAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleAttributes.property.ruleId">ruleId</a></code> | <code>string</code> | The rule ID. |
+
+---
+
+##### `ruleId`<sup>Required</sup> <a name="ruleId" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleAttributes.property.ruleId"></a>
+
+```typescript
+public readonly ruleId: string;
+```
+
+- *Type:* string
+
+The rule ID.
+
+---
+
+### RuleDetail <a name="RuleDetail" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleDetail"></a>
+
+The detail of a rule (union — specify exactly one).
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_RuleDetail.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_RuleDetail.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleDetail.Initializer"></a>
+
+```typescript
+import { RuleDetail } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const ruleDetail: RuleDetail = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleDetail.property.glossaryTermEnforcementDetail">glossaryTermEnforcementDetail</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermEnforcementDetail">GlossaryTermEnforcementDetail</a></code> | Enforce required glossary terms on assets. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleDetail.property.metadataFormEnforcementDetail">metadataFormEnforcementDetail</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormEnforcementDetail">MetadataFormEnforcementDetail</a></code> | Enforce required metadata forms on assets. |
+
+---
+
+##### `glossaryTermEnforcementDetail`<sup>Optional</sup> <a name="glossaryTermEnforcementDetail" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleDetail.property.glossaryTermEnforcementDetail"></a>
+
+```typescript
+public readonly glossaryTermEnforcementDetail: GlossaryTermEnforcementDetail;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlossaryTermEnforcementDetail">GlossaryTermEnforcementDetail</a>
+
+Enforce required glossary terms on assets.
+
+---
+
+##### `metadataFormEnforcementDetail`<sup>Optional</sup> <a name="metadataFormEnforcementDetail" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleDetail.property.metadataFormEnforcementDetail"></a>
+
+```typescript
+public readonly metadataFormEnforcementDetail: MetadataFormEnforcementDetail;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.MetadataFormEnforcementDetail">MetadataFormEnforcementDetail</a>
+
+Enforce required metadata forms on assets.
+
+---
+
+### RuleProps <a name="RuleProps" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleProps"></a>
+
+Properties for a Rule construct.
+
+There is no CloudFormation resource for DataZone rules.
+This construct uses AwsCustomResource to call the DataZone API directly.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateRule.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_CreateRule.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.Initializer"></a>
+
+```typescript
+import { RuleProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const ruleProps: RuleProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.action">action</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleAction">RuleAction</a></code> | The action that triggers this rule. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.detail">detail</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleDetail">RuleDetail</a></code> | The enforcement detail of the rule (metadata form or glossary term). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain (e.g. `dzd_abc123`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.name">name</a></code> | <code>string</code> | The rule name (1–256 characters, pattern `[\w -]+`). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.scope">scope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleScope">RuleScope</a></code> | The scope of the rule — which asset types and projects it applies to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.target">target</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleTarget">RuleTarget</a></code> | The target of the rule — the domain unit it is attached to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the rule. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.executionRoleArn">executionRoleArn</a></code> | <code>string</code> | ARN of a role that DataZone trusts for rule operations (e.g. the domain execution role). |
+
+---
+
+##### `action`<sup>Required</sup> <a name="action" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.action"></a>
+
+```typescript
+public readonly action: RuleAction;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleAction">RuleAction</a>
+
+The action that triggers this rule.
+
+---
+
+##### `detail`<sup>Required</sup> <a name="detail" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.detail"></a>
+
+```typescript
+public readonly detail: RuleDetail;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleDetail">RuleDetail</a>
+
+The enforcement detail of the rule (metadata form or glossary term).
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain (e.g. `dzd_abc123`).
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The rule name (1–256 characters, pattern `[\w -]+`).
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.scope"></a>
+
+```typescript
+public readonly scope: RuleScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleScope">RuleScope</a>
+
+The scope of the rule — which asset types and projects it applies to.
+
+---
+
+##### `target`<sup>Required</sup> <a name="target" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.target"></a>
+
+```typescript
+public readonly target: RuleTarget;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleTarget">RuleTarget</a>
+
+The target of the rule — the domain unit it is attached to.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the rule.
+
+---
+
+##### `executionRoleArn`<sup>Optional</sup> <a name="executionRoleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleProps.property.executionRoleArn"></a>
+
+```typescript
+public readonly executionRoleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role assumption; Lambda calls DataZone directly
+
+ARN of a role that DataZone trusts for rule operations (e.g. the domain execution role).
+
+---
+
+### RuleScope <a name="RuleScope" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleScope"></a>
+
+The scope of a rule — which asset types, projects, and data products it applies to.
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_RuleScope.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_RuleScope.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleScope.Initializer"></a>
+
+```typescript
+import { RuleScope } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const ruleScope: RuleScope = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleScope.property.assetType">assetType</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypesForRule">AssetTypesForRule</a></code> | The asset types included in the rule scope. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleScope.property.dataProduct">dataProduct</a></code> | <code>boolean</code> | Whether the rule applies to data products. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleScope.property.project">project</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectsForRule">ProjectsForRule</a></code> | The projects included in the rule scope. |
+
+---
+
+##### `assetType`<sup>Optional</sup> <a name="assetType" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleScope.property.assetType"></a>
+
+```typescript
+public readonly assetType: AssetTypesForRule;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetTypesForRule">AssetTypesForRule</a>
+- *Default:* all asset types
+
+The asset types included in the rule scope.
+
+---
+
+##### `dataProduct`<sup>Optional</sup> <a name="dataProduct" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleScope.property.dataProduct"></a>
+
+```typescript
+public readonly dataProduct: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether the rule applies to data products.
+
+---
+
+##### `project`<sup>Optional</sup> <a name="project" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleScope.property.project"></a>
+
+```typescript
+public readonly project: ProjectsForRule;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ProjectsForRule">ProjectsForRule</a>
+- *Default:* all projects
+
+The projects included in the rule scope.
+
+---
+
+### RuleTarget <a name="RuleTarget" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleTarget"></a>
+
+The target of a rule (union — currently only `domainUnitTarget` is supported).
+
+> [https://docs.aws.amazon.com/datazone/latest/APIReference/API_RuleTarget.html](https://docs.aws.amazon.com/datazone/latest/APIReference/API_RuleTarget.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleTarget.Initializer"></a>
+
+```typescript
+import { RuleTarget } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const ruleTarget: RuleTarget = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleTarget.property.domainUnitTarget">domainUnitTarget</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitTarget">DomainUnitTarget</a></code> | The domain unit target. |
+
+---
+
+##### `domainUnitTarget`<sup>Required</sup> <a name="domainUnitTarget" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleTarget.property.domainUnitTarget"></a>
+
+```typescript
+public readonly domainUnitTarget: DomainUnitTarget;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DomainUnitTarget">DomainUnitTarget</a>
+
+The domain unit target.
 
 ---
 
@@ -31937,6 +39741,7 @@ const subscriptionProps: SubscriptionProps = { ... }
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.subscribedProjectId">subscribedProjectId</a></code> | <code>string</code> | The consumer project that receives access to the asset. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.autoApprove">autoApprove</a></code> | <code>boolean</code> | Explicitly accept the request after creating it (`AcceptSubscriptionRequest`). |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.decisionComment">decisionComment</a></code> | <code>string</code> | The decision comment recorded when `autoApprove` is enabled. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.ignoreErrorCodesMatching">ignoreErrorCodesMatching</a></code> | <code>string</code> | Regex pattern matched against the error code or message on `CreateSubscriptionRequest`. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.requestReason">requestReason</a></code> | <code>string</code> | The justification recorded on the subscription request. |
 
 ---
@@ -32024,6 +39829,24 @@ public readonly decisionComment: string;
 - *Default:* a generic CDK-managed comment
 
 The decision comment recorded when `autoApprove` is enabled.
+
+---
+
+##### `ignoreErrorCodesMatching`<sup>Optional</sup> <a name="ignoreErrorCodesMatching" id="@tonesingleton/cdk-sagemaker-unified-studio.SubscriptionProps.property.ignoreErrorCodesMatching"></a>
+
+```typescript
+public readonly ignoreErrorCodesMatching: string;
+```
+
+- *Type:* string
+- *Default:* 'already exists'
+
+Regex pattern matched against the error code or message on `CreateSubscriptionRequest`.
+
+When matched the custom resource reports SUCCESS instead of FAILED — useful when the
+subscription may have been created manually via the SMUS UI.
+
+Multiple patterns can be combined with `|`, e.g. `'already exists|ConflictException'`.
 
 ---
 
@@ -32256,6 +40079,310 @@ public readonly provider: string;
 - *Default:* no provider
 
 The provider of this subscription target.
+
+---
+
+### TeradataConnectionProps <a name="TeradataConnectionProps" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps"></a>
+
+Properties for a TeradataConnection construct.
+
+Creates a Glue connection of type TERADATA targeting a Teradata Vantage database.
+Uses BASIC authentication via a Secrets Manager secret. Supports optional VPC
+configuration for instances hosted within a VPC. Only Spark compute is supported.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-connection.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.Initializer"></a>
+
+```typescript
+import { TeradataConnectionProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const teradataConnectionProps: TeradataConnectionProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.domainIdentifier">domainIdentifier</a></code> | <code>string</code> | The ID of the domain where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.name">name</a></code> | <code>string</code> | The name of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.awsLocation">awsLocation</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a></code> | The AWS location where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.configurations">configurations</a></code> | <code>aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]</code> | The configurations of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.connectionScope">connectionScope</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a></code> | The scope of the connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.description">description</a></code> | <code>string</code> | Connection description. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.enableTrustedIdentityPropagation">enableTrustedIdentityPropagation</a></code> | <code>boolean</code> | Whether trusted identity propagation is enabled. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.environmentIdentifier">environmentIdentifier</a></code> | <code>string</code> | The ID of the environment where the connection is created. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.projectIdentifier">projectIdentifier</a></code> | <code>string</code> | The ID of the project that owns this connection. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.databaseName">databaseName</a></code> | <code>string</code> | The name of the Teradata database to connect to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.host">host</a></code> | <code>string</code> | The hostname of the Teradata database endpoint. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.secretArn">secretArn</a></code> | <code>string</code> | ARN of the Secrets Manager secret containing Teradata credentials (USERNAME / PASSWORD). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.availabilityZone">availabilityZone</a></code> | <code>string</code> | Availability zone of the subnet. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.jdbcParams">jdbcParams</a></code> | <code>string</code> | Additional JDBC parameters for the connection (comma-separated key=value pairs). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.kmsKeyArn">kmsKeyArn</a></code> | <code>string</code> | KMS key ARN used to encrypt the secret. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.port">port</a></code> | <code>number</code> | The Teradata listener port. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.roleArn">roleArn</a></code> | <code>string</code> | The IAM role ARN used to access Secrets Manager and assign a VPC IP address. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.securityGroupIds">securityGroupIds</a></code> | <code>string[]</code> | Security group IDs. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.sparkProperties">sparkProperties</a></code> | <code>{[ key: string ]: string}</code> | Additional Spark-specific connection properties. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.subnetId">subnetId</a></code> | <code>string</code> | VPC subnet ID. |
+
+---
+
+##### `domainIdentifier`<sup>Required</sup> <a name="domainIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.domainIdentifier"></a>
+
+```typescript
+public readonly domainIdentifier: string;
+```
+
+- *Type:* string
+
+The ID of the domain where the connection is created.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the connection.
+
+---
+
+##### `awsLocation`<sup>Optional</sup> <a name="awsLocation" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.awsLocation"></a>
+
+```typescript
+public readonly awsLocation: AwsLocation;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AwsLocation">AwsLocation</a>
+- *Default:* no AWS location
+
+The AWS location where the connection is created.
+
+---
+
+##### `configurations`<sup>Optional</sup> <a name="configurations" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.configurations"></a>
+
+```typescript
+public readonly configurations: ConnectionConfigurationProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_datazone.CfnConnection.ConnectionConfigurationProperty[]
+- *Default:* no configurations
+
+The configurations of the connection.
+
+---
+
+##### `connectionScope`<sup>Optional</sup> <a name="connectionScope" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.connectionScope"></a>
+
+```typescript
+public readonly connectionScope: ConnectionScope;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.ConnectionScope">ConnectionScope</a>
+- *Default:* no scope
+
+The scope of the connection.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Connection description.
+
+---
+
+##### `enableTrustedIdentityPropagation`<sup>Optional</sup> <a name="enableTrustedIdentityPropagation" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.enableTrustedIdentityPropagation"></a>
+
+```typescript
+public readonly enableTrustedIdentityPropagation: boolean;
+```
+
+- *Type:* boolean
+- *Default:* no trusted identity propagation
+
+Whether trusted identity propagation is enabled.
+
+---
+
+##### `environmentIdentifier`<sup>Optional</sup> <a name="environmentIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.environmentIdentifier"></a>
+
+```typescript
+public readonly environmentIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* no environment
+
+The ID of the environment where the connection is created.
+
+---
+
+##### `projectIdentifier`<sup>Optional</sup> <a name="projectIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.projectIdentifier"></a>
+
+```typescript
+public readonly projectIdentifier: string;
+```
+
+- *Type:* string
+- *Default:* derived from the environment
+
+The ID of the project that owns this connection.
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="databaseName" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.databaseName"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* string
+
+The name of the Teradata database to connect to.
+
+---
+
+##### `host`<sup>Required</sup> <a name="host" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.host"></a>
+
+```typescript
+public readonly host: string;
+```
+
+- *Type:* string
+
+The hostname of the Teradata database endpoint.
+
+---
+
+##### `secretArn`<sup>Required</sup> <a name="secretArn" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.secretArn"></a>
+
+```typescript
+public readonly secretArn: string;
+```
+
+- *Type:* string
+
+ARN of the Secrets Manager secret containing Teradata credentials (USERNAME / PASSWORD).
+
+---
+
+##### `availabilityZone`<sup>Optional</sup> <a name="availabilityZone" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.availabilityZone"></a>
+
+```typescript
+public readonly availabilityZone: string;
+```
+
+- *Type:* string
+- *Default:* no availability zone
+
+Availability zone of the subnet.
+
+---
+
+##### `jdbcParams`<sup>Optional</sup> <a name="jdbcParams" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.jdbcParams"></a>
+
+```typescript
+public readonly jdbcParams: string;
+```
+
+- *Type:* string
+- *Default:* no additional JDBC parameters
+
+Additional JDBC parameters for the connection (comma-separated key=value pairs).
+
+---
+
+##### `kmsKeyArn`<sup>Optional</sup> <a name="kmsKeyArn" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.kmsKeyArn"></a>
+
+```typescript
+public readonly kmsKeyArn: string;
+```
+
+- *Type:* string
+- *Default:* AWS managed key
+
+KMS key ARN used to encrypt the secret.
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+- *Default:* 1025
+
+The Teradata listener port.
+
+---
+
+##### `roleArn`<sup>Optional</sup> <a name="roleArn" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.roleArn"></a>
+
+```typescript
+public readonly roleArn: string;
+```
+
+- *Type:* string
+- *Default:* no role ARN
+
+The IAM role ARN used to access Secrets Manager and assign a VPC IP address.
+
+---
+
+##### `securityGroupIds`<sup>Optional</sup> <a name="securityGroupIds" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.securityGroupIds"></a>
+
+```typescript
+public readonly securityGroupIds: string[];
+```
+
+- *Type:* string[]
+- *Default:* no security groups
+
+Security group IDs.
+
+Required when subnetId is provided.
+
+---
+
+##### `sparkProperties`<sup>Optional</sup> <a name="sparkProperties" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.sparkProperties"></a>
+
+```typescript
+public readonly sparkProperties: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* no additional Spark properties
+
+Additional Spark-specific connection properties.
+
+---
+
+##### `subnetId`<sup>Optional</sup> <a name="subnetId" id="@tonesingleton/cdk-sagemaker-unified-studio.TeradataConnectionProps.property.subnetId"></a>
+
+```typescript
+public readonly subnetId: string;
+```
+
+- *Type:* string
+- *Default:* no VPC configuration
+
+VPC subnet ID.
+
+Required when the Teradata instance is hosted in a VPC.
 
 ---
 
@@ -32892,6 +41019,118 @@ The trigger mode for the workflow.
 
 ---
 
+### WorkflowsEnvironmentProps <a name="WorkflowsEnvironmentProps" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps"></a>
+
+Properties for a WorkflowsEnvironment construct.
+
+Opinionated environment for the Workflows blueprint. Provisions an MWAA
+Serverless environment within a project for DAG-based job orchestration.
+
+The blueprint ID is derived automatically from `domain`. The environment
+name defaults to `"Workflows"`.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environment.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-datazone-environment.html)
+
+#### Initializer <a name="Initializer" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.Initializer"></a>
+
+```typescript
+import { WorkflowsEnvironmentProps } from '@tonesingleton/cdk-sagemaker-unified-studio'
+
+const workflowsEnvironmentProps: WorkflowsEnvironmentProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.domain">domain</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain">IDomain</a></code> | The domain this environment belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.project">project</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject">IProject</a></code> | The project this environment belongs to. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.projectProfile">projectProfile</a></code> | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile">IProjectProfile</a></code> | The project profile used to create the project. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.description">description</a></code> | <code>string</code> | Human-readable description of the environment's purpose. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.glossaryTerms">glossaryTerms</a></code> | <code>string[]</code> | Glossary term IDs to tag the environment with. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.name">name</a></code> | <code>string</code> | Display name of the environment. |
+
+---
+
+##### `domain`<sup>Required</sup> <a name="domain" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.domain"></a>
+
+```typescript
+public readonly domain: IDomain;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDomain">IDomain</a>
+
+The domain this environment belongs to.
+
+---
+
+##### `project`<sup>Required</sup> <a name="project" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.project"></a>
+
+```typescript
+public readonly project: IProject;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProject">IProject</a>
+
+The project this environment belongs to.
+
+---
+
+##### `projectProfile`<sup>Required</sup> <a name="projectProfile" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.projectProfile"></a>
+
+```typescript
+public readonly projectProfile: IProjectProfile;
+```
+
+- *Type:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile">IProjectProfile</a>
+
+The project profile used to create the project.
+
+Used to resolve the Workflows environment configuration ID.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* no description
+
+Human-readable description of the environment's purpose.
+
+---
+
+##### `glossaryTerms`<sup>Optional</sup> <a name="glossaryTerms" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.glossaryTerms"></a>
+
+```typescript
+public readonly glossaryTerms: string[];
+```
+
+- *Type:* string[]
+- *Default:* no glossary terms
+
+Glossary term IDs to tag the environment with.
+
+Each term must match `^[a-zA-Z0-9_-]{1,36}$`.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironmentProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+- *Default:* "Workflows"
+
+Display name of the environment.
+
+---
+
 ## Classes <a name="Classes" id="Classes"></a>
 
 ### ManagedBlueprintIdentifier <a name="ManagedBlueprintIdentifier" id="@tonesingleton/cdk-sagemaker-unified-studio.ManagedBlueprintIdentifier"></a>
@@ -33239,6 +41478,33 @@ Creates an MWAA environment for Airflow-based workflows.
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
+### IAccountPool <a name="IAccountPool" id="@tonesingleton/cdk-sagemaker-unified-studio.IAccountPool"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountPool">AccountPool</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountPool">IAccountPool</a>
+
+Read-only contract for an AccountPool.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountPool.property.accountPoolId">accountPoolId</a></code> | <code>string</code> | The ID of the account pool. |
+
+---
+
+##### `accountPoolId`<sup>Required</sup> <a name="accountPoolId" id="@tonesingleton/cdk-sagemaker-unified-studio.IAccountPool.property.accountPoolId"></a>
+
+```typescript
+public readonly accountPoolId: string;
+```
+
+- *Type:* string
+
+The ID of the account pool.
+
+---
+
 ### IAccountRoles <a name="IAccountRoles" id="@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles"></a>
 
 - *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AccountRoles">AccountRoles</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAccountRoles">IAccountRoles</a>
@@ -33325,6 +41591,153 @@ The query execution role used by Lake Formation and Glue for Athena queries.
 
 ---
 
+### IAsset <a name="IAsset" id="@tonesingleton/cdk-sagemaker-unified-studio.IAsset"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Asset">Asset</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAsset">IAsset</a>
+
+Read-only contract for an Asset.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAsset.property.assetId">assetId</a></code> | <code>string</code> | The ID of the asset assigned by DataZone. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAsset.property.revision">revision</a></code> | <code>string</code> | The revision of the asset. |
+
+---
+
+##### `assetId`<sup>Required</sup> <a name="assetId" id="@tonesingleton/cdk-sagemaker-unified-studio.IAsset.property.assetId"></a>
+
+```typescript
+public readonly assetId: string;
+```
+
+- *Type:* string
+
+The ID of the asset assigned by DataZone.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.IAsset.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the asset.
+
+---
+
+### IAssetFilter <a name="IAssetFilter" id="@tonesingleton/cdk-sagemaker-unified-studio.IAssetFilter"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetFilter">AssetFilter</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAssetFilter">IAssetFilter</a>
+
+Read-only contract for an AssetFilter.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAssetFilter.property.assetFilterId">assetFilterId</a></code> | <code>string</code> | The ID of the asset filter. |
+
+---
+
+##### `assetFilterId`<sup>Required</sup> <a name="assetFilterId" id="@tonesingleton/cdk-sagemaker-unified-studio.IAssetFilter.property.assetFilterId"></a>
+
+```typescript
+public readonly assetFilterId: string;
+```
+
+- *Type:* string
+
+The ID of the asset filter.
+
+---
+
+### IAssetRevision <a name="IAssetRevision" id="@tonesingleton/cdk-sagemaker-unified-studio.IAssetRevision"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetRevision">AssetRevision</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAssetRevision">IAssetRevision</a>
+
+Read-only contract for an AssetRevision.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAssetRevision.property.assetId">assetId</a></code> | <code>string</code> | The ID of the asset (same across all revisions). |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAssetRevision.property.revision">revision</a></code> | <code>string</code> | The new revision identifier created by this operation. |
+
+---
+
+##### `assetId`<sup>Required</sup> <a name="assetId" id="@tonesingleton/cdk-sagemaker-unified-studio.IAssetRevision.property.assetId"></a>
+
+```typescript
+public readonly assetId: string;
+```
+
+- *Type:* string
+
+The ID of the asset (same across all revisions).
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.IAssetRevision.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The new revision identifier created by this operation.
+
+---
+
+### IAssetType <a name="IAssetType" id="@tonesingleton/cdk-sagemaker-unified-studio.IAssetType"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.AssetType">AssetType</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAssetType">IAssetType</a>
+
+Read-only contract for an AssetType.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAssetType.property.assetTypeName">assetTypeName</a></code> | <code>string</code> | The name of the asset type. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IAssetType.property.revision">revision</a></code> | <code>string</code> | The revision of the asset type. |
+
+---
+
+##### `assetTypeName`<sup>Required</sup> <a name="assetTypeName" id="@tonesingleton/cdk-sagemaker-unified-studio.IAssetType.property.assetTypeName"></a>
+
+```typescript
+public readonly assetTypeName: string;
+```
+
+- *Type:* string
+
+The name of the asset type.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.IAssetType.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the asset type.
+
+---
+
 ### IDataCatalogTable <a name="IDataCatalogTable" id="@tonesingleton/cdk-sagemaker-unified-studio.IDataCatalogTable"></a>
 
 - *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataCatalogTable">DataCatalogTable</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataCatalogTable">IDataCatalogTable</a>
@@ -33362,6 +41775,46 @@ public readonly tableName: string;
 - *Type:* string
 
 The table name.
+
+---
+
+### IDataProduct <a name="IDataProduct" id="@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.DataProduct">DataProduct</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct">IDataProduct</a>
+
+Read-only contract for a DataProduct.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct.property.dataProductId">dataProductId</a></code> | <code>string</code> | The ID of the data product assigned by DataZone. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct.property.revision">revision</a></code> | <code>string</code> | The revision of the data product. |
+
+---
+
+##### `dataProductId`<sup>Required</sup> <a name="dataProductId" id="@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct.property.dataProductId"></a>
+
+```typescript
+public readonly dataProductId: string;
+```
+
+- *Type:* string
+
+The ID of the data product assigned by DataZone.
+
+---
+
+##### `revision`<sup>Required</sup> <a name="revision" id="@tonesingleton/cdk-sagemaker-unified-studio.IDataProduct.property.revision"></a>
+
+```typescript
+public readonly revision: string;
+```
+
+- *Type:* string
+
+The revision of the data product.
 
 ---
 
@@ -33562,7 +42015,7 @@ public readonly rootDomainUnitId: string;
 
 ### IEnvironment <a name="IEnvironment" id="@tonesingleton/cdk-sagemaker-unified-studio.IEnvironment"></a>
 
-- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Environment">Environment</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IEnvironment">IEnvironment</a>
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Environment">Environment</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.LakeHouseDatabaseEnvironment">LakeHouseDatabaseEnvironment</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.WorkflowsEnvironment">WorkflowsEnvironment</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IEnvironment">IEnvironment</a>
 
 Exposed attributes of the Environment construct.
 
@@ -33976,7 +42429,22 @@ Exposed attributes of the ProjectProfile construct.
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile.property.environmentConfigurationIds">environmentConfigurationIds</a></code> | <code>{[ key: string ]: string}</code> | Map of environment configuration name → configuration ID, resolved at deploy time. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile.property.projectProfileId">projectProfileId</a></code> | <code>string</code> | The project profile ID. |
+
+---
+
+##### `environmentConfigurationIds`<sup>Required</sup> <a name="environmentConfigurationIds" id="@tonesingleton/cdk-sagemaker-unified-studio.IProjectProfile.property.environmentConfigurationIds"></a>
+
+```typescript
+public readonly environmentConfigurationIds: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+Map of environment configuration name → configuration ID, resolved at deploy time.
+
+Only populated when `datazoneApiRole` is provided in props.
 
 ---
 
@@ -33989,6 +42457,33 @@ public readonly projectProfileId: string;
 - *Type:* string
 
 The project profile ID.
+
+---
+
+### IRule <a name="IRule" id="@tonesingleton/cdk-sagemaker-unified-studio.IRule"></a>
+
+- *Implemented By:* <a href="#@tonesingleton/cdk-sagemaker-unified-studio.Rule">Rule</a>, <a href="#@tonesingleton/cdk-sagemaker-unified-studio.IRule">IRule</a>
+
+Read-only contract for a Rule.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.IRule.property.ruleId">ruleId</a></code> | <code>string</code> | The ID of the rule. |
+
+---
+
+##### `ruleId`<sup>Required</sup> <a name="ruleId" id="@tonesingleton/cdk-sagemaker-unified-studio.IRule.property.ruleId"></a>
+
+```typescript
+public readonly ruleId: string;
+```
+
+- *Type:* string
+
+The ID of the rule.
 
 ---
 
@@ -34695,6 +43190,8 @@ Includes only connection types supported in the SageMaker Unified Studio
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.DYNAMODB">DYNAMODB</a></code> | Amazon DynamoDB. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.BIGQUERY">BIGQUERY</a></code> | Google BigQuery. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.AZURESQL">AZURESQL</a></code> | Azure SQL. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.OPENSEARCH">OPENSEARCH</a></code> | Amazon OpenSearch Service. |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.TERADATA">TERADATA</a></code> | Teradata Vantage. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.MONGODB">MONGODB</a></code> | MongoDB document database. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.JDBC">JDBC</a></code> | Generic JDBC connection. |
 | <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.NETWORK">NETWORK</a></code> | Network connection within a VPC. |
@@ -34767,6 +43264,20 @@ Google BigQuery.
 ##### `AZURESQL` <a name="AZURESQL" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.AZURESQL"></a>
 
 Azure SQL.
+
+---
+
+
+##### `OPENSEARCH` <a name="OPENSEARCH" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.OPENSEARCH"></a>
+
+Amazon OpenSearch Service.
+
+---
+
+
+##### `TERADATA` <a name="TERADATA" id="@tonesingleton/cdk-sagemaker-unified-studio.GlueConnectionType.TERADATA"></a>
+
+Teradata Vantage.
 
 ---
 
@@ -35073,6 +43584,94 @@ The project profile is active and can be used to create projects.
 ##### `DISABLED` <a name="DISABLED" id="@tonesingleton/cdk-sagemaker-unified-studio.ProjectProfileStatus.DISABLED"></a>
 
 The project profile is disabled and cannot be used.
+
+---
+
+
+### ResolutionStrategy <a name="ResolutionStrategy" id="@tonesingleton/cdk-sagemaker-unified-studio.ResolutionStrategy"></a>
+
+The mechanism used to resolve account selection from the pool.
+
+Currently only `MANUAL` is supported.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.ResolutionStrategy.MANUAL">MANUAL</a></code> | *No description.* |
+
+---
+
+##### `MANUAL` <a name="MANUAL" id="@tonesingleton/cdk-sagemaker-unified-studio.ResolutionStrategy.MANUAL"></a>
+
+---
+
+
+### RuleAction <a name="RuleAction" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleAction"></a>
+
+The action that triggers the rule.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleAction.CREATE_LISTING_CHANGE_SET">CREATE_LISTING_CHANGE_SET</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleAction.CREATE_SUBSCRIPTION_REQUEST">CREATE_SUBSCRIPTION_REQUEST</a></code> | *No description.* |
+
+---
+
+##### `CREATE_LISTING_CHANGE_SET` <a name="CREATE_LISTING_CHANGE_SET" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleAction.CREATE_LISTING_CHANGE_SET"></a>
+
+---
+
+
+##### `CREATE_SUBSCRIPTION_REQUEST` <a name="CREATE_SUBSCRIPTION_REQUEST" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleAction.CREATE_SUBSCRIPTION_REQUEST"></a>
+
+---
+
+
+### RuleSelectionMode <a name="RuleSelectionMode" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleSelectionMode"></a>
+
+Selection mode for asset types or projects in a rule scope.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleSelectionMode.ALL">ALL</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.RuleSelectionMode.SPECIFIC">SPECIFIC</a></code> | *No description.* |
+
+---
+
+##### `ALL` <a name="ALL" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleSelectionMode.ALL"></a>
+
+---
+
+
+##### `SPECIFIC` <a name="SPECIFIC" id="@tonesingleton/cdk-sagemaker-unified-studio.RuleSelectionMode.SPECIFIC"></a>
+
+---
+
+
+### SseAlgorithm <a name="SseAlgorithm" id="@tonesingleton/cdk-sagemaker-unified-studio.SseAlgorithm"></a>
+
+SSE algorithm for data export encryption.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SseAlgorithm.AES256">AES256</a></code> | *No description.* |
+| <code><a href="#@tonesingleton/cdk-sagemaker-unified-studio.SseAlgorithm.AWS_KMS">AWS_KMS</a></code> | *No description.* |
+
+---
+
+##### `AES256` <a name="AES256" id="@tonesingleton/cdk-sagemaker-unified-studio.SseAlgorithm.AES256"></a>
+
+---
+
+
+##### `AWS_KMS` <a name="AWS_KMS" id="@tonesingleton/cdk-sagemaker-unified-studio.SseAlgorithm.AWS_KMS"></a>
 
 ---
 

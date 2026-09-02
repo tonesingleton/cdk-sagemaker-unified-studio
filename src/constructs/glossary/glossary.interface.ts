@@ -1,3 +1,5 @@
+import type { aws_iam as iam } from 'aws-cdk-lib';
+
 /**
  * Read-only contract for a Glossary.
  */
@@ -32,11 +34,11 @@ export interface GlossaryProps {
   /** The ID of the project that owns this glossary. */
   readonly owningProjectIdentifier: string;
   /**
-   * ARN of a role that DataZone trusts for glossary operations (e.g. the
-   * domain execution role). The custom resource Lambda assumes this role
-   * to satisfy DataZone's internal authorization checks.
+   * A DataZone-enrolled IAM role used to call the DataZone API.
+   * Must be a project owner or domain admin so DataZone's membership-gated
+   * authorization accepts the call. Pass `domain.datazoneApiRole`.
    */
-  readonly executionRoleArn: string;
+  readonly datazoneApiRole: iam.IRole;
   /**
    * Human-readable description of the glossary.
    *

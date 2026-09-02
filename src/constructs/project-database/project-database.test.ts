@@ -100,4 +100,48 @@ describe('ProjectDatabase', () => {
     });
     expect(db.databaseName).toBe('my_database');
   });
+
+  test('grants read permissions to additionalReadPrincipals', () => {
+    const stack = createStack();
+    new ProjectDatabase(stack, 'Db', {
+      databaseName: 'my_database',
+      projectExecutionRoleArn: 'arn:aws:iam::123456789012:role/MyRole',
+      additionalReadPrincipals: ['arn:aws:iam::123456789012:role/ReaderRole'],
+    });
+    const template = Template.fromStack(stack);
+    template.hasResourceProperties('AWS::LakeFormation::PrincipalPermissions', {
+      Principal: { DataLakePrincipalIdentifier: 'arn:aws:iam::123456789012:role/ReaderRole' },
+      Resource: { Database: { CatalogId: '123456789012', Name: 'my_database' } },
+      Permissions: ['DESCRIBE'],
+      PermissionsWithGrantOption: [],
+    });
+    template.hasResourceProperties('AWS::LakeFormation::PrincipalPermissions', {
+      Principal: { DataLakePrincipalIdentifier: 'arn:aws:iam::123456789012:role/ReaderRole' },
+      Resource: { Table: { CatalogId: '123456789012', DatabaseName: 'my_database', TableWildcard: {} } },
+      Permissions: ['DESCRIBE', 'SELECT'],
+      PermissionsWithGrantOption: [],
+    });
+  });
+
+  test('grants permissions to manageAccessRoleArn', () => {
+    const stack = createStack();
+    new ProjectDatabase(stack, 'Db', {
+      databaseName: 'my_database',
+      projectExecutionRoleArn: 'arn:aws:iam::123456789012:role/MyRole',
+      manageAccessRoleArn: 'arn:aws:iam::123456789012:role/ManageAccessRole',
+    });
+    const template = Template.fromStack(stack);
+    template.hasResourceProperties('AWS::LakeFormation::PrincipalPermissions', {
+      Principal: { DataLakePrincipalIdentifier: 'arn:aws:iam::123456789012:role/ManageAccessRole' },
+      Resource: { Database: { CatalogId: '123456789012', Name: 'my_database' } },
+      Permissions: ['DESCRIBE'],
+      PermissionsWithGrantOption: ['DESCRIBE'],
+    });
+    template.hasResourceProperties('AWS::LakeFormation::PrincipalPermissions', {
+      Principal: { DataLakePrincipalIdentifier: 'arn:aws:iam::123456789012:role/ManageAccessRole' },
+      Resource: { Table: { CatalogId: '123456789012', DatabaseName: 'my_database', TableWildcard: {} } },
+      Permissions: ['DESCRIBE', 'SELECT'],
+      PermissionsWithGrantOption: ['DESCRIBE', 'SELECT'],
+    });
+  });
 });

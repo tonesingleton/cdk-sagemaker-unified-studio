@@ -25,6 +25,7 @@ exports.handler = async (event, context) => {
   } catch (e) {
     console.error(e);
     await response.send(event, context, response.FAILED, { Error: e.message });
+
   }
 };
 `;

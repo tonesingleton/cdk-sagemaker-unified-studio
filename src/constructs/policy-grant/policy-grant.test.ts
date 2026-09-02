@@ -126,7 +126,7 @@ describe('PolicyGrant', () => {
     test('does not create any CloudFormation resources', () => {
       const stack = createStack();
       PolicyGrant.fromAttributes(stack, 'Imported', { grantId: 'grant-123' });
-      Template.fromStack(stack).resourceCountIs('AWS::DataZone::PolicyGrant', 0);
+      expect(stack.node.children.length).toBe(1);
     });
   });
 });

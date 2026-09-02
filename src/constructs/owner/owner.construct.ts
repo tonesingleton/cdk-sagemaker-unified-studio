@@ -1,4 +1,4 @@
-import { Token, aws_datazone as datazone } from 'aws-cdk-lib';
+import { Token, Validations, aws_datazone as datazone } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type { OwnerProps } from './owner.interface';
 
@@ -32,11 +32,17 @@ export class Owner extends Construct {
       ? { user: { userIdentifier: props.userIdentifier } }
       : { group: { groupIdentifier: props.groupIdentifier! } };
 
-    new datazone.CfnOwner(this, 'Resource', {
+    const resource = new datazone.CfnOwner(this, 'Resource', {
       domainIdentifier: props.domainIdentifier,
       entityIdentifier: props.entityIdentifier,
       entityType: props.entityType,
       owner,
+    });
+
+    Validations.of(resource).acknowledge({
+      id: 'CloudFormation-Validate::F3018',
+      reason:
+        'CfnOwner.owner is a union type (user | group); exactly one branch is set, which is valid per the DataZone API.',
     });
   }
 }

@@ -81,6 +81,8 @@ export class Project extends Construct implements IProject {
     this.lastUpdatedAt = project.attrLastUpdatedAt;
     this.projectStatus = project.attrProjectStatus;
 
+    // Create memberships as separate CfnProjectMembership resources so they can be
+    // updated independently without replacing the project.
     props.membershipAssignments?.forEach((m, index) => {
       const membership = new CfnProjectMembership(this, `Membership${index}`, {
         domainIdentifier: props.domainIdentifier,
@@ -88,17 +90,17 @@ export class Project extends Construct implements IProject {
         designation: m.designation,
         member: { userIdentifier: m.member.userIdentifier, groupIdentifier: m.member.groupIdentifier },
       });
-      membership.addDependency(project);
+      membership.addResourceDependency(project);
     });
 
-    if (props.crRole) {
-      const membership = new CfnProjectMembership(this, 'CrRoleMembership', {
+    if (props.datazoneApiRole) {
+      const membership = new CfnProjectMembership(this, 'DatazoneApiRoleMembership', {
         domainIdentifier: props.domainIdentifier,
         projectIdentifier: project.attrId,
         designation: Designation.PROJECT_OWNER,
-        member: { userIdentifier: props.crRole.roleArn },
+        member: { userIdentifier: props.datazoneApiRole.roleArn },
       });
-      membership.addDependency(project);
+      membership.addResourceDependency(project);
     }
 
     if (props.grantDefaultDatabaseDescribe) {
@@ -120,13 +122,16 @@ export class Project extends Construct implements IProject {
         'Project-scoped execution role for SageMaker Unified Studio. ' +
         'Defines which AWS services and data can be accessed within this project.',
       assumedBy: new iam.CompositePrincipal(...servicePrincipals),
-      managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioUserIAMDefaultExecutionPolicy')],
+      managedPolicies: [
+        iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioUserIAMDefaultExecutionPolicy'),
+        iam.ManagedPolicy.fromAwsManagedPolicyName('SageMakerStudioProjectUserRolePolicy'),
+      ],
     });
 
     Validations.of(role).acknowledge({
       id: 'AwsSolutions-IAM4',
       reason:
-        'SageMakerStudioUserIAMDefaultExecutionPolicy is the AWS-recommended managed policy for SageMaker Unified Studio project execution roles.',
+        'SageMakerStudioUserIAMDefaultExecutionPolicy and SageMakerStudioProjectUserRolePolicy are the AWS-recommended managed policies for SageMaker Unified Studio project execution roles.',
     });
 
     role.assumeRolePolicy!.addStatements(

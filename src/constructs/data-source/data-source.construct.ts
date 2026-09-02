@@ -1,4 +1,4 @@
-import { aws_datazone as datazone } from 'aws-cdk-lib';
+import { Validations, aws_datazone as datazone } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import type {
   DataSourceProps,
@@ -70,6 +70,16 @@ export class DataSource extends Construct implements IDataSource {
         ? this.buildRedshiftConfiguration(props.redshiftConfiguration)
         : this.buildGlueConfiguration(props.glueConfiguration!),
       schedule: props.schedule ? { schedule: props.schedule } : undefined,
+    });
+
+    // CloudFormation schema validation reports F3018 (value valid under more than one oneOf branch)
+    // for the Configuration property. This is a known false positive in the DataZone CFN schema —
+    // the construct enforces mutual exclusivity between glueRunConfiguration and redshiftRunConfiguration.
+    Validations.of(dataSource).acknowledge({
+      id: 'CloudFormation-Validate::F3018',
+      reason:
+        'The DataZone CFN schema marks Configuration as oneOf(Glue, Redshift) but the validator incorrectly flags it. ' +
+        'Mutual exclusivity is enforced in the construct constructor.',
     });
 
     this.dataSourceId = dataSource.attrId;
